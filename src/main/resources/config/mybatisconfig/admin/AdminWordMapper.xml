@@ -22,6 +22,10 @@
     select * from t_word where DEL = '0'
   </select>
   
+  <select id="selectIption" resultType="java.lang.String" parameterType="java.lang.String" >
+ 	 SELECT INTERPRETATION from t_word where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
   <select id="queryWordAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminWordEntity" >
     select * from t_word where DEL = '0'
     <if test="word != null" >

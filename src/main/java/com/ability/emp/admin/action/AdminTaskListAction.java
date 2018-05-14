@@ -2,6 +2,7 @@ package com.ability.emp.admin.action;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,19 +144,17 @@ public class AdminTaskListAction {
 		}
 	}
 	
-	//易错单词接口	
-	@RequestMapping("/wrongWord")
+	//学习日历接口
+	@RequestMapping("/studyCalendar")
 	@ResponseBody
-	public String wrongWord() {
-		List<AdminTaskEntity> data = adminTaskService.allWrongWord();
-		System.out.println(data);
-		return data.toString();
-		
-		/*Map<String,Object> map = new HashMap<String,Object>();
-		PageInfo<AdminTaskEntity> page = new PageInfo<>(data);
-		map.put("total",page.getTotal());
-		map.put("rows", data);
-		return objectMapper.writeValueAsString(map);*/
+	public String studyCalendar(String id) throws Exception {
+		List<AdminTaskEntity> data = adminTaskService.selectStudyCalendar(id);
+        Date startDate=data.get(0).getStartDate();
+        Date endDate=data.get(0).getEndDate();
+        SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String start = sDateFormat.format(startDate);
+        String end = sDateFormat.format(endDate);
+        System.out.println(start+","+end);
+		return start+","+end;
 	}
-	
 }

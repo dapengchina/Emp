@@ -46,8 +46,7 @@ public class AdminTaskServiceImpl implements AdminTaskService{
 	}
 
 	@Override
-	public List<AdminTaskEntity> allWrongWord() {
-		// TODO Auto-generated method stub
-		return adminTaskDao.allWrongWord();
+	public List<AdminTaskEntity> selectStudyCalendar(String id) {
+		return adminTaskDao.selectStudyCalendar(id);
 	}
 }

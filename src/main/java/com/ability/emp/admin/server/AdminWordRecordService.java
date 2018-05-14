@@ -13,4 +13,6 @@ public interface AdminWordRecordService {
 	Integer update(AdminWordRecordEntity wordRecordEntiy); 
 	
 	Integer insert(AdminWordRecordEntity wordRecordEntiy);
+	
+	Map<String, String> fallibleWord(String userId);
 }

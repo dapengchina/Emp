@@ -16,5 +16,5 @@ public interface AdminTaskDao<T> extends BaseDao<T>{
 	
 	List<AdminTaskEntity> queryTaskById(Map<String,Object> param);
 	
-	List<AdminTaskEntity> allWrongWord();
+	List<AdminTaskEntity> selectStudyCalendar(String id);
 }

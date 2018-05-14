@@ -24,6 +24,12 @@
     select count(*) from t_word_record
   </select>
   
+  
+  <select id="selectWord" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select WORD_ID,WORD from t_word_record where IS_FAIL='1' and USER_ID=#{id,jdbcType=VARCHAR};
+  </select>
+  
+  
   <delete id="delete" parameterType="java.lang.String" >
     delete from t_word_record
     where ID = #{id,jdbcType=VARCHAR}

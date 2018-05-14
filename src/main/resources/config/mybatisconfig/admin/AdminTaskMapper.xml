@@ -20,14 +20,13 @@
     </if>
   </select>
   
-  <select id="allWrongWord" resultMap="BaseResultMap" parameterType="java.lang.String" >
-   		SELECT t1.IS_FAIL,t1.WORD,t.INTERPRETATION from t_word t LEFT JOIN t_word_record t1 on t.ID = t1.WORD_ID
-  </select>
-  
   <select id="findTaskName" resultType="java.lang.String" parameterType="com.ability.emp.admin.entity.AdminTaskEntity">
     select TASKNAME from t_task where ID = #{id,jdbcType=VARCHAR}
   </select>
   
+  <select id="selectStudyCalendar" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT START_DATE,END_DATE FROM t_task where ID = #{id,jdbcType=VARCHAR}
+  </select>
   
   <delete id="delete" parameterType="java.lang.String" >
     delete from t_task

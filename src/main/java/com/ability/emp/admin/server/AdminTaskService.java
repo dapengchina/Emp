@@ -13,6 +13,6 @@ public interface AdminTaskService {
 	
 	List<AdminTaskEntity> queryTaskById(String id);
 	
-	List<AdminTaskEntity> allWrongWord();
-
+	List<AdminTaskEntity> selectStudyCalendar(String id);
+	
 }
