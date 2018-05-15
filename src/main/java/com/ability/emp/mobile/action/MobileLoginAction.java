@@ -3,6 +3,8 @@ package com.ability.emp.mobile.action;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.util.LoginUtil;
 import com.ability.emp.mobile.entity.MobileLoginEntity;
+import com.ability.emp.mobile.server.MobileUserService;
 import com.ability.emp.util.AESEncryptionUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,6 +30,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MobileLoginAction {
 	
 	ObjectMapper objectMapper = new ObjectMapper();  
+	
+	@Resource
+	private MobileUserService mobileUserService;
 	
 	@RequestMapping("/login")
 	@ResponseBody

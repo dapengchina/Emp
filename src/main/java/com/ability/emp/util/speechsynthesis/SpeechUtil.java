@@ -19,13 +19,13 @@ public class SpeechUtil {
     //private final String text = "sun";
 
     // 发音人选择, 0为普通女声，1为普通男生，3为情感合成-度逍遥，4为情感合成-度丫丫，默认为普通女声
-    private final int per = 3;
+    private final int per = 4;
     // 语速，取值0-9，默认为5中语速
     private final int spd = 5;
     // 音调，取值0-9，默认为5中语调
     private final int pit = 5;
     // 音量，取值0-9，默认为5中音量
-    private final int vol = 8;
+    private final int vol = 9;
 
     public final String url = "https://tsn.baidu.com/text2audio"; //可以使用https
 

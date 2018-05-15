@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileSystemParamDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileSystemParamEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PARENT_NAME" property="parentName" jdbcType="VARCHAR" />
+    <result column="PARENT_VALUE" property="parentValue" jdbcType="VARCHAR" />
+    <result column="CHILD_NAME" property="childName" jdbcType="VARCHAR" />
+    <result column="CHILD_VALUE" property="childValue" jdbcType="VARCHAR" />
+    <result column="DEL" property="del" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, PARENT_NAME, PARENT_VALUE, CHILD_NAME, CHILD_VALUE, DEL
+  </sql>
+  
+  <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from t_system_param
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>
