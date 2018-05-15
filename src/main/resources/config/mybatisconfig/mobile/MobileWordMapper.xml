@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileWordDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileWordEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="WORD" property="word" jdbcType="VARCHAR" />
+    <result column="MP3_NAME" property="mp3Name" jdbcType="VARCHAR" />
+    <result column="VIDEO" property="video" jdbcType="VARCHAR" />
+    <result column="IMG" property="img" jdbcType="VARCHAR" />
+    <result column="DEL" property="del" jdbcType="VARCHAR" />
+    <result column="INTERPRETATION" property="interpretation" jdbcType="LONGVARCHAR" />
+    <result column="SENTENCE" property="sentence" jdbcType="LONGVARCHAR" />
+    <result column="ERR_INTERPRETATION1" property="errInterpretation1" jdbcType="LONGVARCHAR" />
+    <result column="ERR_INTERPRETATION2" property="errInterpretation2" jdbcType="LONGVARCHAR" />
+    <result column="ERR_INTERPRETATION3" property="errInterpretation3" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, WORD, MP3_NAME, VIDEO, IMG, DEL, INTERPRETATION, SENTENCE, ERR_INTERPRETATION1, ERR_INTERPRETATION2, ERR_INTERPRETATION3
+  </sql>
+  
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_word where DEL = '0'
+  </select>
+  
+  <select id="selectIption" resultType="java.lang.String" parameterType="java.lang.String" >
+ 	 SELECT INTERPRETATION from t_word where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="queryWordAll" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileWordEntity" >
+    select * from t_word where DEL = '0'
+    <if test="word != null" >
+      and WORD like concat(concat('%',#{word}),'%')
+    </if>
+    <if test="interpretation != null" >
+      and INTERPRETATION like concat(concat('%',#{interpretation}),'%')
+    </if>
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_word
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+   <select id="queryWordById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_word where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileWordEntity" >
+    insert into t_word
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="word != null" >
+        WORD,
+      </if>
+      <if test="mp3Name != null" >
+        MP3_NAME,
+      </if>
+      <if test="video != null" >
+        VIDEO,
+      </if>
+      <if test="img != null" >
+        IMG,
+      </if>
+      <if test="del != null" >
+        DEL,
+      </if>
+      <if test="interpretation != null" >
+        INTERPRETATION,
+      </if>
+      <if test="sentence != null" >
+        SENTENCE,
+      </if>
+      <if test="errInterpretation1 != null" >
+        ERR_INTERPRETATION1,
+      </if>
+      <if test="errInterpretation2 != null" >
+        ERR_INTERPRETATION2,
+      </if>
+      <if test="errInterpretation3 != null" >
+        ERR_INTERPRETATION3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="word != null" >
+        #{word,jdbcType=VARCHAR},
+      </if>
+      <if test="mp3Name != null" >
+        #{mp3Name,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null" >
+        #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="interpretation != null" >
+        #{interpretation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sentence != null" >
+        #{sentence,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="errInterpretation1 != null" >
+        #{errInterpretation1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="errInterpretation2 != null" >
+        #{errInterpretation2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="errInterpretation3 != null" >
+        #{errInterpretation3,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update"  parameterType="com.ability.emp.mobile.entity.MobileWordEntity" >
+    update t_word  
+	<set >
+	  <if test="word != null" >
+        WORD = #{word,jdbcType=VARCHAR},
+      </if>
+      <if test="mp3Name != null" >
+        MP3_NAME = #{mp3Name,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null" >
+        VIDEO = #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        IMG = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" > 
+        DEL = #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="interpretation != null" >
+        INTERPRETATION = #{interpretation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sentence != null" >
+        SENTENCE = #{sentence,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="errInterpretation1 != null" >
+        ERR_INTERPRETATION1 = #{errInterpretation1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="errInterpretation2 != null" >
+        ERR_INTERPRETATION2 = #{errInterpretation2,jdbcType=LONGVARCHAR},  
+      </if>
+      <if test="errInterpretation3 != null" >
+        ERR_INTERPRETATION3 = #{errInterpretation3,jdbcType=LONGVARCHAR}
+      </if>  
+    </set>
+     where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
