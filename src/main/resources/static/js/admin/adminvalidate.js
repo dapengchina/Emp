@@ -10,21 +10,21 @@ $(function () {
     	 AdminName: {
     		 validators: {
     			 notEmpty: {
-    				 message: '用户名不能为空'
+    				 message: 'The username can not be empty'
     			 },
 	            stringLength: {
 	                min: 4,  
 	                max: 18,  
-	                message: '用户名长度必须在4到18位之间'
+	                message: 'The username length should be between 4 and 18.'
 	            },  
 	            regexp: {
 	                regexp: /^[a-zA-Z0-9_]+$/, 
-	                message: '用户名只能包含大写、小写、数字和下划线'  
+	                message: 'The username can only contain uppercase, lowercase, digits, and underlines.'  
 	            },
 	            remote: {
 	            	threshold: 4,
 		        	url: "/Emp/admin/adminuser/verifieName",
-		        	message: '用户已存在',
+		        	message: 'The username already existed',
 		        	type:'post',
 		            data:{
 		            	AdminName:function(){
@@ -36,15 +36,15 @@ $(function () {
         },
         
         AdminPwd: {
-        	 message:'密码无效',
+        	 message:'Invalid password',
              validators: {
                  notEmpty: {
-                     message: '密码不能为空'
+                     message: 'The password can not be empty'
                  },
                  stringLength: {
                      min: 4,
                      max: 30,
-                     message: '密码长度必须在4到30之间'
+                     message: 'The password length should be between 4 and 30'
                  },
                  regexp: {
                      regexp: /^[a-zA-Z0-9_\.]+$/,
@@ -53,14 +53,14 @@ $(function () {
              }
         },
         AdminConPwd: {
-        	message: '密码无效',
+        	message: 'Invalid password',
             validators: {
                 notEmpty: {
-                    message: '确认密码不能为空'
+                    message: 'confirmation password can not be empty'
                 },
                 identical: {
                     field: 'AdminPwd',
-                    message: '两次密码不一致'
+                    message: 'The password and the confirmation password are not consistent'
                 }
             }
         }

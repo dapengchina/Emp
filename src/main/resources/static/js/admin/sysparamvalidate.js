@@ -1,6 +1,7 @@
 $(function () {
     $('#addAdminForm').bootstrapValidator({
 　　　　message: 'This value is not valid',
+    group: '.rowGroup',
       　     feedbackIcons: {
         　　　　　　　　valid: 'glyphicon glyphicon-ok',
         　　　　　　　　invalid: 'glyphicon glyphicon-remove',
@@ -11,6 +12,10 @@ $(function () {
           validators: {
             notEmpty: {
               message: 'Please Input Name'
+            },
+            regexp: {
+                regexp: /^[a-zA-Z0-9_]+$/, 
+                message: 'The Name can only contain uppercase, lowercase, digits, and underlines.'  
             }
           }
         },
@@ -21,7 +26,7 @@ $(function () {
             },
             regexp: {
                 regexp: /^[a-zA-Z0-9_]+$/, 
-                message: '用户名只能包含大写、小写、数字和下划线'  
+                message: 'The Name can only contain uppercase, lowercase, digits, and underlines.'  
             }
           }
         },
@@ -29,14 +34,10 @@ $(function () {
 			validators: {
 				notEmpty: {
 					message: 'Please Input value'
-				},
-				stringLength: {
-					max: 4,  
-					message: '值必须在4位数以内'
-				},  
+				}, 
 				regexp: {
 					regexp: /^[0-9_]+$/, 
-					message: '只允许输入数字'  
+					message: 'Only allowed numbers'  
 				}
 			}
         }

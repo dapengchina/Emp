@@ -43,15 +43,6 @@ function loadSysParamList(){
             field: 'parentName',
             title: 'Name',
             sortable: true
-        },
-        {
-            field:'ID',
-            title: 'Operation',
-            width: 120,
-            align: 'center',
-            valign: 'middle',
-            events: operateEvents,
-            formatter: AddFunctionAlty
         }],
         onLoadSuccess: function () {
         },
@@ -128,14 +119,6 @@ function initSubTable(index, row, $detail) {
         }, {
             field: 'childValue',
             title: 'Value'
-        },{
-            field:'ID',
-            title: 'Operation',
-            width: 120,
-            align: 'center',
-            valign: 'middle',
-            events: operateEvents,
-            formatter: AddFunctionAlty
         }],
         //无线循环取子表，直到子表里面没有记录
         onExpandRow: function (index, row, $Subdetail) {
@@ -166,24 +149,17 @@ var optionVal;
 function chooseOption(){
 	 optionVal = $("#optionName").val();
 	 if(optionVal == ""){
-		 $("#childName").attr("readonly","readonly");
-		 $("#childValue").attr("readonly","readonly");
-		 $("#parentId").css("display","none");
-		 $("#chindId1").css("display","block");
-		 $("#chindId2").css("display","block");
-		 $("#treeviewId").css("display","none");
+		 $("#showModel").show();
+		 $("#parentId").hide();
+		 $("#childId").hide();
 	 }else if(optionVal == "0"){
-		 $("#parentId").css("display","block");
-		 $("#chindId1").css("display","none");
-		 $("#chindId2").css("display","none");
-		 $("#treeviewId").css("display","none");
+		 $("#showModel").hide();
+		 $("#parentId").show();
+		 $("#childId").hide();
 	 }else if(optionVal == "1"){
-		 $("#parentId").css("display","none");
-		 $("#chindId1").css("display","block");
-		 $("#chindId2").css("display","block");
-		 $("#treeviewId").css("display","block");
-		 $("#childName").removeAttr("readonly");
-		 $("#childValue").removeAttr("readonly");
+		 $("#showModel").hide();
+		 $("#parentId").hide();
+		 $("#childId").show();
 	 }
 }
 
@@ -270,13 +246,6 @@ function loadParamTree(){
             field: 'parentName',
             title: 'Name',
             sortable: true
-        },
-        {
-            field:'ID',
-            title: 'Operation',
-            width: 120,
-            align: 'center',
-            valign: 'middle'
         }],
         onLoadSuccess: function () {
         },
