@@ -76,41 +76,57 @@
 							</select>  
 						</div>
 					</div>
+					<div class="form-group" style="display: block;" id="showModel">
+						<div class="form-group">
+							<label class="control-label col-sm-4">Name</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" readonly="readonly"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-4">Value</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" readonly="readonly"/>
+							</div>
+						</div>
+					</div> 
 					<div class="form-group" style="display: none;" id="parentId">
 						<label class="control-label col-sm-4" for="parentName">Name</label>
 						<div class="col-sm-4">
 							<input type="text" class="form-control" id="parentName" name="parentName"/>
 						</div>
 					</div>
-					
-					<div class="form-group" style="display: none;" id="treeviewId">
-						<label class="control-label col-sm-4" for="txt_search_statu">Parent Task</label>
-						<div class="col-sm-4">
-							<input style="width:300px;" type="text" id="taskcount" name="taskcount" class="form-control" value="" 
-																onclick="loadParamTree()" placeholder="任务量" readonly="readonly"/>  
-							<div style="width:300px;" id="treeview">
-								<table id="treeg"></table>
-							</div>  
+					<div class="form-group" style="display: none;" id="childId">
+						<div class="form-group">
+							<label class="control-label col-sm-4" for="txt_search_statu">Parent Task</label>
+							<div class="col-sm-4">
+								<input style="width:300px;" type="text" id="taskcount" name="taskcount" class="form-control" value="" 
+																	onclick="loadParamTree()" placeholder="任务量" readonly="readonly"/>  
+								<div style="width:300px;" id="treeview">
+									<table id="treeg"></table>
+								</div>  
+							</div>
+						</div>
+						<div class="rowGroup">
+							<label class="control-label col-sm-4" for="childName">Name</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="childName" name="childName"/>
+							</div>
+						</div>
+						<br></br>
+						<br></br>
+						<div class="rowGroup">
+							<label class="control-label col-sm-4" for="childValue">Value</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" id="childValue" name="childValue"/>
+							</div>
 						</div>
 					</div> 
-
-					<div class="form-group" style="display: block;" id="chindId1">
-						<label class="control-label col-sm-4" for="childName">Name</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control" id="childName" name="childName" readonly="readonly"/>
-						</div>
-					</div>
-					<div class="form-group" style="display: block;" id="chindId2">
-						<label class="control-label col-sm-4" for="childValue">Value</label>
-						<div class="col-sm-4">
-							<input class="form-control" type="text" id="childValue" name="childValue" readonly="readonly"/>
-						</div>
-					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 					<button onclick="addSysParam()" type="button" class="btn btn-primary">Save</button>
-					</div>
+				</div>
 				</form>
 			</div>
 		</div>
