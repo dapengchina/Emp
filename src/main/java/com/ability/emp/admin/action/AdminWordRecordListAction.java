@@ -1,8 +1,6 @@
 package com.ability.emp.admin.action;
 
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -36,12 +34,5 @@ public class AdminWordRecordListAction {
 	@ResponseBody
 	public Integer insert(AdminWordRecordEntity wordRecordEntiy) {
 		return wordRecordService.insert(wordRecordEntiy);
-	}
-	
-	//易错单词接口
-	@RequestMapping("/fallibleWord")
-	@ResponseBody
-	public Map<String, String> fallibleWord(String userId) {
-		return wordRecordService.fallibleWord(userId);
 	}
 }

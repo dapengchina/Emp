@@ -9,6 +9,7 @@
     <result column="TASKNAME" property="taskname" jdbcType="VARCHAR" />
     <result column="DEL" property="del" jdbcType="VARCHAR" />
   </resultMap>
+
   
   <sql id="Base_Column_List" >
     ID, PARAMID, START_DATE, END_DATE, TASKNAME, DEL
@@ -17,6 +18,95 @@
   <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.String">
     select * from t_task where ID = #{id,jdbcType=VARCHAR}
   </select>
- 
+
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileTaskEntity" >
+    select * from t_task where DEL = '0'
+    <if test="taskname != null and taskname != ''">
+    	AND TASKNAME like concat(concat('%',#{taskname}),'%')
+    </if>
+  </select>
+  
+  <select id="findTaskName" resultType="java.lang.String" parameterType="com.ability.emp.mobile.entity.MobileTaskEntity">
+    select TASKNAME from t_task where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectStudyCalendar" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT START_DATE,END_DATE FROM t_task where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_task
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="queryTaskById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_task where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileTaskEntity" >
+    insert into t_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="paramid != null" >
+        PARAMID,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="taskname != null" >
+        TASKNAME,
+      </if>
+      <if test="del != null" >
+        DEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="paramid != null" >
+        #{paramid,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskname != null" >
+        #{taskname,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileTaskEntity" >
+    update t_task
+    <set >
+      <if test="paramid != null" >
+        PARAMID = #{paramid,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskname != null" >
+        TASKNAME = #{taskname,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        DEL = #{del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
   
 </mapper>

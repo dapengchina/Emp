@@ -1,8 +1,13 @@
 package com.ability.emp.mobile.server;
 
 import com.ability.emp.mobile.entity.MobileTaskEntity;
+import java.util.List;
+
 
 public interface MobileTaskService {
 	
-	   MobileTaskEntity queryById(String id);
+	List<MobileTaskEntity> selectStudyCalendar(String id);
+	
+	MobileTaskEntity queryById(String id);
+	
 }

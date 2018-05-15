@@ -27,14 +27,92 @@
     ORDER BY RAND() LIMIT 10
   </select>
   
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_word_record
+  </select>
+  
+  <select id="count" parameterType="java.lang.String" resultType="Integer">
+    select count(*) from t_word_record
+  </select>
+  
+  
+  <select id="selectWord" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select WORD_ID,WORD from t_word_record where IS_FAIL='1' and USER_ID=#{id,jdbcType=VARCHAR};
+  </select>
+  
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_word_record
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileWordRecordEntity" >
+    insert into t_word_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="wordId != null" >
+        WORD_ID,
+      </if>
+      <if test="word != null" >
+        WORD,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="isFail != null" >
+        IS_FAIL,
+      </if>
+      <if test="isSel != null" >
+        IS_SEL,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="wordId != null" >
+        #{wordId,jdbcType=VARCHAR},
+      </if>
+      <if test="word != null" >
+        #{word,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="isFail != null" >
+        #{isFail,jdbcType=VARCHAR},
+      </if>
+      <if test="isSel != null" >
+        #{isSel,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
   <update id="update" parameterType="com.ability.emp.mobile.entity.MobileWordRecordEntity" >
     update t_word_record
     <set >
+    	<if test="id != null" >
+       	ID = #{id,jdbcType=VARCHAR},
+      </if>
       <if test="wordId != null" >
         WORD_ID = #{wordId,jdbcType=VARCHAR},
       </if>
       <if test="word != null" >
-        WORD = #{word,jdbcType=VARCHAR},
+      	WORD = #{word,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
         USER_ID = #{userId,jdbcType=VARCHAR},

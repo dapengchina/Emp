@@ -14,5 +14,4 @@ public interface AdminWordRecordService {
 	
 	Integer insert(AdminWordRecordEntity wordRecordEntiy);
 	
-	Map<String, String> fallibleWord(String userId);
 }

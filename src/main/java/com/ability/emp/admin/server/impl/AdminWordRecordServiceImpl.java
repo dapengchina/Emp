@@ -1,6 +1,5 @@
 package com.ability.emp.admin.server.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
@@ -42,22 +41,4 @@ public class AdminWordRecordServiceImpl implements AdminWordRecordService {
 	public Integer insert(AdminWordRecordEntity wordRecordEntiy) {
 		return wordRecordDao.insert(wordRecordEntiy);
 	}	
-	
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Map<String, String> fallibleWord(String userId) {
-		List<AdminWordRecordEntity> wordRecord = wordRecordDao.selectWord(userId);
-		Map<String, String> map = new HashMap<String, String>();
-		String wordId;
-		String wordName;
-		String wordIption;
-		for (int i = 0; i < wordRecord.size(); i++) {
-			wordId = wordRecord.get(i).getWordId(); 
-			wordName = wordRecord.get(i).getWord();
-			wordIption = wordDao.selectIption(wordId);
-			map.put(wordName, wordIption);
-		}
-		return map;
-	}
 }

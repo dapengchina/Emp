@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MobileWordDao <T> extends BaseDao<T> {
 	
+	String selectIption(String id);
 	
-	   MobileWordEntity mean(String id);
+	MobileWordEntity mean(String id);
 }

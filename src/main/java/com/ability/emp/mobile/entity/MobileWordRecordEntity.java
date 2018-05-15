@@ -11,8 +11,7 @@ public class MobileWordRecordEntity {
 	private String isSel;
 	private Date createDate;
 	private Date updateDate;
-	
-	
+
 	private String count;
 	
 	
