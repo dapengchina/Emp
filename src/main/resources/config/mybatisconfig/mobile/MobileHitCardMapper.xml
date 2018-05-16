@@ -26,4 +26,14 @@
 	</if>
   </select>
   
+  <select id="studyCalendar" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileHitCardEntity">
+    select * from t_hitcard_record where 1=1
+    <if test="userId != null and userId != ''">
+		and USER_ID = #{userId}
+	</if>
+	<if test="stringDate != null and stringDate != ''">
+		and date_format(DATE,'%Y-%m') = #{stringDate}
+	</if>
+  </select>
+  
 </mapper>

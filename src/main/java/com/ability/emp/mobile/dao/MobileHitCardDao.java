@@ -13,4 +13,6 @@ public interface MobileHitCardDao<T> extends BaseDao<T>{
 	   int count(String id);
 	   
 	   List<MobileHitCardEntity> queryByUserID(MobileHitCardEntity mhce);
+	   
+	   List<MobileHitCardEntity> studyCalendar(MobileHitCardEntity mhce);
 }

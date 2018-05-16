@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileWordEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="WORD" property="word" jdbcType="VARCHAR" />
+    <result column="SYMBOL" property="symbol" jdbcType="VARCHAR" />
     <result column="MP3_NAME" property="mp3Name" jdbcType="VARCHAR" />
     <result column="VIDEO" property="video" jdbcType="VARCHAR" />
     <result column="IMG" property="img" jdbcType="VARCHAR" />
@@ -16,7 +17,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    ID, WORD, MP3_NAME, VIDEO, IMG, DEL, INTERPRETATION, SENTENCE, ERR_INTERPRETATION1, ERR_INTERPRETATION2, ERR_INTERPRETATION3
+    ID, WORD, SYMBOL, MP3_NAME, VIDEO, IMG, DEL, INTERPRETATION, SENTENCE, ERR_INTERPRETATION1, ERR_INTERPRETATION2, ERR_INTERPRETATION3
   </sql>
   
   <select id="mean" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -86,6 +87,9 @@
       <if test="errInterpretation3 != null" >
         ERR_INTERPRETATION3,
       </if>
+      <if test="symbol != null" >
+        SYMBOL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -120,6 +124,9 @@
       </if>
       <if test="errInterpretation3 != null" >
         #{errInterpretation3,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="symbol != null" >
+        #{symbol,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,7 +163,10 @@
       </if>
       <if test="errInterpretation3 != null" >
         ERR_INTERPRETATION3 = #{errInterpretation3,jdbcType=LONGVARCHAR}
-      </if>  
+      </if> 
+      <if test="symbol != null" >
+        SYMBOL = #{symbol,jdbcType=VARCHAR},
+      </if> 
     </set>
      where ID = #{id,jdbcType=VARCHAR}
   </update>

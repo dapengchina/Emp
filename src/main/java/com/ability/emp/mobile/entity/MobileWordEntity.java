@@ -3,6 +3,7 @@ package com.ability.emp.mobile.entity;
 public class MobileWordEntity {	
 	private String id;//主键
 	private String word;//单词
+	private String symbol;
 	private String interpretation;
 	private String sentence;
 	private String mp3Name;
@@ -11,6 +12,16 @@ public class MobileWordEntity {
 	private String errInterpretation1;
 	private String errInterpretation2;
 	private String errInterpretation3;
+	
+	
+	
+	
+	public String getSymbol() {
+		return symbol;
+	}
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
 	public String getErrInterpretation1() {
 		return errInterpretation1;
 	}
