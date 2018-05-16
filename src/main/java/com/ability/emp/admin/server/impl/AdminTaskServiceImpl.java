@@ -45,6 +45,7 @@ public class AdminTaskServiceImpl implements AdminTaskService{
 		return adminTaskDao.queryTaskById(map);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<AdminTaskEntity> selectStudyCalendar(String id) {
 		return adminTaskDao.selectStudyCalendar(id);

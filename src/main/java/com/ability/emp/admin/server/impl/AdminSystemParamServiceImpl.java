@@ -29,6 +29,7 @@ public class AdminSystemParamServiceImpl implements AdminSystemParamService {
 		return systemParamDao.queryChild(aspe);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Integer insert(AdminSystemParamEntity aspe) {
 		aspe.setId(UUIDUtil.generateUUID());
@@ -41,6 +42,7 @@ public class AdminSystemParamServiceImpl implements AdminSystemParamService {
 		return (AdminSystemParamEntity) systemParamDao.queryById(id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Integer update(AdminSystemParamEntity aspe) {
 		aspe.setDel("1");

@@ -16,6 +16,7 @@ public class AdminWordRecordServiceImpl implements AdminWordRecordService {
 	@SuppressWarnings("rawtypes")
 	@Resource
 	private AdminWordRecordDao wordRecordDao;
+	@SuppressWarnings("rawtypes")
 	@Resource
 	private AdminWordDao wordDao;
 	
@@ -26,6 +27,7 @@ public class AdminWordRecordServiceImpl implements AdminWordRecordService {
 		return wordRecordDao.queryAll();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Integer count(Map<String, Object> map) {
 		return wordRecordDao.count(map);
@@ -37,6 +39,7 @@ public class AdminWordRecordServiceImpl implements AdminWordRecordService {
 		return wordRecordDao.update(wordRecordEntiy);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Integer insert(AdminWordRecordEntity wordRecordEntiy) {
 		return wordRecordDao.insert(wordRecordEntiy);

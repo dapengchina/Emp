@@ -6,10 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,12 +40,15 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@SuppressWarnings("rawtypes")
 	@Resource
 	private AdminUserDao userDao;
+	@SuppressWarnings("rawtypes")
 	@Resource
 	private AdminWordDao wordDao;
+	@SuppressWarnings("rawtypes")
 	@Resource
 	private AdminWordRecordDao wordRecordDao;
 	@Resource
 	private AdminWordService wordService;
+	@SuppressWarnings("rawtypes")
 	@Resource
 	private AdminTaskDao taskDao;
 	

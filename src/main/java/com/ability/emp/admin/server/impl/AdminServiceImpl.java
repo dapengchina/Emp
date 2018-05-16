@@ -39,6 +39,7 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.login(name, pwd);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Integer insert(String adminName, String adminPwd) {
 		adminPwd = EncryptionUtil.Md5Encrypt(adminPwd);
 		AdminEntity adminEntity = new AdminEntity();
@@ -49,6 +50,7 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.insert(adminEntity);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Integer verifieName(String adminName) {
 		Map<String, Object> map = new HashMap<>();
@@ -56,6 +58,7 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.verifieName(map);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Integer update(AdminEntity adminEntity) {
 		Map<String, Object> map = new HashMap<>();

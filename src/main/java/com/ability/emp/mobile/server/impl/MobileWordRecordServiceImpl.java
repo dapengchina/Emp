@@ -17,6 +17,7 @@ public class MobileWordRecordServiceImpl implements MobileWordRecordService {
 	@SuppressWarnings("rawtypes")
 	@Resource
 	private MobileWordRecordDao wordRecordDao;
+	@SuppressWarnings("rawtypes")
 	@Resource
 	private MobileWordDao wordDao;
 
