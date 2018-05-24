@@ -21,5 +21,10 @@ public class MobileWordServiceImpl implements MobileWordService {
 		return mobileWordDao.mean(id);
 	}
 
+	@Override
+	public MobileWordEntity queryWordById(String id) {
+		return (MobileWordEntity) mobileWordDao.queryWordById(id);
+	}
+
 	
 }

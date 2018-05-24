@@ -11,4 +11,7 @@ public interface MobileWordDao <T> extends BaseDao<T> {
 	String selectIption(String id);
 	
 	MobileWordEntity mean(String id);
+	
+	MobileWordEntity queryWordById(String id);
+	
 }
