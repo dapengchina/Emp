@@ -30,4 +30,10 @@ public class MobileHitCardServiceImpl implements MobileHitCardService{
 		return mobileHitCardDao.queryByUserID(mhce);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public int add(MobileHitCardEntity mhce) {
+		return mobileHitCardDao.insert(mhce);
+	}
+
 }

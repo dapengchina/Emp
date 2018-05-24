@@ -10,4 +10,6 @@ public interface MobileHitCardService {
 	   int count(String id);
 	   
 	   List<MobileHitCardEntity> queryByUserID(MobileHitCardEntity mhce);
+	   
+	   int add(MobileHitCardEntity mhce);
 }
