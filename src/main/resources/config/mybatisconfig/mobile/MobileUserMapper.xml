@@ -10,15 +10,20 @@
     <result column="TASKID" property="taskid" jdbcType="VARCHAR" />
     <result column="IS_APPOINT" property="isAppoint" jdbcType="VARCHAR" />
     <result column="DEL" property="del" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    ID, NICK_NAME, USER_NAME, PHONE, OPENID, TASKID, IS_APPOINT, DEL
+    ID, NICK_NAME, USER_NAME, PHONE, OPENID, TASKID, IS_APPOINT, DEL, CODE
   </sql>
   
   
   <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.String">
     select * from t_user where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="login2" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileUserEntity">
+    select * from t_user where PHONE = #{phone,jdbcType=VARCHAR} and CODE = #{code,jdbcType=VARCHAR}
   </select>
   
   

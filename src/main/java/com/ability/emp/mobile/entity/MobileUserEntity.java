@@ -16,6 +16,8 @@ public class MobileUserEntity {
     private String isAppoint;//是否被指派任务
     
 	private String del;
+	
+	private String code;
     
     private String taskName;
     
@@ -24,6 +26,21 @@ public class MobileUserEntity {
      * @return
      */
     private String isAppointName;
+    
+    
+    
+    
+    
+    
+    
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 
 	public String getId() {
 		return id;

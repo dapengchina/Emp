@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.util.LoginUtil;
+import com.ability.emp.mobile.entity.MobileLogin2Entity;
 import com.ability.emp.mobile.entity.MobileLoginEntity;
+import com.ability.emp.mobile.entity.MobileUserEntity;
 import com.ability.emp.mobile.server.MobileUserService;
 import com.ability.emp.util.AESEncryptionUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,7 +38,7 @@ public class MobileLoginAction {
 	
 	@RequestMapping("/login")
 	@ResponseBody
-	public String add(@RequestBody MobileLoginEntity ule) throws Exception {
+	public String login(@RequestBody MobileLoginEntity ule) throws Exception {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("result", "登录成功");
 		String session_key = LoginUtil.resfresh(ule.getCode());
@@ -58,6 +60,22 @@ public class MobileLoginAction {
             System.out.println("==========="+objectMapper.writeValueAsString(map));
         }
 	    return objectMapper.writeValueAsString(map);
+	}
+	
+	
+	
+	@RequestMapping("/login2")
+	@ResponseBody
+	public String login2(@RequestBody MobileLogin2Entity ule) throws Exception {
+		MobileUserEntity mue = new MobileUserEntity();
+		mue.setPhone(ule.getTel());
+		mue.setCode(ule.getCode());
+		MobileUserEntity u = mobileUserService.login2(mue);
+		if(u!=null){
+			return "0";
+		}else{
+			return "1";
+		}
 	}
 
 }

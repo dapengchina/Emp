@@ -20,6 +20,11 @@ public class MobileUserServiceImpl implements MobileUserService{
 	public MobileUserEntity queryById(String id) {
 		return (MobileUserEntity) mobileUserDao.queryById(id);
 	}
+
+	@Override
+	public MobileUserEntity login2(MobileUserEntity mue) {
+		return mobileUserDao.login2(mue);
+	}
 	
 	
 	

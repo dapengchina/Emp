@@ -66,12 +66,12 @@ function loadUserList(){
             title: 'Name',
             sortable: true
         },{
-            field: 'nickName',
-            title: 'NickName',
-            sortable: true
-        }, {
             field: 'phone',
             title: 'Phone',
+            sortable: true
+        },{
+            field: 'code',
+            title: 'Code',
             sortable: true
         },{
             field: 'isAppointName',

@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,6 +33,7 @@ import com.ability.emp.admin.server.AdminUserService;
 import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.ExcelImportUtil;
+import com.ability.emp.util.GenerateRandomUtil;
 import com.ability.emp.util.UUIDUtil;
 
 @Service("AdminUserService") 
@@ -141,6 +144,10 @@ public class AdminUserServiceImpl implements AdminUserService{
 	 */
 	@SuppressWarnings("unchecked")
 	private String readExcel(Workbook wb,File tempFile){
+		   //拿到随机不重复code
+		   @SuppressWarnings("rawtypes")
+		   //Set set = GenerateRandomUtil.getRandomNumber();
+		   //Object[] randlist = set.toArray();
 		   //错误信息接收器
 		   String errorMsg = "";
 	       //得到第一个shell  
@@ -173,6 +180,9 @@ public class AdminUserServiceImpl implements AdminUserService{
 	           ue.setDel(SysConstant.NO_DEL);
 	           //赋值未指派
 	           ue.setIsAppoint(SysConstant.NOT_ASSIGNED);
+	           //赋值认证code
+	           //ue.setCode(randlist[r].toString());
+	           //set.remove(randlist[r]);
 	           
 	           String userName = "";
 	           String phone = "";

@@ -6,4 +6,6 @@ public interface MobileUserService {
 	
 	
 	   MobileUserEntity queryById(String id);
+	   
+	   MobileUserEntity login2(MobileUserEntity mue);
 }
