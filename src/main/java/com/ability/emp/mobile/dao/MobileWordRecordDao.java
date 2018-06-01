@@ -7,5 +7,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MobileWordRecordDao <T> extends BaseDao<T> {
+	
+	
+	
 	List<MobileWordRecordEntity> selectWord(String id);
+	
+	
+	
 }

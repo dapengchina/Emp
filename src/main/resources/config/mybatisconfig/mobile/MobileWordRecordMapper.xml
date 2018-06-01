@@ -27,6 +27,16 @@
     ORDER BY RAND() LIMIT 10
   </select>
   
+  <select id="queryEasyMistake" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileWordRecordEntity" >
+    select * from t_word_record t where 1=1
+    <if test="isFail != null and isFail != ''">
+		AND IS_FAIL='0'
+	</if>
+	<if test="userId != null and userId != ''">
+		AND USER_ID=#{userId}
+	</if>
+  </select>
+  
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * from t_word_record
   </select>

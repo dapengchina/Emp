@@ -12,9 +12,30 @@ public class MobileWordRecordEntity {
 	private Date createDate;
 	private Date updateDate;
 
+	
+	
+	//表外字段
 	private String count;
+	private String smpoly;
+	private String means;
 	
 	
+	
+	
+	
+	
+	public String getSmpoly() {
+		return smpoly;
+	}
+	public void setSmpoly(String smpoly) {
+		this.smpoly = smpoly;
+	}
+	public String getMeans() {
+		return means;
+	}
+	public void setMeans(String means) {
+		this.means = means;
+	}
 	public String getCount() {
 		return count;
 	}

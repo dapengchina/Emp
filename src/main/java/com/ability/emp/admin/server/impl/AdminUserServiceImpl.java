@@ -7,8 +7,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,7 +31,6 @@ import com.ability.emp.admin.server.AdminUserService;
 import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.ExcelImportUtil;
-import com.ability.emp.util.GenerateRandomUtil;
 import com.ability.emp.util.UUIDUtil;
 
 @Service("AdminUserService") 

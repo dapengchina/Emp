@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import com.ability.emp.util.speechsynthesis.common.ConnUtil;
 
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -21,14 +22,20 @@ public class LoginUtil {
     public static final String APPID = "wx78d9aed7f986807f";
     //小程序的 app secret
     public static final String SECRET = "0cb0d7fb35ab8772ff7884da70c459b4";
-    //登录时获取的 code
-    //public static final String JS_CODE = "";
+    
+    
     //填写为 authorization_code
     public static final String GRANT_TYPE ="authorization_code";
+    //获取accesstoken的granttype
+    public static final String GRANT_TYPE_ACC = "client_credential";
 
     //URL
     private static final String url = "https://api.weixin.qq.com/sns/jscode2session";
-
+    //获取access_token Url
+    private static final String GET_ACCESS_TOKENURL = "https://api.weixin.qq.com/cgi-bin/token";
+    //发送模块消息Url
+    private static final String TEMPLETE_MESSAGE_URL = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send";
+    
     
     public static String resfresh(String JS_CODE) throws Exception {
         String getOpenidURL = url + "?appid="+APPID
@@ -39,7 +46,6 @@ public class LoginUtil {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setConnectTimeout(5000);
         String result = ConnUtil.getResponseString(conn);
-        //System.out.println("========"+result);
         String session_key = parseJson(result);
         return session_key;
     }
@@ -51,9 +57,58 @@ public class LoginUtil {
         @SuppressWarnings("unused")
 		String openid = json.getString("openid");
         String session_key = json.getString("session_key");
-        //String unionid = json.getString("unionid");
-        //System.out.println("openid"+openid+"==="+"session_key"+session_key);
         return session_key;
-        //expiresAt = System.currentTimeMillis() + json.getLong("expires_in") * 1000;
     }
+    
+    /**
+     * 获取access_token
+     * @throws Exception 
+     */
+    public static String getAccessToken() throws Exception{
+    	String getAccessTokenURL = GET_ACCESS_TOKENURL + "?grant_type="+GRANT_TYPE_ACC
+                + "&appid=" + APPID + "&secret=" + SECRET;
+    	URL url = new URL(getAccessTokenURL);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setConnectTimeout(5000);
+        String result = ConnUtil.getResponseString(conn);
+        JSONObject json = new JSONObject(result);
+        String access_token = json.getString("access_token");
+        //System.out.println(access_token);
+    	return access_token;
+    }
+    /**
+     * 发送模块消息
+     * @param args
+     * @throws Exception
+     */
+    public static String sendTempleteMessage(String temp) throws Exception{
+    	String access_token = getAccessToken();
+    	String sendTemMessageUrl = TEMPLETE_MESSAGE_URL + "?access_token="+access_token;
+    	URL url = new URL(sendTemMessageUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    	conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        conn.setDoInput(true);
+        conn.setUseCaches(false);
+        conn.setRequestProperty("Connection", "Keep-Alive");
+        conn.setRequestProperty("Charset", "UTF-8");
+        // 设置文件类型:
+        conn.setRequestProperty("Content-Type","application/json; charset=UTF-8");
+        // 设置接收类型否则返回415错误
+        //conn.setRequestProperty("accept","*/*")此处为暴力方法设置接受所有类型，以此来防范返回415;
+        conn.setRequestProperty("accept","application/json");
+        byte[] writebytes = temp.getBytes();
+        // 设置文件长度
+        conn.setRequestProperty("Content-Length", String.valueOf(writebytes.length));
+        
+        OutputStream outwritestream = conn.getOutputStream();
+        outwritestream.write(temp.getBytes("UTF-8"));
+        outwritestream.flush();
+        outwritestream.close();
+        String result = ConnUtil.getResponseString(conn);
+        return result;
+    }
+//    public static void main(String args[]) throws Exception{
+//    	getAccessToken();
+//    }
 }
