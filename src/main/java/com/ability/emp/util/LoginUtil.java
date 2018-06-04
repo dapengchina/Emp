@@ -3,6 +3,7 @@ package com.ability.emp.util;
 import org.json.JSONObject;
 
 import com.ability.emp.util.speechsynthesis.common.ConnUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -108,7 +109,30 @@ public class LoginUtil {
         String result = ConnUtil.getResponseString(conn);
         return result;
     }
-//    public static void main(String args[]) throws Exception{
-//    	getAccessToken();
-//    }
+    public static void main(String args[]) throws Exception{
+    	ObjectMapper objectMapper = new ObjectMapper(); 
+    	TemplateMessageUtil tmu = new TemplateMessageUtil();
+    	TemplateChildMessageUtil tcmu = new TemplateChildMessageUtil();
+		TemplateMessageValueUtil tmvu1 = new TemplateMessageValueUtil();
+		
+		TemplateMessageValueUtil tmvu2 = new TemplateMessageValueUtil();
+		TemplateMessageValueUtil tmvu3 = new TemplateMessageValueUtil();
+		tmvu1.setValue("专业银行英语学习");
+		tmvu2.setValue("正在学习中");
+		tmvu3.setValue("您今天还未完成打卡任务");
+		
+		tcmu.setKeyword1(tmvu1);
+		tcmu.setKeyword2(tmvu2);
+		tcmu.setKeyword3(tmvu3);
+		
+		
+		
+		tmu.setData(tcmu);
+		tmu.setForm_id("1527849443775");
+		tmu.setTemplate_id("GLLVC6wsdPwZtACiSuqGiCuw1n8372dDeVxRpKn-oJk");
+		tmu.setTouser("o2lEu5bIFui52igXj5OF63E7DFpI");
+		String temp = objectMapper.writeValueAsString(tmu);
+		String result = LoginUtil.sendTempleteMessage(temp);
+		System.out.println(result);
+    }
 }

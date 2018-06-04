@@ -42,6 +42,9 @@ public class MobileTempleteMessageAction {
 		
 		
 		tmu.setData(tcmu);
+		tmu.setForm_id("1527849443774");
+		tmu.setTemplate_id("GLLVC6wsdPwZtACiSuqGiCuw1n8372dDeVxRpKn-oJk");
+		tmu.setTouser("o2lEu5bIFui52igXj5OF63E7DFpI");
 		String temp = objectMapper.writeValueAsString(tmu);
 		String result = LoginUtil.sendTempleteMessage(temp);
 		System.out.println(result);
