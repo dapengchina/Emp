@@ -79,23 +79,44 @@ public class MobileBearWordAction {
 		//获取参数值
 		MobileSystemParamEntity mspe = mobileSystemParamService.queryById(mte.getParamid());
 		
+		
+		
+		/***
+		 * 先获取选中,考试未通过的单词
+		 */
 		MobileWordRecordEntity mwre = new MobileWordRecordEntity();
-		mwre.setIsFail(SysConstant.NOT_CHECKED);//未选中
+		mwre.setIsSel(SysConstant.CHECKED);//选中
+		mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
 		mwre.setUserId(id);//用户ID
 		mwre.setCount(mspe.getChildValue());//任务量
 		
-		//随机返回指定任务量的单词
 		List<MobileWordRecordEntity> list = mobileBearWordService.query(mwre);
-		/*MobileWordRecordEntity mwre2 = new MobileWordRecordEntity();
-		for(int i=0;i<list.size();i++){
-			mwre2.setId(list.get(i).getId());
-			mwre2.setIsSel(SysConstant.CHECKED);
-			mobileBearWordService.update(mwre2);
-		}*/
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("total",list.size());
-		map.put("rows", list);
-		return objectMapper.writeValueAsString(map);
+		//有数据则返回
+		if(list!=null && list.size()>0){
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("total",list.size());
+			map.put("rows", list);
+			return objectMapper.writeValueAsString(map);
+		}else{
+			//没有数据则重新随机获取指定任务量单词
+			mwre.setIsSel(SysConstant.NO_CHECKED);//未选中
+			mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
+			mwre.setUserId(id);//用户ID
+			mwre.setCount(mspe.getChildValue());//任务量
+			//随机返回指定任务量的单词
+			List<MobileWordRecordEntity> list2 = mobileBearWordService.query(mwre);
+			MobileWordRecordEntity mwre2 = new MobileWordRecordEntity();
+			//将获取的单词选中
+			for(int i=0;i<list2.size();i++){
+				mwre2.setId(list2.get(i).getId());
+				mwre2.setIsSel(SysConstant.CHECKED);
+				mobileBearWordService.update(mwre2);
+			}
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("total",list2.size());
+			map.put("rows", list2);
+			return objectMapper.writeValueAsString(map);
+		}
 	}
 	
 	

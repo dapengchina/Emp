@@ -78,12 +78,15 @@ public class MobileWordExamAction {
 		//获取参数值
 		MobileSystemParamEntity mspe = mobileSystemParamService.queryById(mte.getParamid());
 		
+		/***
+		 * 获取选中,考试未通过的单词
+		 */
 		MobileWordRecordEntity mwre = new MobileWordRecordEntity();
-		mwre.setIsFail(SysConstant.NOT_CHECKED);//未选中
+		mwre.setIsSel(SysConstant.CHECKED);//选中
+		mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
 		mwre.setUserId(id);//用户ID
 		mwre.setCount(mspe.getChildValue());//任务量
 		
-		//随机返回指定任务量的单词
 		List<MobileWordRecordEntity> list = mobileBearWordService.query(mwre);
 		List<WordExamUtil> reslist = new ArrayList<WordExamUtil>();
 		for(int i=0;i<list.size();i++){
@@ -103,12 +106,7 @@ public class MobileWordExamAction {
 			}
 			reslist.add(weu);
 		}
-		/*MobileWordRecordEntity mwre2 = new MobileWordRecordEntity();
-		for(int i=0;i<list.size();i++){
-			mwre2.setId(list.get(i).getId());
-			mwre2.setIsSel(SysConstant.CHECKED);
-			mobileBearWordService.update(mwre2);
-		}*/
+		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("total",reslist.size());
 		map.put("rows", reslist);

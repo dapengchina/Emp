@@ -9,6 +9,7 @@ public class MobileWordRecordEntity {
 	private String userId;
 	private String isFail;
 	private String isSel;
+	private String isPass;
 	private Date createDate;
 	private Date updateDate;
 
@@ -24,6 +25,12 @@ public class MobileWordRecordEntity {
 	
 	
 	
+	public String getIsPass() {
+		return isPass;
+	}
+	public void setIsPass(String isPass) {
+		this.isPass = isPass;
+	}
 	public String getSmpoly() {
 		return smpoly;
 	}

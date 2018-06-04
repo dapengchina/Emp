@@ -9,8 +9,21 @@ public class AdminWordRecordEntity {
 	private String userId;
 	private String isFail;
 	private String isSel;
+	private String isPass;
 	private Date createDate;
 	private Date updateDate;
+	
+	
+	
+	
+	
+	
+	public String getIsPass() {
+		return isPass;
+	}
+	public void setIsPass(String isPass) {
+		this.isPass = isPass;
+	}
 	public String getId() {
 		return id;
 	}

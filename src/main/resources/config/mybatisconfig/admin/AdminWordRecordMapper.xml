@@ -10,10 +10,11 @@
     <result column="IS_SEL" property="isSel" jdbcType="VARCHAR" />
     <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
     <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="IS_PASS" property="isPass" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    ID, WORD_ID, WORD, USER_ID, IS_FAIL, IS_SEL, CREATE_DATE, UPDATE_DATE
+    ID, WORD_ID, WORD, USER_ID, IS_FAIL, IS_SEL,IS_PASS, CREATE_DATE, UPDATE_DATE
   </sql>
   
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -62,6 +63,9 @@
       <if test="updateDate != null" >
         UPDATE_DATE,
       </if>
+      <if test="isPass != null" >
+        IS_PASS,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -87,6 +91,9 @@
       </if>
       <if test="updateDate != null" >
         #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isPass != null" >
+        #{isPass,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -117,6 +124,9 @@
       </if>
       <if test="updateDate != null" >
         UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isPass != null" >
+        IS_PASS = #{isPass,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

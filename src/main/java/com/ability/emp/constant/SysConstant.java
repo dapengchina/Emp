@@ -27,11 +27,15 @@ public class SysConstant {
 	   //选中
 	   public static final String CHECKED = "0";
 	   //未选中
-	   public static final String NOT_CHECKED = "1";
+	   public static final String NO_CHECKED = "1";
 	   //错误
 	   public static final String ERROR = "0";
 	   //正确
 	   public static final String RIGHT = "1";
+	   //考试通过
+	   public static final String PASS = "0";
+	   //考试未通过
+	   public static final String NO_PASS = "1";
 	   
 
 }
