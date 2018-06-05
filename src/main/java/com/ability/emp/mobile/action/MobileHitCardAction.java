@@ -48,6 +48,7 @@ public class MobileHitCardAction {
 		   mobileHitCardEntity.setId(UUIDUtil.generateUUID());
 		   int i = mobileHitCardService.add(mobileHitCardEntity);
 		   if(i>0){
+			   //将选中并且考试未通过的单词,考试状态修改为通过
 			   return "0";
 		   }else{
 			   return "1";

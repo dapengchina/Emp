@@ -9,9 +9,22 @@ public class MobileLogin2Entity {
 	   
 	   private String code;
 	   
+	   private String openid;
+	   
+	   
+	   
+	   
 	   
 
-	   public String getTel() {
+	   public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+
+	public String getTel() {
 		  return tel;
 	   }
 

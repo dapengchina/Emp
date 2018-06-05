@@ -25,6 +25,12 @@ public class MobileUserServiceImpl implements MobileUserService{
 	public MobileUserEntity login2(MobileUserEntity mue) {
 		return mobileUserDao.login2(mue);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int update(MobileUserEntity mue) {
+		return mobileUserDao.update(mue);
+	}
 	
 	
 	

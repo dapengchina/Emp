@@ -67,14 +67,27 @@ public class MobileLoginAction {
 	@RequestMapping("/login2")
 	@ResponseBody
 	public String login2(@RequestBody MobileLogin2Entity ule) throws Exception {
+		Map<String,Object> map = new HashMap<String,Object>();
 		MobileUserEntity mue = new MobileUserEntity();
 		mue.setPhone(ule.getTel());
 		mue.setCode(ule.getCode());
 		MobileUserEntity u = mobileUserService.login2(mue);
 		if(u!=null){
-			return "0";
+			MobileUserEntity t = new MobileUserEntity();
+			t.setId(u.getId());
+			t.setOpenid(ule.getOpenid());
+			int i = mobileUserService.update(t);
+			if(i>0){
+				map.put("uid", u.getId());
+				map.put("result", "0");
+				return objectMapper.writeValueAsString(map);
+			}else{
+				map.put("result", "1");
+				return objectMapper.writeValueAsString(map);
+			}
 		}else{
-			return "1";
+			map.put("result", "1");
+			return objectMapper.writeValueAsString(map);
 		}
 	}
 

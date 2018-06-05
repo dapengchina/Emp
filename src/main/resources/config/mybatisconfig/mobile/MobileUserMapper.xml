@@ -26,5 +26,36 @@
     select * from t_user where PHONE = #{phone,jdbcType=VARCHAR} and CODE = #{code,jdbcType=VARCHAR}
   </select>
   
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileUserEntity" >
+    update t_user
+    <set >
+      <if test="nickName != null" >
+        NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        OPENID = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        TASKID = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="isAppoint != null" >
+        IS_APPOINT = #{isAppoint,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        DEL = #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
   
 </mapper>
