@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,7 +40,7 @@ public class MobileHitCardAction {
 	
 	@RequestMapping(value="/{hit}", method = RequestMethod.POST)
 	@ResponseBody
-	public String mean(MobileHitCardEntity mobileHitCardEntity) throws JsonProcessingException{
+	public String mean(@RequestBody MobileHitCardEntity mobileHitCardEntity) throws JsonProcessingException{
 		   if(mobileHitCardEntity.getUserId()==null || "".equals(mobileHitCardEntity.getUserId())){
 			   return "1";
 		   }
