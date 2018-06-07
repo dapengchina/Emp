@@ -11,7 +11,8 @@ public interface AdminUserService {
 	
 	List<AdminUserEntity> queryAll(AdminUserEntity adminUserEntity);
 	
-	String importUser(String fileName,MultipartFile mfile);
+	@SuppressWarnings({ "rawtypes" })
+	List importUser(String fileName,MultipartFile mfile);
 	
 	void taskAppoint(String ids[], String taskid);
 	

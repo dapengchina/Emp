@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -83,7 +84,8 @@ public class AdminUserListAction {
     public String importUser(
     		@RequestParam(value="file") MultipartFile file,
             HttpServletRequest request,
-            HttpServletResponse response
+            HttpServletResponse response,
+            ModelMap model
             ) throws Exception{
 		
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -110,8 +112,9 @@ public class AdminUserListAction {
         }
         
         //批量导入
-        String message = adminUserService.importUser(fileName, file);
-        map.put("msg", message);
+        @SuppressWarnings("unchecked")
+		List<String> message = adminUserService.importUser(fileName, file);
+        model.addAttribute("msg", message);
         return "importusersuccess";
     }
 	

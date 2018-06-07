@@ -26,6 +26,9 @@
 	<if test="phone != null and phone != ''">
 		AND PHONE = #{phone}
 	</if>
+	<if test="code != null and code != ''">
+		AND CODE = #{code}
+	</if>
 	<if test="isAppoint != null and isAppoint != ''">
 		AND IS_APPOINT = #{isAppoint}
 	</if>

@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,6 +33,7 @@ import com.ability.emp.admin.server.AdminUserService;
 import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.ExcelImportUtil;
+import com.ability.emp.util.GenerateRandomUtil;
 import com.ability.emp.util.UUIDUtil;
 
 @Service("AdminUserService") 
@@ -91,13 +94,14 @@ public class AdminUserServiceImpl implements AdminUserService{
 	 * @param userName
 	 * @return
 	 */
-	public String importUser(String fileName,MultipartFile mfile){
+	@SuppressWarnings("rawtypes")
+	public List importUser(String fileName,MultipartFile mfile){
 		
-		   File uploadDir = new  File("D:\\fileupload-Emp");
+		   File uploadDir = new  File("C:\\fileupload-Emp");
 	       //创建一个目录 （它的路径名由当前 File 对象指定，包括任一必须的父路径。）
 	       if (!uploadDir.exists()) uploadDir.mkdirs();
 	       //新建一个文件
-	       File tempFile = new File("D:\\fileupload-Emp\\" + new Date().getTime() + ".xlsx"); 
+	       File tempFile = new File("C:\\fileupload-Emp\\" + new Date().getTime() + ".xlsx"); 
 	       //初始化输入流
 	       InputStream is = null;  
 	       try{
@@ -116,7 +120,8 @@ public class AdminUserServiceImpl implements AdminUserService{
 	        	  wb = new HSSFWorkbook(is); 
 	           }
 	           //读取Excel
-	           return readExcel(wb,tempFile);
+	           List list = readExcel(wb,tempFile);
+	           return list;
 	      }catch(Exception e){
 	          e.printStackTrace();
 	      } finally{
@@ -130,7 +135,8 @@ public class AdminUserServiceImpl implements AdminUserService{
 	              }
 	          }
 	      }
-          return "导入出错！请检查数据格式！";
+          //return "导入出错！请检查数据格式！";
+		return null;
     }
 	
 	
@@ -139,14 +145,15 @@ public class AdminUserServiceImpl implements AdminUserService{
 	 * @param wb
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	private String readExcel(Workbook wb,File tempFile){
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private List readExcel(Workbook wb,File tempFile){
+		   AdminUserEntity temp = new AdminUserEntity();
 		   //拿到随机不重复code
-		   @SuppressWarnings("rawtypes")
-		   //Set set = GenerateRandomUtil.getRandomNumber();
-		   //Object[] randlist = set.toArray();
+		   Set set = GenerateRandomUtil.getRandomNumber();
+		   Object[] randlist = set.toArray();
 		   //错误信息接收器
-		   String errorMsg = "";
+		   List errorMsgList = new ArrayList();
+		   //String errorMsg = "";
 	       //得到第一个shell  
 	       Sheet sheet=wb.getSheetAt(0);
 	       //得到Excel的行数
@@ -160,14 +167,15 @@ public class AdminUserServiceImpl implements AdminUserService{
 	       List<AdminUserEntity> userList = new ArrayList<AdminUserEntity>();
 	       AdminUserEntity ue;
 	       
-	       String br = "<br/>";
+	       //String br = "<br/>";
 	       
 	       //循环Excel行数,从第二行开始。标题不入库
 	       for(int r=1;r<totalRows;r++){
-	    	   String rowMessage = "";
+	    	   //String rowMessage = "";
 	           Row row = sheet.getRow(r);
 	           if (row == null){
-	        	   errorMsg += br+"第"+(r+1)+"行数据有问题，请仔细检查！";
+	        	   errorMsgList.add("第"+(r+1)+"行数据有问题，请仔细检查！");
+	        	   //errorMsg += br+"第"+(r+1)+"行数据有问题，请仔细检查！";
 	        	   continue;
 	           }
 	           ue = new AdminUserEntity();
@@ -177,9 +185,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 	           ue.setDel(SysConstant.NO_DEL);
 	           //赋值未指派
 	           ue.setIsAppoint(SysConstant.NOT_ASSIGNED);
-	           //赋值认证code
-	           //ue.setCode(randlist[r].toString());
-	           //set.remove(randlist[r]);
+	           
 	           
 	           String userName = "";
 	           String phone = "";
@@ -191,23 +197,60 @@ public class AdminUserServiceImpl implements AdminUserService{
 	                   if(c==0){
 	                	   userName = cell.getStringCellValue();
 	                	   if(userName==null && "".equals(userName)){
-	                		   rowMessage += "用户名不能为空；";
+	                		   //rowMessage += "用户名不能为空!";
 	                	   }
 	                	   ue.setUserName(userName);
 	                   }else if(c==1){
 	                	   phone = cell.getStringCellValue();
 	                	   if(phone==null && "".equals(phone)){
-	                		   rowMessage += "电话不能为空；";
+	                		   //rowMessage += "手机号码不能为空!";
+	                	   }else{
+	                		   /***
+		                	    * 根据手机号码去查询,手机号码不能重复
+		                	    */
+		                	   temp.setPhone(phone);
+		                	   temp.setCode("");
+		                	   List<AdminUserEntity> templist = userDao.queryAll(temp);
+		                	   /**
+		                	    * 手机号码有重复的
+		                	    */
+		                	   if(templist!=null && templist.size()>0){
+		                		   errorMsgList.add("第"+(r+1)+"行---手机号:"+phone+"和已有手机号码重复未导入!");
+		                		   //rowMessage += "手机号:"+phone+"和已有手机号码重复!";
+		                	   }else{
+		                		   /**
+		                		    * 赋值手机号和对应的6位code密码
+		                		    */
+		                		   for(int k=0;k<randlist.length;k++){
+		                			   /**
+		                			    * 根据code去查询,code不能重复
+		                			    */
+		                			   temp.setPhone("");
+		                			   temp.setCode(randlist[k].toString());
+		                			   List<AdminUserEntity> templist2 = userDao.queryAll(temp);
+		                			   /**
+		                			    * 如果赋值code和数据库已有code重复,则重新获取code
+		                			    */
+		                			   if(templist2!=null && templist2.size()>0){
+		                				   
+		                			   }else{
+		                				   ue.setCode(randlist[k].toString());
+				                		   ue.setPhone(phone);
+				                		   userDao.insert(ue);
+				                		   break;
+		                			   }
+		                		   }
+		                	   }
 	                	   }
-	                	   ue.setPhone(phone);
 	                   }
 	               }else{
-	            	   rowMessage += "第"+(c+1)+"列数据有问题，请仔细检查；";
+	            	   errorMsgList.add("第"+(c+1)+"列数据有问题，请仔细检查未导入!");
+	            	   //rowMessage += "第"+(c+1)+"列数据有问题，请仔细检查!";
 	               }
 	           }
 	           //拼接每行的错误提示
-	           if(rowMessage!=null && !"".equals(rowMessage)){
-	        	   errorMsg += br+"第"+(r+1)+"行，"+rowMessage;
+	           if(errorMsgList!=null && errorMsgList.size()>0){
+	        	   //errorMsg += br+"第"+(r+1)+"行---"+rowMessage;
 	           }else{
 	        	   userList.add(ue);
 	           }
@@ -219,13 +262,17 @@ public class AdminUserServiceImpl implements AdminUserService{
 	       }
 	       
 	       //全部验证通过才导入到数据库
-	       if("".equals(errorMsg)){
-	    	   for(AdminUserEntity userEntity : userList){
-	    		   userDao.insert(userEntity);
-	    	   }
-	    	   errorMsg = "导入成功，共导入"+userList.size()+"条数据！";
+	       if(errorMsgList.size()==0){
+//	    	   for(AdminUserEntity userEntity : userList){
+//	    		   userDao.insert(userEntity);
+//	    	   }
+//	    	   errorMsgList.add("导入成功，共导入"+userList.size()+"条数据！");
+//	    	   errorMsgList.add(userList);
+	    	   //errorMsg = "导入成功，共导入"+userList.size()+"条数据！";
 	       }
-	       return errorMsg;
+	       errorMsgList.add("导入成功，共导入"+userList.size()+"条数据！");
+    	   //errorMsgList.add(userList);
+	       return errorMsgList;
 	  }
 
 	@Override

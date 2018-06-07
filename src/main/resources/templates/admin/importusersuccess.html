@@ -9,10 +9,10 @@
     
 </head>
 <body>
-      <div class="alert alert-dismissable alert-success" style="margin-top:190px;height:300px;">
-		<center style="margin-top:120px;">
-		<h2>Import Success!</h2>
-		</center>
+      <div class="alert alert-dismissable alert-success" style="margin-top:10px;height:900px;">
+		<tr th:each="prod : ${msg}">
+           <h4 th:text="${prod}"></h4>
+        </tr>
 	  </div>
 </body>
 </html>

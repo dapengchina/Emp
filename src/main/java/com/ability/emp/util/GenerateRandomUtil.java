@@ -31,15 +31,15 @@ public class GenerateRandomUtil {
 	     //随机数
 	     Random r=new Random();
 	  
-	     for(int i=0;i<9999;i++){
+	     for(int i=0;i<999999;i++){
 	         //从0到9999
-	         int number=r.nextInt(9999);
-	         //如果随机的是四位数添加
-	         if(number>=1000){
+	         int number=r.nextInt(999999);
+	         //如果随机的是六位数添加
+	         if(number>=100000){
 	            set.add(number);
 	         }
-	         //添加的个数
-	         if(set.size()==5000){
+	         //添加30万个6位不重复的密码
+	         if(set.size()==300000){
 	            break;
 	         }
 	     }
