@@ -270,7 +270,9 @@ public class AdminUserServiceImpl implements AdminUserService{
 //	    	   errorMsgList.add(userList);
 	    	   //errorMsg = "导入成功，共导入"+userList.size()+"条数据！";
 	       }
-	       errorMsgList.add("导入成功，共导入"+userList.size()+"条数据！");
+	       if(errorMsgList!=null && errorMsgList.size()>0){
+	    	   errorMsgList.add("导入成功，共导入"+userList.size()+"条数据！");
+	       }
     	   //errorMsgList.add(userList);
 	       return errorMsgList;
 	  }
