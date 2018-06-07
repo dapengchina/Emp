@@ -214,13 +214,13 @@ function loadTaskList(){
             field: 'endStringDate',
             title: 'EndDate',
             sortable: true
-        }, {
+        }/*, {
             field:'ID',
             title: 'Operation',
             width: 120,
             align: 'center',
             valign: 'middle'
-        }, ],
+        }, */],
         onLoadSuccess: function () {
         },
         onLoadError: function () {
