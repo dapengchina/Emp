@@ -39,6 +39,7 @@
 	<if test="userId != null and userId != ''">
 		AND USER_ID=#{userId}
 	</if>
+	order by UPDATE_DATE desc
   </select>
   
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >

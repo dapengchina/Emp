@@ -10,7 +10,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.constant.SysConstant;
@@ -25,6 +27,7 @@ import com.ability.emp.mobile.server.MobileSystemParamService;
 import com.ability.emp.mobile.server.MobileTaskService;
 import com.ability.emp.mobile.server.MobileUserService;
 import com.ability.emp.mobile.server.MobileWordService;
+import com.ability.emp.util.ExamUtil;
 import com.ability.emp.util.WordExamUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -95,6 +98,7 @@ public class MobileWordExamAction {
 			String[] temp = new String[4];
 			weu.setWordid(list.get(i).getWordId());
 			weu.setWord(list.get(i).getWord());
+			weu.setId(list.get(i).getId());
 			if(mwe!=null){
 				weu.setPronounce(mwe.getSymbol());
 				temp[0] = mwe.getInterpretation();
@@ -111,6 +115,32 @@ public class MobileWordExamAction {
 		map.put("total",reslist.size());
 		map.put("rows", reslist);
 		return objectMapper.writeValueAsString(map);
+	}
+	
+	
+	/**
+	 * 将考试通过的单词考试状态修改为:考试通过
+	 * @param ids 用户单词记录表主键
+	 * @return
+	 * @throws JsonProcessingException
+	 */
+	@RequestMapping(value="/{examPass}", method = RequestMethod.POST)
+	@ResponseBody
+	public String examPass(@RequestBody ExamUtil examUtil) throws JsonProcessingException{
+		String[] temp = null;
+		if(examUtil.getIds()!=null && !"".equals(examUtil.getIds())){
+			temp = examUtil.getIds().split(",");
+		}
+		if(temp!=null){
+			MobileWordRecordEntity mwre = new MobileWordRecordEntity();
+			for(int i=0;i<temp.length;i++){
+				mwre.setId(temp[i]);
+				mwre.setIsPass(SysConstant.PASS);
+				mobileBearWordService.update(mwre);
+			}
+		}
+		
+		return "";
 	}
 
 }

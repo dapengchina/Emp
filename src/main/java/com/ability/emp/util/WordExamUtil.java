@@ -2,7 +2,7 @@ package com.ability.emp.util;
 
 public class WordExamUtil {
 	
-	
+	   private String id;   
 	
 	   private String wordid;
 	   
@@ -17,7 +17,17 @@ public class WordExamUtil {
 	   
 	   
 
-	   public String getWordid() {
+	   
+	   
+	   public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getWordid() {
 		  return wordid;
 	   }
 
