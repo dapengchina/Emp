@@ -16,7 +16,7 @@ public class MobileWordRecordEntity {
 	
 	
 	//表外字段
-	private String count;
+	private int count;
 	private String smpoly;
 	private String means;
 	
@@ -43,10 +43,11 @@ public class MobileWordRecordEntity {
 	public void setMeans(String means) {
 		this.means = means;
 	}
-	public String getCount() {
+	
+	public int getCount() {
 		return count;
 	}
-	public void setCount(String count) {
+	public void setCount(int count) {
 		this.count = count;
 	}
 	public String getId() {

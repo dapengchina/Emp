@@ -28,7 +28,7 @@
 	<if test="isPass != null and isPass != ''">
 		AND IS_PASS=#{isPass}
 	</if>
-    ORDER BY RAND() LIMIT 10
+    ORDER BY RAND() LIMIT #{count}
   </select>
   
   <select id="queryEasyMistake" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileWordRecordEntity" >

@@ -88,7 +88,7 @@ public class MobileWordExamAction {
 		mwre.setIsSel(SysConstant.CHECKED);//选中
 		mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
 		mwre.setUserId(id);//用户ID
-		mwre.setCount(mspe.getChildValue());//任务量
+		mwre.setCount(Integer.parseInt(mspe.getChildValue()));//任务量
 		
 		List<MobileWordRecordEntity> list = mobileBearWordService.query(mwre);
 		List<WordExamUtil> reslist = new ArrayList<WordExamUtil>();

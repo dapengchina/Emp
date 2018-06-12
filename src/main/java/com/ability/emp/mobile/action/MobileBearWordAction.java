@@ -88,7 +88,7 @@ public class MobileBearWordAction {
 		mwre.setIsSel(SysConstant.CHECKED);//选中
 		mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
 		mwre.setUserId(id);//用户ID
-		mwre.setCount(mspe.getChildValue());//任务量
+		mwre.setCount(Integer.parseInt(mspe.getChildValue()));//任务量
 		
 		List<MobileWordRecordEntity> list = mobileBearWordService.query(mwre);
 		//有数据则返回
@@ -102,7 +102,7 @@ public class MobileBearWordAction {
 			mwre.setIsSel(SysConstant.NO_CHECKED);//未选中
 			mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
 			mwre.setUserId(id);//用户ID
-			mwre.setCount(mspe.getChildValue());//任务量
+			mwre.setCount(Integer.parseInt(mspe.getChildValue()));//任务量
 			//随机返回指定任务量的单词
 			List<MobileWordRecordEntity> list2 = mobileBearWordService.query(mwre);
 			MobileWordRecordEntity mwre2 = new MobileWordRecordEntity();
