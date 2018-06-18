@@ -1,5 +1,6 @@
 package com.ability.emp.mobile.action;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,5 +47,22 @@ public class MobileEasyMistakeAction {
 		
 		return objectMapper.writeValueAsString(map);
 	}
+	
+	@RequestMapping("/edit/{id}")
+	@ResponseBody
+	public boolean edit(@PathVariable("id") String id) throws JsonProcessingException {
+		MobileWordRecordEntity mwre = new MobileWordRecordEntity();
+		mwre.setUserId(id);
+		mwre.setIsFail(SysConstant.ERROR);
+		mwre.setUpdateDate(new Date());
+		int i = wordRecordService.update(mwre);
+		if(i>0){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+
 
 }

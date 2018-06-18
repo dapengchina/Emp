@@ -57,4 +57,10 @@ public class MobileWordRecordServiceImpl implements MobileWordRecordService {
 		
 		return list;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int update(MobileWordRecordEntity mwre) {
+		return mobileBearWordDao.update(mwre);
+	}
 }

@@ -11,4 +11,6 @@ public interface MobileWordRecordService {
 	
 	
 	List<MobileWordRecordEntity> queryEasyMistake(MobileWordRecordEntity mwre);
+	
+	int update(MobileWordRecordEntity mwre);
 }
