@@ -52,7 +52,7 @@ public class MobileEasyMistakeAction {
 	@ResponseBody
 	public boolean edit(@PathVariable("id") String id) throws JsonProcessingException {
 		MobileWordRecordEntity mwre = new MobileWordRecordEntity();
-		mwre.setUserId(id);
+		mwre.setId(id);
 		mwre.setIsFail(SysConstant.ERROR);
 		mwre.setUpdateDate(new Date());
 		int i = wordRecordService.update(mwre);
