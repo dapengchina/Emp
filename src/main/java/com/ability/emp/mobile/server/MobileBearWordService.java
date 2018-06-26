@@ -9,7 +9,8 @@ public interface MobileBearWordService {
 	
 	   List<MobileWordRecordEntity> query(MobileWordRecordEntity mwre);
 	   
-	   
 	   int update(MobileWordRecordEntity mwre);
+	   
+	   List<MobileWordRecordEntity> queryAll(MobileWordRecordEntity mwre);
 
 }

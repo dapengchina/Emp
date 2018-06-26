@@ -30,4 +30,10 @@ public class MobileBearWordServiceImpl implements MobileBearWordService{
 		return mobileBearWordDao.update(mwre);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MobileWordRecordEntity> queryAll(MobileWordRecordEntity mwre) {
+		return mobileBearWordDao.queryAll(mwre);
+	}
+
 }

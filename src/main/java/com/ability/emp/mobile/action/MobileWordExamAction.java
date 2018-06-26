@@ -142,5 +142,27 @@ public class MobileWordExamAction {
 		
 		return "";
 	}
+	
+	/**
+	 * 判断用户是否完成全部单词的考试
+	 * @param id 用户ID
+	 * @return
+	 * @throws JsonProcessingException
+	 */
+	@RequestMapping("/isAllPass/{id}")
+	@ResponseBody
+	public boolean isAllPass(@PathVariable("id") String id) throws JsonProcessingException{
+			MobileWordRecordEntity mwre = new MobileWordRecordEntity();
+			mwre.setUserId(id);
+			mwre.setIsPass(SysConstant.NO_PASS);
+			List<MobileWordRecordEntity> list = mobileBearWordService.queryAll(mwre);
+			if(list!=null && list.size()==0){
+				return false;
+			}
+			if(list==null){
+				return false;
+			}
+		    return true;
+	}
 
 }
