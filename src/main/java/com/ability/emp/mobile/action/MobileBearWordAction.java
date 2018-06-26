@@ -179,7 +179,7 @@ public class MobileBearWordAction {
 		   List<MobileHitCardEntity> list = mobileHitCardService.queryByUserID(mhce);
 		   
 		   Map<String,Object> map = new HashMap<String,Object>();
-		   if(list!=null && list.size()==1){
+		   if(list!=null && list.size()>=1){
 			   map.put("taskstatus", 1);
 		   }else{
 			   map.put("taskstatus", 0);
