@@ -56,12 +56,12 @@ public class AdminWordServiceImpl implements AdminWordService {
 	 */
 	public String importWord(String fileName, MultipartFile mfile) {
 
-		File uploadDir = new File("D:\\fileupload-Emp");
+		File uploadDir = new File("C:\\fileupload-Emp");
 		// 创建一个目录 （它的路径名由当前 File 对象指定，包括任一必须的父路径。）
 		if (!uploadDir.exists())
 			uploadDir.mkdirs();
 		// 新建一个文件
-		File tempFile = new File("D:\\fileupload-Emp\\" + new Date().getTime() + ".xlsx");
+		File tempFile = new File("C:\\fileupload-Emp\\" + new Date().getTime() + ".xlsx");
 		// 初始化输入流
 		InputStream is = null;
 		try {
@@ -86,6 +86,7 @@ public class AdminWordServiceImpl implements AdminWordService {
 		} finally {
 			if (is != null) {
 				try {
+					//System.out.println("=========="+"流关闭");
 					is.close();
 				} catch (IOException e) {
 					is = null;
@@ -110,6 +111,7 @@ public class AdminWordServiceImpl implements AdminWordService {
 		Sheet sheet = wb.getSheetAt(0);
 		// 得到Excel的行数
 		int totalRows = sheet.getPhysicalNumberOfRows();
+		//int totalRows = sheet.getLastRowNum();
 		// 总列数
 		int totalCells = 0;
 		// 得到Excel的列数(前提是有行数)，从第二行算起
@@ -134,11 +136,17 @@ public class AdminWordServiceImpl implements AdminWordService {
 			we.setId(UUIDUtil.generateUUID());
 			// 单词
 			String word = "";
+			// 音标
+			String symbol = "";
 			// 单词释义
 			String interpretation = "";
+			// 对应句子
 			String sentence = "";
+			// 错误释义1
 			String errInterpretation1 = "";
+			// 错误释义2
 			String errInterpretation2 = "";
+			// 错误释义3
 			String errInterpretation3 = "";
 			// 赋值未删除
 			we.setDel(SysConstant.NO_DEL);
@@ -159,30 +167,36 @@ public class AdminWordServiceImpl implements AdminWordService {
 						}
 						we.setWord(word);
 					} else if (c == 1) {
+						symbol = cell.getStringCellValue();
+						if (symbol == null && "".equals(symbol)) {
+							rowMessage += "音标不能为空；";
+						}
+						we.setSymbol(symbol);
+					} else if (c == 2) {
 						interpretation = cell.getStringCellValue();
 						if (interpretation == null && "".equals(interpretation)) {
 							rowMessage += "单词释义不能为空；";
 						}
 						we.setInterpretation(interpretation);
-					} else if (c == 2) {
+					} else if (c == 3) {
 						sentence = cell.getStringCellValue();
 						if (sentence == null && "".equals(sentence)) {
 							rowMessage += "对应句子不能为空；";
 						}
 						we.setSentence(sentence);
-					} else if (c == 3) {
+					} else if (c == 4) {
 						errInterpretation1 = cell.getStringCellValue();
 						if (errInterpretation1 == null && "".equals(errInterpretation1)) {
 							rowMessage += "错误单词释义1不能为空；";
 						}
 						we.setErrInterpretation1(errInterpretation1);
-					} else if (c == 4) {
+					} else if (c == 5) {
 						errInterpretation2 = cell.getStringCellValue();
 						if (errInterpretation2 == null && "".equals(errInterpretation2)) {
 							rowMessage += "错误单词释义2不能为空；";
 						}
 						we.setErrInterpretation2(errInterpretation2);
-					} else if (c == 5) {
+					} else if (c == 6) {
 						errInterpretation3 = cell.getStringCellValue();
 						if (errInterpretation3 == null && "".equals(errInterpretation3)) {
 							rowMessage += "错误单词释义3不能为空；";
@@ -213,6 +227,7 @@ public class AdminWordServiceImpl implements AdminWordService {
 			}
 			errorMsg = "导入成功，共导入" + wordList.size() + "条数据！";
 		}
+		System.out.println(errorMsg);
 		return errorMsg;
 	}
 

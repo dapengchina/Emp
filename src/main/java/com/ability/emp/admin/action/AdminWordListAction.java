@@ -121,10 +121,15 @@ public class AdminWordListAction {
 			map.put("msg", "文件不能为空！");
 			return objectMapper.writeValueAsString(map);
 		}
-
-		// 批量导入
-		String message = wordService.importWord(fileName, file);
-		map.put("msg", message);
+        
+		try{
+			// 批量导入
+			String message = wordService.importWord(fileName, file);
+			map.put("msg", message);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		return "importusersuccess";
 	}
 

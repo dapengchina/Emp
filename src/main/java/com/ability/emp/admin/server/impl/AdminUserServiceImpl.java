@@ -97,11 +97,11 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@SuppressWarnings("rawtypes")
 	public List importUser(String fileName,MultipartFile mfile){
 		
-		   File uploadDir = new  File("C:\\fileupload-Emp");
+		   File uploadDir = new  File("C:\\fileupload-Emp-user");
 	       //创建一个目录 （它的路径名由当前 File 对象指定，包括任一必须的父路径。）
 	       if (!uploadDir.exists()) uploadDir.mkdirs();
 	       //新建一个文件
-	       File tempFile = new File("C:\\fileupload-Emp\\" + new Date().getTime() + ".xlsx"); 
+	       File tempFile = new File("C:\\fileupload-Emp-user\\" + new Date().getTime() + ".xlsx"); 
 	       //初始化输入流
 	       InputStream is = null;  
 	       try{

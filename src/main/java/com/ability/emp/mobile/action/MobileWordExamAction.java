@@ -86,7 +86,7 @@ public class MobileWordExamAction {
 		 */
 		MobileWordRecordEntity mwre = new MobileWordRecordEntity();
 		mwre.setIsSel(SysConstant.CHECKED);//选中
-		mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
+		//mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
 		mwre.setUserId(id);//用户ID
 		mwre.setCount(Integer.parseInt(mspe.getChildValue()));//任务量
 		
@@ -136,6 +136,7 @@ public class MobileWordExamAction {
 			for(int i=0;i<temp.length;i++){
 				mwre.setId(temp[i]);
 				mwre.setIsPass(SysConstant.PASS);
+				mwre.setIsFail(SysConstant.RIGHT);
 				mobileBearWordService.update(mwre);
 			}
 		}
@@ -164,5 +165,18 @@ public class MobileWordExamAction {
 			}
 		    return true;
 	}
-
+	
+	@RequestMapping("/delEasyErrorWord/{id}")
+	@ResponseBody
+	public boolean delEasyErrorWord(@PathVariable("id") String id) throws JsonProcessingException{
+		MobileWordRecordEntity mwre = new MobileWordRecordEntity();
+		mwre.setId(id);
+		mwre.setIsFail(SysConstant.RIGHT);
+		int i = mobileBearWordService.update(mwre);
+		if(i>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
