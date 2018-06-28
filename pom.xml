@@ -6,7 +6,6 @@
 	<groupId>com.example</groupId>
 	<artifactId>Emp</artifactId>
 	<version>0.0.1</version>
-	<packaging>jar</packaging>
 
 	<name>Emp</name>
 	<description>english minor procedures</description>
@@ -25,17 +24,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<!-- 排除内置容器，排除内置容器导出成war包可以让外部容器运行spring-boot项目
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>-->
-		</dependency>
 
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -48,18 +36,11 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency> 
         
-        <!-- <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-core</artifactId>
-            <version>5.7.0</version>
-        </dependency>  -->
-         
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
 		
 		<dependency>
            <groupId>javax.servlet</groupId>
@@ -86,7 +67,6 @@
            <artifactId>bcprov-jdk15</artifactId>
            <version>1.45</version>
         </dependency>
-        
         
         <!-- 引入模板引擎jar包 -->
         <dependency>
