@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ability.emp.admin.dao.AdminThesauresPramDao">
+  <resultMap id="BaseResultMap" type="com.ability.emp.admin.entity.AdminThesauresPramEntity">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="t_param_name" jdbcType="VARCHAR" property="tParamName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, t_param_name, content
+  </sql>
+  
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_thesaures_pram
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_thesaures_pram
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_thesaures_pram
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity">
+    insert into t_thesaures_pram (id, t_param_name, content
+      )
+    values (#{id,jdbcType=VARCHAR}, #{tParamName,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity">
+    insert into t_thesaures_pram
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tParamName != null">
+        t_param_name,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tParamName != null">
+        #{tParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity" >
+    update t_thesaures_pram
+    <set >
+      <if test="tParamName != null" >
+        PARENT_NAME = #{tParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        PARENT_VALUE = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

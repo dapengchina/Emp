@@ -7,6 +7,8 @@ public class AdminTaskEntity {
     private String id;
 
     private String paramid;
+    
+    private String tParamid;
 
     private Date startDate;
 
@@ -86,7 +88,15 @@ public class AdminTaskEntity {
         this.paramid = paramid == null ? null : paramid.trim();
     }
 
-    public Date getStartDate() {
+    public String gettParamid() {
+		return tParamid;
+	}
+
+	public void settParamid(String tParamid) {
+		this.tParamid = tParamid;
+	}
+
+	public Date getStartDate() {
         return startDate;
     }
 
@@ -101,4 +111,6 @@ public class AdminTaskEntity {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+    
+    
 }

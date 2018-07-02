@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.admin.entity.AdminSystemParamEntity;
 import com.ability.emp.admin.entity.AdminTaskEntity;
+import com.ability.emp.admin.entity.AdminThesauresPramEntity;
 import com.ability.emp.admin.server.AdminSystemParamService;
 import com.ability.emp.admin.server.AdminTaskService;
+import com.ability.emp.admin.server.AdminThesauresPramService;
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.UUIDUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -47,6 +50,8 @@ public class AdminTaskListAction {
 	private AdminTaskService adminTaskService;
 	@Resource
 	private AdminSystemParamService adminSystemParamService;
+	@Resource
+	AdminThesauresPramService adminThesauresPramService;
 	
 	ObjectMapper objectMapper = new ObjectMapper();  
 	
@@ -76,7 +81,8 @@ public class AdminTaskListAction {
 		PageHelper.startPage(pageNumber,pageSize);  
 		List<AdminTaskEntity> data = adminTaskService.queryAll(ate);
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-		
+		AdminThesauresPramEntity adminThesauresPramEntity=null;
+		String tParamid="";
 		/**
 		 * 日期转换为String类型
 		 */
@@ -84,6 +90,11 @@ public class AdminTaskListAction {
 			for(int i=0;i<data.size();i++){
 				data.get(i).setStartStringDate(sf.format(data.get(i).getStartDate()!=null?data.get(i).getStartDate():""));
 				data.get(i).setEndStringDate(sf.format(data.get(i).getEndDate()!=null?data.get(i).getEndDate():""));
+				tParamid=data.get(i).gettParamid();
+				if(!StringUtils.pathEquals("", tParamid)){
+					adminThesauresPramEntity=adminThesauresPramService.selectByPrimaryKey(data.get(i).gettParamid());
+					data.get(i).settParamid(adminThesauresPramEntity.gettParamName());
+				}
 			}
 		}
 		
