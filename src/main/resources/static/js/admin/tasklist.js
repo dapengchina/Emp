@@ -42,10 +42,14 @@ function loadTaskList() {
 		columns : [ {
 			checkbox : true,
 			visible : true
-		// 是否显示复选框
+		// 是否显示复选框tParamName
 		}, {
 			field : 'taskname',
 			title : 'Taskname',
+			sortable : true
+		}, {
+			field : 'tParamid',
+			title : 'TparamName',
 			sortable : true
 		}, {
 			field : 'startStringDate',
@@ -79,12 +83,33 @@ function formatOperat(value, row, index) {
 
 function openTaskModal() {
 	$("#taskadd").modal('show');
+	//selectpicker load data for add page
+	$.ajax({
+		type : 'get',
+		url :"/Emp/admin/thesauresParamlist/queryAll",
+		dataType : 'json',
+		success : function(datas) {//返回list数据并循环获取
+			$("#tParamid").empty();
+			var select = $("#tParamid");
+			for (var i = 0; i < datas.length; i++) {
+				select.append("<option value='"+datas[i].id+"'>"+ datas[i].tParamName + "</option>");
+			}
+			$('.selectpicker').selectpicker('val', '');
+			$('.selectpicker').selectpicker('refresh');
+		}
+	});
 }
-	
+
+$('body').on('hidden.bs.modal', '.modal', function () {
+	alert();
+    $(this).removeData('bs.modal');
+});
+
 function saveTask() {
 	
 		var taskName = $('#taskNameAdd').val();
 		var paramid = $('#paramaddID').val();
+		var tParamid = $('#tParamid option:selected').val();//选中的值
 		var startDate = $('#startDateAdd').val();
 		var endDate = $('#endDateAdd').val();
 		
@@ -94,7 +119,8 @@ function saveTask() {
 			$.ajax({
 				url : '/Emp/admin/task/add',
 	    		dataType:"json",
-	    		data:{"taskname":taskName,"paramid":paramid, 
+	    		data:{"taskname":taskName,"paramid":paramid,
+	    			"tParamid":tParamid,
 	    			"startStringDate":startDate,
 	    			"endStringDate":endDate},
 	    		async:true,
@@ -104,6 +130,13 @@ function saveTask() {
 					if(result == "0"){
 						$("#taskadd").modal('hide');
 						$("#tasklist").bootstrapTable('refresh');
+						$('#taskNameAdd').val("");
+						$('#paramaddID').val("");
+						$('#taskcountAdd').val("");
+						$('.selectpicker').selectpicker('val', '');
+						$('.selectpicker').selectpicker('refresh');
+						$('#startDateAdd').val("");
+						$('#endDateAdd').val("");
 	                }
 				},
 				error : function() {
@@ -117,6 +150,22 @@ function saveTask() {
 }
 
 function queryTaskById(task_id) {
+		//selectpicker load data for add page
+		$.ajax({
+			type : 'get',
+			url :"/Emp/admin/thesauresParamlist/queryAll",
+			dataType : 'json',
+			success : function(datas) {//返回list数据并循环获取
+				$("#tParamid2").empty();
+				var select = $("#tParamid2");
+				for (var i = 0; i < datas.length; i++) {
+					select.append("<option value='"+datas[i].id+"'>"+ datas[i].tParamName + "</option>");
+				}
+				$('.selectpicker').selectpicker('val', '');
+				$('.selectpicker').selectpicker('refresh');
+			}
+		});
+	
 		$("#taskedit").modal('show');
 		$.ajax({
 			url : '/Emp/admin/task/taskedit/'+task_id,
@@ -132,6 +181,9 @@ function queryTaskById(task_id) {
 					$("#parameditID").val(result.paramid);
 					$("#taskcountEdit").val(result.paramValue);
 					$("#id").val(result.id);
+					//set val for selectpicker
+					$("#tParamid2").selectpicker('val',result.tParamid);
+					$('#tParamid2').selectpicker('refresh');
 				}
 			},
 			error : function() {
@@ -142,11 +194,12 @@ function queryTaskById(task_id) {
 			}
 		});
 }
-	
+
 function updateTask()
 {
 	    var taskName = $('#taskNameEdit').val();
 	    var paramid = $('#parameditID').val();
+	    var tParamid2 = $('#tParamid2 option:selected').val();//选中的值
 	    var startDate = $('#startDateEdit').val();
 	    var endDate = $('#endDateEdit').val();
 	    var id = $('#id').val();
@@ -158,6 +211,7 @@ function updateTask()
 				url : '/Emp/admin/task/edit',
 	    		dataType:"json",
 	    		data:{"id":id,"taskname":taskName,"paramid":paramid, 
+	    			"tParamid":tParamid2,
 	    			"startStringDate":startDate,
 	    			"endStringDate":endDate},
 	    		async:true,
