@@ -48,8 +48,8 @@ function loadTaskList() {
 			title : 'Taskname',
 			sortable : true
 		}, {
-			field : 'tParamid',
-			title : 'TparamName',
+			field : 'tParamName',
+			title : 'TParamName',
 			sortable : true
 		}, {
 			field : 'startStringDate',
@@ -92,7 +92,7 @@ function openTaskModal() {
 			$("#tParamid").empty();
 			var select = $("#tParamid");
 			for (var i = 0; i < datas.length; i++) {
-				select.append("<option value='"+datas[i].id+"'>"+ datas[i].tParamName + "</option>");
+				select.append("<option value='"+datas[i].id+"'>"+ datas[i].name + "</option>");
 			}
 			$('.selectpicker').selectpicker('val', '');
 			$('.selectpicker').selectpicker('refresh');
@@ -159,7 +159,7 @@ function queryTaskById(task_id) {
 				$("#tParamid2").empty();
 				var select = $("#tParamid2");
 				for (var i = 0; i < datas.length; i++) {
-					select.append("<option value='"+datas[i].id+"'>"+ datas[i].tParamName + "</option>");
+					select.append("<option value='"+datas[i].id+"'>"+ datas[i].name + "</option>");
 				}
 				$('.selectpicker').selectpicker('val', '');
 				$('.selectpicker').selectpicker('refresh');
