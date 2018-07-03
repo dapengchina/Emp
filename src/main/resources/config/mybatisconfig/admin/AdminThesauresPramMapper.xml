@@ -3,11 +3,11 @@
 <mapper namespace="com.ability.emp.admin.dao.AdminThesauresPramDao">
   <resultMap id="BaseResultMap" type="com.ability.emp.admin.entity.AdminThesauresPramEntity">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <id column="t_param_name" jdbcType="VARCHAR" property="tParamName" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
+    <id column="name" jdbcType="VARCHAR" property="name" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, t_param_name, content
+    id, name, remark
   </sql>
   
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -25,9 +25,9 @@
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity">
-    insert into t_thesaures_pram (id, t_param_name, content
+    insert into t_thesaures_pram (id, name, remark
       )
-    values (#{id,jdbcType=VARCHAR}, #{tParamName,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity">
@@ -36,33 +36,33 @@
       <if test="id != null">
         id,
       </if>
-      <if test="tParamName != null">
-        t_param_name,
+      <if test="name != null">
+        name,
       </if>
-      <if test="content != null">
-        content,
+      <if test="remark != null">
+        remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="tParamName != null">
-        #{tParamName,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity" >
     update t_thesaures_pram
     <set >
-      <if test="tParamName != null" >
-        PARENT_NAME = #{tParamName,jdbcType=VARCHAR},
+      <if test="name != null" >
+        PARENT_NAME = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        PARENT_VALUE = #{content,jdbcType=VARCHAR},
+      <if test="remark != null" >
+        PARENT_VALUE = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
