@@ -19,6 +19,12 @@ public class AdminUserEntity {
 	
 	private String code;
     
+    
+    
+    /**
+     * 表外字段
+     * @return
+     */
     private String taskName;
     
     /**

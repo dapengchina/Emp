@@ -21,3 +21,7 @@ function wordList(){
 function sysParamList(){
 	$('iframe').attr('src','/Emp/admin/sysparam');
 }
+
+function reportList(){
+	$('iframe').attr('src','/Emp/admin/userreport');
+}

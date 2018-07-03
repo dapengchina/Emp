@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.admin.dao.AdminUserReportDao" >
+  
+  
+  <select id="queryAll" resultType="com.ability.emp.admin.entity.vo.AdminUserReportVo" parameterType="com.ability.emp.admin.entity.vo.AdminUserReportVo" >
+    select t.ID,t.NICK_NAME as nickName,t.USER_NAME as userName,t.PHONE from t_user t 
+
+  </select>
+  
+  <select id="queryHitCardRecord" resultType="com.ability.emp.admin.entity.vo.AdminUserReportVo" parameterType="com.ability.emp.admin.entity.vo.AdminUserReportVo" >
+   select t.ID,t1.DATE from t_user t 
+    left join 
+    t_hitcard_record t1
+    on t.ID=t1.USER_ID
+    where 1=1
+    <if test="id != null and id != ''">
+		AND t.ID = #{id}
+	</if>
+
+  </select>
+  
+  
+</mapper>
