@@ -2,8 +2,8 @@ package com.ability.emp.admin.entity;
 
 public class AdminThesauresPramEntity {
 	private String id;
-	private String tParamName;
-	private String content;
+	private String name;
+	private String remark;
 
 	public String getId() {
 		return id;
@@ -13,32 +13,32 @@ public class AdminThesauresPramEntity {
 		this.id = id == null ? null : id.trim();
 	}
 
-	public String gettParamName() {
-		return tParamName;
+	public String getName() {
+		return name;
 	}
 
-	public void settParamName(String tParamName) {
-		this.tParamName = tParamName == null ? null : tParamName.trim();
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
 	}
 
-	public String getContent() {
-		return content;
+	public String getRemark() {
+		return remark;
 	}
 
-	public void setContent(String content) {
-		this.content = content == null ? null : content.trim();
+	public void setRemark(String remark) {
+		this.remark = remark == null ? null : remark.trim();
 	}
 
 	@Override
 	public String toString() {
-		return "AdminThesauresPramEntity [id=" + id + ", tParamName=" + tParamName + ", content=" + content + "]";
+		return "AdminThesauresPramEntity [id=" + id + ", name=" + name + ", remark=" + remark + "]";
 	}
 
-	public AdminThesauresPramEntity(String id, String tParamName, String content) {
+	public AdminThesauresPramEntity(String id, String tParamName, String remark) {
 		super();
 		this.id = id;
-		this.tParamName = tParamName;
-		this.content = content;
+		this.name = name;
+		this.remark = remark;
 	}
 
 	public AdminThesauresPramEntity() {

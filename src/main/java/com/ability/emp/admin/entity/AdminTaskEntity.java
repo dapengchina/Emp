@@ -9,6 +9,8 @@ public class AdminTaskEntity {
     private String paramid;
     
     private String tParamid;
+    
+    private String tParamName;
 
     private Date startDate;
 
@@ -90,6 +92,14 @@ public class AdminTaskEntity {
 
     public String gettParamid() {
 		return tParamid;
+	}
+
+	public String gettParamName() {
+		return tParamName;
+	}
+
+	public void settParamName(String tParamName) {
+		this.tParamName = tParamName;
 	}
 
 	public void settParamid(String tParamid) {

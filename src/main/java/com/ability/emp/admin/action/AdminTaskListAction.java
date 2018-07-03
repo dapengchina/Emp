@@ -93,7 +93,10 @@ public class AdminTaskListAction {
 				tParamid=data.get(i).gettParamid();
 				if(!StringUtils.pathEquals("", tParamid)){
 					adminThesauresPramEntity=adminThesauresPramService.selectByPrimaryKey(data.get(i).gettParamid());
-					data.get(i).settParamid(adminThesauresPramEntity.gettParamName());
+					data.get(i).settParamid(adminThesauresPramEntity.getId());
+					if(adminThesauresPramEntity!=null && adminThesauresPramEntity.getName()!=null){
+						data.get(i).settParamName(adminThesauresPramEntity.getName());
+					}
 				}
 			}
 		}
