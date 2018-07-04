@@ -162,4 +162,17 @@
     </set>
      where ID = #{id,jdbcType=VARCHAR}
   </update>
+  
+   <update id="updateBatch" parameterType="Map">  
+      update t_word 
+     <set >
+      <if test="thesauresType != null" >
+        THESAURUS_TYPE = #{thesauresType,jdbcType=VARCHAR},
+      </if>
+     </set>
+       where id in  
+     <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">  
+         #{item}  
+     </foreach> 
+    </update> 
 </mapper>

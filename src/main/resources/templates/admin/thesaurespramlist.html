@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>userList</title>
+
+<!-- CSS引用 -->
+<link rel="stylesheet" href="/Emp/css/bootstarp-table/bootstrap-table.css" type="text/css" />
+<link rel="stylesheet" href="/Emp/css/bootstarp-table/bootstrap-table.min.css" type="text/css" />
+<link rel="stylesheet" href="/Emp/css/bootstrap-3.3.7-dist/bootstrap.css" type="text/css" />
+<link rel="stylesheet" href="/Emp/css/bootstrap-val/bootstrapValidator.css" type="text/css" />
+
+<!-- JS引用 -->
+<script src="/Emp/js/jquery/jquery.js" type="text/javascript"></script>
+<script src="/Emp/js/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="/Emp/js/jquery/jquery.knob.js" type="text/javascript"></script>
+<script src="/Emp/js/bootstrap-val/bootstrapValidator.min.js"></script>
+<script src="/Emp/js/bootstrap-3.3.7-dist/bootstrap.js"></script>
+<script src="/Emp/js/bootstrap-table/bootstrap-table.js" type="text/javascript"></script>
+
+<script src="/Emp/js/admin/thesaurespramlist.js"></script>
+</head>
+<body>
+
+
+	<div class="panel panel-default">
+       <div class="panel-heading">Query Conditions</div>
+         <div class="panel-body">
+           <form id="formSearch" class="form-horizontal">
+              <div class="form-group" style="margin-top:15px">
+                  <label class="control-label col-sm-1">Name</label>
+                  <div class="col-sm-3">
+                      <input type="text" class="form-control" id="name" name="name"/>
+                  </div>
+                  <div class="col-sm-4" style="text-align:left;">
+                       <button type="button" style="margin-left:50px" onclick="search()" id="btn_query" class="btn btn-primary">Search</button>
+                  </div>
+              </div>
+           </form>
+         </div>
+    </div>     
+    
+     <!-- 工具栏  -->
+	<div id="toolbar" class="btn-group">
+	   	<button id="addWord" onclick="openWordModal()" type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
+		</button>
+	</div>
+
+	<!-- 数据列表  -->
+	<table id="thesauresPramList"></table>
+	
+	<!-- add word -->
+	<div class="modal fade" id="wordAdd" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				    <button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">Add word</h4> 
+				</div>
+				<div id="toolbar2" class="btn-group">
+				   	<button id="addWord" onclick="save()" type="button" class="btn btn-default">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Save
+					</button>
+				</div>
+				<input type="hidden" class="form-control" id="thesauresType" />
+				<table id="wordlist"></table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

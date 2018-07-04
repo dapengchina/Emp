@@ -75,6 +75,16 @@ public class AdminWordListAction {
 		return objectMapper.writeValueAsString(word.get(0));
 	}
 
+	@RequestMapping(value = "/updateBatch",method = RequestMethod.POST)
+	@ResponseBody
+	public int updateWord(@RequestParam(value = "ids[]") String[] ids,String thesauresType) throws Exception {
+		Map<String, Object> map=new HashMap<>();
+		map.put("ids", ids);
+		map.put("thesauresType", thesauresType);
+		int num=wordService.updateBatch(map);
+		return num;
+	}
+	
 	@RequestMapping(value = "/edit",method = RequestMethod.POST)
 	@ResponseBody
 	public String updateWord(HttpServletRequest request, HttpServletResponse response,AdminWordEntity awe) throws Exception {

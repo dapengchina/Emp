@@ -15,4 +15,6 @@ public interface AdminWordDao <T> extends BaseDao<T> {
 	List<AdminWordEntity> queryWordAll(AdminWordEntity awe);
 	
 	String selectIption(String id);
+	
+	int updateBatch(Map map);
 }
