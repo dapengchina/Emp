@@ -101,7 +101,6 @@ function openTaskModal() {
 }
 
 $('body').on('hidden.bs.modal', '.modal', function () {
-	alert();
     $(this).removeData('bs.modal');
 });
 
