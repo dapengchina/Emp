@@ -73,12 +73,12 @@ public class AdminUserReportAction {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("rawtypes")
-	@RequestMapping("/queryHitCardRecord/{id}")
+	@RequestMapping("/queryHitCardRecord")
 	@ResponseBody
-	public String queryHitCardRecord(@PathVariable("id") String id,int pageSize,int pageNumber,AdminUserReportVo adminUserReportVo) throws Exception {
+	public String queryHitCardRecord(String id,Integer pageSize,Integer pageNumber,AdminUserReportVo adminUserReportVo) throws Exception {
 		adminUserReportVo.setId(id);
 		//第一个参数当前页码，第二个参数每页条数
-		PageHelper.startPage(pageNumber,pageSize);  
+		//PageHelper.startPage(pageNumber,pageSize);  
 		List<AdminUserReportVo> data = adminUserReportService.queryHitCardRecord(adminUserReportVo);
 		Map<String,Object> map = new HashMap<String,Object>();
 		@SuppressWarnings("unchecked")

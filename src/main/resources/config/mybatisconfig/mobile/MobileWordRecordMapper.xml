@@ -11,10 +11,12 @@
     <result column="IS_PASS" property="isPass" jdbcType="VARCHAR" />
     <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
     <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="EXAM_PASS_DATE" property="examPassDate" jdbcType="TIMESTAMP" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    ID, WORD_ID, WORD, USER_ID, IS_FAIL, IS_SEL,IS_PASS, CREATE_DATE, UPDATE_DATE
+    ID, WORD_ID, WORD, USER_ID, IS_FAIL, IS_SEL,IS_PASS, CREATE_DATE, UPDATE_DATE,
+    EXAM_PASS_DATE
   </sql>
   
   <select id="query" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileWordRecordEntity" >
@@ -27,6 +29,9 @@
 	</if>
 	<if test="isPass != null and isPass != ''">
 		AND IS_PASS=#{isPass}
+	</if>
+	<if test="stringPassDate != null and stringPassDate != ''">
+		and date_format(EXAM_PASS_DATE,'%Y-%m-%d') = #{stringPassDate}
 	</if>
     ORDER BY RAND() LIMIT #{count}
   </select>
@@ -44,6 +49,16 @@
   
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * from t_word_record where 1=1
+    <if test="userId != null and userId != ''">
+		AND USER_ID=#{userId}
+	</if>
+	<if test="isPass != null and isPass != ''">
+		AND IS_PASS=#{isPass}
+	</if>
+  </select>
+  
+  <select id="queryDoneCount" resultType="Integer" parameterType="java.lang.String" >
+    select count(*) from t_word_record where 1=1
     <if test="userId != null and userId != ''">
 		AND USER_ID=#{userId}
 	</if>
@@ -94,6 +109,9 @@
       <if test="updateDate != null" >
         UPDATE_DATE,
       </if>
+      <if test="examPassDate != null" >
+        EXAM_PASS_DATE,
+      </if>
       <if test="isPass != null" >
         IS_PASS,
       </if>
@@ -119,6 +137,9 @@
       </if>
       <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examPassDate != null" >
+        #{examPassDate,jdbcType=TIMESTAMP},
       </if>
       <if test="updateDate != null" >
         #{updateDate,jdbcType=TIMESTAMP},
@@ -155,6 +176,9 @@
       </if>
       <if test="updateDate != null" >
         UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examPassDate != null" >
+        EXAM_PASS_DATE = #{examPassDate,jdbcType=TIMESTAMP},
       </if>
       <if test="isPass != null" >
         IS_PASS = #{isPass,jdbcType=VARCHAR},

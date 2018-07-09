@@ -18,5 +18,7 @@ public interface MobileBearWordDao<T> extends BaseDao<T>{
 	   List<MobileWordRecordEntity> queryEasyMistake(MobileWordRecordEntity mwre);
 	   
 	   List<MobileWordRecordEntity> queryAll(MobileWordRecordEntity mwre);
+	   
+	   int queryDoneCount(MobileWordRecordEntity mwre);
 
 }

@@ -57,7 +57,7 @@ public class MobileLoginAction {
             userInfo.put("nickName", userInfoJSON.get("nickName"));//用户昵称
             userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));//头像地址
             map.put("userInfo", userInfo);
-            System.out.println("==========="+objectMapper.writeValueAsString(map));
+            System.out.println("==========="+"Login Success"+userInfoJSON.get("nickName"));
         }
 	    return objectMapper.writeValueAsString(map);
 	}

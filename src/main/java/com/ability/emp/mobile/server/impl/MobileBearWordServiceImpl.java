@@ -36,4 +36,9 @@ public class MobileBearWordServiceImpl implements MobileBearWordService{
 		return mobileBearWordDao.queryAll(mwre);
 	}
 
+	@Override
+	public int queryDoneCount(MobileWordRecordEntity mwre) {
+		return mobileBearWordDao.queryDoneCount(mwre);
+	}
+
 }

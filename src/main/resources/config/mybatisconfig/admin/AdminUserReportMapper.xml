@@ -5,7 +5,16 @@
   
   <select id="queryAll" resultType="com.ability.emp.admin.entity.vo.AdminUserReportVo" parameterType="com.ability.emp.admin.entity.vo.AdminUserReportVo" >
     select t.ID,t.NICK_NAME as nickName,t.USER_NAME as userName,t.PHONE from t_user t 
-
+    where 1=1
+    <if test="userName != null and userName != ''">
+		AND USER_NAME like concat(concat('%',#{userName}),'%')
+	</if>
+	<if test="nickName != null and nickName != ''">
+		AND NICK_NAME like concat(concat('%',#{nickName}),'%')
+	</if>
+	<if test="phone != null and phone != ''">
+		AND PHONE = #{phone}
+	</if>
   </select>
   
   <select id="queryHitCardRecord" resultType="com.ability.emp.admin.entity.vo.AdminUserReportVo" parameterType="com.ability.emp.admin.entity.vo.AdminUserReportVo" >

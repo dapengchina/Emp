@@ -98,24 +98,44 @@ public class MobileBearWordAction {
 			map.put("rows", list);
 			return objectMapper.writeValueAsString(map);
 		}else{
-			//没有数据则重新随机获取指定任务量单词
-			mwre.setIsSel(SysConstant.NO_CHECKED);//未选中
-			mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
-			mwre.setUserId(id);//用户ID
-			mwre.setCount(Integer.parseInt(mspe.getChildValue()));//任务量
-			//随机返回指定任务量的单词
-			List<MobileWordRecordEntity> list2 = mobileBearWordService.query(mwre);
-			MobileWordRecordEntity mwre2 = new MobileWordRecordEntity();
-			//将获取的单词选中
-			for(int i=0;i<list2.size();i++){
-				mwre2.setId(list2.get(i).getId());
-				mwre2.setIsSel(SysConstant.CHECKED);
-				mobileBearWordService.update(mwre2);
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			MobileHitCardEntity mhce = new MobileHitCardEntity();
+			mhce.setUserId(id);
+			mhce.setStringDate(sf.format(new Date()));
+			List<MobileHitCardEntity> ifhit = mobileHitCardService.queryByUserID(mhce);
+			if(ifhit!=null && ifhit.size()>=1){
+			   //当天已打卡
+			   mwre.setIsSel(null);
+			   mwre.setStringPassDate(sf.format(new Date()));;//当天考试通过日期
+			   mwre.setIsPass(SysConstant.PASS);//考试通过
+			   mwre.setUserId(id);//用户ID
+			   //原返回当天考试通过的单词
+			   List<MobileWordRecordEntity> passlist = mobileBearWordService.query(mwre);
+			   Map<String,Object> map = new HashMap<String,Object>();
+			   map.put("total",passlist.size());
+			   map.put("rows", passlist);
+			   return objectMapper.writeValueAsString(map);
+			}else{
+			    //当天未打卡  
+				//没有数据则重新随机获取指定任务量单词
+				mwre.setIsSel(SysConstant.NO_CHECKED);//未选中
+				mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
+				mwre.setUserId(id);//用户ID
+				mwre.setCount(Integer.parseInt(mspe.getChildValue()));//任务量
+				//随机返回指定任务量的单词
+				List<MobileWordRecordEntity> list2 = mobileBearWordService.query(mwre);
+				MobileWordRecordEntity mwre2 = new MobileWordRecordEntity();
+				//将获取的单词选中
+				for(int i=0;i<list2.size();i++){
+					mwre2.setId(list2.get(i).getId());
+					mwre2.setIsSel(SysConstant.CHECKED);
+					mobileBearWordService.update(mwre2);
+				}
+				Map<String,Object> map = new HashMap<String,Object>();
+				map.put("total",list2.size());
+				map.put("rows", list2);
+				return objectMapper.writeValueAsString(map);
 			}
-			Map<String,Object> map = new HashMap<String,Object>();
-			map.put("total",list2.size());
-			map.put("rows", list2);
-			return objectMapper.writeValueAsString(map);
 		}
 	}
 	
@@ -143,22 +163,12 @@ public class MobileBearWordAction {
 	@RequestMapping("/doneWordCount/{id}")
 	@ResponseBody
 	public String doneWordCount(@PathVariable("id") String id) throws JsonProcessingException{
-		   //获取用户任务ID
-		   MobileUserEntity mue = mobileUserService.queryById(id);
-		   //获取参数ID
-		   MobileTaskEntity mte = mobileTaskService.queryById(mue.getTaskid());
-		   //获取参数值
-		   MobileSystemParamEntity mspe = mobileSystemParamService.queryById(mte.getParamid());
-		   
-		   //拿到任务量
-		   String taskcount = mspe.getChildValue();
-		   
-		   //获取用户打卡天数
-		   int days = mobileHitCardService.count(id);
-		   
-		   int total = days * Integer.parseInt(taskcount);
+		   MobileWordRecordEntity mwre = new MobileWordRecordEntity();
+		   mwre.setUserId(id);//用户ID
+		   mwre.setIsPass(SysConstant.PASS);//考试通过
+		   int count = mobileBearWordService.queryDoneCount(mwre);
 		   Map<String,Object> map = new HashMap<String,Object>();
-		   map.put("totaldone", total);
+		   map.put("totaldone", count);
 		   
 		   return objectMapper.writeValueAsString(map);
 	}

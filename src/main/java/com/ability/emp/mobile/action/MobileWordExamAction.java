@@ -1,6 +1,9 @@
 package com.ability.emp.mobile.action;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.constant.SysConstant;
+import com.ability.emp.mobile.entity.MobileHitCardEntity;
 import com.ability.emp.mobile.entity.MobileSystemParamEntity;
 import com.ability.emp.mobile.entity.MobileTaskEntity;
 import com.ability.emp.mobile.entity.MobileUserEntity;
@@ -81,40 +85,86 @@ public class MobileWordExamAction {
 		//获取参数值
 		MobileSystemParamEntity mspe = mobileSystemParamService.queryById(mte.getParamid());
 		
-		/***
-		 * 获取选中,考试未通过的单词
-		 */
-		MobileWordRecordEntity mwre = new MobileWordRecordEntity();
-		mwre.setIsSel(SysConstant.CHECKED);//选中
-		mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
-		mwre.setUserId(id);//用户ID
-		mwre.setCount(Integer.parseInt(mspe.getChildValue()));//任务量
-		
-		List<MobileWordRecordEntity> list = mobileBearWordService.query(mwre);
-		List<WordExamUtil> reslist = new ArrayList<WordExamUtil>();
-		for(int i=0;i<list.size();i++){
-			MobileWordEntity mwe = mobileWordService.queryWordById(list.get(i).getWordId());
-			WordExamUtil weu = new WordExamUtil();
-			String[] temp = new String[4];
-			weu.setWordid(list.get(i).getWordId());
-			weu.setWord(list.get(i).getWord());
-			weu.setId(list.get(i).getId());
-			if(mwe!=null){
-				weu.setPronounce(mwe.getSymbol());
-				temp[0] = mwe.getInterpretation();
-				temp[1] = mwe.getErrInterpretation1();
-				temp[2] = mwe.getErrInterpretation2();
-				temp[3] = mwe.getErrInterpretation3();
-				weu.setOptions(temp);
-				weu.setCorrect("0");
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		MobileHitCardEntity mhce = new MobileHitCardEntity();
+		mhce.setUserId(id);
+		mhce.setStringDate(sf.format(new Date()));
+		List<MobileHitCardEntity> ifhit = mobileHitCardService.queryByUserID(mhce);
+		if(ifhit!=null && ifhit.size()>=1){
+			    MobileWordRecordEntity mwre = new MobileWordRecordEntity();
+			    mwre.setStringPassDate(sf.format(new Date()));;//当天考试通过日期
+			    mwre.setIsPass(SysConstant.PASS);//考试通过
+			    mwre.setUserId(id);//用户ID
+			    mwre.setCount(Integer.parseInt(mspe.getChildValue()));//任务量
+				
+				List<MobileWordRecordEntity> list = mobileBearWordService.query(mwre);
+				List<WordExamUtil> reslist = new ArrayList<WordExamUtil>();
+				for(int i=0;i<list.size();i++){
+					MobileWordEntity mwe = mobileWordService.queryWordById(list.get(i).getWordId());
+					WordExamUtil weu = new WordExamUtil();
+					String[] temp = new String[4];
+					weu.setWordid(list.get(i).getWordId());
+					weu.setWord(list.get(i).getWord());
+					weu.setId(list.get(i).getId());
+					if(mwe!=null){
+						weu.setPronounce(mwe.getSymbol());
+						temp[0] = mwe.getInterpretation();
+						temp[1] = mwe.getErrInterpretation1();
+						temp[2] = mwe.getErrInterpretation2();
+						temp[3] = mwe.getErrInterpretation3();
+						weu.setOptions(temp);
+						weu.setCorrect("0");
+					}
+					reslist.add(weu);
+				}
+				
+				Map<String,Object> map = new HashMap<String,Object>();
+				map.put("total",reslist.size());
+				map.put("rows", reslist);
+				return objectMapper.writeValueAsString(map);
+		}else{
+			//当天未打卡
+			
+			
+			/***
+			 * 获取选中,考试未通过的单词
+			 */
+			MobileWordRecordEntity mwre = new MobileWordRecordEntity();
+			mwre.setIsSel(SysConstant.CHECKED);//选中
+			mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
+			mwre.setUserId(id);//用户ID
+			mwre.setCount(Integer.parseInt(mspe.getChildValue()));//任务量
+			
+			List<MobileWordRecordEntity> list = mobileBearWordService.query(mwre);
+			List<WordExamUtil> reslist = new ArrayList<WordExamUtil>();
+			for(int i=0;i<list.size();i++){
+				MobileWordEntity mwe = mobileWordService.queryWordById(list.get(i).getWordId());
+				WordExamUtil weu = new WordExamUtil();
+				String[] temp = new String[4];
+				weu.setWordid(list.get(i).getWordId());
+				weu.setWord(list.get(i).getWord());
+				weu.setId(list.get(i).getId());
+				if(mwe!=null){
+					weu.setPronounce(mwe.getSymbol());
+					temp[0] = mwe.getInterpretation();
+					temp[1] = mwe.getErrInterpretation1();
+					temp[2] = mwe.getErrInterpretation2();
+					temp[3] = mwe.getErrInterpretation3();
+					weu.setOptions(temp);
+					weu.setCorrect("0");
+				}
+				reslist.add(weu);
 			}
-			reslist.add(weu);
+			
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("total",reslist.size());
+			map.put("rows", reslist);
+			return objectMapper.writeValueAsString(map);
 		}
 		
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("total",reslist.size());
-		map.put("rows", reslist);
-		return objectMapper.writeValueAsString(map);
+		
+		
+		
 	}
 	
 	
@@ -127,6 +177,15 @@ public class MobileWordExamAction {
 	@RequestMapping(value="/{examPass}", method = RequestMethod.POST)
 	@ResponseBody
 	public String examPass(@RequestBody ExamUtil examUtil) throws JsonProcessingException{
+//		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+//		MobileHitCardEntity mhce = new MobileHitCardEntity();
+//		mhce.setUserId(id);
+//		mhce.setStringDate(sf.format(new Date()));
+//		List<MobileHitCardEntity> ifhit = mobileHitCardService.queryByUserID(mhce);
+		
+		
+		
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String[] temp = null;
 		if(examUtil.getIds()!=null && !"".equals(examUtil.getIds())){
 			temp = examUtil.getIds().split(",");
@@ -136,6 +195,7 @@ public class MobileWordExamAction {
 			for(int i=0;i<temp.length;i++){
 				mwre.setId(temp[i]);
 				mwre.setIsPass(SysConstant.PASS);
+				mwre.setExamPassDate(Timestamp.valueOf(sf.format(new Date())));
 				//mwre.setIsFail(SysConstant.RIGHT);
 				mobileBearWordService.update(mwre);
 			}

@@ -52,7 +52,7 @@ public class SpeechUtil {
         url2 += "&cuid=" + cuid;
         url2 += "&tok=" + token;
         url2 += "&lan=zh&ctp=1";
-        System.out.println(url2); // 反馈请带上此url，浏览器上可以测试
+        //System.out.println(url2); // 反馈请带上此url，浏览器上可以测试
         return url2;//此url2用来在小程序中调用，用来播放语音
         
         /**

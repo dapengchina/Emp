@@ -12,5 +12,7 @@ public interface MobileBearWordService {
 	   int update(MobileWordRecordEntity mwre);
 	   
 	   List<MobileWordRecordEntity> queryAll(MobileWordRecordEntity mwre);
+	   
+	   int queryDoneCount(MobileWordRecordEntity mwre);
 
 }
