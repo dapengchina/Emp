@@ -8,10 +8,8 @@ public class AdminTaskEntity {
 
     private String paramid;
     
-    private String tParamid;
+    private String thesauresType;
     
-    private String tParamName;
-
     private Date startDate;
 
     private Date endDate;
@@ -31,10 +29,22 @@ public class AdminTaskEntity {
     
     private String paramValue;
     
+    private String tParamName;
+    
 
     
     
-    public String getParamValue() {
+    
+    
+    public String getThesauresType() {
+		return thesauresType;
+	}
+
+	public void setThesauresType(String thesauresType) {
+		this.thesauresType = thesauresType;
+	}
+
+	public String getParamValue() {
 		return paramValue;
 	}
 
@@ -90,20 +100,12 @@ public class AdminTaskEntity {
         this.paramid = paramid == null ? null : paramid.trim();
     }
 
-    public String gettParamid() {
-		return tParamid;
-	}
-
 	public String gettParamName() {
 		return tParamName;
 	}
 
 	public void settParamName(String tParamName) {
 		this.tParamName = tParamName;
-	}
-
-	public void settParamid(String tParamid) {
-		this.tParamid = tParamid;
 	}
 
 	public Date getStartDate() {

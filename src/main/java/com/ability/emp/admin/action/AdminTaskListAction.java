@@ -90,10 +90,13 @@ public class AdminTaskListAction {
 			for(int i=0;i<data.size();i++){
 				data.get(i).setStartStringDate(sf.format(data.get(i).getStartDate()!=null?data.get(i).getStartDate():""));
 				data.get(i).setEndStringDate(sf.format(data.get(i).getEndDate()!=null?data.get(i).getEndDate():""));
-				tParamid=data.get(i).gettParamid();
+				tParamid=data.get(i).getThesauresType();
 				if(!StringUtils.pathEquals("", tParamid)){
-					adminThesauresPramEntity=adminThesauresPramService.selectByPrimaryKey(data.get(i).gettParamid());
-					data.get(i).settParamid(adminThesauresPramEntity.getId());
+					adminThesauresPramEntity=adminThesauresPramService.selectByPrimaryKey(data.get(i).getThesauresType());
+					
+					if(adminThesauresPramEntity!=null){
+						//data.get(i).settParamid(adminThesauresPramEntity.getId());
+					}
 					if(adminThesauresPramEntity!=null && adminThesauresPramEntity.getName()!=null){
 						data.get(i).settParamName(adminThesauresPramEntity.getName());
 					}
@@ -157,18 +160,5 @@ public class AdminTaskListAction {
 			return "1";
 		}
 	}
-	
-	//学习日历接口
-	@RequestMapping("/studyCalendar")
-	@ResponseBody
-	public String studyCalendar(String id) throws Exception {
-		List<AdminTaskEntity> data = adminTaskService.selectStudyCalendar(id);
-        Date startDate=data.get(0).getStartDate();
-        Date endDate=data.get(0).getEndDate();
-        SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String start = sDateFormat.format(startDate);
-        String end = sDateFormat.format(endDate);
-        System.out.println(start+","+end);
-		return start+","+end;
-	}
+
 }

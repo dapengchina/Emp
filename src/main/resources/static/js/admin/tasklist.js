@@ -32,6 +32,7 @@ function loadTaskList() {
 		showToggle : false, // 是否显示详细视图和列表视图的切换按钮
 		cardView : false, // 是否显示详细视图
 		detailView : false, // 是否显示父子表
+		singleSelect:true, 				//禁止多选_____
 		// 得到查询的参数
 		queryParams : function(params) {
 			return {
@@ -108,7 +109,7 @@ function saveTask() {
 	
 		var taskName = $('#taskNameAdd').val();
 		var paramid = $('#paramaddID').val();
-		var tParamid = $('#tParamid option:selected').val();//选中的值
+		var thesauresType = $('#tParamid option:selected').val();//选中的值
 		var startDate = $('#startDateAdd').val();
 		var endDate = $('#endDateAdd').val();
 		
@@ -119,7 +120,7 @@ function saveTask() {
 				url : '/Emp/admin/task/add',
 	    		dataType:"json",
 	    		data:{"taskname":taskName,"paramid":paramid,
-	    			"tParamid":tParamid,
+	    			"thesauresType":thesauresType,
 	    			"startStringDate":startDate,
 	    			"endStringDate":endDate},
 	    		async:true,
@@ -154,14 +155,13 @@ function queryTaskById(task_id) {
 			type : 'get',
 			url :"/Emp/admin/thesauresParamlist/queryAll",
 			dataType : 'json',
-			success : function(datas) {//返回list数据并循环获取
+			success : function(data) {//返回list数据并循环获取
+				
 				$("#tParamid2").empty();
-				var select = $("#tParamid2");
-				for (var i = 0; i < datas.length; i++) {
-					select.append("<option value='"+datas[i].id+"'>"+ datas[i].name + "</option>");
-				}
-				$('.selectpicker').selectpicker('val', '');
-				$('.selectpicker').selectpicker('refresh');
+				   //$("#engagementType").append("<option value=''>--Option--</option>");
+			    $.each(data, function(i, item) {
+			    	$("#tParamid2").append("<option value='"+data[i].id+"'>"+ data[i].name + "</option>");
+			    });
 			}
 		});
 	
@@ -174,6 +174,7 @@ function queryTaskById(task_id) {
     		cache:false,
 			success : function(result) {
 				if (result) {
+					console.log('dasdfasdf'+result.tParamid);
 					$("#taskNameEdit").val(result.taskname);
 					$("#startDateEdit").val(result.startStringDate);
 					$("#endDateEdit").val(result.endStringDate);
@@ -181,8 +182,7 @@ function queryTaskById(task_id) {
 					$("#taskcountEdit").val(result.paramValue);
 					$("#id").val(result.id);
 					//set val for selectpicker
-					$("#tParamid2").selectpicker('val',result.tParamid);
-					$('#tParamid2').selectpicker('refresh');
+					$("#tParamid2").val(result.thesauresType);
 				}
 			},
 			error : function() {

@@ -4,14 +4,14 @@
   <resultMap id="BaseResultMap" type="com.ability.emp.admin.entity.AdminTaskEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="PARAMID" property="paramid" jdbcType="VARCHAR" />
-    <result column="T_PRAMID" property="tParamid" jdbcType="VARCHAR" />
+    <result column="THESAURES_TYPE" property="thesauresType" jdbcType="VARCHAR" />
     <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
     <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
     <result column="TASKNAME" property="taskname" jdbcType="VARCHAR" />
     <result column="DEL" property="del" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, PARAMID, T_PRAMID, START_DATE, END_DATE, TASKNAME, DEL
+    ID, PARAMID, THESAURES_TYPE, START_DATE, END_DATE, TASKNAME, DEL
   </sql>
 
   <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminTaskEntity" >
@@ -47,8 +47,8 @@
       <if test="paramid != null" >
         PARAMID,
       </if>
-      <if test="tParamid != null" >
-        T_PRAMID,
+      <if test="thesauresType != null" >
+        THESAURES_TYPE,
       </if>
       <if test="startDate != null" >
         START_DATE,
@@ -70,8 +70,8 @@
       <if test="paramid != null" >
         #{paramid,jdbcType=VARCHAR},
       </if>
-       <if test="tParamid != null" >
-        #{tParamid,jdbcType=VARCHAR},
+       <if test="thesauresType != null" >
+        #{thesauresType,jdbcType=VARCHAR},
       </if>
       <if test="startDate != null" >
         #{startDate,jdbcType=TIMESTAMP},
@@ -94,8 +94,8 @@
       <if test="paramid != null" >
         PARAMID = #{paramid,jdbcType=VARCHAR},
       </if>
-      <if test="tParamid != null" >
-        T_PRAMID = #{tParamid,jdbcType=VARCHAR},
+      <if test="thesauresType != null" >
+        THESAURES_TYPE = #{thesauresType,jdbcType=VARCHAR},
       </if>
       <if test="startDate != null" >
         START_DATE = #{startDate,jdbcType=TIMESTAMP},
