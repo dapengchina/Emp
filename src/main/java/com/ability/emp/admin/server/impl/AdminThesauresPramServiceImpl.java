@@ -41,8 +41,8 @@ public class AdminThesauresPramServiceImpl implements AdminThesauresPramService 
 	}
 
 	@Override
-	public List<AdminThesauresPramEntity> queryAll() {
-		return adminThesauresPramDao.queryAll();
+	public List<AdminThesauresPramEntity> queryAll(AdminThesauresPramEntity record) {
+		return adminThesauresPramDao.queryAll(record);
 	}
 
 }

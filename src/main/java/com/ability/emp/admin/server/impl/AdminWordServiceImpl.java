@@ -245,4 +245,9 @@ public class AdminWordServiceImpl implements AdminWordService {
 		return wordDao.queryWordAll(awe);
 	}
 
+	@Override
+	public int updateBatch(Map map) {
+		return wordDao.updateBatch(map);
+	}
+
 }

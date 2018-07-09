@@ -10,8 +10,18 @@
     id, name, remark
   </sql>
   
-  <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select * from t_thesaures_pram
+  <!-- <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from t_thesaures_pram where 1=1
+     <if test="taskname != null and taskname != ''">
+    	AND TASKNAME like concat(concat('%',#{name}),'%')
+    </if>
+  </select> -->
+  
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity" >
+    select * from t_thesaures_pram where 1=1
+     <if test="name != null and name != ''">
+    	AND name like concat(concat('%',#{name}),'%')
+    </if>
   </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">

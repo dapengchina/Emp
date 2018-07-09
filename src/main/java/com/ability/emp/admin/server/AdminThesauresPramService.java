@@ -15,5 +15,5 @@ public interface AdminThesauresPramService {
 
 	int updateByPrimaryKey(AdminThesauresPramEntity record);
 
-	List<AdminThesauresPramEntity> queryAll();
+	List<AdminThesauresPramEntity> queryAll(AdminThesauresPramEntity record);
 }
