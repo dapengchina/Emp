@@ -18,6 +18,10 @@ public class AdminUserEntity {
 	private String del;
 	
 	private String code;
+	
+	private String deparment;//部门
+
+    private String tutor;//导师
     
     
     
@@ -37,6 +41,22 @@ public class AdminUserEntity {
     
     
     
+
+	public String getDeparment() {
+		return deparment;
+	}
+
+	public void setDeparment(String deparment) {
+		this.deparment = deparment;
+	}
+
+	public String getTutor() {
+		return tutor;
+	}
+
+	public void setTutor(String tutor) {
+		this.tutor = tutor;
+	}
 
 	public String getCode() {
 		return code;

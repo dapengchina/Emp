@@ -5,6 +5,8 @@
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="DEPARMENT" property="deparment" jdbcType="VARCHAR" />
+    <result column="TUTOR" property="tutor" jdbcType="VARCHAR" />
     <result column="PHONE" property="phone" jdbcType="VARCHAR" />
     <result column="OPENID" property="openid" jdbcType="VARCHAR" />
     <result column="TASKID" property="taskid" jdbcType="VARCHAR" />
@@ -13,7 +15,7 @@
     <result column="CODE" property="code" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, NICK_NAME, USER_NAME, PHONE, OPENID, TASKID, IS_APPOINT, DEL, CODE
+    ID, NICK_NAME, DEPARMENT, TUTOR, USER_NAME, PHONE, OPENID, TASKID, IS_APPOINT, DEL, CODE
   </sql>
   <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminUserEntity" >
     select * from t_user where DEL = '0' 
@@ -55,6 +57,12 @@
       <if test="userName != null" >
         USER_NAME,
       </if>
+      <if test="deparment != null" >
+        DEPARMENT,
+      </if>
+      <if test="tutor != null" >
+        TUTOR,
+      </if>
       <if test="phone != null" >
         PHONE,
       </if>
@@ -80,6 +88,12 @@
       </if>
       <if test="nickName != null" >
         #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="deparment != null" >
+        #{deparment,jdbcType=VARCHAR},
+      </if>
+      <if test="tutor != null" >
+        #{tutor,jdbcType=VARCHAR},
       </if>
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
@@ -110,6 +124,12 @@
     <set >
       <if test="nickName != null" >
         NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="deparment != null" >
+        DEPARMENT = #{deparment,jdbcType=VARCHAR},
+      </if>
+      <if test="tutor != null" >
+        TUTOR = #{tutor,jdbcType=VARCHAR},
       </if>
       <if test="userName != null" >
         USER_NAME = #{userName,jdbcType=VARCHAR},

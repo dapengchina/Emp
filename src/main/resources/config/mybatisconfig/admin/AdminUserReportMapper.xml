@@ -4,17 +4,27 @@
   
   
   <select id="queryAll" resultType="com.ability.emp.admin.entity.vo.AdminUserReportVo" parameterType="com.ability.emp.admin.entity.vo.AdminUserReportVo" >
-    select t.ID,t.NICK_NAME as nickName,t.USER_NAME as userName,t.PHONE from t_user t 
-    where 1=1
+      select t.ID,t.NICK_NAME as nickName,t.USER_NAME as userName,t.PHONE,t1.DATE from t_user t
+      LEFT JOIN
+      t_hitcard_record t1
+      on t.ID=t1.USER_ID
+      where 1=1
     <if test="userName != null and userName != ''">
-		AND USER_NAME like concat(concat('%',#{userName}),'%')
+		AND t.USER_NAME like concat(concat('%',#{userName}),'%')
 	</if>
 	<if test="nickName != null and nickName != ''">
-		AND NICK_NAME like concat(concat('%',#{nickName}),'%')
+		AND t.NICK_NAME like concat(concat('%',#{nickName}),'%')
 	</if>
 	<if test="phone != null and phone != ''">
-		AND PHONE = #{phone}
+		AND t.PHONE = #{phone}
 	</if>
+	<if test="dateList != null">
+		or date_format(t1.DATE,'%Y-%m-%d') not in
+		<foreach collection="dateList" index="index" item="item" open="(" separator="," close=")">  
+            #{item}  
+        </foreach>
+	</if>
+	
   </select>
   
   <select id="queryHitCardRecord" resultType="com.ability.emp.admin.entity.vo.AdminUserReportVo" parameterType="com.ability.emp.admin.entity.vo.AdminUserReportVo" >

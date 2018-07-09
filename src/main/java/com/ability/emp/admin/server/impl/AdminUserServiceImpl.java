@@ -189,11 +189,13 @@ public class AdminUserServiceImpl implements AdminUserService{
 	           
 	           String userName = "";
 	           String phone = "";
+	           String tutor = "";
+	           String department = "";
 	           
 	           //循环Excel的列
 	           for(int c = 0; c <totalCells; c++){
 	               Cell cell = row.getCell(c);
-	               if (null != cell){
+	               //if (null != cell){
 	                   if(c==0){
 	                	   userName = cell.getStringCellValue();
 	                	   if(userName==null && "".equals(userName)){
@@ -201,6 +203,13 @@ public class AdminUserServiceImpl implements AdminUserService{
 	                	   }
 	                	   ue.setUserName(userName);
 	                   }else if(c==1){
+	                	   tutor = cell.getStringCellValue();
+	                	   if(tutor==null && "".equals(tutor)){
+	                		   ue.setTutor(null);
+	                	   }else{
+	                		   ue.setTutor(tutor);
+	                	   }
+	                   }else if(c==5){
 	                	   phone = cell.getStringCellValue();
 	                	   if(phone==null && "".equals(phone)){
 	                		   //rowMessage += "手机号码不能为空!";
@@ -243,10 +252,10 @@ public class AdminUserServiceImpl implements AdminUserService{
 		                	   }
 	                	   }
 	                   }
-	               }else{
-	            	   errorMsgList.add("第"+(c+1)+"列数据有问题，请仔细检查未导入!");
-	            	   //rowMessage += "第"+(c+1)+"列数据有问题，请仔细检查!";
-	               }
+//	               }else{
+//	            	   errorMsgList.add("第"+(c+1)+"列数据有问题，请仔细检查未导入!");
+//	            	   //rowMessage += "第"+(c+1)+"列数据有问题，请仔细检查!";
+//	               }
 	           }
 	           //拼接每行的错误提示
 	           if(errorMsgList!=null && errorMsgList.size()>0){
@@ -262,18 +271,16 @@ public class AdminUserServiceImpl implements AdminUserService{
 	       }
 	       
 	       //全部验证通过才导入到数据库
-	       if(errorMsgList.size()==0){
+//	       if(errorMsgList.size()==0){
 //	    	   for(AdminUserEntity userEntity : userList){
 //	    		   userDao.insert(userEntity);
 //	    	   }
 //	    	   errorMsgList.add("导入成功，共导入"+userList.size()+"条数据！");
-//	    	   errorMsgList.add(userList);
-	    	   //errorMsg = "导入成功，共导入"+userList.size()+"条数据！";
-	       }
+//	       }
 	       if(errorMsgList!=null && errorMsgList.size()>0){
 	    	   errorMsgList.add("导入成功，共导入"+userList.size()+"条数据！");
 	       }
-    	   //errorMsgList.add(userList);
+    	  
 	       return errorMsgList;
 	  }
 

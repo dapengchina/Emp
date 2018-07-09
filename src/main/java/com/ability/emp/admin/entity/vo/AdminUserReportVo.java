@@ -1,7 +1,8 @@
 package com.ability.emp.admin.entity.vo;
 
+import java.util.List;
+
 public class AdminUserReportVo {
-	
 	
 	
 	private String id;//主键
@@ -14,7 +15,20 @@ public class AdminUserReportVo {
     
     private String date;//打卡日期
     
+    @SuppressWarnings("rawtypes")
+	private List dateList;//周一到周五日期集合
     
+    
+    
+    
+	@SuppressWarnings("rawtypes")
+	public List getDateList() {
+		return dateList;
+	}
+
+	public void setDateList(@SuppressWarnings("rawtypes") List dateList) {
+		this.dateList = dateList;
+	}
 
 	public String getId() {
 		return id;
