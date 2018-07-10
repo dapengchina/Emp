@@ -111,4 +111,11 @@ public class AdminListAction {
 		admin.setStatus(adminStatus);
 		return adminService.update(admin);
 	}
+	
+	@RequestMapping("/getTutor")
+	@ResponseBody
+	public String getTutor(AdminEntity adminEntity) throws JsonProcessingException{
+		List<AdminEntity> data = adminService.queryAll(adminEntity);
+		return objectMapper.writeValueAsString(data);
+	}
 }

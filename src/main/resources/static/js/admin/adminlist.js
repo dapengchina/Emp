@@ -13,9 +13,9 @@ function addAdmin(){
 	var AdminName = $("#AdminName").val();
 	var AdminPwd = $("#AdminPwd").val();
 	var AdminConPwd = $("#AdminConPwd").val();
-	var bootstrapValidator = $("#addAdminForm").data('bootstrapValidator');
-	bootstrapValidator.validate();
-	if(bootstrapValidator.isValid()){
+//	var bootstrapValidator = $("#addAdminForm").data('bootstrapValidator');
+//	bootstrapValidator.validate();
+//	if(bootstrapValidator.isValid()){
 		$.ajax({
 			url:'/Emp/admin/adminuser/addAdmin',
 			dataType:"json",
@@ -28,7 +28,7 @@ function addAdmin(){
 				$('#adminlist').bootstrapTable('refresh');
 			}
 		});
-	}
+	//}
 }
 
 //查找管理员

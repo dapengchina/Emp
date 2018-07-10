@@ -1,6 +1,7 @@
 $(function () {
     loadUserReportList();
     datehandle();
+    loadTutor();
 });
 
 	
@@ -82,11 +83,13 @@ function userSearch(){
 	var userName = $("#search_name").val();
     var nickName = $("#search_nickName").val(); 
     var phone = $("#search_phone").val(); 
+    var tutor = $("#search_tutor").val();
 	var queryParams = { 
 		query: {  
 			userName:userName,
 			nickName:nickName,
-			phone:phone
+			phone:phone,
+			tutor:tutor
         }
     }  
 	//刷新表格  
@@ -107,5 +110,20 @@ function datehandle(){
 //		 $('#addTaskForm').bootstrapValidator('revalidateField', 'startDateAdd');
 //		 $('#addTaskForm').bootstrapValidator('revalidateField', 'endDateAdd');
 	});;
+}
+
+function loadTutor(){
+	$.ajax({
+		type : 'get',
+		url :"/Emp/admin/adminuser/getTutor",
+		dataType : 'json',
+		success : function(data) {
+			$("#search_tutor").empty();
+			$("#search_tutor").append("<option value=''>--Option--</option>");
+		    $.each(data, function(i, item) {
+		    	   $("#search_tutor").append("<option value='"+data[i].adminName+"'>"+ data[i].adminName + "</option>");
+		    })
+		}
+	});
 }
 
