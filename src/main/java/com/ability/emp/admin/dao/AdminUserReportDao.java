@@ -13,9 +13,8 @@ import com.ability.emp.base.BaseDao;
 public interface AdminUserReportDao<T> extends BaseDao<T>{
 	
 	
+	List<AdminUserReportVo> getHitCardRecord(AdminUserReportVo aue);
 	
-	List<AdminUserReportVo> queryAll(AdminUserReportVo aue);
-	
-	List<AdminUserReportVo> queryHitCardRecord(AdminUserReportVo aue);
+	List<AdminUserReportVo> getUser(AdminUserReportVo aue);
 
 }

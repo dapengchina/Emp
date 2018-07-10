@@ -19,16 +19,17 @@ public class AdminUserReportServiceImpl implements AdminUserReportService{
 	@Resource
 	private AdminUserReportDao adminUserReportDao;
 
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdminUserReportVo> queryAll(AdminUserReportVo aue) {
-		return adminUserReportDao.queryAll(aue);
+	public List<AdminUserReportVo> getHitCardRecord(AdminUserReportVo aue) {
+		return adminUserReportDao.getHitCardRecord(aue);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdminUserReportVo> queryHitCardRecord(AdminUserReportVo aue) {
-		return adminUserReportDao.queryHitCardRecord(aue);
+	public List<AdminUserReportVo> getUser(AdminUserReportVo aue) {
+		return adminUserReportDao.getUser(aue);
 	}
 
 }

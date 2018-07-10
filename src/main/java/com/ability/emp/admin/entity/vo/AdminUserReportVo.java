@@ -1,11 +1,11 @@
 package com.ability.emp.admin.entity.vo;
 
-import java.util.List;
+
 
 public class AdminUserReportVo {
 	
 	
-	private String id;//主键
+	private String id;//用户ID
 
     private String nickName;//昵称
 
@@ -15,19 +15,52 @@ public class AdminUserReportVo {
     
     private String date;//打卡日期
     
-    @SuppressWarnings("rawtypes")
-	private List dateList;//周一到周五日期集合
+    private String tutor;//导师
     
     
     
     
-	@SuppressWarnings("rawtypes")
-	public List getDateList() {
-		return dateList;
+    
+    private String startDate;
+    
+    private String endDate;
+    
+    private String stringDate;
+    
+    
+    
+    
+
+	public String getTutor() {
+		return tutor;
 	}
 
-	public void setDateList(@SuppressWarnings("rawtypes") List dateList) {
-		this.dateList = dateList;
+	public void setTutor(String tutor) {
+		this.tutor = tutor;
+	}
+
+	public String getStringDate() {
+		return stringDate;
+	}
+
+	public void setStringDate(String stringDate) {
+		this.stringDate = stringDate;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getId() {

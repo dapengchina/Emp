@@ -1,5 +1,6 @@
 $(function () {
     loadUserReportList();
+    datehandle();
 });
 
 	
@@ -29,7 +30,7 @@ function loadUserReportList(){
         showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
         cardView: false,                    //是否显示详细视图
         detailView: false,                  //是否显示父子表
-        singleSelect:true, 				//禁止多选_____
+        singleSelect:false, 				//禁止多选_____
         //得到查询的参数
         queryParams : function (params) {
         	return {
@@ -45,13 +46,20 @@ function loadUserReportList(){
             title: 'UserName',
             sortable: true
         },{
+            field: 'tutor',
+            title: 'Tutor',
+            sortable: true
+        },{
             field: 'phone',
             title: 'Phone',
             sortable: true
         },{
-            field: 'date',
+            field: 'stringDate',
             title: 'Date',
-            sortable: true
+            sortable: true,
+            formatter:function(value, row, index){
+            	return "<font color='red' family='黑体'><strong>"+value+"</strong></font>";
+            }
         }],
         onLoadSuccess: function () {
         },
@@ -70,7 +78,7 @@ function loadUserReportList(){
 
 //查找用户
 function userSearch(){
-	alert('dd');
+	
 	var userName = $("#search_name").val();
     var nickName = $("#search_nickName").val(); 
     var phone = $("#search_phone").val(); 
@@ -85,4 +93,19 @@ function userSearch(){
     $('#userreportlist').bootstrapTable('refresh',queryParams);  
 }
 
+
+function datehandle(){
+	$('.form_datetime').datetimepicker({
+		format: 'yyyy-mm-dd',//显示格式
+		todayHighlight: 1,//今天高亮
+		minView: "month",//设置只显示到月份
+		startView:2,
+		forceParse: 0,
+		showMeridian: 1,
+		autoclose: 1//选择后自动关闭
+	}).on('changeDate', function(ev){
+//		 $('#addTaskForm').bootstrapValidator('revalidateField', 'startDateAdd');
+//		 $('#addTaskForm').bootstrapValidator('revalidateField', 'endDateAdd');
+	});;
+}
 

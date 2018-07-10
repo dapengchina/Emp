@@ -3,40 +3,33 @@
 <mapper namespace="com.ability.emp.admin.dao.AdminUserReportDao" >
   
   
-  <select id="queryAll" resultType="com.ability.emp.admin.entity.vo.AdminUserReportVo" parameterType="com.ability.emp.admin.entity.vo.AdminUserReportVo" >
-      select t.ID,t.NICK_NAME as nickName,t.USER_NAME as userName,t.PHONE,t1.DATE from t_user t
-      LEFT JOIN
-      t_hitcard_record t1
-      on t.ID=t1.USER_ID
-      where 1=1
-    <if test="userName != null and userName != ''">
-		AND t.USER_NAME like concat(concat('%',#{userName}),'%')
-	</if>
-	<if test="nickName != null and nickName != ''">
-		AND t.NICK_NAME like concat(concat('%',#{nickName}),'%')
-	</if>
-	<if test="phone != null and phone != ''">
-		AND t.PHONE = #{phone}
-	</if>
-	<if test="dateList != null">
-		or date_format(t1.DATE,'%Y-%m-%d') not in
-		<foreach collection="dateList" index="index" item="item" open="(" separator="," close=")">  
-            #{item}  
-        </foreach>
-	</if>
-	
-  </select>
-  
-  <select id="queryHitCardRecord" resultType="com.ability.emp.admin.entity.vo.AdminUserReportVo" parameterType="com.ability.emp.admin.entity.vo.AdminUserReportVo" >
-   select t.ID,t1.DATE from t_user t 
-    left join 
-    t_hitcard_record t1
-    on t.ID=t1.USER_ID
+  <select id="getHitCardRecord" resultType="com.ability.emp.admin.entity.vo.AdminUserReportVo" parameterType="com.ability.emp.admin.entity.vo.AdminUserReportVo" >
+    select t.USER_ID as id,date_format(t.DATE,'%Y-%m-%d') from t_hitcard_record t 
     where 1=1
     <if test="id != null and id != ''">
-		AND t.ID = #{id}
+		and USER_ID=#{id}
 	</if>
-
+    <if test="stringDate != null and stringDate != ''">
+		and date_format(t.DATE,'%Y-%m-%d')=#{stringDate}
+	</if>
+    
+  </select>
+  
+  <select id="getUser" resultType="com.ability.emp.admin.entity.vo.AdminUserReportVo" parameterType="com.ability.emp.admin.entity.vo.AdminUserReportVo" >
+   select t.id,t.USER_NAME as userName,t.NICK_NAME as nickName,t.PHONE,t.TUTOR as tutor from t_user t
+   where 1=1
+   <if test="userName != null and userName != ''">
+		and USER_NAME=#{userName}
+   </if>
+   <if test="phone != null and phone != ''">
+		and PHONE=#{phone}
+   </if>
+   <if test="tutor != null and tutor != ''">
+		and TUTOR=#{tutor}
+   </if>
+   <if test="nickName != null and nickName != ''">
+		and NICK_NAME=#{nickName}
+   </if>
   </select>
   
   
