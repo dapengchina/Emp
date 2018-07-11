@@ -5,7 +5,7 @@ $(function () {
 
 //词库参数列表
 function loadTheSauresPramList(){
-    var queryUrl = '/Emp/admin/thesauresParamlist/queryAllByPage'
+    var queryUrl = '/Emp/admin/thesaure/queryAll'
     var table = $('#thesauresPramList').bootstrapTable({
 		url : queryUrl, // 请求后台的URL（*）
 		method : 'GET', // 请求方式（*）

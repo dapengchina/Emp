@@ -25,3 +25,7 @@ function sysParamList(){
 function reportList(){
 	$('iframe').attr('src','/Emp/admin/userreport');
 }
+
+function thesaureList(){
+	$('iframe').attr('src','/Emp/admin/thesaure');
+}

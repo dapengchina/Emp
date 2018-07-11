@@ -1,6 +1,9 @@
 package com.ability.emp.admin.entity;
 
 public class AdminWordEntity {	
+	
+	
+	
 	private String id;//主键
 	private String word;//单词
 	private String thesauresType;
