@@ -174,8 +174,8 @@ public class AdminUserReportAction {
 						if(temp<10 && temp<currentDays){
 							sdate="2018-"+y+"-"+"0"+temp;
 						}
-						if(temp>10 && temp<currentDays){
-							sdate="2018-"+y+"-"+"0"+temp;
+						if(temp>=10 && temp<currentDays){
+							sdate="2018-"+y+"-"+temp;
 						}
 						//递增到当月最后一天
 						if(temp==currentDays){
@@ -197,7 +197,7 @@ public class AdminUserReportAction {
 					if(temp<10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
 						sdate="2018-"+y+"-"+"0"+temp;
 					}
-					if(temp>10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
+					if(temp>=10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
 						sdate="2018-"+y+"-"+temp;
 					}
 					//判断是否递增到当月最后一天
