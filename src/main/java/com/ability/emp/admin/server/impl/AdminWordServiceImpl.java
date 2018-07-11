@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ability.emp.admin.dao.AdminWordDao;
 import com.ability.emp.admin.entity.AdminWordEntity;
+import com.ability.emp.admin.entity.vo.AdminWordVo;
 import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.ExcelImportUtil;
@@ -246,8 +247,8 @@ public class AdminWordServiceImpl implements AdminWordService {
 	}
 
 	@Override
-	public int updateBatch(Map map) {
-		return wordDao.updateBatch(map);
+	public int updateBatch(AdminWordVo adminWordVo) {
+		return wordDao.updateBatch(adminWordVo);
 	}
 
 }

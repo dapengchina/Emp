@@ -6,7 +6,7 @@ public class AdminWordEntity {
 	
 	private String id;//主键
 	private String word;//单词
-	private String thesauresType;
+	private String thesaurusType;
 	private String symbol;
 	private String interpretation;
 	private String sentence;
@@ -21,6 +21,12 @@ public class AdminWordEntity {
 	
 	
 	
+	public String getThesaurusType() {
+		return thesaurusType;
+	}
+	public void setThesaurusType(String thesaurusType) {
+		this.thesaurusType = thesaurusType;
+	}
 	public String getSymbol() {
 		return symbol;
 	}
@@ -95,12 +101,6 @@ public class AdminWordEntity {
 	}
 	public void setDel(String del) {
 		this.del = del;
-	}
-	public String getThesauresType() {
-		return thesauresType;
-	}
-	public void setThesauresType(String thesauresType) {
-		this.thesauresType = thesauresType;
 	}
 	
 }

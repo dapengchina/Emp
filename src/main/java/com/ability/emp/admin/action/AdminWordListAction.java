@@ -1,5 +1,6 @@
 package com.ability.emp.admin.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ability.emp.admin.entity.AdminUserEntity;
 import com.ability.emp.admin.entity.AdminWordEntity;
+import com.ability.emp.admin.entity.vo.AdminWordVo;
 import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.util.ExcelImportUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,14 +77,25 @@ public class AdminWordListAction {
 		return objectMapper.writeValueAsString(word.get(0));
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/updateBatch",method = RequestMethod.POST)
 	@ResponseBody
-	public int updateWord(@RequestParam(value = "ids[]") String[] ids,String thesauresType) throws Exception {
-		Map<String, Object> map=new HashMap<>();
-		map.put("ids", ids);
-		map.put("thesauresType", thesauresType);
-		int num=wordService.updateBatch(map);
-		return num;
+	public boolean updateWord(@RequestParam(value = "ids[]") String[] ids,String thesauresType) throws Exception {
+		AdminWordVo adminWordVo = new AdminWordVo();
+		@SuppressWarnings("rawtypes")
+		List list = new ArrayList();
+		for(int i=0;i<ids.length;i++){
+			list.add(ids[i]);
+		}
+		adminWordVo.setWordids(list);
+		adminWordVo.setThesaurusType(thesauresType);
+		try{
+			wordService.updateBatch(adminWordVo);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
+		
 	}
 	
 	@RequestMapping(value = "/edit",method = RequestMethod.POST)

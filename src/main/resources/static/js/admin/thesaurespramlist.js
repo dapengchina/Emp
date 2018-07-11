@@ -30,6 +30,7 @@ function loadTheSauresPramList(){
 		showToggle : false, // 是否显示详细视图和列表视图的切换按钮
 		cardView : false, // 是否显示详细视图
 		detailView : false, // 是否显示父子表
+		singleSelect:true, 				//禁止多选_____
 		// 得到查询的参数
 		queryParams : function(params) {
 			return {
@@ -68,7 +69,7 @@ function openWordModal() {
 	     thesauresType=row[0].id;
 	     $("#thesauresType").val(thesauresType);
 	}else{
-		alert("请选中一行");
+		alert("请选择词库");
 		return;
 	}
 	$("#wordAdd").modal('show');
@@ -161,7 +162,7 @@ function save(){
 		type:"post",
         success:function(result)
         {
-        	if(result>0){
+        	if(result){
         		$("#wordAdd").modal('hide');
         	}else{
         		alert("Modifications failed");

@@ -14,9 +14,10 @@
     <result column="ERR_INTERPRETATION1" property="errInterpretation1" jdbcType="LONGVARCHAR" />
     <result column="ERR_INTERPRETATION2" property="errInterpretation2" jdbcType="LONGVARCHAR" />
     <result column="ERR_INTERPRETATION3" property="errInterpretation3" jdbcType="LONGVARCHAR" />
+    <result column="THESAURUS_TYPE" property="thesaurusType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, WORD, SYMBOL, MP3_NAME, VIDEO, IMG, DEL, INTERPRETATION, SENTENCE, ERR_INTERPRETATION1, ERR_INTERPRETATION2, ERR_INTERPRETATION3
+    ID, WORD, SYMBOL, THESAURUS_TYPE, MP3_NAME, VIDEO, IMG, DEL, INTERPRETATION, SENTENCE, ERR_INTERPRETATION1, ERR_INTERPRETATION2, ERR_INTERPRETATION3
   </sql>
   
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -37,12 +38,7 @@
     </if>
   </select>
   
-  <delete id="delete" parameterType="java.lang.String" >
-    delete from t_word
-    where ID = #{id,jdbcType=VARCHAR}
-  </delete>
-  
-   <select id="queryWordById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="queryWordById" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * from t_word where ID = #{id,jdbcType=VARCHAR}
   </select>
   
@@ -85,6 +81,9 @@
       <if test="errInterpretation3 != null" >
         ERR_INTERPRETATION3,
       </if>
+      <if test="thesaurusType != null" >
+        THESAURUS_TYPE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -123,6 +122,9 @@
       <if test="errInterpretation3 != null" >
         #{errInterpretation3,jdbcType=LONGVARCHAR},
       </if>
+      <if test="thesaurusType != null" >
+        #{thesaurusType,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   
@@ -158,20 +160,23 @@
       </if>
       <if test="errInterpretation3 != null" >
         ERR_INTERPRETATION3 = #{errInterpretation3,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="thesaurusType != null" >
+        THESAURUS_TYPE = #{thesaurusType,jdbcType=VARCHAR},
       </if>  
     </set>
      where ID = #{id,jdbcType=VARCHAR}
   </update>
   
-   <update id="updateBatch" parameterType="Map">  
+   <update id="updateBatch" parameterType="com.ability.emp.admin.entity.vo.AdminWordVo">  
       update t_word 
      <set >
-      <if test="thesauresType != null" >
-        THESAURUS_TYPE = #{thesauresType,jdbcType=VARCHAR},
+      <if test="thesaurusType != null" >
+        THESAURUS_TYPE = #{thesaurusType,jdbcType=VARCHAR},
       </if>
      </set>
-       where id in  
-     <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">  
+     where id in  
+     <foreach collection="wordids" index="index" item="item" open="(" separator="," close=")">  
          #{item}  
      </foreach> 
     </update> 

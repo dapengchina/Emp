@@ -1,11 +1,10 @@
 package com.ability.emp.admin.server;
 
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ability.emp.admin.entity.AdminWordEntity;
+import com.ability.emp.admin.entity.vo.AdminWordVo;
 
 public interface AdminWordService {
 	
@@ -19,5 +18,5 @@ public interface AdminWordService {
 	
 	List<AdminWordEntity> queryWordAll(AdminWordEntity awe);
 	
-	int updateBatch(Map map);
+	int updateBatch(AdminWordVo adminWordVo);
 }

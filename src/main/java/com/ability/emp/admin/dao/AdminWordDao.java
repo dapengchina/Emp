@@ -1,6 +1,7 @@
 package com.ability.emp.admin.dao;
 
 import com.ability.emp.admin.entity.AdminWordEntity;
+import com.ability.emp.admin.entity.vo.AdminWordVo;
 import com.ability.emp.base.BaseDao;
 
 import java.util.List;
@@ -16,6 +17,5 @@ public interface AdminWordDao <T> extends BaseDao<T> {
 	
 	String selectIption(String id);
 	
-	@SuppressWarnings("rawtypes")
-	int updateBatch(Map map);
+	int updateBatch(AdminWordVo adminWordVo);
 }
