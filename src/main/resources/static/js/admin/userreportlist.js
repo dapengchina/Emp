@@ -16,7 +16,7 @@ function loadUserReportList(){
         pagination: true,                   //是否显示分页（*）
         sortable: true,                     //是否启用排序
         sortOrder: "asc",                   //排序方式
-        sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+        sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
         pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
         pageSize: 10,                     //每页的记录行数（*）
         pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
@@ -39,7 +39,13 @@ function loadUserReportList(){
         		pageNumber: params.offset/params.limit+1,
             };
         },
-        columns: [{
+        columns: [
+         /*{
+				title: 'Ln',//标题  可不加
+				formatter: function (value, row, index) {
+					return "<div style='width:50px;'>"+(index+1)+"</div>";
+				}
+         }*/{
             checkbox: true,  
             visible: true                  //是否显示复选框  
         },{
@@ -84,12 +90,17 @@ function userSearch(){
     var nickName = $("#search_nickName").val(); 
     var phone = $("#search_phone").val(); 
     var tutor = $("#search_tutor").val();
+    var startDate = $("#search_startDate").val();
+    var endDate = $("#search_endDate").val();
+    
 	var queryParams = { 
 		query: {  
 			userName:userName,
 			nickName:nickName,
 			phone:phone,
-			tutor:tutor
+			tutor:tutor,
+			startDate:startDate,
+			endDate:endDate
         }
     }  
 	//刷新表格  

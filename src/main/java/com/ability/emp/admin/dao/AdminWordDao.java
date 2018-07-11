@@ -16,5 +16,6 @@ public interface AdminWordDao <T> extends BaseDao<T> {
 	
 	String selectIption(String id);
 	
+	@SuppressWarnings("rawtypes")
 	int updateBatch(Map map);
 }

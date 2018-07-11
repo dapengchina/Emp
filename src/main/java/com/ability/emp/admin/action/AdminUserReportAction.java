@@ -19,7 +19,6 @@ import com.ability.emp.admin.server.AdminUserReportService;
 import com.ability.emp.util.CalendarCountUtil;
 import com.ability.emp.util.CalendarUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.pagehelper.PageHelper;
 
 
 @CrossOrigin//解决跨域请求
@@ -57,15 +56,12 @@ public class AdminUserReportAction {
 	@SuppressWarnings({ "rawtypes"})
 	@RequestMapping("/queryAll")
 	@ResponseBody
-	public String queryAll(Integer pageNumber,Integer pageSize,AdminUserReportVo adminUserReportVo) throws Exception {
-		//第一个参数当前页码，第二个参数每页条数
-		PageHelper.startPage(pageNumber,pageSize);  
+	public String queryAll(String pageNumber,String pageSize,AdminUserReportVo adminUserReportVo) throws Exception {
 		List<AdminUserReportVo> data = adminUserReportService.getUser(adminUserReportVo);
 		Map<String,Object> map = new HashMap<String,Object>();
 		List handleAfter = dataHandle(data,"","");
-		//PageInfo<AdminUserEntity> page = new PageInfo(data);
 		map.put("total",handleAfter.size());
-		map.put("rows", handleAfter);
+		map.put("data", handleAfter);
 		
 		return objectMapper.writeValueAsString(map);
 	}
