@@ -57,7 +57,7 @@ public class AdminUserReportAction {
 	@SuppressWarnings({ "rawtypes"})
 	@RequestMapping("/queryAll")
 	@ResponseBody
-	public String queryAll(int pageSize,int pageNumber,AdminUserReportVo adminUserReportVo) throws Exception {
+	public String queryAll(Integer pageNumber,Integer pageSize,AdminUserReportVo adminUserReportVo) throws Exception {
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
 		List<AdminUserReportVo> data = adminUserReportService.getUser(adminUserReportVo);
@@ -96,24 +96,30 @@ public class AdminUserReportAction {
 	 * @throws Exception 
 	 */
 	private List<AdminUserReportVo> monthCross(List<AdminUserReportVo> data,String startDate,String endDate) throws Exception{
+		/***
+		 * 初始数据
+		 */
 		startDate = "2018-06-30";
-		endDate = "2018-07-01";
+		endDate = "2018-08-01";
 		String[] start = startDate.split("-");
 		String[] end = endDate.split("-");
 		
 		//获取2个日期相差的天数
 		int x = CalendarCountUtil.getDays(startDate, endDate);
-		//获取月份天数
-		int mds = CalendarUtil.daysOfmonthInyear(Integer.parseInt(start[1]), 2018);
-		int stday = Integer.parseInt(start[2]);//开始日期日数据
-		int enday = Integer.parseInt(end[2]);//结束日期日数据
-		int stmonth = Integer.parseInt(start[1]);//开始日期月数据
-		int enmonth = Integer.parseInt(end[1]);//结束日期月数据
-		int temp=1;
-		String y="";
-		String d="";
-		int stmonth_temp=stmonth;
+		//开始日期月数据
+		int stmonth = Integer.parseInt(start[1]);
+		//结束日期月数据
+		int enmonth = Integer.parseInt(end[1]);
 		
+		/**
+		 * 自定义判断数据
+		 */
+		int temp=Integer.parseInt(start[2]);//日
+		String y="";//月
+		//当前月份
+		int currentMonth=Integer.parseInt(start[1]);
+		//当前月份天数
+		int currentDays=Integer.parseInt(start[2]);
 		
 		List<AdminUserReportVo> list = new ArrayList<AdminUserReportVo>();
 		AdminUserReportVo v1 = new AdminUserReportVo();
@@ -123,7 +129,7 @@ public class AdminUserReportAction {
 			 * 当进行下一个用户的循环时重置相关数据
 			 */
 			if(m>0){
-				stmonth_temp = stmonth;
+				currentMonth = stmonth;
 				y = "";
 				sdate = startDate;
 			}
@@ -147,25 +153,68 @@ public class AdminUserReportAction {
 					list.add(aurv);
 				}
 				if(i==0){
-					//判断是否为某月最后一天
-					if(Integer.parseInt(start[2])==mds){
+					//获取当前月份天数
+					int mds = CalendarUtil.daysOfmonthInyear(currentMonth, 2018);
+					//判断是否为当月最后一天
+					if(temp==mds){
 						//是最后一天
-						stmonth_temp++;
-						if(stmonth_temp<10 && stmonth_temp<=enmonth){
-							y="0"+stmonth_temp;
+						currentMonth++;
+						//天开始数重置
+						temp=1;
+						if(currentMonth<10 && currentMonth<=enmonth){
+							y="0"+currentMonth;
 						}
-						if(stmonth_temp>10 && stmonth_temp<=enmonth){
-							y=String.valueOf(stmonth_temp);
+						if(currentMonth>10 && currentMonth<=enmonth){
+							y=String.valueOf(currentMonth);
+						}
+						sdate="2018-"+y+"-"+"0"+temp;
+					}else{
+						//不是当月最后一天
+						temp++;
+						if(temp<10 && temp<currentDays){
+							sdate="2018-"+y+"-"+"0"+temp;
+						}
+						if(temp>10 && temp<currentDays){
+							sdate="2018-"+y+"-"+"0"+temp;
+						}
+						//递增到当月最后一天
+						if(temp==currentDays){
+							//是最后一天
+							currentMonth++;
+							//当月天数更新
+							currentDays=CalendarUtil.daysOfmonthInyear(currentMonth, 2018);;
+							if(currentMonth<10 && currentMonth<=enmonth){
+								y="0"+currentMonth;
+							}
+							if(currentMonth>10 && currentMonth<=enmonth){
+								y=String.valueOf(currentMonth);
+							}
+							sdate="2018-"+y+"-"+"0"+temp;
+						}
+					}
+				}else{
+					temp++;//天数递增
+					if(temp<10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
+						sdate="2018-"+y+"-"+"0"+temp;
+					}
+					if(temp>10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
+						sdate="2018-"+y+"-"+temp;
+					}
+					//判断是否递增到当月最后一天
+					if(temp>CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
+						currentMonth++;
+						//天数重置为1
+						temp=1;
+						if(currentMonth<10 && currentMonth<=enmonth){
+							y="0"+currentMonth;
+						}
+						if(currentMonth>10 && currentMonth<=enmonth){
+							y=String.valueOf(currentMonth);
 						}
 						sdate="2018-"+y+"-"+"0"+temp;
 					}
 				}
 				
-				if(stmonth_temp==stmonth+1){
-					if(temp<10 && temp<enday){
-						
-					}
-				}
 				
 			}
 		}
