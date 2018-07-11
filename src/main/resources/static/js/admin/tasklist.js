@@ -84,14 +84,13 @@ function formatOperat(value, row, index) {
 
 function openTaskModal() {
 	$("#taskadd").modal('show');
-	//selectpicker load data for add page
 	$.ajax({
 		type : 'get',
 		url :"/Emp/admin/thesauresParamlist/queryAll",
 		dataType : 'json',
 		success : function(datas) {//返回list数据并循环获取
-			$("#tParamid").empty();
-			var select = $("#tParamid");
+			$("#thesauresIDAdd").empty();
+			var select = $("#thesauresIDAdd");
 			for (var i = 0; i < datas.length; i++) {
 				select.append("<option value='"+datas[i].id+"'>"+ datas[i].name + "</option>");
 			}
@@ -109,7 +108,7 @@ function saveTask() {
 	
 		var taskName = $('#taskNameAdd').val();
 		var paramid = $('#paramaddID').val();
-		var thesauresType = $('#tParamid option:selected').val();//选中的值
+		var thesauresType = $('#thesauresIDAdd option:selected').val();//选中的值
 		var startDate = $('#startDateAdd').val();
 		var endDate = $('#endDateAdd').val();
 		
@@ -150,17 +149,14 @@ function saveTask() {
 }
 
 function queryTaskById(task_id) {
-		//selectpicker load data for add page
 		$.ajax({
 			type : 'get',
 			url :"/Emp/admin/thesauresParamlist/queryAll",
 			dataType : 'json',
 			success : function(data) {//返回list数据并循环获取
-				
-				$("#tParamid2").empty();
-				   //$("#engagementType").append("<option value=''>--Option--</option>");
+				$("#thesaureIdEdit").empty();
 			    $.each(data, function(i, item) {
-			    	$("#tParamid2").append("<option value='"+data[i].id+"'>"+ data[i].name + "</option>");
+			    	$("#thesaureIdEdit").append("<option value='"+data[i].id+"'>"+ data[i].name + "</option>");
 			    });
 			}
 		});
@@ -181,8 +177,7 @@ function queryTaskById(task_id) {
 					$("#parameditID").val(result.paramid);
 					$("#taskcountEdit").val(result.paramValue);
 					$("#id").val(result.id);
-					//set val for selectpicker
-					$("#tParamid2").val(result.thesauresType);
+					$("#thesaureIdEdit").val(result.thesauresType);
 				}
 			},
 			error : function() {
@@ -198,7 +193,7 @@ function updateTask()
 {
 	    var taskName = $('#taskNameEdit').val();
 	    var paramid = $('#parameditID').val();
-	    var tParamid2 = $('#tParamid2 option:selected').val();//选中的值
+	    var thesauresType = $('#thesaureIdEdit option:selected').val();//选中的值
 	    var startDate = $('#startDateEdit').val();
 	    var endDate = $('#endDateEdit').val();
 	    var id = $('#id').val();
@@ -210,7 +205,7 @@ function updateTask()
 				url : '/Emp/admin/task/edit',
 	    		dataType:"json",
 	    		data:{"id":id,"taskname":taskName,"paramid":paramid, 
-	    			"tParamid":tParamid2,
+	    			"thesauresType":thesauresType,
 	    			"startStringDate":startDate,
 	    			"endStringDate":endDate},
 	    		async:true,
