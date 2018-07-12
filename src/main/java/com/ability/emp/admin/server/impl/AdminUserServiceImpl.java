@@ -190,7 +190,8 @@ public class AdminUserServiceImpl implements AdminUserService{
 	           String userName = "";
 	           String phone = "";
 	           String tutor = "";
-	           String department = "";
+	           @SuppressWarnings("unused")
+			   String department = "";
 	           
 	           //循环Excel的列
 	           for(int c = 0; c <totalCells; c++){

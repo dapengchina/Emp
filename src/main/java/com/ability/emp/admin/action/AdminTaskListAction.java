@@ -91,7 +91,7 @@ public class AdminTaskListAction {
 				data.get(i).setEndStringDate(sf.format(data.get(i).getEndDate()!=null?data.get(i).getEndDate():""));
 				tParamid=data.get(i).getThesauresType();
 				if(!StringUtils.pathEquals("", tParamid)){
-					adminThesauresPramEntity=adminThesauresPramService.selectByPrimaryKey(data.get(i).getThesauresType());
+					adminThesauresPramEntity=adminThesauresPramService.getByID(data.get(i).getThesauresType());
 					
 					if(adminThesauresPramEntity!=null){
 						//data.get(i).settParamid(adminThesauresPramEntity.getId());

@@ -18,9 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ability.emp.admin.entity.AdminUserEntity;
+import com.ability.emp.admin.entity.AdminThesauresPramEntity;
 import com.ability.emp.admin.entity.AdminWordEntity;
 import com.ability.emp.admin.entity.vo.AdminWordVo;
+import com.ability.emp.admin.server.AdminThesauresPramService;
 import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.util.ExcelImportUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,8 +32,13 @@ import com.github.pagehelper.PageInfo;
 @Controller
 @RequestMapping("/admin/word")
 public class AdminWordListAction {
+	
+	
 	@Resource
 	private AdminWordService wordService;
+	
+	@Resource
+	private AdminThesauresPramService adminThesauresPramService;
 
 	ObjectMapper objectMapper = new ObjectMapper();
 
@@ -62,9 +68,18 @@ public class AdminWordListAction {
 		// 第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber, pageSize);
 		List<AdminWordEntity> data = wordService.queryWordAll(awe);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		@SuppressWarnings("unchecked")
-		PageInfo<AdminUserEntity> page = new PageInfo(data);
+		PageInfo<AdminWordEntity> page = new PageInfo(data);
+		
+		for(int i=0;i<data.size();i++){
+			AdminThesauresPramEntity atpe_temp = adminThesauresPramService.getByID(data.get(i).getThesaurusType());
+			if(atpe_temp!=null){
+				data.get(i).setThesaurusName(atpe_temp.getName());
+			}
+		}
+		
 		map.put("total", page.getTotal());
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);

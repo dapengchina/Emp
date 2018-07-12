@@ -19,8 +19,21 @@ public class AdminWordEntity {
 	
 	
 	
+	/**
+	 * 表外字段
+	 * @return
+	 */
+	private String thesaurusName;
 	
 	
+	
+	
+	public String getThesaurusName() {
+		return thesaurusName;
+	}
+	public void setThesaurusName(String thesaurusName) {
+		this.thesaurusName = thesaurusName;
+	}
 	public String getThesaurusType() {
 		return thesaurusType;
 	}

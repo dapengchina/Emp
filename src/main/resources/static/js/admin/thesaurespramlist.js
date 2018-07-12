@@ -118,6 +118,10 @@ function loadWordList(id) {
 			field : 'word',
 			title : 'Word',
 			sortable : true
+		},{
+			field : 'thesaurusName',
+			title : 'Thesaurus',
+			sortable : true
 		}, {
 			field : 'interpretation',
 			title : 'Interpretation',

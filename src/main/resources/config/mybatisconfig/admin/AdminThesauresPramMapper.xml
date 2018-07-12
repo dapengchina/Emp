@@ -10,12 +10,6 @@
     id, name, remark
   </sql>
   
-  <!-- <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select * from t_thesaures_pram where 1=1
-     <if test="taskname != null and taskname != ''">
-    	AND TASKNAME like concat(concat('%',#{name}),'%')
-    </if>
-  </select> -->
   
   <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity" >
     select * from t_thesaures_pram where 1=1
@@ -24,23 +18,12 @@
     </if>
   </select>
   
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_thesaures_pram
+  <select id="getByID" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from t_thesaures_pram
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from t_thesaures_pram
-    where ID = #{id,jdbcType=VARCHAR}
-  </delete>
+  
   <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity">
-    insert into t_thesaures_pram (id, name, remark
-      )
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity">
     insert into t_thesaures_pram
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -65,7 +48,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity" >
+  
+  <update id="update" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity" >
     update t_thesaures_pram
     <set >
       <if test="name != null" >
@@ -77,4 +61,5 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+  
 </mapper>

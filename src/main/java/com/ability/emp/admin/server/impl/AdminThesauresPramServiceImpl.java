@@ -9,40 +9,37 @@ import org.springframework.stereotype.Service;
 import com.ability.emp.admin.dao.AdminThesauresPramDao;
 import com.ability.emp.admin.entity.AdminThesauresPramEntity;
 import com.ability.emp.admin.server.AdminThesauresPramService;
+
+
 @Service("AdminThesauresPramService")
 public class AdminThesauresPramServiceImpl implements AdminThesauresPramService {
+	
+	
 	@SuppressWarnings("rawtypes")
 	@Resource
 	AdminThesauresPramDao adminThesauresPramDao;
-	
-	@Override
-	public int deleteByPrimaryKey(String key) {
-		return adminThesauresPramDao.deleteByPrimaryKey(key);
-	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public int insert(AdminThesauresPramEntity record) {
 		return adminThesauresPramDao.insert(record);
 	}
 
-	@Override
-	public int insertSelective(AdminThesauresPramEntity record) {
-		return adminThesauresPramDao.insertSelective(record);
-	}
-
-	@Override
-	public AdminThesauresPramEntity selectByPrimaryKey(String key) {
-		return adminThesauresPramDao.selectByPrimaryKey(key);
-	}
-
-	@Override
-	public int updateByPrimaryKey(AdminThesauresPramEntity record) {
-		return adminThesauresPramDao.updateByPrimaryKey(record);
-	}
-
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<AdminThesauresPramEntity> queryAll(AdminThesauresPramEntity record) {
 		return adminThesauresPramDao.queryAll(record);
+	}
+
+	@Override
+	public int update(AdminThesauresPramEntity record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public AdminThesauresPramEntity getByID(String id) {
+		return adminThesauresPramDao.getByID(id);
 	}
 
 }

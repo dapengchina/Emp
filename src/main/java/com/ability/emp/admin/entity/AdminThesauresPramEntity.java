@@ -1,6 +1,8 @@
 package com.ability.emp.admin.entity;
 
 public class AdminThesauresPramEntity {
+	
+	
 	private String id;
 	private String name;
 	private String remark;
@@ -34,7 +36,7 @@ public class AdminThesauresPramEntity {
 		return "AdminThesauresPramEntity [id=" + id + ", name=" + name + ", remark=" + remark + "]";
 	}
 
-	public AdminThesauresPramEntity(String id, String tParamName, String remark) {
+	public AdminThesauresPramEntity(String id, String name, String remark) {
 		super();
 		this.id = id;
 		this.name = name;

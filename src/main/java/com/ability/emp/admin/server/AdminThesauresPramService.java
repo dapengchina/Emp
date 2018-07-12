@@ -5,15 +5,12 @@ import java.util.List;
 import com.ability.emp.admin.entity.AdminThesauresPramEntity;
 
 public interface AdminThesauresPramService {
-	int deleteByPrimaryKey(String key);
 
 	int insert(AdminThesauresPramEntity record);
 
-	int insertSelective(AdminThesauresPramEntity record);
-
-	AdminThesauresPramEntity selectByPrimaryKey(String key);
-
-	int updateByPrimaryKey(AdminThesauresPramEntity record);
+	int update(AdminThesauresPramEntity record);
 
 	List<AdminThesauresPramEntity> queryAll(AdminThesauresPramEntity record);
+	
+	AdminThesauresPramEntity getByID(String id);
 }
