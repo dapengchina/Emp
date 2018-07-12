@@ -50,7 +50,7 @@ function loadTaskList() {
 			sortable : true
 		}, {
 			field : 'tParamName',
-			title : 'TParamName',
+			title : 'Thesaure',
 			sortable : true
 		}, {
 			field : 'startStringDate',

@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -66,9 +68,25 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public void taskAppoint(String[] ids, String taskid) {
+		//根据任务ID去查询对应的词库
+		@SuppressWarnings("rawtypes")
+		Map temap = new HashMap();
+		temap.put("id", taskid);
+		List<AdminTaskEntity> te = taskDao.queryTaskById(temap);
+		
 		AdminUserEntity adminUserEntity = new AdminUserEntity();
 		String[] array = ids;
-		List<AdminWordEntity> list = wordDao.queryAll();
+		
+		List<AdminWordEntity> list = null;
+		if(te!=null && te.size()>0){
+			AdminWordEntity ae = new AdminWordEntity();
+			ae.setThesaurusType(te.get(0).getThesauresType());
+			list = wordDao.queryWordAll(ae);
+		}else{
+			AdminWordEntity ae = new AdminWordEntity();
+			list = wordDao.queryWordAll(ae);
+		}
+		
 		AdminWordRecordEntity wordRecordEntiy = new AdminWordRecordEntity();
 		for (int i = 0; i < array.length; i++) {
 			adminUserEntity.setId(array[i]);

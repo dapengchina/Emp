@@ -207,6 +207,10 @@ function loadTaskList(){
             title: 'Taskname',
             sortable: true
         },{
+			field : 'tParamName',
+			title : 'Thesaure',
+			sortable : true
+		},{
             field: 'startStringDate',
             title: 'StartDate',
             sortable: true
