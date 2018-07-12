@@ -33,6 +33,9 @@
     <if test="word != null" >
       and WORD like concat(concat('%',#{word}),'%')
     </if>
+    <if test="thesaurusType != null and thesaurusType != ''" >
+      and THESAURUS_TYPE = #{thesaurusType}
+    </if>
     <if test="interpretation != null" >
       and INTERPRETATION like concat(concat('%',#{interpretation}),'%')
     </if>

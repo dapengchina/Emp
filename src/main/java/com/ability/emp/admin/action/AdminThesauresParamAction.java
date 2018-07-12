@@ -62,5 +62,19 @@ public class AdminThesauresParamAction {
 		map.put("rows", data);
 		return objectMapper.writeValueAsString(map);
 	}
+	
+	/**
+	 * 返回数据
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws JsonProcessingException
+	 */
+	@RequestMapping("/querySelAll")
+	@ResponseBody
+	public String querySelAll(AdminThesauresPramEntity ate) throws JsonProcessingException{
+		List<AdminThesauresPramEntity> data = adminThesauresPramService.queryAll(ate);
+		return objectMapper.writeValueAsString(data);
+	}
 
 }

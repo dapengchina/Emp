@@ -29,7 +29,7 @@ function loadTheSauresPramList(){
 		uniqueId : "ID", // 每一行的唯一标识，一般为主键列
 		showToggle : false, // 是否显示详细视图和列表视图的切换按钮
 		cardView : false, // 是否显示详细视图
-		detailView : false, // 是否显示父子表
+		detailView : true, // 是否显示父子表
 		singleSelect:true, 				//禁止多选_____
 		// 得到查询的参数
 		queryParams : function(params) {
@@ -59,7 +59,70 @@ function loadTheSauresPramList(){
 		onDblClickRow : function(row, $element) {
 			
 		},
+		//注册加载子表的事件。注意下这里的三个参数！
+        onExpandRow: function (index, row, $detail) {
+            initSubTable(index, row, $detail);
+        }
 	});
+}
+
+//初始化子表格(无线循环)
+function initSubTable(index, row, $detail) {
+    var parentid = row.id;
+    var cur_table = $detail.html('<table></table>').find('table');
+    $(cur_table).bootstrapTable({
+        url: '/Emp/admin/word/queryAll',
+        method: 'get',
+        ajaxOptions: {thesaurusType:parentid},
+        striped: true,                      //是否显示行间隔色
+        cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        pagination: true,                   //是否显示分页（*）
+        sortable: true,                     //是否启用排序
+        sortOrder: "asc",                   //排序方式
+        sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+        pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+        pageSize: 10,                     //每页的记录行数（*）
+        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+        search: false,                      //是否显示表格搜索
+        strictSearch: false,				//精确搜索
+        minimumCountColumns: 2,             //最少允许的列数
+        clickToSelect: true,                //是否启用点击选中行
+        //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+        showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
+        cardView: false,                    //是否显示详细视图
+        detailView: false,                  //是否显示父子表
+        singleSelect:false, 				//禁止多选_____
+        //得到查询的参数
+		queryParams : function(params) {
+			return {
+				pageSize : params.limit,
+				pageNumber : params.offset / params.limit + 1,
+				thesaurusType:parentid
+			};
+		},
+        columns: [
+        {
+			title: 'Ln',//标题  可不加
+			formatter: function (value, row, index) {
+				return index+1;
+			}
+        },
+        {
+			field : 'word',
+			title : 'Word',
+			sortable : true
+		},{
+			field : 'thesaurusName',
+			title : 'Thesaurus',
+			sortable : true
+		}, {
+			field : 'interpretation',
+			title : 'Interpretation',
+			sortable : true
+		}]
+    });
+    $("#cur_table").bootstrapTable('refresh');
 }
 
 function openWordModal() {

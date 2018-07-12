@@ -86,7 +86,7 @@ function openTaskModal() {
 	$("#taskadd").modal('show');
 	$.ajax({
 		type : 'get',
-		url :"/Emp/admin/thesauresParamlist/queryAll",
+		url :"/Emp/admin/thesaure/querySelAll",
 		dataType : 'json',
 		success : function(datas) {//返回list数据并循环获取
 			$("#thesauresIDAdd").empty();
@@ -151,7 +151,7 @@ function saveTask() {
 function queryTaskById(task_id) {
 		$.ajax({
 			type : 'get',
-			url :"/Emp/admin/thesauresParamlist/queryAll",
+			url :"/Emp/admin/thesaure/querySelAll",
 			dataType : 'json',
 			success : function(data) {//返回list数据并循环获取
 				$("#thesaureIdEdit").empty();
