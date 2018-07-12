@@ -1,5 +1,7 @@
 package com.ability.emp.admin.action;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -21,10 +23,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ability.emp.admin.entity.AdminSystemParamEntity;
 import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.admin.entity.AdminThesauresPramEntity;
+import com.ability.emp.admin.entity.AdminWordEntity;
 import com.ability.emp.admin.server.AdminSystemParamService;
 import com.ability.emp.admin.server.AdminTaskService;
 import com.ability.emp.admin.server.AdminThesauresPramService;
+import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.constant.SysConstant;
+import com.ability.emp.util.CalendarCountUtil;
 import com.ability.emp.util.UUIDUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,6 +56,9 @@ public class AdminTaskListAction {
 	private AdminSystemParamService adminSystemParamService;
 	@Resource
 	AdminThesauresPramService adminThesauresPramService;
+	
+	@Resource
+	private AdminWordService adminWordService;
 	
 	ObjectMapper objectMapper = new ObjectMapper();  
 	
@@ -157,6 +165,45 @@ public class AdminTaskListAction {
 			return "0";
 		}else{
 			return "1";
+		}
+	}
+	
+	
+	/**
+	 * 计算任务量
+	 * @param taskEntity
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/calculateTaskCount")
+	@ResponseBody
+	public String calculateTaskCount(String startDate,String endDate,String thesaure) throws Exception {
+		try{
+			//查询对应词库的单词总数
+			AdminWordEntity awe = new AdminWordEntity();
+			awe.setThesaurusType(thesaure);
+			List<AdminWordEntity> list = adminWordService.queryWordAll(awe);
+			if(list==null || list.size()==0){
+				return "0";
+			}
+			//计算2个日期相差的天数
+			int x = CalendarCountUtil.getDays(startDate, endDate);
+			if(x==0){
+				return "0";
+			}
+			
+			//计算每天的任务量
+			int days = x+1;
+			double c = list.size()/days;
+			if(c<0.5){
+				return "-1";
+			}
+			
+			BigDecimal b = new BigDecimal(c);
+			int taskcount = b.setScale(2,RoundingMode.HALF_UP).intValue();
+			return String.valueOf(taskcount);
+		}catch(Exception e){
+			return "-1";
 		}
 	}
 

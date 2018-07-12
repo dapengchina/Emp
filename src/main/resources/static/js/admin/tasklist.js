@@ -83,6 +83,7 @@ function formatOperat(value, row, index) {
 }
 
 function openTaskModal() {
+	
 	$("#taskadd").modal('show');
 	$.ajax({
 		type : 'get',
@@ -115,27 +116,45 @@ function saveTask() {
 		var bootstrapValidator = $("#addTaskForm").data('bootstrapValidator');
 		bootstrapValidator.validate();
 		if(bootstrapValidator.isValid()){
+			/**
+			 * 验证通过之后调用计算任务量方法
+			 */
 			$.ajax({
-				url : '/Emp/admin/task/add',
+				url : '/Emp/admin/task/calculateTaskCount',
 	    		dataType:"json",
-	    		data:{"taskname":taskName,"paramid":paramid,
-	    			"thesauresType":thesauresType,
-	    			"startStringDate":startDate,
-	    			"endStringDate":endDate},
+	    		data:{
+	    			"thesaure":thesauresType,
+	    			"startDate":startDate,
+	    			"endDate":endDate},
 	    		async:true,
 	    		cache:false,
 	    		type:"post",
 				success : function(result) {
-					if(result == "0"){
-						$("#taskadd").modal('hide');
-						$("#tasklist").bootstrapTable('refresh');
-						$('#taskNameAdd').val("");
-						$('#paramaddID').val("");
-						$('#taskcountAdd').val("");
-						$('.selectpicker').selectpicker('val', '');
-						$('.selectpicker').selectpicker('refresh');
-						$('#startDateAdd').val("");
-						$('#endDateAdd').val("");
+					$("#taskcountAdd").val(result);
+					if(result != "-1"){
+						$.ajax({
+							url : '/Emp/admin/task/add',
+				    		dataType:"json",
+				    		data:{"taskname":taskName,"paramid":paramid,
+				    			"thesauresType":thesauresType,
+				    			"startStringDate":startDate,
+				    			"endStringDate":endDate},
+				    		async:true,
+				    		cache:false,
+				    		type:"post",
+							success : function(result) {
+								if(result == "0"){
+									$("#addTaskForm").bootstrapValidator('resetForm');
+									$("#taskadd").modal('hide');
+				                }
+							},
+							error : function() {
+					
+							},
+							complete : function() {
+								
+							}
+						});
 	                }
 				},
 				error : function() {
