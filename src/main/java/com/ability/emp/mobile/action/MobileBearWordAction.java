@@ -1,5 +1,7 @@
 package com.ability.emp.mobile.action;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileHitCardEntity;
-import com.ability.emp.mobile.entity.MobileSystemParamEntity;
 import com.ability.emp.mobile.entity.MobileTaskEntity;
 import com.ability.emp.mobile.entity.MobileUserEntity;
 import com.ability.emp.mobile.entity.MobileWordEntity;
@@ -27,6 +28,7 @@ import com.ability.emp.mobile.server.MobileSystemParamService;
 import com.ability.emp.mobile.server.MobileTaskService;
 import com.ability.emp.mobile.server.MobileUserService;
 import com.ability.emp.mobile.server.MobileWordService;
+import com.ability.emp.util.CalendarCountUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -67,19 +69,17 @@ public class MobileBearWordAction {
 	 * 返回数据
 	 * @param id 用户ID
 	 * @return
-	 * @throws JsonProcessingException
+	 * @throws Exception 
 	 */
 	@RequestMapping("/query/{id}")
 	@ResponseBody
-	public String query(@PathVariable("id") String id) throws JsonProcessingException{
+	public String query(@PathVariable("id") String id) throws Exception{
 		//获取用户任务ID
 		MobileUserEntity mue = mobileUserService.queryById(id);
 		//获取参数ID
 		MobileTaskEntity mte = mobileTaskService.queryById(mue.getTaskid());
-		//获取参数值
-		MobileSystemParamEntity mspe = mobileSystemParamService.queryById(mte.getParamid());
-		
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		int taskcount = calculateTaskCount(sdf.format(mte.getStartDate()),sdf.format(mte.getEndDate()),mte.getThesauresType());
 		
 		/***
 		 * 先获取选中,考试未通过的单词
@@ -88,7 +88,7 @@ public class MobileBearWordAction {
 		mwre.setIsSel(SysConstant.CHECKED);//选中
 		mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
 		mwre.setUserId(id);//用户ID
-		mwre.setCount(Integer.parseInt(mspe.getChildValue()));//任务量
+		mwre.setCount(taskcount);//任务量
 		
 		List<MobileWordRecordEntity> list = mobileBearWordService.query(mwre);
 		//有数据则返回
@@ -121,7 +121,7 @@ public class MobileBearWordAction {
 				mwre.setIsSel(SysConstant.NO_CHECKED);//未选中
 				mwre.setIsPass(SysConstant.NO_PASS);//考试未通过
 				mwre.setUserId(id);//用户ID
-				mwre.setCount(Integer.parseInt(mspe.getChildValue()));//任务量
+				mwre.setCount(taskcount);//任务量
 				//随机返回指定任务量的单词
 				List<MobileWordRecordEntity> list2 = mobileBearWordService.query(mwre);
 				MobileWordRecordEntity mwre2 = new MobileWordRecordEntity();
@@ -196,6 +196,36 @@ public class MobileBearWordAction {
 		   }
 		   
 		   return objectMapper.writeValueAsString(map);
+	}
+	
+	private int calculateTaskCount(String startDate,String endDate,String thesaure) throws Exception {
+		try{
+			//根据词库ID获取词库数量
+			MobileWordEntity m = new MobileWordEntity();
+			m.setThesaurusType(thesaure);
+			List<MobileWordEntity> list = mobileWordService.queryWordAll(m);
+			if(list==null || list.size()==0){
+				return 0;
+			}
+			//计算2个日期相差的天数
+			int x = CalendarCountUtil.getDays(startDate, endDate);
+			if(x==0){
+				return 0;
+			}
+			
+			//计算每天的任务量
+			int days = x+1;
+			double c = list.size()/days;
+			if(c<0.5){
+				return 0;
+			}
+			
+			BigDecimal b = new BigDecimal(c);
+			int taskcount = b.setScale(2,RoundingMode.HALF_UP).intValue();
+			return taskcount;
+		}catch(Exception e){
+			return 0;
+		}
 	}
 
 }

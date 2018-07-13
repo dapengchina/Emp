@@ -7,6 +7,8 @@ public class MobileTaskEntity {
     private String id;
 
     private String paramid;
+    
+    private String thesauresType;
 
     private Date startDate;
 
@@ -27,10 +29,17 @@ public class MobileTaskEntity {
     
     private String paramValue;
     
+    
+    
+    public String getThesauresType() {
+		return thesauresType;
+	}
 
-    
-    
-    public String getParamValue() {
+	public void setThesauresType(String thesauresType) {
+		this.thesauresType = thesauresType;
+	}
+
+	public String getParamValue() {
 		return paramValue;
 	}
 

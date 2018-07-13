@@ -12,10 +12,17 @@ public class MobileWordEntity {
 	private String errInterpretation1;
 	private String errInterpretation2;
 	private String errInterpretation3;
+	private String thesaurusType;
 	
 	
 	
 	
+	public String getThesaurusType() {
+		return thesaurusType;
+	}
+	public void setThesaurusType(String thesaurusType) {
+		this.thesaurusType = thesaurusType;
+	}
 	public String getSymbol() {
 		return symbol;
 	}

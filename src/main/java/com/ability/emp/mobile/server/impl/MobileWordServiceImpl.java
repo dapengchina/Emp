@@ -1,6 +1,8 @@
 package com.ability.emp.mobile.server.impl;
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -24,6 +26,12 @@ public class MobileWordServiceImpl implements MobileWordService {
 	@Override
 	public MobileWordEntity queryWordById(String id) {
 		return (MobileWordEntity) mobileWordDao.queryWordById(id);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MobileWordEntity> queryWordAll(MobileWordEntity entity) {
+		return mobileWordDao.queryWordAll(entity);
 	}
 
 	

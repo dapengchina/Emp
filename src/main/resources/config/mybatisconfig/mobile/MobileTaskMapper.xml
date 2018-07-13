@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileTaskEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="PARAMID" property="paramid" jdbcType="VARCHAR" />
+    <result column="THESAURES_TYPE" property="thesauresType" jdbcType="VARCHAR" />
     <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
     <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
     <result column="TASKNAME" property="taskname" jdbcType="VARCHAR" />
@@ -12,7 +13,7 @@
 
   
   <sql id="Base_Column_List" >
-    ID, PARAMID, START_DATE, END_DATE, TASKNAME, DEL
+    ID, PARAMID, THESAURES_TYPE, START_DATE, END_DATE, TASKNAME, DEL
   </sql>
 
   <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.String">

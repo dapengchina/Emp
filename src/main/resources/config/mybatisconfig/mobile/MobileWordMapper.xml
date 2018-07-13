@@ -14,10 +14,11 @@
     <result column="ERR_INTERPRETATION1" property="errInterpretation1" jdbcType="LONGVARCHAR" />
     <result column="ERR_INTERPRETATION2" property="errInterpretation2" jdbcType="LONGVARCHAR" />
     <result column="ERR_INTERPRETATION3" property="errInterpretation3" jdbcType="LONGVARCHAR" />
+    <result column="THESAURUS_TYPE" property="thesaurusType" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    ID, WORD, SYMBOL, MP3_NAME, VIDEO, IMG, DEL, INTERPRETATION, SENTENCE, ERR_INTERPRETATION1, ERR_INTERPRETATION2, ERR_INTERPRETATION3
+    ID, WORD, SYMBOL, THESAURUS_TYPE, MP3_NAME, VIDEO, IMG, DEL, INTERPRETATION, SENTENCE, ERR_INTERPRETATION1, ERR_INTERPRETATION2, ERR_INTERPRETATION3
   </sql>
   
   <select id="mean" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -39,6 +40,9 @@
     </if>
     <if test="interpretation != null" >
       and INTERPRETATION like concat(concat('%',#{interpretation}),'%')
+    </if>
+    <if test="thesaurusType != null and thesaurusType != ''" >
+      and THESAURUS_TYPE = #{thesaurusType}
     </if>
   </select>
   
