@@ -144,6 +144,7 @@ function saveTask() {
 				    		type:"post",
 							success : function(result) {
 								if(result == "0"){
+									$('#tasklist').bootstrapTable('refresh');
 									$("#addTaskForm").bootstrapValidator('resetForm');
 									$("#taskadd").modal('hide');
 				                }
