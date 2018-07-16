@@ -59,7 +59,7 @@ public class AdminUserReportAction {
 	public String queryAll(String pageNumber,String pageSize,AdminUserReportVo adminUserReportVo) throws Exception {
 		List<AdminUserReportVo> data = adminUserReportService.getUser(adminUserReportVo);
 		Map<String,Object> map = new HashMap<String,Object>();
-		List handleAfter = dataHandle(data,"","");
+		List handleAfter = dataHandle(data,adminUserReportVo.getStartDate(),adminUserReportVo.getEndDate());
 		map.put("total",handleAfter.size());
 		map.put("data", handleAfter);
 		
@@ -68,21 +68,21 @@ public class AdminUserReportAction {
 	
 	
 	private List<AdminUserReportVo> dataHandle(List<AdminUserReportVo> data,String startDate,String endDate) throws Exception{
-		startDate = "2018-06-30";
-		endDate = "2018-07-01";
+		startDate = "2018-06-01";
+		endDate = "2018-06-30";
 		String[] start = startDate.split("-");
 		String[] end = endDate.split("-");
 		
 		/**
 		 * 判断所选日期是否跨月
 		 */
-		if(Integer.parseInt(start[1])==Integer.parseInt(end[1])){
-			//没有跨月
-			return notMonthCross(data,startDate,endDate);
-		}else{
-			//跨月
+//		if(Integer.parseInt(start[1])==Integer.parseInt(end[1])){
+//			//没有跨月
+//			return notMonthCross(data,startDate,endDate);
+//		}else{
+//			//跨月
 			return monthCross(data,startDate,endDate);
-		}
+		//}
 		
 	}
 	
@@ -95,8 +95,8 @@ public class AdminUserReportAction {
 		/***
 		 * 初始数据
 		 */
-		startDate = "2018-06-30";
-		endDate = "2018-08-01";
+//		startDate = "2018-06-29";
+//		endDate = "2018-08-01";
 		String[] start = startDate.split("-");
 		String[] end = endDate.split("-");
 		
@@ -166,17 +166,25 @@ public class AdminUserReportAction {
 						sdate="2018-"+y+"-"+"0"+temp;
 					}else{
 						//不是当月最后一天
+						if(currentMonth<10 && currentMonth<=enmonth){
+							y="0"+currentMonth;
+						}
+						if(currentMonth>10 && currentMonth<=enmonth){
+							y=String.valueOf(currentMonth);
+						}
 						temp++;
-						if(temp<10 && temp<currentDays){
+						if(temp<10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
 							sdate="2018-"+y+"-"+"0"+temp;
 						}
-						if(temp>=10 && temp<currentDays){
+						if(temp>=10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
 							sdate="2018-"+y+"-"+temp;
 						}
 						//递增到当月最后一天
-						if(temp==currentDays){
+						if(temp>CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
 							//是最后一天
 							currentMonth++;
+							//天数重置为1
+							temp=1;
 							//当月天数更新
 							currentDays=CalendarUtil.daysOfmonthInyear(currentMonth, 2018);;
 							if(currentMonth<10 && currentMonth<=enmonth){
@@ -221,8 +229,8 @@ public class AdminUserReportAction {
 	 * 所选日期没有跨月-数据处理
 	 */
     private List<AdminUserReportVo> notMonthCross(List<AdminUserReportVo> data,String startDate,String endDate){
-    	startDate = "2018-06-08";
-		endDate = "2018-06-10";
+//    	startDate = "2018-06-08";
+//		endDate = "2018-06-10";
 		String[] start = startDate.split("-");
 		String[] end = endDate.split("-");
 	
