@@ -3,6 +3,7 @@ $(function () {
     loadUserList();
     //验证
     validate();
+    loadTutor();
 });
 
 //查找用户
@@ -11,12 +12,14 @@ function userSearch(){
     var nickName = $("#txt_search_nickName").val(); 
     var phone = $("#txt_search_phone").val(); 
     var isAppoint = $("#txt_search_statu").val();
+    var tutor = $("#search_tutor").val();
 	var queryParams = { 
 		query: {  
 			userName:userName,
 			nickName:nickName,
 			phone:phone,
-			isAppoint:isAppoint
+			isAppoint:isAppoint,
+			tutor:tutor
         }
     }  
 	//刷新表格  
@@ -64,6 +67,10 @@ function loadUserList(){
         },{
             field: 'userName',
             title: 'Name',
+            sortable: true
+        },{
+            field: 'tutor',
+            title: 'Tutor',
             sortable: true
         },{
             field: 'phone',
@@ -273,4 +280,19 @@ function appoint(){
 	else{
 		alert("没有选择用户或任务");
 	}
+}
+
+function loadTutor(){
+	$.ajax({
+		type : 'get',
+		url :"/Emp/admin/adminuser/getTutor",
+		dataType : 'json',
+		success : function(data) {
+			$("#search_tutor").empty();
+			$("#search_tutor").append("<option value=''>--Option--</option>");
+		    $.each(data, function(i, item) {
+		    	   $("#search_tutor").append("<option value='"+data[i].adminName+"'>"+ data[i].adminName + "</option>");
+		    })
+		}
+	});
 }

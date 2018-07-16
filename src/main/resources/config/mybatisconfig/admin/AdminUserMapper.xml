@@ -28,6 +28,9 @@
 	<if test="phone != null and phone != ''">
 		AND PHONE = #{phone}
 	</if>
+	<if test="tutor != null and tutor != ''">
+		AND TUTOR = #{tutor}
+	</if>
 	<if test="code != null and code != ''">
 		AND CODE = #{code}
 	</if>
@@ -89,14 +92,14 @@
       <if test="nickName != null" >
         #{nickName,jdbcType=VARCHAR},
       </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
       <if test="deparment != null" >
         #{deparment,jdbcType=VARCHAR},
       </if>
       <if test="tutor != null" >
         #{tutor,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
       </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
