@@ -12,19 +12,19 @@
   
   
   <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity" >
-    select * from t_thesaures_pram where 1=1
+    select * from t_thesaures_param where 1=1
      <if test="name != null and name != ''">
     	AND name like concat(concat('%',#{name}),'%')
     </if>
   </select>
   
   <select id="getByID" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from t_thesaures_pram
+    select * from t_thesaures_param
     where id = #{id,jdbcType=VARCHAR}
   </select>
   
   <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity">
-    insert into t_thesaures_pram
+    insert into t_thesaures_param
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -50,7 +50,7 @@
   </insert>
   
   <update id="update" parameterType="com.ability.emp.admin.entity.AdminThesauresPramEntity" >
-    update t_thesaures_pram
+    update t_thesaures_param
     <set >
       <if test="name != null" >
         PARENT_NAME = #{name,jdbcType=VARCHAR},
