@@ -18,6 +18,7 @@ import com.ability.emp.admin.entity.vo.AdminUserReportVo;
 import com.ability.emp.admin.server.AdminUserReportService;
 import com.ability.emp.util.CalendarCountUtil;
 import com.ability.emp.util.CalendarUtil;
+import com.ability.emp.util.WeekUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -68,10 +69,26 @@ public class AdminUserReportAction {
 	
 	
 	private List<AdminUserReportVo> dataHandle(List<AdminUserReportVo> data,String startDate,String endDate) throws Exception{
-		startDate = "2018-06-01";
-		endDate = "2018-06-30";
-		String[] start = startDate.split("-");
-		String[] end = endDate.split("-");
+		
+		if(startDate==null && endDate==null){
+			String[] da = WeekUtil.getWeek();
+			startDate = da[0];
+			endDate = da[1];
+		}
+		if(startDate=="" && endDate==""){
+			String[] da = WeekUtil.getWeek();
+			startDate = da[0];
+			endDate = da[1];
+		}
+		if(endDate=="" && startDate!=null){
+			String[] da = WeekUtil.getWeek();
+			endDate = da[1];
+		}
+		
+//		startDate = "2018-06-01";
+//		endDate = "2018-06-30";
+//		String[] start = startDate.split("-");
+//		String[] end = endDate.split("-");
 		
 		/**
 		 * 判断所选日期是否跨月
@@ -115,6 +132,7 @@ public class AdminUserReportAction {
 		//当前月份
 		int currentMonth=Integer.parseInt(start[1]);
 		//当前月份天数
+		@SuppressWarnings("unused")
 		int currentDays=Integer.parseInt(start[2]);
 		
 		List<AdminUserReportVo> list = new ArrayList<AdminUserReportVo>();
@@ -127,6 +145,7 @@ public class AdminUserReportAction {
 			if(m>0){
 				currentMonth = stmonth;
 				y = "";
+				temp=Integer.parseInt(start[2]);
 				sdate = startDate;
 			}
 			
@@ -228,7 +247,8 @@ public class AdminUserReportAction {
 	/**
 	 * 所选日期没有跨月-数据处理
 	 */
-    private List<AdminUserReportVo> notMonthCross(List<AdminUserReportVo> data,String startDate,String endDate){
+    @SuppressWarnings("unused")
+	private List<AdminUserReportVo> notMonthCross(List<AdminUserReportVo> data,String startDate,String endDate){
 //    	startDate = "2018-06-08";
 //		endDate = "2018-06-10";
 		String[] start = startDate.split("-");

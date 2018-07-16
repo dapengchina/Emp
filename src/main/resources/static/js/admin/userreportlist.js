@@ -92,6 +92,12 @@ function userSearch(){
     var tutor = $("#search_tutor").val();
     var startDate = $("#search_startDate").val();
     var endDate = $("#search_endDate").val();
+    if(startDate==''){
+    	startDate=null;
+    }
+    if(endDate==''){
+    	endDate=null;
+    }
     
 	var queryParams = { 
 		query: {  
