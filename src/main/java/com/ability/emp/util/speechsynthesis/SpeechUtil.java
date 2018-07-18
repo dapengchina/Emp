@@ -33,7 +33,7 @@ public class SpeechUtil {
     private String cuid = "10962256";
 
 //    public static void main(String[] args) throws Exception {
-//    	convert("Sun");
+//    	convert("It's been more than 2 years");
 //    }
     public static String convert(String text) throws Exception{
     	return (new SpeechUtil()).run(text);
