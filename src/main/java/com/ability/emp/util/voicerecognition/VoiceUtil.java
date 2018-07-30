@@ -26,13 +26,13 @@ public class VoiceUtil {
     }
 
     //  填写网页上申请的appkey 如 $apiKey="g8eBUMSokVB1BHGmgxxxxxx"
-    private final String appKey = "w2dOke12l4HXYWlhhPNf4yz7";
+    private final String appKey = "4E1BG9lTnlSeIf1NQFlrSq6h";
 
     // 填写网页上申请的APP SECRET 如 $secretKey="94dc99566550d87f8fa8ece112xxxxx"
-    private final String secretKey = "abe1e00d1dc0698d39e6ced3ca4a553a";
+    private final String secretKey = "544ca4657ba8002e3dea3ac2f5fdd241";
 
     // 需要识别的文件
-    private final String filename = "16k_test.pcm";
+    private final String filename = "D://16k.pcm";
 
     // 文件格式
     private final String format = ".pcm";

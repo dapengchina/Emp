@@ -109,7 +109,7 @@ public class AdminWordServiceImpl implements AdminWordService {
 		// 错误信息接收器
 		String errorMsg = "";
 		// 得到第一个shell
-		Sheet sheet = wb.getSheetAt(0);
+		Sheet sheet = wb.getSheetAt(1);
 		// 得到Excel的行数
 		int totalRows = sheet.getPhysicalNumberOfRows();
 		//int totalRows = sheet.getLastRowNum();
