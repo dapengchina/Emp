@@ -160,7 +160,7 @@ public class AdminWordServiceImpl implements AdminWordService {
 			// 循环Excel的列
 			for (int c = 0; c < totalCells; c++) {
 				Cell cell = row.getCell(c);
-				if (null != cell) {
+				//if (null != cell) {
 					if (c == 0) {
 						word = cell.getStringCellValue();
 						if (word == null && "".equals(word)) {
@@ -168,11 +168,16 @@ public class AdminWordServiceImpl implements AdminWordService {
 						}
 						we.setWord(word);
 					} else if (c == 1) {
-						symbol = cell.getStringCellValue();
-						if (symbol == null && "".equals(symbol)) {
-							rowMessage += "音标不能为空；";
+						if(cell==null){
+							we.setSymbol("");
+						}else{
+							symbol = cell.getStringCellValue();
+							we.setSymbol(symbol);
 						}
-						we.setSymbol(symbol);
+//						if (symbol == null && "".equals(symbol)) {
+//							rowMessage += "音标不能为空；";
+//						}
+						
 					} else if (c == 2) {
 						interpretation = cell.getStringCellValue();
 						if (interpretation == null && "".equals(interpretation)) {
@@ -180,33 +185,57 @@ public class AdminWordServiceImpl implements AdminWordService {
 						}
 						we.setInterpretation(interpretation);
 					} else if (c == 3) {
-						sentence = cell.getStringCellValue();
-						if (sentence == null && "".equals(sentence)) {
-							rowMessage += "对应句子不能为空；";
+						
+						if(cell==null){
+							we.setSentence("");
+						}else{
+							sentence = cell.getStringCellValue();
+							we.setSentence(sentence);
 						}
-						we.setSentence(sentence);
+//						if (sentence == null && "".equals(sentence)) {
+//							rowMessage += "对应句子不能为空；";
+//						}
+						
 					} else if (c == 4) {
-						errInterpretation1 = cell.getStringCellValue();
-						if (errInterpretation1 == null && "".equals(errInterpretation1)) {
-							rowMessage += "错误单词释义1不能为空；";
+						
+						if(cell==null){
+							we.setErrInterpretation1("");
+						}else{
+							errInterpretation1 = cell.getStringCellValue();
+							we.setErrInterpretation1(errInterpretation1);
 						}
-						we.setErrInterpretation1(errInterpretation1);
+//						if (errInterpretation1 == null && "".equals(errInterpretation1)) {
+//							rowMessage += "错误单词释义1不能为空；";
+//						}
+						
 					} else if (c == 5) {
-						errInterpretation2 = cell.getStringCellValue();
-						if (errInterpretation2 == null && "".equals(errInterpretation2)) {
-							rowMessage += "错误单词释义2不能为空；";
+						
+						if(cell==null){
+							we.setErrInterpretation2("");
+						}else{
+							errInterpretation2 = cell.getStringCellValue();
+							we.setErrInterpretation2(errInterpretation2);
 						}
-						we.setErrInterpretation2(errInterpretation2);
+//						if (errInterpretation2 == null && "".equals(errInterpretation2)) {
+//							rowMessage += "错误单词释义2不能为空；";
+//						}
+						
 					} else if (c == 6) {
-						errInterpretation3 = cell.getStringCellValue();
-						if (errInterpretation3 == null && "".equals(errInterpretation3)) {
-							rowMessage += "错误单词释义3不能为空；";
+						
+						if(cell==null){
+							we.setErrInterpretation3("");
+						}else{
+							errInterpretation3 = cell.getStringCellValue();
+							we.setErrInterpretation3(errInterpretation3);
 						}
-						we.setErrInterpretation3(errInterpretation3);
+//						if (errInterpretation3 == null && "".equals(errInterpretation3)) {
+//							rowMessage += "错误单词释义3不能为空；";
+//						}
+						
 					}
-				} else {
-					rowMessage += "第" + (c + 1) + "列数据有问题，请仔细检查；";
-				}
+//				} else {
+//					rowMessage += "第" + (c + 1) + "列数据有问题，请仔细检查；";
+//				}
 			}
 			// 拼接每行的错误提示
 			if (rowMessage != null && !"".equals(rowMessage)) {
