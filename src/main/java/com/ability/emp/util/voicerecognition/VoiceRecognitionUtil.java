@@ -16,7 +16,7 @@ public class VoiceRecognitionUtil {
     
     private static String cuid = "10962256";
     
-    private final static String format = ".pcm";
+    private final static String format = "pcm";
 
     //1537 表示识别普通话，使用输入法模型。1536表示识别普通话，使用搜索模型。 其它语种参见文档
     private final static int dev_pid = 1737;
@@ -28,7 +28,7 @@ public class VoiceRecognitionUtil {
     	AipSpeech  client = new AipSpeech(cuid, appKey, secretKey);
     	HashMap<String, Object> map = new HashMap<String, Object>();
     	map.put("dev_pid", dev_pid);
-        JSONObject asrRes2 = client.asr(data, format, 16000, map);
+        JSONObject asrRes2 = client.asr(data, format, 16000,map);
        
         return asrRes2;
 
