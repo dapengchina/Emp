@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.sound.sampled.AudioFileFormat;
@@ -34,15 +36,49 @@ import javazoom.spi.mpeg.sampled.file.MpegAudioFileReader;
 public class MobileSpeechRecognitionAction {
 	
 	
+	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+	
+	private static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+	
+	private File mp3DirFile;
+	
+	private boolean mp3bFile;
+	
+	private String mp3path;
+	
+	
+    private static File pcmDirFile;
+	
+	private static boolean pcmbFile;
+	
+	private static String pcmpath;
+	
+	
 	@RequestMapping(value = "/recognition")
 	@ResponseBody
     public Object speechReco(HttpServletRequest request) throws IOException {
 		
         MultipartFile file = ((MultipartHttpServletRequest) request).getFile("file");
+        
+        /**
+         * 创建文件夹
+         */
+        mp3DirFile = new File("C:/upload_mp3/"+sdf2.format(new Date()));
+        mp3bFile   = mp3DirFile.exists();
+        if( mp3bFile == true )
+        {
+          //System.out.println("The folder exists.");
+        }
+        else
+        {
+          //System.out.println("The folder do not exist,now trying to create a one...");
+          mp3bFile = mp3DirFile.mkdirs();
+        }
+        mp3path = "C:/upload_mp3/"+sdf2.format(new Date())+"/"+(sdf.format(new Date()))+".mp3";
         //使用输入流读取前台的file文件              
         InputStream is=file.getInputStream();
         //循环读取输入流文件内容，通过输出流将内容写入新文件
-        OutputStream os=new FileOutputStream("C://1.mp3");  
+        OutputStream os=new FileOutputStream(mp3path);  
         byte buffer[]=new byte[1024];  
         int cnt=0;  
         while((cnt=is.read(buffer))>0){  
@@ -52,8 +88,8 @@ public class MobileSpeechRecognitionAction {
         os.close();
         is.close();  
         try {
-            mp3Convertpcm();
-            byte[] data = Util.readFileByBytes("C://testzp.pcm");
+            mp3Convertpcm(mp3path);
+            byte[] data = Util.readFileByBytes(pcmpath);
             JSONObject resultJson = VoiceRecognitionUtil.asr(data);
             System.out.println(resultJson.getJSONArray("result").get(0).toString());
             if (null != resultJson && resultJson.getInt("err_no") == 0) {
@@ -70,9 +106,24 @@ public class MobileSpeechRecognitionAction {
      * @Description MP3转换pcm
      *
      */
-    public static void mp3Convertpcm() throws Exception {
-		AudioInputStream audioInputStream = getPcmAudioInputStream("C://1.mp3");
-        AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, new File("C://testzp.pcm"));
+    public static void mp3Convertpcm(String mp3path) throws Exception {
+    	/**
+         * 创建文件夹
+         */
+        pcmDirFile = new File("C:/convert_pcm/"+sdf2.format(new Date()));
+        pcmbFile   = pcmDirFile.exists();
+        if( pcmbFile == true )
+        {
+          //System.out.println("The folder exists.");
+        }
+        else
+        {
+          //System.out.println("The folder do not exist,now trying to create a one...");
+          pcmbFile = pcmDirFile.mkdirs();
+        }
+        pcmpath = "C:/convert_pcm/"+sdf2.format(new Date())+"/"+(sdf.format(new Date()))+".pcm";
+		AudioInputStream audioInputStream = getPcmAudioInputStream(mp3path);
+        AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, new File(pcmpath));
     }
 
     private static AudioInputStream getPcmAudioInputStream(String mp3filepath) {
