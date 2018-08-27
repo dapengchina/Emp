@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -67,6 +68,8 @@ public class MobileWordExamAction {
 	@Resource
 	private MobileHitCardService mobileHitCardService;
 	
+	private Random rd = new Random();
+	
 	ObjectMapper objectMapper = new ObjectMapper();
 	
 	
@@ -92,6 +95,7 @@ public class MobileWordExamAction {
 		mhce.setStringDate(sf.format(new Date()));
 		List<MobileHitCardEntity> ifhit = mobileHitCardService.queryByUserID(mhce);
 		if(ifhit!=null && ifhit.size()>=1){
+			    int random_temp = 0;
 			    MobileWordRecordEntity mwre = new MobileWordRecordEntity();
 			    mwre.setStringPassDate(sf.format(new Date()));;//当天考试通过日期
 			    mwre.setIsPass(SysConstant.PASS);//考试通过
@@ -101,6 +105,8 @@ public class MobileWordExamAction {
 				List<MobileWordRecordEntity> list = mobileBearWordService.query(mwre);
 				List<WordExamUtil> reslist = new ArrayList<WordExamUtil>();
 				for(int i=0;i<list.size();i++){
+					//生成0到4之间的随机数
+					random_temp = rd.nextInt(4);
 					MobileWordEntity mwe = mobileWordService.queryWordById(list.get(i).getWordId());
 					WordExamUtil weu = new WordExamUtil();
 					String[] temp = new String[4];
@@ -109,12 +115,34 @@ public class MobileWordExamAction {
 					weu.setId(list.get(i).getId());
 					if(mwe!=null){
 						weu.setPronounce(mwe.getSymbol());
-						temp[0] = mwe.getInterpretation();
-						temp[1] = mwe.getErrInterpretation1();
-						temp[2] = mwe.getErrInterpretation2();
-						temp[3] = mwe.getErrInterpretation3();
+						
+						if(random_temp==0){
+							temp[random_temp] = mwe.getInterpretation();
+							temp[1] = mwe.getErrInterpretation1();
+							temp[2] = mwe.getErrInterpretation2();
+							temp[3] = mwe.getErrInterpretation3();
+						}
+						if(random_temp==1){
+							temp[random_temp] = mwe.getInterpretation();
+							temp[0] = mwe.getErrInterpretation1();
+							temp[2] = mwe.getErrInterpretation2();
+							temp[3] = mwe.getErrInterpretation3();
+						}
+						if(random_temp==2){
+							temp[random_temp] = mwe.getInterpretation();
+							temp[0] = mwe.getErrInterpretation1();
+							temp[1] = mwe.getErrInterpretation2();
+							temp[3] = mwe.getErrInterpretation3();
+						}
+						if(random_temp==3){
+							temp[random_temp] = mwe.getInterpretation();
+							temp[0] = mwe.getErrInterpretation1();
+							temp[1] = mwe.getErrInterpretation2();
+							temp[2] = mwe.getErrInterpretation3();
+						}
+						
 						weu.setOptions(temp);
-						weu.setCorrect("0");
+						weu.setCorrect(String.valueOf(random_temp));
 					}
 					reslist.add(weu);
 				}
@@ -124,9 +152,8 @@ public class MobileWordExamAction {
 				map.put("rows", reslist);
 				return objectMapper.writeValueAsString(map);
 		}else{
+			int random_temp = 0;
 			//当天未打卡
-			
-			
 			/***
 			 * 获取选中,考试未通过的单词
 			 */
@@ -139,6 +166,8 @@ public class MobileWordExamAction {
 			List<MobileWordRecordEntity> list = mobileBearWordService.query(mwre);
 			List<WordExamUtil> reslist = new ArrayList<WordExamUtil>();
 			for(int i=0;i<list.size();i++){
+				//生成0到4之间的随机数
+				random_temp = rd.nextInt(4);
 				MobileWordEntity mwe = mobileWordService.queryWordById(list.get(i).getWordId());
 				WordExamUtil weu = new WordExamUtil();
 				String[] temp = new String[4];
@@ -147,12 +176,34 @@ public class MobileWordExamAction {
 				weu.setId(list.get(i).getId());
 				if(mwe!=null){
 					weu.setPronounce(mwe.getSymbol());
-					temp[0] = mwe.getInterpretation();
-					temp[1] = mwe.getErrInterpretation1();
-					temp[2] = mwe.getErrInterpretation2();
-					temp[3] = mwe.getErrInterpretation3();
+					
+					if(random_temp==0){
+						temp[random_temp] = mwe.getInterpretation();
+						temp[1] = mwe.getErrInterpretation1();
+						temp[2] = mwe.getErrInterpretation2();
+						temp[3] = mwe.getErrInterpretation3();
+					}
+					if(random_temp==1){
+						temp[random_temp] = mwe.getInterpretation();
+						temp[0] = mwe.getErrInterpretation1();
+						temp[2] = mwe.getErrInterpretation2();
+						temp[3] = mwe.getErrInterpretation3();
+					}
+					if(random_temp==2){
+						temp[random_temp] = mwe.getInterpretation();
+						temp[0] = mwe.getErrInterpretation1();
+						temp[1] = mwe.getErrInterpretation2();
+						temp[3] = mwe.getErrInterpretation3();
+					}
+					if(random_temp==3){
+						temp[random_temp] = mwe.getInterpretation();
+						temp[0] = mwe.getErrInterpretation1();
+						temp[1] = mwe.getErrInterpretation2();
+						temp[2] = mwe.getErrInterpretation3();
+					}
+					
 					weu.setOptions(temp);
-					weu.setCorrect("0");
+					weu.setCorrect(String.valueOf(random_temp));
 				}
 				reslist.add(weu);
 			}
@@ -270,4 +321,6 @@ public class MobileWordExamAction {
 			return 0;
 		}
 	}
+	
+	
 }
