@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.ability.emp.mobile.dao.MobileSceCategoryDao;
-import com.ability.emp.mobile.entity.MobileFirstCategoryEntity;
 import com.ability.emp.mobile.entity.MobileSceCategoryEntity;
 import com.ability.emp.mobile.server.MobileSceCategoryService;
 

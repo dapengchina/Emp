@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @CrossOrigin//解决跨域请求
 @Controller
 @RequestMapping("/mobile/getIndexData")
-public class MobileGetIndexDataAction {
+public class MobileGetIndexAction {
 	
 	
 	
@@ -71,6 +71,8 @@ public class MobileGetIndexDataAction {
         		scb.setSceCatName(mobileSceCategoryList.get(j).getScecatname());
         		scb.setIcon(SysConstant.SERVICE_HOST+mobileSceCategoryList.get(j).getIcon());
         		scb.setIndex(mobileSceCategoryList.get(j).getIndex().toString());
+        		scb.setDropLetId(mobileSceCategoryList.get(j).getDropletid());
+        		scb.setDropLetConfigTypeId(mobileSceCategoryList.get(j).getDropletconftypeid());
         		
         		md.setId(mobileSceCategoryList.get(j).getDropletid());
         		MobileDropLetEntity mde = mobileDropLetService.getDropLetByID(md);

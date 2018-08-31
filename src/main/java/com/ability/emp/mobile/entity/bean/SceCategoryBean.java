@@ -11,43 +11,61 @@ public class SceCategoryBean {
 	   
 	   private String dropLetLink;
 	   
+	   private String dropLetId;
 	   
+	   private String dropLetConfigTypeId;
 	   
 	   
 
 	
 
-	public String getDropLetLink() {
-		return dropLetLink;
-	}
+	   public String getDropLetConfigTypeId() {
+		  return dropLetConfigTypeId;
+	   }
 
-	public void setDropLetLink(String dropLetLink) {
-		this.dropLetLink = dropLetLink;
-	}
+	   public void setDropLetConfigTypeId(String dropLetConfigTypeId) {
+		  this.dropLetConfigTypeId = dropLetConfigTypeId;
+	   }
 
-	public String getSceCatName() {
-		return sceCatName;
-	}
+	   public String getDropLetId() {
+		  return dropLetId;
+	   }
 
-	public void setSceCatName(String sceCatName) {
-		this.sceCatName = sceCatName;
-	}
+	   public void setDropLetId(String dropLetId) {
+		  this.dropLetId = dropLetId;
+	   }
 
-	public String getIndex() {
-		return index;
-	}
+	   public String getDropLetLink() {
+		  return dropLetLink;
+	   }
 
-	public void setIndex(String index) {
-		this.index = index;
-	}
+	   public void setDropLetLink(String dropLetLink) {
+		  this.dropLetLink = dropLetLink;
+	   }
 
-	public String getIcon() {
-		return icon;
-	}
+	   public String getSceCatName() {
+		  return sceCatName;
+	   }
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
+	   public void setSceCatName(String sceCatName) {
+		  this.sceCatName = sceCatName;
+	   }
+
+	   public String getIndex() {
+		  return index;
+	   }
+
+	   public void setIndex(String index) {
+		  this.index = index;
+	   }
+
+	   public String getIcon() {
+		  return icon;
+	   }
+
+	   public void setIcon(String icon) {
+		  this.icon = icon;
+	   }
 	   
 	   
 
