@@ -42,7 +42,9 @@ public class MobileGetScenListDropLetAction {
 		List<ScenListDropLetVo> list = new ArrayList<ScenListDropLetVo>();
 		MobileScenListDropLetEntity me = new MobileScenListDropLetEntity();
 		MobileDropLetEntity md = new MobileDropLetEntity();
-		me.setDropletid(dropLetId);//确认是哪个droplet下的数据
+		if(!dropLetId.equals("1")){
+			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
+		}
 		me.setDropletconftypeid(dropLetConfTypeId);//通过参数获取button
 		List<MobileScenListDropLetEntity> scenListDropLetList = mobileScenListDropLetService.getScenListDropletData(me);
 		for(int i=0;i<scenListDropLetList.size();i++){
@@ -54,6 +56,7 @@ public class MobileGetScenListDropLetAction {
 			sv.setCurrentPoint(scenListDropLetList.get(i).getCurrentpoint());
 			sv.setTotalPoint(scenListDropLetList.get(i).getTotalpoint());
 			sv.setIndex(scenListDropLetList.get(i).getIndex().toString());
+			sv.setRelaDropLetId(scenListDropLetList.get(i).getReladropletid());
 			
 			md.setId(scenListDropLetList.get(i).getReladropletid());
 			MobileDropLetEntity mde = mobileDropLetService.getDropLetByID(md);

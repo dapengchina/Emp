@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileCardListDropletDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileCardListDropletEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
+    <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetID" property="reladropletid" jdbcType="VARCHAR" />
+    <result column="CardIcon" property="cardicon" jdbcType="VARCHAR" />
+    <result column="CardBackImag" property="cardbackimag" jdbcType="VARCHAR" />
+    <result column="CardName" property="cardname" jdbcType="VARCHAR" />
+    <result column="Index" property="index" jdbcType="INTEGER" />
+    <result column="CurrentScore" property="currentscore" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, DropLetID, DropLetConfTypeID, RelaDropLetID, CardIcon, CardBackImag, CardName, 
+    Index, CurrentScore
+  </sql>
+  
+  <select id="selectCardListDroplet" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileCardListDropletEntity" >
+    select *
+    from t_cardlistdropletdata t
+    where 1=1
+    order by t.index asc
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_cardlistdropletdata
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileCardListDropletEntity" >
+    insert into t_cardlistdropletdata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dropletid != null" >
+        DropLetID,
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID,
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID,
+      </if>
+      <if test="cardicon != null" >
+        CardIcon,
+      </if>
+      <if test="cardbackimag != null" >
+        CardBackImag,
+      </if>
+      <if test="cardname != null" >
+        CardName,
+      </if>
+      <if test="index != null" >
+        Index,
+      </if>
+      <if test="currentscore != null" >
+        CurrentScore,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletid != null" >
+        #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="cardicon != null" >
+        #{cardicon,jdbcType=VARCHAR},
+      </if>
+      <if test="cardbackimag != null" >
+        #{cardbackimag,jdbcType=VARCHAR},
+      </if>
+      <if test="cardname != null" >
+        #{cardname,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null" >
+        #{index,jdbcType=INTEGER},
+      </if>
+      <if test="currentscore != null" >
+        #{currentscore,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileCardListDropletEntity" >
+    update t_cardlistdropletdata
+    <set >
+      <if test="dropletid != null" >
+        DropLetID = #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID = #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID = #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="cardicon != null" >
+        CardIcon = #{cardicon,jdbcType=VARCHAR},
+      </if>
+      <if test="cardbackimag != null" >
+        CardBackImag = #{cardbackimag,jdbcType=VARCHAR},
+      </if>
+      <if test="cardname != null" >
+        CardName = #{cardname,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null" >
+        Index = #{index,jdbcType=INTEGER},
+      </if>
+      <if test="currentscore != null" >
+        CurrentScore = #{currentscore,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

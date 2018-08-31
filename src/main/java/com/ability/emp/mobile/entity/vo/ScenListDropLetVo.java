@@ -19,9 +19,22 @@ public class ScenListDropLetVo {
 	   
 	   private String relaDropLet;
 	   
+	   private String relaDropLetId;
 	   
 	   
 	   
+	   
+	   
+	   
+	   
+
+	   public String getRelaDropLetId() {
+		  return relaDropLetId;
+	   }
+
+	   public void setRelaDropLetId(String relaDropLetId) {
+		  this.relaDropLetId = relaDropLetId;
+	   }
 
 	   public String getRelaDropLet() {
 		  return relaDropLet;
