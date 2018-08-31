@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.constant.SysConstant;
-import com.ability.emp.mobile.entity.vo.FirstCategoryVo;
-import com.ability.emp.mobile.entity.vo.SceCategoryBean;
-import com.ability.emp.mobile.entity.vo.ScenListDropLetDataVo;
+import com.ability.emp.mobile.entity.vo.ScenListDropLetVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin//解决跨域请求
@@ -33,7 +31,7 @@ ObjectMapper objectMapper = new ObjectMapper();
 	public String getIndexData(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
 		Map<String,Object> map = new HashMap<String,Object>();
 		List list = new ArrayList();
-		ScenListDropLetDataVo  sv1 = new ScenListDropLetDataVo();
+		ScenListDropLetVo  sv1 = new ScenListDropLetVo();
 		sv1.setScenName("Stand Up Meeting");
 		sv1.setRelaDropLet("../page_011/page_011");
 		sv1.setAverageScore("83");
@@ -43,7 +41,7 @@ ObjectMapper objectMapper = new ObjectMapper();
 		sv1.setTotalPoint("500");
 		sv1.setScenIcon(SysConstant.SERVICE_HOST+"/Emp/mobile/page_021/5.png");
 		
-		ScenListDropLetDataVo  sv2 = new ScenListDropLetDataVo();
+		ScenListDropLetVo  sv2 = new ScenListDropLetVo();
 		sv2.setScenName("Working Report");
 		sv2.setIndex("2");
 		sv2.setCompPerc("0");
@@ -51,7 +49,7 @@ ObjectMapper objectMapper = new ObjectMapper();
 		sv2.setTotalPoint("500");
 		sv2.setScenIcon(SysConstant.SERVICE_HOST+"/Emp/mobile/page_021/1.png");
 		
-		ScenListDropLetDataVo  sv3 = new ScenListDropLetDataVo();
+		ScenListDropLetVo  sv3 = new ScenListDropLetVo();
 		sv3.setScenName("Issue Report");
 		sv3.setIndex("3");
 		sv3.setCompPerc("0");
@@ -59,7 +57,7 @@ ObjectMapper objectMapper = new ObjectMapper();
 		sv3.setTotalPoint("500");
 		sv3.setScenIcon(SysConstant.SERVICE_HOST+"/Emp/mobile/page_021/2.png");
 		
-		ScenListDropLetDataVo  sv4 = new ScenListDropLetDataVo();
+		ScenListDropLetVo  sv4 = new ScenListDropLetVo();
 		sv4.setScenName("Exchange Meeting");
 		sv4.setIndex("4");
 		sv4.setCompPerc("0");
@@ -67,7 +65,7 @@ ObjectMapper objectMapper = new ObjectMapper();
 		sv4.setTotalPoint("500");
 		sv4.setScenIcon(SysConstant.SERVICE_HOST+"/Emp/mobile/page_021/6.png");
 		
-		ScenListDropLetDataVo  sv5 = new ScenListDropLetDataVo();
+		ScenListDropLetVo  sv5 = new ScenListDropLetVo();
 		sv5.setScenName("Progress Report");
 		sv5.setIndex("5");
 		sv5.setCompPerc("0");
@@ -75,7 +73,7 @@ ObjectMapper objectMapper = new ObjectMapper();
 		sv5.setTotalPoint("500");
 		sv5.setScenIcon(SysConstant.SERVICE_HOST+"/Emp/mobile/page_021/7.png");
 		
-		ScenListDropLetDataVo  sv6 = new ScenListDropLetDataVo();
+		ScenListDropLetVo  sv6 = new ScenListDropLetVo();
 		sv6.setScenName("Shown Demo");
 		sv6.setIndex("6");
 		sv6.setCompPerc("60");
@@ -83,7 +81,7 @@ ObjectMapper objectMapper = new ObjectMapper();
 		sv6.setTotalPoint("500");
 		sv6.setScenIcon(SysConstant.SERVICE_HOST+"/Emp/mobile/page_021/3.png");
 		
-		ScenListDropLetDataVo  sv7 = new ScenListDropLetDataVo();
+		ScenListDropLetVo  sv7 = new ScenListDropLetVo();
 		sv7.setScenName("Finance Report");
 		sv7.setIndex("7");
 		sv7.setCompPerc("0");

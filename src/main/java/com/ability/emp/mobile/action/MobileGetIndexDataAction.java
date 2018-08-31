@@ -1,10 +1,7 @@
 package com.ability.emp.mobile.action;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -16,8 +13,8 @@ import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileDropLetEntity;
 import com.ability.emp.mobile.entity.MobileFirstCategoryEntity;
 import com.ability.emp.mobile.entity.MobileSceCategoryEntity;
+import com.ability.emp.mobile.entity.bean.SceCategoryBean;
 import com.ability.emp.mobile.entity.vo.FirstCategoryVo;
-import com.ability.emp.mobile.entity.vo.SceCategoryBean;
 import com.ability.emp.mobile.server.MobileDropLetService;
 import com.ability.emp.mobile.server.MobileFirstCategoryService;
 import com.ability.emp.mobile.server.MobileSceCategoryService;
@@ -44,8 +41,9 @@ public class MobileGetIndexDataAction {
 	@Resource
 	private MobileDropLetService mobileDropLetService;
 	
-	private String serviceHost = "https://www.learnzp.com";
 	
+	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/getIndexData")
 	@ResponseBody
 	public String getIndexData() throws Exception {
@@ -53,12 +51,14 @@ public class MobileGetIndexDataAction {
 		MobileFirstCategoryEntity me = new MobileFirstCategoryEntity();
 		MobileSceCategoryEntity mf = new MobileSceCategoryEntity();
 		MobileDropLetEntity md = new MobileDropLetEntity();
+		@SuppressWarnings("rawtypes")
 		List firstlist = new ArrayList();
 		
 		
 		List<MobileFirstCategoryEntity> list = mobileFirstCategoryService.getIndexData(me);
 		
 		for(int i=0;i<list.size();i++){
+			@SuppressWarnings("rawtypes")
 			List seclist = new ArrayList();
 			FirstCategoryVo fv = new FirstCategoryVo();
 			fv.setFirCatName(list.get(i).getFircatname());

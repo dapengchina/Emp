@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.vo.CardListDropletVo;
-import com.ability.emp.mobile.entity.vo.ScenListDropLetDataVo;
+import com.ability.emp.mobile.entity.vo.ScenListDropLetVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin//解决跨域请求

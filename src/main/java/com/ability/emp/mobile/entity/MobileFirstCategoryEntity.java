@@ -1,8 +1,7 @@
 package com.ability.emp.mobile.entity;
 
-import java.util.List;
 
-import com.ability.emp.mobile.entity.vo.SceCategoryBean;
+
 
 public class MobileFirstCategoryEntity {
 	
@@ -14,17 +13,9 @@ public class MobileFirstCategoryEntity {
 
         private Integer index;
 
-        
-        
-        //表外属性
-	   
-	    private List<MobileSceCategoryEntity> sceCategoryListBean;
 	   
 	   
 	   
-
-	   
-
 	    public String getId() {
 			return id;
 		}
@@ -49,18 +40,7 @@ public class MobileFirstCategoryEntity {
 			this.index = index;
 		}
 
-		 
-
-		public List<MobileSceCategoryEntity> getSceCategoryListBean() {
-			return sceCategoryListBean;
-		}
-
-		public void setSceCategoryListBean(List<MobileSceCategoryEntity> sceCategoryListBean) {
-			this.sceCategoryListBean = sceCategoryListBean;
-		}
-
-	    
-	   
+		
 	   
 	   
 }

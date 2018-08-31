@@ -1,6 +1,9 @@
 package com.ability.emp.mobile.entity;
 
 public class MobileDropLetEntity {
+	
+	
+	
     private String id;
 
     private String dropletlink;
@@ -8,6 +11,9 @@ public class MobileDropLetEntity {
     private String desc;
 
     private String dropletname;
+    
+    
+    
 
     public String getId() {
         return id;

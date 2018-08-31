@@ -1,4 +1,4 @@
-package com.ability.emp.mobile.entity.vo;
+package com.ability.emp.mobile.entity.bean;
 
 public class SceCategoryBean {
 	
