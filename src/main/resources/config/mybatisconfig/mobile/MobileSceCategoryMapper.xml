@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileSceCategoryDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileSceCategoryEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="FirCatId" property="fircatid" jdbcType="VARCHAR" />
+    <result column="SceCatName" property="scecatname" jdbcType="VARCHAR" />
+    <result column="index" property="index" jdbcType="INTEGER" />
+    <result column="Icon" property="icon" jdbcType="VARCHAR" />
+    <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
+    <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, FirCatId, SceCatName, index, Icon, DropLetID, DropLetConfTypeID
+  </sql>
+  
+  <select id="getScenListDropLetData" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileSceCategoryEntity" >
+    select * from t_scecategory t
+    
+    where 1=1
+    <if test="fircatid != null and fircatid != ''">
+		and FirCatId = #{fircatid}
+	</if>
+	order by t.index asc
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_scecategory
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileSceCategoryEntity" >
+    insert into t_scecategory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="fircatid != null" >
+        FirCatId,
+      </if>
+      <if test="scecatname != null" >
+        SceCatName,
+      </if>
+      <if test="index != null" >
+        index,
+      </if>
+      <if test="icon != null" >
+        Icon,
+      </if>
+      <if test="dropletid != null" >
+        DropLetID,
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fircatid != null" >
+        #{fircatid,jdbcType=VARCHAR},
+      </if>
+      <if test="scecatname != null" >
+        #{scecatname,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null" >
+        #{index,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletid != null" >
+        #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileSceCategoryEntity" >
+    update t_scecategory
+    <set >
+      <if test="fircatid != null" >
+        FirCatId = #{fircatid,jdbcType=VARCHAR},
+      </if>
+      <if test="scecatname != null" >
+        SceCatName = #{scecatname,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null" >
+        index = #{index,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        Icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletid != null" >
+        DropLetID = #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID = #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

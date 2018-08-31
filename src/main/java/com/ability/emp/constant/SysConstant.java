@@ -36,6 +36,8 @@ public class SysConstant {
 	   public static final String PASS = "0";
 	   //考试未通过
 	   public static final String NO_PASS = "1";
+	   //服务器地址
+	   public static final String SERVICE_HOST = "https://www.learnzp.com";
 	   
 
 }

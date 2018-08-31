@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileDropLetDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileDropLetEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DropLetLink" property="dropletlink" jdbcType="VARCHAR" />
+    <result column="Desc" property="desc" jdbcType="VARCHAR" />
+    <result column="DropLetName" property="dropletname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, DropLetLink, Desc, DropLetName
+  </sql>
+  <select id="selectByID" resultType="com.ability.emp.mobile.entity.MobileDropLetEntity" parameterType="com.ability.emp.mobile.entity.MobileDropLetEntity" >
+    select 
+    *
+    from t_droplet
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_droplet
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileDropLetEntity" >
+    insert into t_droplet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dropletlink != null" >
+        DropLetLink,
+      </if>
+      <if test="desc != null" >
+        Desc,
+      </if>
+      <if test="dropletname != null" >
+        DropLetName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletlink != null" >
+        #{dropletlink,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletname != null" >
+        #{dropletname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileDropLetEntity" >
+    update t_droplet
+    <set >
+      <if test="dropletlink != null" >
+        DropLetLink = #{dropletlink,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        Desc = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletname != null" >
+        DropLetName = #{dropletname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>
