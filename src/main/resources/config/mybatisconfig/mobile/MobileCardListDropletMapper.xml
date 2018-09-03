@@ -23,8 +23,8 @@
     <if test="dropletid != null and dropletid != ''">
 		and DropLetID = #{dropletid}
 	</if>
-	<if test="dropletconftypeid != null and dropletconftypeid != ''">
-		and DropLetConfTypeID = #{dropletconftypeid}
+	<if test="predropletcontypeid != null and predropletcontypeid != ''">
+		and PreDropLetConTypeID = #{predropletcontypeid}
 	</if>
     order by t.index asc
   </select>

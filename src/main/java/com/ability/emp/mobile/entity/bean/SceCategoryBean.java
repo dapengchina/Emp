@@ -2,6 +2,7 @@ package com.ability.emp.mobile.entity.bean;
 
 public class SceCategoryBean {
 	
+	   private String id;
 	
 	   private String sceCatName;
 	   
@@ -19,7 +20,15 @@ public class SceCategoryBean {
 
 	
 
-	   public String getDropLetConfigTypeId() {
+	   public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getDropLetConfigTypeId() {
 		  return dropLetConfigTypeId;
 	   }
 

@@ -1,7 +1,10 @@
 package com.ability.emp.mobile.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -12,8 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileCardListDropletEntity;
+import com.ability.emp.mobile.entity.MobileDropLetButtonEntity;
+import com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity;
 import com.ability.emp.mobile.entity.vo.CardListDropletVo;
+import com.ability.emp.mobile.entity.vo.DropLetButtonVo;
 import com.ability.emp.mobile.server.MobileCardListDropletService;
+import com.ability.emp.mobile.server.MobileDropLetButtonService;
+import com.ability.emp.mobile.server.MobileDropLetConfTypeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin//解决跨域请求
@@ -25,17 +33,29 @@ public class MobileCardListDropletAction {
 	@Resource
 	private MobileCardListDropletService mobileCardListDropletService;
 	
+	@Resource
+	private MobileDropLetConfTypeService mobileDropLetConfTypeService;
+	
+	@Resource
+	private MobileDropLetButtonService mobileDropLetButtonService;
+	
 	ObjectMapper objectMapper = new ObjectMapper();
 	
 	
 	
 	@RequestMapping("/getCardListDroplet/{dropLetId}/{id}")
 	@ResponseBody
-	public String getCardListDroplet(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
+	public String getCardListDroplet(@PathVariable("dropLetId") String dropLetId,@PathVariable("id") String id) throws Exception {
 		List<CardListDropletVo> list = new ArrayList<CardListDropletVo>();
+		List<DropLetButtonVo> list2 = new ArrayList<DropLetButtonVo>();
+		Map<String,Object> map = new HashMap<String,Object>();
 		MobileCardListDropletEntity me = new MobileCardListDropletEntity();
-		me.setDropletid(dropLetId);
-		me.setDropletconftypeid(dropLetConfTypeId);
+		me.setDropletid(dropLetId);//确认是哪个dropLet下的数据
+		if(!dropLetId.equals("1")){
+			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
+		}
+		me.setPredropletcontypeid(id);
+		
 		List<MobileCardListDropletEntity> cardListDropletList = mobileCardListDropletService.getCardListDropletData(me);
 		for(int i=0;i<cardListDropletList.size();i++){
 			CardListDropletVo cv = new CardListDropletVo();
@@ -47,7 +67,70 @@ public class MobileCardListDropletAction {
 			list.add(cv);
 		}
 		
-		return objectMapper.writeValueAsString(list);
+		/**
+		 * 获取button
+		 */
+		if(cardListDropletList.size()>0 
+		   && cardListDropletList.get(0).getDropletconftypeid()!=null
+		   && !"".equals(cardListDropletList.get(0).getDropletconftypeid())
+		){
+			MobileDropLetConfTypeEntity mde = new MobileDropLetConfTypeEntity();
+			mde.setId(cardListDropletList.get(0).getDropletconftypeid());
+			MobileDropLetConfTypeEntity remde = mobileDropLetConfTypeService.getDropLetConfigType(mde);
+			if(remde!=null){
+				MobileDropLetButtonEntity butt = new MobileDropLetButtonEntity();
+				if(remde.getFirstbuttonid()!=null && !"".equals(remde.getFirstbuttonid())){
+					butt.setId(remde.getFirstbuttonid());
+					MobileDropLetButtonEntity reme = mobileDropLetButtonService.getButtonByID(butt);
+					if(reme!=null){
+						DropLetButtonVo dv = new DropLetButtonVo();
+						dv.setButtonlink(reme.getButtonlink());
+						dv.setButtonname(reme.getButtonname());
+						dv.setIcon(reme.getIcon());
+						list2.add(dv);
+					}
+					
+				}
+                if(remde.getSecbuttonid()!=null && !"".equals(remde.getSecbuttonid())){
+                	butt.setId(remde.getSecbuttonid());
+                	MobileDropLetButtonEntity reme = mobileDropLetButtonService.getButtonByID(butt);
+                	if(reme!=null){
+						DropLetButtonVo dv = new DropLetButtonVo();
+						dv.setButtonlink(reme.getButtonlink());
+						dv.setButtonname(reme.getButtonname());
+						dv.setIcon(reme.getIcon());
+						list2.add(dv);
+					}
+                }
+                if(remde.getThirbuttonid()!=null && !"".equals(remde.getThirbuttonid())){
+                	butt.setId(remde.getThirbuttonid());
+                	MobileDropLetButtonEntity reme = mobileDropLetButtonService.getButtonByID(butt);
+                	if(reme!=null){
+						DropLetButtonVo dv = new DropLetButtonVo();
+						dv.setButtonlink(reme.getButtonlink());
+						dv.setButtonname(reme.getButtonname());
+						dv.setIcon(reme.getIcon());
+						list2.add(dv);
+					}
+                }
+                if(remde.getFourbuttonid()!=null && !"".equals(remde.getFourbuttonid())){
+                	butt.setId(remde.getFourbuttonid());
+                	MobileDropLetButtonEntity reme = mobileDropLetButtonService.getButtonByID(butt);
+                	if(reme!=null){
+						DropLetButtonVo dv = new DropLetButtonVo();
+						dv.setButtonlink(reme.getButtonlink());
+						dv.setButtonname(reme.getButtonname());
+						dv.setIcon(reme.getIcon());
+						list2.add(dv);
+					}
+                }
+			}
+		}
+		
+		//组合数据
+		map.put("list", list);
+		map.put("button", list2);
+		return objectMapper.writeValueAsString(map);
 	}
 
 }

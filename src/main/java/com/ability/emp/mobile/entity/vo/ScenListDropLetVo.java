@@ -3,6 +3,8 @@ package com.ability.emp.mobile.entity.vo;
 public class ScenListDropLetVo {
 	
 	
+	   private String id;
+	
 	   private String scenIcon;
 	   
 	   private String scenName;
@@ -27,6 +29,14 @@ public class ScenListDropLetVo {
 	   
 	   
 	   
+
+	   public String getId() {
+		  return id;
+	   }
+
+	   public void setId(String id) {
+		  this.id = id;
+	   }
 
 	   public String getRelaDropLetId() {
 		  return relaDropLetId;

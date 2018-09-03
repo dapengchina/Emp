@@ -74,6 +74,7 @@ public class MobileGetScenListDropLetAction {
 			sv.setTotalPoint(scenListDropLetList.get(i).getTotalpoint());
 			sv.setIndex(scenListDropLetList.get(i).getIndex().toString());
 			sv.setRelaDropLetId(scenListDropLetList.get(i).getReladropletid());
+			sv.setId(scenListDropLetList.get(i).getId());
 			
 			md.setId(scenListDropLetList.get(i).getReladropletid());
 			MobileDropLetEntity mde = mobileDropLetService.getDropLetByID(md);

@@ -73,6 +73,7 @@ public class MobileGetIndexAction {
         		scb.setIndex(mobileSceCategoryList.get(j).getIndex().toString());
         		scb.setDropLetId(mobileSceCategoryList.get(j).getDropletid());
         		scb.setDropLetConfigTypeId(mobileSceCategoryList.get(j).getDropletconftypeid());
+        		scb.setId(mobileSceCategoryList.get(j).getId());
         		
         		md.setId(mobileSceCategoryList.get(j).getDropletid());
         		MobileDropLetEntity mde = mobileDropLetService.getDropLetByID(md);
