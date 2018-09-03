@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileDropLetButtonDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileDropLetButtonEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="Icon" property="icon" jdbcType="VARCHAR" />
+    <result column="ButtonFunc" property="buttonfunc" jdbcType="VARCHAR" />
+    <result column="ButtonName" property="buttonname" jdbcType="VARCHAR" />
+    <result column="ButtonLink" property="buttonlink" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <select id="selectButtonByID" resultType="com.ability.emp.mobile.entity.MobileDropLetButtonEntity" parameterType="com.ability.emp.mobile.entity.MobileDropLetButtonEntity" >
+    select * from t_dropletbutton
+    where 1=1
+    <if test="id != null and id != ''">
+		and ID = #{id}
+	</if>
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_dropletbutton
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileDropLetButtonEntity" >
+    insert into t_dropletbutton
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="icon != null" >
+        Icon,
+      </if>
+      <if test="buttonfunc != null" >
+        ButtonFunc,
+      </if>
+      <if test="buttonname != null" >
+        ButtonName,
+      </if>
+      <if test="buttonlink != null" >
+        ButtonLink,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="buttonfunc != null" >
+        #{buttonfunc,jdbcType=VARCHAR},
+      </if>
+      <if test="buttonname != null" >
+        #{buttonname,jdbcType=VARCHAR},
+      </if>
+      <if test="buttonlink != null" >
+        #{buttonlink,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileDropLetButtonEntity" >
+    update t_dropletbutton
+    <set >
+      <if test="icon != null" >
+        Icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="buttonfunc != null" >
+        ButtonFunc = #{buttonfunc,jdbcType=VARCHAR},
+      </if>
+      <if test="buttonname != null" >
+        ButtonName = #{buttonname,jdbcType=VARCHAR},
+      </if>
+      <if test="buttonlink != null" >
+        ButtonLink = #{buttonlink,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

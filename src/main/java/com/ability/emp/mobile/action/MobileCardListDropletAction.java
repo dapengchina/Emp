@@ -29,7 +29,7 @@ public class MobileCardListDropletAction {
 	
 	
 	
-	@RequestMapping("/getCardListDroplet/{dropLetId}/{dropLetConfTypeId}")
+	@RequestMapping("/getCardListDroplet/{dropLetId}/{id}")
 	@ResponseBody
 	public String getCardListDroplet(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
 		List<CardListDropletVo> list = new ArrayList<CardListDropletVo>();

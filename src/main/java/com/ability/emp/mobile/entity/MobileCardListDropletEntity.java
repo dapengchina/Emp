@@ -9,6 +9,8 @@ public class MobileCardListDropletEntity {
     private String dropletid;
 
     private String dropletconftypeid;
+    
+    private String predropletcontypeid;
 
     private String reladropletid;
 
@@ -24,8 +26,17 @@ public class MobileCardListDropletEntity {
     
     
     
+    
 
-    public String getId() {
+    public String getPredropletcontypeid() {
+		return predropletcontypeid;
+	}
+
+	public void setPredropletcontypeid(String predropletcontypeid) {
+		this.predropletcontypeid = predropletcontypeid;
+	}
+
+	public String getId() {
         return id;
     }
 

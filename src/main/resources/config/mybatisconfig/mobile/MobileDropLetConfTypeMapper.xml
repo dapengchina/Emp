@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileDropLetConfTypeDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
+    <result column="DropLetConfType" property="dropletconftype" jdbcType="VARCHAR" />
+    <result column="FirstButtonID" property="firstbuttonid" jdbcType="VARCHAR" />
+    <result column="SecButtonID" property="secbuttonid" jdbcType="VARCHAR" />
+    <result column="ThirButtonID" property="thirbuttonid" jdbcType="VARCHAR" />
+    <result column="FourButtonID" property="fourbuttonid" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectDropLetConfigType" resultType="com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity" parameterType="com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity" >
+    select * from t_dropletconftype
+    where 1=1
+    <if test="id != null and id != ''">
+		and ID = #{id}
+	</if>
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_dropletconftype
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity" >
+    insert into t_dropletconftype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dropletid != null" >
+        DropLetID,
+      </if>
+      <if test="dropletconftype != null" >
+        DropLetConfType,
+      </if>
+      <if test="firstbuttonid != null" >
+        FirstButtonID,
+      </if>
+      <if test="secbuttonid != null" >
+        SecButtonID,
+      </if>
+      <if test="thirbuttonid != null" >
+        ThirButtonID,
+      </if>
+      <if test="fourbuttonid != null" >
+        FourButtonID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletid != null" >
+        #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftype != null" >
+        #{dropletconftype,jdbcType=VARCHAR},
+      </if>
+      <if test="firstbuttonid != null" >
+        #{firstbuttonid,jdbcType=VARCHAR},
+      </if>
+      <if test="secbuttonid != null" >
+        #{secbuttonid,jdbcType=VARCHAR},
+      </if>
+      <if test="thirbuttonid != null" >
+        #{thirbuttonid,jdbcType=VARCHAR},
+      </if>
+      <if test="fourbuttonid != null" >
+        #{fourbuttonid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity" >
+    update t_dropletconftype
+    <set >
+      <if test="dropletid != null" >
+        DropLetID = #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftype != null" >
+        DropLetConfType = #{dropletconftype,jdbcType=VARCHAR},
+      </if>
+      <if test="firstbuttonid != null" >
+        FirstButtonID = #{firstbuttonid,jdbcType=VARCHAR},
+      </if>
+      <if test="secbuttonid != null" >
+        SecButtonID = #{secbuttonid,jdbcType=VARCHAR},
+      </if>
+      <if test="thirbuttonid != null" >
+        ThirButtonID = #{thirbuttonid,jdbcType=VARCHAR},
+      </if>
+      <if test="fourbuttonid != null" >
+        FourButtonID = #{fourbuttonid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>
