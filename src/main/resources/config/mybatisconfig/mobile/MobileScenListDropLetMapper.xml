@@ -5,7 +5,7 @@
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
     <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
-    <result column="PreDropLetConTypeID" property="predropletcontypeid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetConTypeID" property="reladropletcontypeid" jdbcType="VARCHAR" />
     <result column="RelaDropLetID" property="reladropletid" jdbcType="VARCHAR" />
     <result column="ScenIcon" property="scenicon" jdbcType="VARCHAR" />
     <result column="ScenName" property="scenname" jdbcType="VARCHAR" />
@@ -24,8 +24,8 @@
     <if test="dropletid != null and dropletid != ''">
 		and DropLetID = #{dropletid}
 	</if>
-	<if test="predropletcontypeid != null and predropletcontypeid != ''">
-		and PreDropLetConTypeID = #{predropletcontypeid}
+	<if test="dropletconftypeid != null and dropletconftypeid != ''">
+		and DropLetConfTypeID = #{dropletconftypeid}
 	</if>
 	order by t.`Index` asc
   </select>
@@ -47,8 +47,8 @@
       <if test="dropletconftypeid != null" >
         DropLetConfTypeID,
       </if>
-      <if test="predropletcontypeid != null" >
-        PreDropLetConTypeID,
+      <if test="reladropletcontypeid != null" >
+        RelaDropLetConTypeID,
       </if>
       <if test="reladropletid != null" >
         RelaDropLetID,
@@ -85,8 +85,8 @@
       <if test="dropletconftypeid != null" >
         #{dropletconftypeid,jdbcType=VARCHAR},
       </if>
-      <if test="predropletcontypeid != null" >
-        #{predropletcontypeid,jdbcType=VARCHAR},
+      <if test="reladropletcontypeid != null" >
+        #{reladropletcontypeid,jdbcType=VARCHAR},
       </if>
       <if test="reladropletid != null" >
         #{reladropletid,jdbcType=VARCHAR},
@@ -124,8 +124,8 @@
       <if test="dropletconftypeid != null" >
         DropLetConfTypeID = #{dropletconftypeid,jdbcType=VARCHAR},
       </if>
-      <if test="predropletcontypeid != null" >
-        PreDropLetConTypeID = #{predropletcontypeid,jdbcType=VARCHAR},
+      <if test="reladropletcontypeid != null" >
+        RelaDropLetConTypeID = #{reladropletcontypeid,jdbcType=VARCHAR},
       </if>
       <if test="reladropletid != null" >
         RelaDropLetID = #{reladropletid,jdbcType=VARCHAR},

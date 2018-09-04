@@ -43,18 +43,18 @@ public class MobileCardListDropletAction {
 	
 	
 	
-	@RequestMapping("/getCardListDroplet/{dropLetId}/{id}")
+	@RequestMapping("/getCardListDroplet/{dropLetId}/{dropLetConfTypeId}")
 	@ResponseBody
-	public String getCardListDroplet(@PathVariable("dropLetId") String dropLetId,@PathVariable("id") String id) throws Exception {
+	public String getCardListDroplet(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
 		List<CardListDropletVo> list = new ArrayList<CardListDropletVo>();
 		List<DropLetButtonVo> list2 = new ArrayList<DropLetButtonVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		MobileCardListDropletEntity me = new MobileCardListDropletEntity();
-		me.setDropletid(dropLetId);//确认是哪个dropLet下的数据
+		
 		if(!dropLetId.equals("1")){
 			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
 		}
-		me.setPredropletcontypeid(id);
+		me.setDropletconftypeid(dropLetConfTypeId);//确认是哪个位置下的数据
 		
 		List<MobileCardListDropletEntity> cardListDropletList = mobileCardListDropletService.getCardListDropletData(me);
 		for(int i=0;i<cardListDropletList.size();i++){
@@ -62,7 +62,6 @@ public class MobileCardListDropletAction {
 			cv.setCardName(cardListDropletList.get(i).getCardname());
 			cv.setCardIcon(SysConstant.SERVICE_HOST+cardListDropletList.get(i).getCardicon());
 			cv.setCardBackImag(SysConstant.SERVICE_HOST+cardListDropletList.get(i).getCardbackimag());
-			cv.setCurrentScore(cardListDropletList.get(i).getCurrentscore());
 			cv.setIndex(cardListDropletList.get(i).getIndex().toString());
 			list.add(cv);
 		}
@@ -75,7 +74,9 @@ public class MobileCardListDropletAction {
 		   && !"".equals(cardListDropletList.get(0).getDropletconftypeid())
 		){
 			MobileDropLetConfTypeEntity mde = new MobileDropLetConfTypeEntity();
-			mde.setId(cardListDropletList.get(0).getDropletconftypeid());
+			mde.setDropletid(cardListDropletList.get(0).getDropletid());
+			mde.setDropletconftype(cardListDropletList.get(0).getDropletconftypeid());
+			//mde.setId(cardListDropletList.get(0).getDropletconftypeid());
 			MobileDropLetConfTypeEntity remde = mobileDropLetConfTypeService.getDropLetConfigType(mde);
 			if(remde!=null){
 				MobileDropLetButtonEntity butt = new MobileDropLetButtonEntity();
@@ -87,6 +88,8 @@ public class MobileCardListDropletAction {
 						dv.setButtonlink(reme.getButtonlink());
 						dv.setButtonname(reme.getButtonname());
 						dv.setIcon(reme.getIcon());
+						dv.setReladropletid(reme.getReladropletid());
+						dv.setReladropletconftype(reme.getReladropletconftype());
 						list2.add(dv);
 					}
 					
@@ -99,6 +102,8 @@ public class MobileCardListDropletAction {
 						dv.setButtonlink(reme.getButtonlink());
 						dv.setButtonname(reme.getButtonname());
 						dv.setIcon(reme.getIcon());
+						dv.setReladropletid(reme.getReladropletid());
+						dv.setReladropletconftype(reme.getReladropletconftype());
 						list2.add(dv);
 					}
                 }
@@ -110,6 +115,8 @@ public class MobileCardListDropletAction {
 						dv.setButtonlink(reme.getButtonlink());
 						dv.setButtonname(reme.getButtonname());
 						dv.setIcon(reme.getIcon());
+						dv.setReladropletid(reme.getReladropletid());
+						dv.setReladropletconftype(reme.getReladropletconftype());
 						list2.add(dv);
 					}
                 }
@@ -121,6 +128,8 @@ public class MobileCardListDropletAction {
 						dv.setButtonlink(reme.getButtonlink());
 						dv.setButtonname(reme.getButtonname());
 						dv.setIcon(reme.getIcon());
+						dv.setReladropletid(reme.getReladropletid());
+						dv.setReladropletconftype(reme.getReladropletconftype());
 						list2.add(dv);
 					}
                 }

@@ -9,9 +9,29 @@ public class DropLetButtonBean {
 
     private String buttonlink;
     
+    private String reladropletid;
+
+    private String reladropletconftype;
+    
     
     
 
+
+	public String getReladropletid() {
+		return reladropletid;
+	}
+
+	public void setReladropletid(String reladropletid) {
+		this.reladropletid = reladropletid;
+	}
+
+	public String getReladropletconftype() {
+		return reladropletconftype;
+	}
+
+	public void setReladropletconftype(String reladropletconftype) {
+		this.reladropletconftype = reladropletconftype;
+	}
 
 	public String getIcon() {
 		return icon;

@@ -61,7 +61,7 @@ public class MobileGetScenListDropLetAction {
 		if(!dropLetId.equals("1")){
 			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
 		}
-		me.setPredropletcontypeid(dropLetConfTypeId);//确认是哪个类型的数据
+		me.setReladropletcontypeid(dropLetConfTypeId);//确认是哪个类型的数据
 		
 		List<MobileScenListDropLetEntity> scenListDropLetList = mobileScenListDropLetService.getScenListDropletData(me);
 		for(int i=0;i<scenListDropLetList.size();i++){
@@ -75,6 +75,7 @@ public class MobileGetScenListDropLetAction {
 			sv.setIndex(scenListDropLetList.get(i).getIndex().toString());
 			sv.setRelaDropLetId(scenListDropLetList.get(i).getReladropletid());
 			sv.setId(scenListDropLetList.get(i).getId());
+			sv.setReladropletcontypeid(scenListDropLetList.get(i).getReladropletcontypeid());
 			
 			md.setId(scenListDropLetList.get(i).getReladropletid());
 			MobileDropLetEntity mde = mobileDropLetService.getDropLetByID(md);
@@ -92,7 +93,9 @@ public class MobileGetScenListDropLetAction {
 		   && !"".equals(scenListDropLetList.get(0).getDropletconftypeid())
 		){
 			MobileDropLetConfTypeEntity mde = new MobileDropLetConfTypeEntity();
-			mde.setId(scenListDropLetList.get(0).getDropletconftypeid());
+			mde.setDropletconftype(scenListDropLetList.get(0).getDropletconftypeid());//确定是哪个位置
+			mde.setDropletid(scenListDropLetList.get(0).getDropletid());//确定是哪个droplet
+			
 			MobileDropLetConfTypeEntity remde = mobileDropLetConfTypeService.getDropLetConfigType(mde);
 			if(remde!=null){
 				MobileDropLetButtonEntity butt = new MobileDropLetButtonEntity();
@@ -104,6 +107,8 @@ public class MobileGetScenListDropLetAction {
 						dv.setButtonlink(reme.getButtonlink());
 						dv.setButtonname(reme.getButtonname());
 						dv.setIcon(reme.getIcon());
+						dv.setReladropletid(reme.getReladropletid());
+						dv.setReladropletconftype(reme.getReladropletconftype());
 						list2.add(dv);
 					}
 					
@@ -116,6 +121,8 @@ public class MobileGetScenListDropLetAction {
 						dv.setButtonlink(reme.getButtonlink());
 						dv.setButtonname(reme.getButtonname());
 						dv.setIcon(reme.getIcon());
+						dv.setReladropletid(reme.getReladropletid());
+						dv.setReladropletconftype(reme.getReladropletconftype());
 						list2.add(dv);
 					}
                 }
@@ -127,6 +134,8 @@ public class MobileGetScenListDropLetAction {
 						dv.setButtonlink(reme.getButtonlink());
 						dv.setButtonname(reme.getButtonname());
 						dv.setIcon(reme.getIcon());
+						dv.setReladropletid(reme.getReladropletid());
+						dv.setReladropletconftype(reme.getReladropletconftype());
 						list2.add(dv);
 					}
                 }
@@ -138,6 +147,8 @@ public class MobileGetScenListDropLetAction {
 						dv.setButtonlink(reme.getButtonlink());
 						dv.setButtonname(reme.getButtonname());
 						dv.setIcon(reme.getIcon());
+						dv.setReladropletid(reme.getReladropletid());
+						dv.setReladropletconftype(reme.getReladropletconftype());
 						list2.add(dv);
 					}
                 }

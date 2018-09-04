@@ -10,7 +10,7 @@ public class MobileScenListDropLetEntity {
 
     private String dropletconftypeid;
     
-    private String predropletcontypeid;
+    private String reladropletcontypeid;
 
     private String reladropletid;
 
@@ -35,12 +35,13 @@ public class MobileScenListDropLetEntity {
 
     
 
-	public String getPredropletcontypeid() {
-		return predropletcontypeid;
+
+	public String getReladropletcontypeid() {
+		return reladropletcontypeid;
 	}
 
-	public void setPredropletcontypeid(String predropletcontypeid) {
-		this.predropletcontypeid = predropletcontypeid;
+	public void setReladropletcontypeid(String reladropletcontypeid) {
+		this.reladropletcontypeid = reladropletcontypeid;
 	}
 
 	public String getId() {

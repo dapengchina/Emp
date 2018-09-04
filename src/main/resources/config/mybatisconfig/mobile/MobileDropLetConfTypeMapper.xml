@@ -9,13 +9,17 @@
     <result column="SecButtonID" property="secbuttonid" jdbcType="VARCHAR" />
     <result column="ThirButtonID" property="thirbuttonid" jdbcType="VARCHAR" />
     <result column="FourButtonID" property="fourbuttonid" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   
   <select id="selectDropLetConfigType" resultType="com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity" parameterType="com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity" >
     select * from t_dropletconftype
     where 1=1
-    <if test="id != null and id != ''">
-		and ID = #{id}
+    <if test="dropletid != null and dropletid != ''">
+		and DropLetID = #{dropletid}
+	</if>
+	<if test="dropletconftype != null and dropletconftype != ''">
+		and DropLetConfType = #{dropletconftype}
 	</if>
   </select>
   
@@ -49,6 +53,9 @@
       <if test="fourbuttonid != null" >
         FourButtonID,
       </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -71,6 +78,9 @@
       </if>
       <if test="fourbuttonid != null" >
         #{fourbuttonid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -95,6 +105,9 @@
       </if>
       <if test="fourbuttonid != null" >
         FourButtonID = #{fourbuttonid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

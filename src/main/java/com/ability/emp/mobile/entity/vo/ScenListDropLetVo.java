@@ -23,6 +23,8 @@ public class ScenListDropLetVo {
 	   
 	   private String relaDropLetId;
 	   
+	   private String reladropletcontypeid;
+	   
 	   
 	   
 	   
@@ -30,7 +32,15 @@ public class ScenListDropLetVo {
 	   
 	   
 
-	   public String getId() {
+	   public String getReladropletcontypeid() {
+		return reladropletcontypeid;
+	}
+
+	public void setReladropletcontypeid(String reladropletcontypeid) {
+		this.reladropletcontypeid = reladropletcontypeid;
+	}
+
+	public String getId() {
 		  return id;
 	   }
 

@@ -7,6 +7,8 @@
     <result column="ButtonFunc" property="buttonfunc" jdbcType="VARCHAR" />
     <result column="ButtonName" property="buttonname" jdbcType="VARCHAR" />
     <result column="ButtonLink" property="buttonlink" jdbcType="VARCHAR" />
+    <result column="RelaDropLetID" property="reladropletid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetConfType" property="reladropletconftype" jdbcType="VARCHAR" />
   </resultMap>
   
   
@@ -41,6 +43,12 @@
       <if test="buttonlink != null" >
         ButtonLink,
       </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID,
+      </if>
+      <if test="reladropletconftype != null" >
+        RelaDropLetConfType,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -57,6 +65,12 @@
       </if>
       <if test="buttonlink != null" >
         #{buttonlink,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletconftype != null" >
+        #{reladropletconftype,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -75,6 +89,12 @@
       </if>
       <if test="buttonlink != null" >
         ButtonLink = #{buttonlink,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID = #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletconftype != null" >
+        RelaDropLetConfType = #{reladropletconftype,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

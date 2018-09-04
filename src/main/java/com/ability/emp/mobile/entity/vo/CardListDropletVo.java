@@ -12,7 +12,7 @@ public class CardListDropletVo {
 	  
 	  private String index;
 	  
-	  private String currentScore;
+	  
 	  
 	  
 
@@ -48,13 +48,7 @@ public class CardListDropletVo {
 		this.index = index;
 	  }
 
-	  public String getCurrentScore() {
-		return currentScore;
-	  }
-
-	  public void setCurrentScore(String currentScore) {
-		this.currentScore = currentScore;
-	  }
+	  
 	  
 	  
 	  
