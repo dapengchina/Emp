@@ -10,13 +10,43 @@ public class CardListDropletVo {
 	  
 	  private String cardName;
 	  
+	  private String reladropletcontypeid;
+
+	  private String reladropletid;
+	  
+	  private String dropletlink;
+	  
 	  private String index;
 	  
 	  
 	  
 	  
 
-	  public String getCardIcon() {
+	  public String getDropletlink() {
+		return dropletlink;
+	}
+
+	public void setDropletlink(String dropletlink) {
+		this.dropletlink = dropletlink;
+	}
+
+	public String getReladropletcontypeid() {
+		return reladropletcontypeid;
+	}
+
+	public void setReladropletcontypeid(String reladropletcontypeid) {
+		this.reladropletcontypeid = reladropletcontypeid;
+	}
+
+	public String getReladropletid() {
+		return reladropletid;
+	}
+
+	public void setReladropletid(String reladropletid) {
+		this.reladropletid = reladropletid;
+	}
+
+	public String getCardIcon() {
 		 return cardIcon;
 	  }
 
