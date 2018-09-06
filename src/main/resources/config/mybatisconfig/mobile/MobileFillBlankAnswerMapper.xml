@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileFillBlankAnswerDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileFillBlankAnswerEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="FillBlankDataID" property="fillblankdataid" jdbcType="VARCHAR" />
+    <result column="subnum" property="subnum" jdbcType="INTEGER" />
+    <result column="tit" property="tit" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectFillBlankAnswer" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileFillBlankAnswerEntity" >
+    select * from t_fillblankdataanswer
+    where 1=1
+    <if test="fillblankdataid != null and fillblankdataid != ''">
+		and FillBlankDataID = #{fillblankdataid}
+	</if>
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_fillblankdataanswer
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileFillBlankAnswerEntity" >
+    insert into t_fillblankdataanswer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="fillblankdataid != null" >
+        FillBlankDataID,
+      </if>
+      <if test="subnum != null" >
+        subnum,
+      </if>
+      <if test="tit != null" >
+        tit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fillblankdataid != null" >
+        #{fillblankdataid,jdbcType=VARCHAR},
+      </if>
+      <if test="subnum != null" >
+        #{subnum,jdbcType=INTEGER},
+      </if>
+      <if test="tit != null" >
+        #{tit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileFillBlankAnswerEntity" >
+    update t_fillblankdataanswer
+    <set >
+      <if test="fillblankdataid != null" >
+        FillBlankDataID = #{fillblankdataid,jdbcType=VARCHAR},
+      </if>
+      <if test="subnum != null" >
+        subnum = #{subnum,jdbcType=INTEGER},
+      </if>
+      <if test="tit != null" >
+        tit = #{tit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

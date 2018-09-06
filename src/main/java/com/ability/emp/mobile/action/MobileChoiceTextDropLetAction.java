@@ -14,26 +14,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.constant.SysConstant;
+import com.ability.emp.mobile.entity.MobileChoiceTextDropLetEntity;
 import com.ability.emp.mobile.entity.MobileDropLetButtonEntity;
 import com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity;
 import com.ability.emp.mobile.entity.MobileDropLetEntity;
-import com.ability.emp.mobile.entity.MobileScenarioDropLetEntity;
+import com.ability.emp.mobile.entity.vo.ChoiceTextDropLetVo;
 import com.ability.emp.mobile.entity.vo.DropLetButtonVo;
-import com.ability.emp.mobile.entity.vo.ScenarioDropLetVo;
+import com.ability.emp.mobile.server.MobileChoiceTextDropLetService;
 import com.ability.emp.mobile.server.MobileDropLetButtonService;
 import com.ability.emp.mobile.server.MobileDropLetConfTypeService;
 import com.ability.emp.mobile.server.MobileDropLetService;
-import com.ability.emp.mobile.server.MobileScenarioDropLetService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin//解决跨域请求
 @Controller
-@RequestMapping("/mobile/scenariodroplet")
-public class MobileScenarioDropLetAction {
-	
-	
-	@Resource
-	private MobileScenarioDropLetService mobileScenarioDropLetService;
+@RequestMapping("/mobile/getChoiceDropLet")
+public class MobileChoiceTextDropLetAction {
 	
 	@Resource
 	private MobileDropLetConfTypeService mobileDropLetConfTypeService;
@@ -44,54 +40,63 @@ public class MobileScenarioDropLetAction {
 	@Resource
 	private MobileDropLetService mobileDropLetService;
 	
+	@Resource
+	private MobileChoiceTextDropLetService mobileChoiceTextDropLetService;
+	
+	ObjectMapper objectMapper = new ObjectMapper();
 	
 	
-    ObjectMapper objectMapper = new ObjectMapper();  
 	
-	
-	
-	@RequestMapping("/getScenarioDropletData/{dropLetId}/{dropLetConfTypeId}")
+	@RequestMapping("/getChoiceDropLet/{dropLetId}/{dropLetConfTypeId}")
 	@ResponseBody
-	public String getScenListDropLetData(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
-		List<ScenarioDropLetVo> list = new ArrayList<ScenarioDropLetVo>();
+	public String getChoiceDropLet(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
+		
 		List<DropLetButtonVo> list2 = new ArrayList<DropLetButtonVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
-		MobileScenarioDropLetEntity me = new MobileScenarioDropLetEntity();
+		MobileChoiceTextDropLetEntity me = new MobileChoiceTextDropLetEntity();
 		MobileDropLetEntity md = new MobileDropLetEntity();
-		
 		if(!dropLetId.equals("1")){
 			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
 		}
-		me.setDropletconftypeid(dropLetConfTypeId);;//确认是哪个类型的数据
+		me.setDropletconftypeid(dropLetConfTypeId);;//确认是哪个位置的数据
 		
-		List<MobileScenarioDropLetEntity> dropLetList = mobileScenarioDropLetService.getScenarioData(me);
-		for(int i=0;i<dropLetList.size();i++){
-			ScenarioDropLetVo sv = new ScenarioDropLetVo();
-			sv.setScenarioimage(SysConstant.SERVICE_HOST+dropLetList.get(i).getScenarioimage());
-			sv.setScenarioaudio(SysConstant.SERVICE_HOST+dropLetList.get(i).getScenarioaudio());
-			sv.setIndex(dropLetList.get(i).getIndex());
-			sv.setReladropletid(dropLetList.get(i).getReladropletid());
-			sv.setReladropletconftypeid(dropLetList.get(i).getReladropletconftypeid());
-			
-			md.setId(dropLetList.get(i).getReladropletid());
-			MobileDropLetEntity mde = mobileDropLetService.getDropLetByID(md);
-			if(mde!=null){
-				sv.setDropLetLink(mde.getDropletlink());
-			}
-			
-			list.add(sv);
+		MobileChoiceTextDropLetEntity choiceEntity = mobileChoiceTextDropLetService.getChoiceDropLetData(me);
+		
+		ChoiceTextDropLetVo sv = new ChoiceTextDropLetVo();
+		sv.setChoicetextaudio(SysConstant.SERVICE_HOST+choiceEntity.getChoicetextaudio());
+		sv.setChoicetextimage(SysConstant.SERVICE_HOST+choiceEntity.getChoicetextimage());
+		
+		sv.setOptionindexa(choiceEntity.getOptionindexa());
+		sv.setOptiontexta(choiceEntity.getOptiontexta());
+		sv.setOptionflaga(choiceEntity.getOptionflaga().equals("false")?false:true);
+		
+		sv.setOptionindexb(choiceEntity.getOptionindexb());
+		sv.setOptiontextb(choiceEntity.getOptiontextb());
+		sv.setOptionflagb(choiceEntity.getOptionflagb().equals("false")?false:true);
+		
+		sv.setOptionindexc(choiceEntity.getOptionindexc());
+		sv.setOptiontextc(choiceEntity.getOptiontextc());
+		sv.setOptionflagc(choiceEntity.getOptionflagc().equals("false")?false:true);
+		
+		sv.setReladropletconftypeid(choiceEntity.getReladropletconftypeid());
+		sv.setReladropletid(choiceEntity.getReladropletid());
+		
+		md.setId(choiceEntity.getReladropletid());
+		MobileDropLetEntity mo = mobileDropLetService.getDropLetByID(md);
+		if(mo!=null){
+			sv.setDropLetLink(mo.getDropletlink());
 		}
-		
+			
 		/**
 		 * 获取button
 		 */
-		if(dropLetList.size()>0 
-		   && dropLetList.get(0).getDropletconftypeid()!=null
-		   && !"".equals(dropLetList.get(0).getDropletconftypeid())
+		if(choiceEntity!=null 
+		   && choiceEntity.getDropletconftypeid()!=null
+		   && !"".equals(choiceEntity.getDropletconftypeid())
 		){
 			MobileDropLetConfTypeEntity mde = new MobileDropLetConfTypeEntity();
-			mde.setDropletconftype(dropLetList.get(0).getDropletconftypeid());//确定是哪个位置
-			mde.setDropletid(dropLetList.get(0).getDropletid());//确定是哪个droplet
+			mde.setDropletconftype(choiceEntity.getDropletconftypeid());//确定是哪个位置
+			mde.setDropletid(choiceEntity.getDropletid());//确定是哪个droplet
 			
 			MobileDropLetConfTypeEntity remde = mobileDropLetConfTypeService.getDropLetConfigType(mde);
 			if(remde!=null){
@@ -155,7 +160,7 @@ public class MobileScenarioDropLetAction {
 		
 		
 		//组合数据
-		map.put("list", list);
+		map.put("choice", sv);
 		map.put("button", list2);
 		return objectMapper.writeValueAsString(map);
 	}

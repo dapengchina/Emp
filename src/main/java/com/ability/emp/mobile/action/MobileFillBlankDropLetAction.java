@@ -13,27 +13,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileDropLetButtonEntity;
 import com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity;
-import com.ability.emp.mobile.entity.MobileDropLetEntity;
-import com.ability.emp.mobile.entity.MobileScenarioDropLetEntity;
+import com.ability.emp.mobile.entity.MobileFillBlankAnswerEntity;
+import com.ability.emp.mobile.entity.MobileFillBlankDropLetEntity;
+import com.ability.emp.mobile.entity.MobileFillBlankQuestionEntity;
+import com.ability.emp.mobile.entity.bean.FillBlankAnswerBean;
+import com.ability.emp.mobile.entity.bean.FillBlankQuestionBean;
 import com.ability.emp.mobile.entity.vo.DropLetButtonVo;
-import com.ability.emp.mobile.entity.vo.ScenarioDropLetVo;
+import com.ability.emp.mobile.entity.vo.FillBlankDropLetVo;
 import com.ability.emp.mobile.server.MobileDropLetButtonService;
 import com.ability.emp.mobile.server.MobileDropLetConfTypeService;
 import com.ability.emp.mobile.server.MobileDropLetService;
-import com.ability.emp.mobile.server.MobileScenarioDropLetService;
+import com.ability.emp.mobile.server.MobileFillBlankAnswerService;
+import com.ability.emp.mobile.server.MobileFillBlankDropLetService;
+import com.ability.emp.mobile.server.MobileFillBlankQuestionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin//解决跨域请求
 @Controller
-@RequestMapping("/mobile/scenariodroplet")
-public class MobileScenarioDropLetAction {
+@RequestMapping("/mobile/getFillBlankData")
+public class MobileFillBlankDropLetAction {
 	
 	
-	@Resource
-	private MobileScenarioDropLetService mobileScenarioDropLetService;
 	
 	@Resource
 	private MobileDropLetConfTypeService mobileDropLetConfTypeService;
@@ -44,54 +46,84 @@ public class MobileScenarioDropLetAction {
 	@Resource
 	private MobileDropLetService mobileDropLetService;
 	
+	@Resource
+	private MobileFillBlankDropLetService mobileFillBlankDropLetService;
+	
+	@Resource
+	private MobileFillBlankQuestionService mobileFillBlankQuestionService;
+	
+	@Resource
+	private MobileFillBlankAnswerService mobileFillBlankAnswerService;
+	
+	ObjectMapper objectMapper = new ObjectMapper();
 	
 	
-    ObjectMapper objectMapper = new ObjectMapper();  
 	
-	
-	
-	@RequestMapping("/getScenarioDropletData/{dropLetId}/{dropLetConfTypeId}")
+	@RequestMapping("/getFillBlankData/{dropLetId}/{dropLetConfTypeId}")
 	@ResponseBody
-	public String getScenListDropLetData(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
-		List<ScenarioDropLetVo> list = new ArrayList<ScenarioDropLetVo>();
-		List<DropLetButtonVo> list2 = new ArrayList<DropLetButtonVo>();
+	public String getFillBlankData(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
+		List<DropLetButtonVo> list = new ArrayList<DropLetButtonVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
-		MobileScenarioDropLetEntity me = new MobileScenarioDropLetEntity();
-		MobileDropLetEntity md = new MobileDropLetEntity();
-		
+		MobileFillBlankDropLetEntity me = new MobileFillBlankDropLetEntity();
+		//MobileDropLetEntity md = new MobileDropLetEntity();
 		if(!dropLetId.equals("1")){
 			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
 		}
-		me.setDropletconftypeid(dropLetConfTypeId);;//确认是哪个类型的数据
+		me.setDropletconftypeid(dropLetConfTypeId);;//确认是哪个位置的数据
 		
-		List<MobileScenarioDropLetEntity> dropLetList = mobileScenarioDropLetService.getScenarioData(me);
-		for(int i=0;i<dropLetList.size();i++){
-			ScenarioDropLetVo sv = new ScenarioDropLetVo();
-			sv.setScenarioimage(SysConstant.SERVICE_HOST+dropLetList.get(i).getScenarioimage());
-			sv.setScenarioaudio(SysConstant.SERVICE_HOST+dropLetList.get(i).getScenarioaudio());
-			sv.setIndex(dropLetList.get(i).getIndex());
-			sv.setReladropletid(dropLetList.get(i).getReladropletid());
-			sv.setReladropletconftypeid(dropLetList.get(i).getReladropletconftypeid());
+		MobileFillBlankDropLetEntity fillBlankEntity = mobileFillBlankDropLetService.getFillBlankData(me);
+		
+		FillBlankDropLetVo sv = new FillBlankDropLetVo();
+		sv.setDropletid(fillBlankEntity.getDropletid());
+		sv.setDropletconftypeid(fillBlankEntity.getDropletconftypeid());
+		sv.setReladropletid(fillBlankEntity.getReladropletid());
+		sv.setReladropletconftypeid(fillBlankEntity.getReladropletconftypeid());
+		/**
+		 * 获取问题
+		 */
+		MobileFillBlankQuestionEntity mq = new MobileFillBlankQuestionEntity();
+		mq.setFillblankdataid(fillBlankEntity.getId());
+		List<MobileFillBlankQuestionEntity> questList = mobileFillBlankQuestionService.getFillBlankQuestion(mq);
+		List<FillBlankQuestionBean> questBeanList = new ArrayList<FillBlankQuestionBean>();
+		for(int i=0;i<questList.size();i++){
+			FillBlankQuestionBean questBean = new FillBlankQuestionBean();
+			questBean.setTit(questList.get(i).getTit());
+			questBean.setCorrect(questList.get(i).getCorrect());
+			questBean.setNum(questList.get(i).getNum());
+			questBean.setIfem(questList.get(i).getIfem());
 			
-			md.setId(dropLetList.get(i).getReladropletid());
-			MobileDropLetEntity mde = mobileDropLetService.getDropLetByID(md);
-			if(mde!=null){
-				sv.setDropLetLink(mde.getDropletlink());
-			}
-			
-			list.add(sv);
+			questBeanList.add(questBean);
 		}
+		sv.setQuest(questBeanList);
 		
+		/**
+		 * 获取答案
+		 */
+		MobileFillBlankAnswerEntity ans = new MobileFillBlankAnswerEntity();
+		ans.setFillblankdataid(fillBlankEntity.getId());
+		List<MobileFillBlankAnswerEntity> fillBlankAnswerList = mobileFillBlankAnswerService.getFillBlankAnswer(ans);
+		List<FillBlankAnswerBean> answerBeanlist = new ArrayList<FillBlankAnswerBean>();
+		for(int j=0;j<fillBlankAnswerList.size();j++){
+			FillBlankAnswerBean fb = new FillBlankAnswerBean();
+			fb.setTit(fillBlankAnswerList.get(j).getTit());
+			fb.setSubnum(fillBlankAnswerList.get(j).getSubnum());
+			
+			answerBeanlist.add(fb);
+		}
+		sv.setAnswer(answerBeanlist);
+		
+		
+			
 		/**
 		 * 获取button
 		 */
-		if(dropLetList.size()>0 
-		   && dropLetList.get(0).getDropletconftypeid()!=null
-		   && !"".equals(dropLetList.get(0).getDropletconftypeid())
+		if(fillBlankEntity!=null 
+		   && fillBlankEntity.getDropletconftypeid()!=null
+		   && !"".equals(fillBlankEntity.getDropletconftypeid())
 		){
 			MobileDropLetConfTypeEntity mde = new MobileDropLetConfTypeEntity();
-			mde.setDropletconftype(dropLetList.get(0).getDropletconftypeid());//确定是哪个位置
-			mde.setDropletid(dropLetList.get(0).getDropletid());//确定是哪个droplet
+			mde.setDropletconftype(fillBlankEntity.getDropletconftypeid());//确定是哪个位置
+			mde.setDropletid(fillBlankEntity.getDropletid());//确定是哪个droplet
 			
 			MobileDropLetConfTypeEntity remde = mobileDropLetConfTypeService.getDropLetConfigType(mde);
 			if(remde!=null){
@@ -106,7 +138,7 @@ public class MobileScenarioDropLetAction {
 						dv.setIcon(reme.getIcon());
 						dv.setReladropletid(reme.getReladropletid());
 						dv.setReladropletconftype(reme.getReladropletconftype());
-						list2.add(dv);
+						list.add(dv);
 					}
 					
 				}
@@ -120,7 +152,7 @@ public class MobileScenarioDropLetAction {
 						dv.setIcon(reme.getIcon());
 						dv.setReladropletid(reme.getReladropletid());
 						dv.setReladropletconftype(reme.getReladropletconftype());
-						list2.add(dv);
+						list.add(dv);
 					}
                 }
                 if(remde.getThirbuttonid()!=null && !"".equals(remde.getThirbuttonid())){
@@ -133,7 +165,7 @@ public class MobileScenarioDropLetAction {
 						dv.setIcon(reme.getIcon());
 						dv.setReladropletid(reme.getReladropletid());
 						dv.setReladropletconftype(reme.getReladropletconftype());
-						list2.add(dv);
+						list.add(dv);
 					}
                 }
                 if(remde.getFourbuttonid()!=null && !"".equals(remde.getFourbuttonid())){
@@ -146,17 +178,15 @@ public class MobileScenarioDropLetAction {
 						dv.setIcon(reme.getIcon());
 						dv.setReladropletid(reme.getReladropletid());
 						dv.setReladropletconftype(reme.getReladropletconftype());
-						list2.add(dv);
+						list.add(dv);
 					}
                 }
 			}
 		}
 		
-		
-		
 		//组合数据
-		map.put("list", list);
-		map.put("button", list2);
+		map.put("fillBlank", sv);
+		map.put("button", list);
 		return objectMapper.writeValueAsString(map);
 	}
 

@@ -12,10 +12,22 @@ public class ScenarioDropLetVo {
     private String scenarioaudio;
 
     private String scenarioimage;
+    
+    private String dropLetLink;
 
     private Integer index;
 
+    
+    
 	
+
+	public String getDropLetLink() {
+		return dropLetLink;
+	}
+
+	public void setDropLetLink(String dropLetLink) {
+		this.dropLetLink = dropLetLink;
+	}
 
 	public String getReladropletid() {
 		return reladropletid;

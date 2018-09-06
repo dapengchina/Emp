@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileChoiceTextDropLetDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileChoiceTextDropLetEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
+    <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetID" property="reladropletid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetConfTypeID" property="reladropletconftypeid" jdbcType="VARCHAR" />
+    <result column="ChoiceTextAudio" property="choicetextaudio" jdbcType="VARCHAR" />
+    <result column="ChoiceTextImage" property="choicetextimage" jdbcType="VARCHAR" />
+    <result column="OptionIndexA" property="optionindexa" jdbcType="INTEGER" />
+    <result column="OptionFlagA" property="optionflaga" jdbcType="VARCHAR" />
+    <result column="OptionIndexB" property="optionindexb" jdbcType="INTEGER" />
+    <result column="OptionFlagB" property="optionflagb" jdbcType="VARCHAR" />
+    <result column="OptionIndexC" property="optionindexc" jdbcType="INTEGER" />
+    <result column="OptionFlagC" property="optionflagc" jdbcType="VARCHAR" />
+    <result column="OptionTextA" property="optiontexta" jdbcType="LONGVARCHAR" />
+    <result column="OptionTextB" property="optiontextb" jdbcType="LONGVARCHAR" />
+    <result column="OptionTextC" property="optiontextc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  
+  <select id="selectChoiceDropLetData" resultType="com.ability.emp.mobile.entity.MobileChoiceTextDropLetEntity" parameterType="com.ability.emp.mobile.entity.MobileChoiceTextDropLetEntity" >
+    select * from t_choicetextdropletdata
+    where 1=1
+    <if test="dropletid != null and dropletid != ''">
+		and DropLetID = #{dropletid}
+	</if>
+	<if test="dropletconftypeid != null and dropletconftypeid != ''">
+		and DropLetConfTypeID = #{dropletconftypeid}
+	</if>
+	ORDER BY RAND() LIMIT 1
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_choicetextdropletdata
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileChoiceTextDropLetEntity" >
+    insert into t_choicetextdropletdata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dropletid != null" >
+        DropLetID,
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID,
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID,
+      </if>
+      <if test="reladropletconftypeid != null" >
+        RelaDropLetConfTypeID,
+      </if>
+      <if test="choicetextaudio != null" >
+        ChoiceTextAudio,
+      </if>
+      <if test="choicetextimage != null" >
+        ChoiceTextImage,
+      </if>
+      <if test="optionindexa != null" >
+        OptionIndexA,
+      </if>
+      <if test="optionflaga != null" >
+        OptionFlagA,
+      </if>
+      <if test="optionindexb != null" >
+        OptionIndexB,
+      </if>
+      <if test="optionflagb != null" >
+        OptionFlagB,
+      </if>
+      <if test="optionindexc != null" >
+        OptionIndexC,
+      </if>
+      <if test="optionflagc != null" >
+        OptionFlagC,
+      </if>
+      <if test="optiontexta != null" >
+        OptionTextA,
+      </if>
+      <if test="optiontextb != null" >
+        OptionTextB,
+      </if>
+      <if test="optiontextc != null" >
+        OptionTextC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletid != null" >
+        #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletconftypeid != null" >
+        #{reladropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="choicetextaudio != null" >
+        #{choicetextaudio,jdbcType=VARCHAR},
+      </if>
+      <if test="choicetextimage != null" >
+        #{choicetextimage,jdbcType=VARCHAR},
+      </if>
+      <if test="optionindexa != null" >
+        #{optionindexa,jdbcType=INTEGER},
+      </if>
+      <if test="optionflaga != null" >
+        #{optionflaga,jdbcType=VARCHAR},
+      </if>
+      <if test="optionindexb != null" >
+        #{optionindexb,jdbcType=INTEGER},
+      </if>
+      <if test="optionflagb != null" >
+        #{optionflagb,jdbcType=VARCHAR},
+      </if>
+      <if test="optionindexc != null" >
+        #{optionindexc,jdbcType=INTEGER},
+      </if>
+      <if test="optionflagc != null" >
+        #{optionflagc,jdbcType=VARCHAR},
+      </if>
+      <if test="optiontexta != null" >
+        #{optiontexta,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="optiontextb != null" >
+        #{optiontextb,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="optiontextc != null" >
+        #{optiontextc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileChoiceTextDropLetEntity" >
+    update t_choicetextdropletdata
+    <set >
+      <if test="dropletid != null" >
+        DropLetID = #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID = #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID = #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletconftypeid != null" >
+        RelaDropLetConfTypeID = #{reladropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="choicetextaudio != null" >
+        ChoiceTextAudio = #{choicetextaudio,jdbcType=VARCHAR},
+      </if>
+      <if test="choicetextimage != null" >
+        ChoiceTextImage = #{choicetextimage,jdbcType=VARCHAR},
+      </if>
+      <if test="optionindexa != null" >
+        OptionIndexA = #{optionindexa,jdbcType=INTEGER},
+      </if>
+      <if test="optionflaga != null" >
+        OptionFlagA = #{optionflaga,jdbcType=VARCHAR},
+      </if>
+      <if test="optionindexb != null" >
+        OptionIndexB = #{optionindexb,jdbcType=INTEGER},
+      </if>
+      <if test="optionflagb != null" >
+        OptionFlagB = #{optionflagb,jdbcType=VARCHAR},
+      </if>
+      <if test="optionindexc != null" >
+        OptionIndexC = #{optionindexc,jdbcType=INTEGER},
+      </if>
+      <if test="optionflagc != null" >
+        OptionFlagC = #{optionflagc,jdbcType=VARCHAR},
+      </if>
+      <if test="optiontexta != null" >
+        OptionTextA = #{optiontexta,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="optiontextb != null" >
+        OptionTextB = #{optiontextb,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="optiontextc != null" >
+        OptionTextC = #{optiontextc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>
