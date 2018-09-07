@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileDropLetButtonEntity;
 import com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity;
+import com.ability.emp.mobile.entity.MobileDropLetEntity;
 import com.ability.emp.mobile.entity.MobileFillBlankAnswerEntity;
 import com.ability.emp.mobile.entity.MobileFillBlankDropLetEntity;
 import com.ability.emp.mobile.entity.MobileFillBlankQuestionEntity;
@@ -65,7 +67,7 @@ public class MobileFillBlankDropLetAction {
 		List<DropLetButtonVo> list = new ArrayList<DropLetButtonVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		MobileFillBlankDropLetEntity me = new MobileFillBlankDropLetEntity();
-		//MobileDropLetEntity md = new MobileDropLetEntity();
+		MobileDropLetEntity md = new MobileDropLetEntity();
 		if(!dropLetId.equals("1")){
 			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
 		}
@@ -78,23 +80,40 @@ public class MobileFillBlankDropLetAction {
 		sv.setDropletconftypeid(fillBlankEntity.getDropletconftypeid());
 		sv.setReladropletid(fillBlankEntity.getReladropletid());
 		sv.setReladropletconftypeid(fillBlankEntity.getReladropletconftypeid());
+		sv.setImage(SysConstant.SERVICE_HOST+fillBlankEntity.getImage());
+		
+		md.setId(fillBlankEntity.getReladropletid());
+		MobileDropLetEntity mo = mobileDropLetService.getDropLetByID(md);
+		if(mo!=null){
+			sv.setDropLetLink(mo.getDropletlink());
+		}
 		/**
 		 * 获取问题
 		 */
 		MobileFillBlankQuestionEntity mq = new MobileFillBlankQuestionEntity();
 		mq.setFillblankdataid(fillBlankEntity.getId());
 		List<MobileFillBlankQuestionEntity> questList = mobileFillBlankQuestionService.getFillBlankQuestion(mq);
+		int[] emptyposition = new int[2];
+		int emptyindex=0;
 		List<FillBlankQuestionBean> questBeanList = new ArrayList<FillBlankQuestionBean>();
 		for(int i=0;i<questList.size();i++){
 			FillBlankQuestionBean questBean = new FillBlankQuestionBean();
 			questBean.setTit(questList.get(i).getTit());
 			questBean.setCorrect(questList.get(i).getCorrect());
 			questBean.setNum(questList.get(i).getNum());
-			questBean.setIfem(questList.get(i).getIfem());
+			questBean.setIfem(questList.get(i).getIfem().equals("false")?false:true);
+			
+			//组装空位数组
+			if(questList.get(i).getIfem().equals("true")){
+				emptyposition[emptyindex]=i;
+				emptyindex=emptyindex+1;
+			}
+			
 			
 			questBeanList.add(questBean);
 		}
 		sv.setQuest(questBeanList);
+		sv.setEmptyposition(emptyposition);
 		
 		/**
 		 * 获取答案

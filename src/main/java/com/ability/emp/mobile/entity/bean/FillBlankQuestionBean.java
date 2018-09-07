@@ -12,13 +12,21 @@ public class FillBlankQuestionBean {
 
     private Integer num;
 
-    private String ifem;
+    private boolean ifem;
     
     
     
     
 
 	
+
+	public boolean isIfem() {
+		return ifem;
+	}
+
+	public void setIfem(boolean ifem) {
+		this.ifem = ifem;
+	}
 
 	public String getTit() {
 		return tit;
@@ -44,17 +52,6 @@ public class FillBlankQuestionBean {
 		this.num = num;
 	}
 
-	public String getIfem() {
-		return ifem;
-	}
-
-	public void setIfem(String ifem) {
-		this.ifem = ifem;
-	}
-    
-    
-    
-    
-    
+	
 
 }

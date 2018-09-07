@@ -16,6 +16,7 @@
     <if test="fillblankdataid != null and fillblankdataid != ''">
 		and FillBlankDataID = #{fillblankdataid}
 	</if>
+	order by num asc
   </select>
   
   <delete id="delete" parameterType="java.lang.String" >

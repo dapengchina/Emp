@@ -21,6 +21,7 @@ public class FillBlankDropLetVo {
 
     private String image;
     
+    private int[] emptyposition;
     
     private List<FillBlankQuestionBean> quest;
     
@@ -31,6 +32,14 @@ public class FillBlankDropLetVo {
     
 
 	
+
+	public int[] getEmptyposition() {
+		return emptyposition;
+	}
+
+	public void setEmptyposition(int[] emptyposition) {
+		this.emptyposition = emptyposition;
+	}
 
 	public List<FillBlankQuestionBean> getQuest() {
 		return quest;
