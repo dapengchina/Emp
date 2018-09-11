@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileReadSpeakDropLetDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileReadSpeakDropLetEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
+    <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetID" property="reladropletid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetConfTypeID" property="reladropletconftypeid" jdbcType="VARCHAR" />
+    <result column="ReadType" property="readtype" jdbcType="VARCHAR" />
+    <result column="Image" property="image" jdbcType="VARCHAR" />
+    <result column="Audio" property="audio" jdbcType="VARCHAR" />
+    <result column="Sentence" property="sentence" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  
+  
+  <select id="selectReadSpeakData" resultType="com.ability.emp.mobile.entity.MobileReadSpeakDropLetEntity" parameterType="com.ability.emp.mobile.entity.MobileReadSpeakDropLetEntity" >
+    select * from t_readspeakdropletdata
+    where 1=1
+    <if test="dropletid != null and dropletid != ''">
+		and DropLetID = #{dropletid}
+	</if>
+	<if test="dropletconftypeid != null and dropletconftypeid != ''">
+		and DropLetConfTypeID = #{dropletconftypeid}
+	</if>
+	ORDER BY RAND() LIMIT 1
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_readspeakdropletdata
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileReadSpeakDropLetEntity" >
+    insert into t_readspeakdropletdata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dropletid != null" >
+        DropLetID,
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID,
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID,
+      </if>
+      <if test="reladropletconftypeid != null" >
+        RelaDropLetConfTypeID,
+      </if>
+      <if test="readtype != null" >
+        ReadType,
+      </if>
+      <if test="image != null" >
+        Image,
+      </if>
+      <if test="audio != null" >
+        Audio,
+      </if>
+      <if test="sentence != null" >
+        Sentence,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletid != null" >
+        #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletconftypeid != null" >
+        #{reladropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="readtype != null" >
+        #{readtype,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="audio != null" >
+        #{audio,jdbcType=VARCHAR},
+      </if>
+      <if test="sentence != null" >
+        #{sentence,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileReadSpeakDropLetEntity" >
+    update t_readspeakdropletdata
+    <set >
+      <if test="dropletid != null" >
+        DropLetID = #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID = #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID = #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletconftypeid != null" >
+        RelaDropLetConfTypeID = #{reladropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="readtype != null" >
+        ReadType = #{readtype,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        Image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="audio != null" >
+        Audio = #{audio,jdbcType=VARCHAR},
+      </if>
+      <if test="sentence != null" >
+        Sentence = #{sentence,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+</mapper>
