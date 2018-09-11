@@ -1,7 +1,10 @@
 package com.ability.emp.mobile.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -10,21 +13,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ability.emp.constant.SysConstant;
+import com.ability.emp.mobile.entity.MobileChoiceAudioDropletEntity;
 import com.ability.emp.mobile.entity.MobileDropLetButtonEntity;
 import com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity;
+import com.ability.emp.mobile.entity.MobileDropLetEntity;
+import com.ability.emp.mobile.entity.vo.ChoiceAudioDropletVo;
 import com.ability.emp.mobile.entity.vo.DropLetButtonVo;
+import com.ability.emp.mobile.server.MobileChoiceAudioDropletService;
 import com.ability.emp.mobile.server.MobileDropLetButtonService;
 import com.ability.emp.mobile.server.MobileDropLetConfTypeService;
 import com.ability.emp.mobile.server.MobileDropLetService;
-import com.ability.emp.mobile.server.MobileFillBlankAnswerService;
-import com.ability.emp.mobile.server.MobileFillBlankDropLetService;
-import com.ability.emp.mobile.server.MobileFillBlankQuestionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin//解决跨域请求
 @Controller
-@RequestMapping("/mobile/gammarSuccess")
-public class MobileGammarSuccessAction {
+@RequestMapping("/mobile/getChoiceAudioDroplet")
+public class MobileChoiceAudioDropletAction {
+	
+	
 	
 	
 	@Resource
@@ -37,29 +44,61 @@ public class MobileGammarSuccessAction {
 	private MobileDropLetService mobileDropLetService;
 	
 	@Resource
-	private MobileFillBlankDropLetService mobileFillBlankDropLetService;
-	
-	@Resource
-	private MobileFillBlankQuestionService mobileFillBlankQuestionService;
-	
-	@Resource
-	private MobileFillBlankAnswerService mobileFillBlankAnswerService;
+	private MobileChoiceAudioDropletService mobileChoiceAudioDropletService;
 	
 	ObjectMapper objectMapper = new ObjectMapper();
 	
 	
 	
-	@RequestMapping("/gammarSuccess/{dropLetId}/{dropLetConfTypeId}")
+	@RequestMapping("/getChoiceAudioDroplet/{dropLetId}/{dropLetConfTypeId}")
 	@ResponseBody
-	public String gammarSuccess(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
+	public String getChoiceAudioDroplet(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
+		List<DropLetButtonVo> list = new ArrayList<DropLetButtonVo>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		MobileChoiceAudioDropletEntity me = new MobileChoiceAudioDropletEntity();
+		MobileDropLetEntity md = new MobileDropLetEntity();
+		if(!dropLetId.equals("1")){
+			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
+		}
+		me.setDropletconftypeid(dropLetConfTypeId);;//确认是哪个位置的数据
+		MobileChoiceAudioDropletEntity choiceAudioEntity = mobileChoiceAudioDropletService.getChoiceAudioDropletData(me);
 		
-		   List<DropLetButtonVo> list = new ArrayList<DropLetButtonVo>();
-		   /**
-		    * 获取button
-		    */
+		ChoiceAudioDropletVo cv = new ChoiceAudioDropletVo();
+		if(choiceAudioEntity!=null){
+			cv.setReladropletid(choiceAudioEntity.getReladropletid());
+			cv.setReladropletconftypeid(choiceAudioEntity.getReladropletconftypeid());
+			cv.setChoiceaudioimage(SysConstant.SERVICE_HOST+choiceAudioEntity.getChoiceaudioimage());
+			cv.setChoiceaudio(SysConstant.SERVICE_HOST+choiceAudioEntity.getChoiceaudio());
+			
+			cv.setChoiceaudioindexa(choiceAudioEntity.getChoiceaudioindexa());
+			cv.setChoiceaudioflaga(choiceAudioEntity.getChoiceaudioflaga().equals("false")?false:true);
+			cv.setChoiceaudioa(SysConstant.SERVICE_HOST+choiceAudioEntity.getChoiceaudioa());
+			
+			cv.setChoiceaudioindexb(choiceAudioEntity.getChoiceaudioindexb());
+			cv.setChoiceaudioflagb(choiceAudioEntity.getChoiceaudioflagb().equals("false")?false:true);
+			cv.setChoiceaudiob(SysConstant.SERVICE_HOST+choiceAudioEntity.getChoiceaudiob());
+			
+			cv.setChoiceaudioindexc(choiceAudioEntity.getChoiceaudioindexc());
+			cv.setChoiceaudioflagc(choiceAudioEntity.getChoiceaudioflagc().equals("false")?false:true);
+			cv.setChoiceaudioc(SysConstant.SERVICE_HOST+choiceAudioEntity.getChoiceaudioc());
+			
+			md.setId(choiceAudioEntity.getReladropletid());
+			MobileDropLetEntity mo = mobileDropLetService.getDropLetByID(md);
+			if(mo!=null){
+				cv.setDropLetLink(mo.getDropletlink());
+			}
+		}
+			
+		/**
+		 * 获取button
+		 */
+		if(choiceAudioEntity!=null 
+		   && choiceAudioEntity.getDropletconftypeid()!=null
+		   && !"".equals(choiceAudioEntity.getDropletconftypeid())
+		){
 			MobileDropLetConfTypeEntity mde = new MobileDropLetConfTypeEntity();
-			mde.setDropletconftype(dropLetConfTypeId);//确定是哪个位置
-			mde.setDropletid(dropLetId);//确定是哪个droplet
+			mde.setDropletconftype(choiceAudioEntity.getDropletconftypeid());//确定是哪个位置
+			mde.setDropletid(choiceAudioEntity.getDropletid());//确定是哪个droplet
 			
 			MobileDropLetConfTypeEntity remde = mobileDropLetConfTypeService.getDropLetConfigType(mde);
 			if(remde!=null){
@@ -118,9 +157,13 @@ public class MobileGammarSuccessAction {
 					}
                 }
 			}
+		}
 		
 		//组合数据
-		return objectMapper.writeValueAsString(list);
+		map.put("choiceAudio", cv);
+		map.put("button", list);
+		return objectMapper.writeValueAsString(map);
 	}
+
 
 }
