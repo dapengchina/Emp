@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileSortDropLetDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileSortDropLetEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
+    <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetID" property="reladropletid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetConfTypeID" property="reladropletconftypeid" jdbcType="VARCHAR" />
+    <result column="Key" property="key" jdbcType="INTEGER" />
+    <result column="Num" property="num" jdbcType="INTEGER" />
+    <result column="Sentence" property="sentence" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  
+  
+  <select id="selectSortData" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileSortDropLetEntity" >
+    select * from t_sortdropletdata
+    where 1=1
+    <if test="dropletid != null and dropletid != ''">
+		and DropLetID = #{dropletid}
+	</if>
+	<if test="dropletconftypeid != null and dropletconftypeid != ''">
+		and DropLetConfTypeID = #{dropletconftypeid}
+	</if>
+	
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_sortdropletdata
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileSortDropLetEntity" >
+    insert into t_sortdropletdata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dropletid != null" >
+        DropLetID,
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID,
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID,
+      </if>
+      <if test="reladropletconftypeid != null" >
+        RelaDropLetConfTypeID,
+      </if>
+      <if test="key != null" >
+        Key,
+      </if>
+      <if test="num != null" >
+        Num,
+      </if>
+      <if test="sentence != null" >
+        Sentence,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletid != null" >
+        #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletconftypeid != null" >
+        #{reladropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null" >
+        #{key,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="sentence != null" >
+        #{sentence,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileSortDropLetEntity" >
+    update t_sortdropletdata
+    <set >
+      <if test="dropletid != null" >
+        DropLetID = #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID = #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID = #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletconftypeid != null" >
+        RelaDropLetConfTypeID = #{reladropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null" >
+        Key = #{key,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        Num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="sentence != null" >
+        Sentence = #{sentence,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>
