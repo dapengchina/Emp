@@ -31,6 +31,17 @@ public class MobileUserServiceImpl implements MobileUserService{
 	public int update(MobileUserEntity mue) {
 		return mobileUserDao.update(mue);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int registerUser(MobileUserEntity mue) {
+		return mobileUserDao.insert(mue);
+	}
+
+	@Override
+	public MobileUserEntity getUser(MobileUserEntity mue) {
+		return mobileUserDao.selectUser(mue);
+	}
 	
 	
 	

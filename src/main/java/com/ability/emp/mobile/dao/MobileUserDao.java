@@ -8,8 +8,7 @@ import com.ability.emp.mobile.entity.MobileUserEntity;
 public interface MobileUserDao<T> extends BaseDao<T>{
    
 	
-	
-	
-	
 	MobileUserEntity login2(MobileUserEntity mue);
+	
+	MobileUserEntity selectUser(MobileUserEntity mue);
 }

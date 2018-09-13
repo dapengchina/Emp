@@ -11,11 +11,9 @@
     <result column="IS_APPOINT" property="isAppoint" jdbcType="VARCHAR" />
     <result column="DEL" property="del" jdbcType="VARCHAR" />
     <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="REGISTERDATE" property="registerdate" jdbcType="TIMESTAMP" />
   </resultMap>
-  
-  <sql id="Base_Column_List" >
-    ID, NICK_NAME, USER_NAME, PHONE, OPENID, TASKID, IS_APPOINT, DEL, CODE
-  </sql>
   
   
   <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -24,6 +22,10 @@
   
   <select id="login2" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileUserEntity">
     select * from t_user where PHONE = #{phone,jdbcType=VARCHAR} and CODE = #{code,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectUser" resultType="com.ability.emp.mobile.entity.MobileUserEntity" parameterType="com.ability.emp.mobile.entity.MobileUserEntity">
+    select * from t_user where PHONE = #{phone,jdbcType=VARCHAR}
   </select>
   
   <update id="update" parameterType="com.ability.emp.mobile.entity.MobileUserEntity" >
@@ -53,9 +55,101 @@
       <if test="code != null" >
         CODE = #{code,jdbcType=VARCHAR},
       </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="registerdate != null" >
+        REGISTERDATE = #{registerdate,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileUserEntity" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="tutor != null" >
+        TUTOR,
+      </if>
+      <if test="deparment != null" >
+        DEPARMENT,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="openid != null" >
+        OPENID,
+      </if>
+      <if test="taskid != null" >
+        TASKID,
+      </if>
+      <if test="isAppoint != null" >
+        IS_APPOINT,
+      </if>
+      <if test="del != null" >
+        DEL,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="registerdate != null" >
+        REGISTERDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="tutor != null" >
+        #{tutor,jdbcType=VARCHAR},
+      </if>
+      <if test="deparment != null" >
+        #{deparment,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="isAppoint != null" >
+        #{isAppoint,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="registerdate != null" >
+        #{registerdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
   
   
 </mapper>

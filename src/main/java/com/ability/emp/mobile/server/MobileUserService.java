@@ -10,4 +10,8 @@ public interface MobileUserService {
 	   MobileUserEntity login2(MobileUserEntity mue);
 	   
 	   int update(MobileUserEntity mue);
+	   
+	   int registerUser(MobileUserEntity mue);
+	   
+	   MobileUserEntity getUser(MobileUserEntity mue);
 }

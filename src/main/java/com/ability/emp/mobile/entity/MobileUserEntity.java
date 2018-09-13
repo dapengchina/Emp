@@ -1,6 +1,10 @@
 package com.ability.emp.mobile.entity;
 
+import java.util.Date;
+
 public class MobileUserEntity {
+	
+	
     private String id;//主键
 
     private String nickName;//昵称
@@ -21,6 +25,14 @@ public class MobileUserEntity {
     
     private String taskName;
     
+    private String tutor;
+
+    private String deparment;
+    
+    private String email;
+
+    private Date registerdate;
+    
     /**
      * 汉字转换
      * @return
@@ -33,6 +45,38 @@ public class MobileUserEntity {
     
     
     
+
+	public String getTutor() {
+		return tutor;
+	}
+
+	public void setTutor(String tutor) {
+		this.tutor = tutor;
+	}
+
+	public String getDeparment() {
+		return deparment;
+	}
+
+	public void setDeparment(String deparment) {
+		this.deparment = deparment;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Date getRegisterdate() {
+		return registerdate;
+	}
+
+	public void setRegisterdate(Date registerdate) {
+		this.registerdate = registerdate;
+	}
 
 	public String getCode() {
 		return code;
