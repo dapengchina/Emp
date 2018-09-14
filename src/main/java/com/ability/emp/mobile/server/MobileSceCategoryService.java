@@ -10,5 +10,7 @@ public interface MobileSceCategoryService {
 	
 	
 	public List<MobileSceCategoryEntity> getScenListDropLetData(MobileSceCategoryEntity me);
+	
+	public List<MobileSceCategoryEntity> getCourseData(MobileSceCategoryEntity me);
 
 }

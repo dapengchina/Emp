@@ -1,0 +1,65 @@
+package com.ability.emp.mobile.entity.vo;
+
+public class CourseVo {
+	
+	
+
+    private String scecatname;
+
+    private String icon;
+
+    private String coursestate;
+
+    private Integer courselimit;
+    
+    private boolean selected;
+    
+    
+    
+    
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
+	public String getScecatname() {
+		return scecatname;
+	}
+
+	public void setScecatname(String scecatname) {
+		this.scecatname = scecatname;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public String getCoursestate() {
+		return coursestate;
+	}
+
+	public void setCoursestate(String coursestate) {
+		this.coursestate = coursestate;
+	}
+
+	public Integer getCourselimit() {
+		return courselimit;
+	}
+
+	public void setCourselimit(Integer courselimit) {
+		this.courselimit = courselimit;
+	}
+    
+    
+    
+    
+
+}

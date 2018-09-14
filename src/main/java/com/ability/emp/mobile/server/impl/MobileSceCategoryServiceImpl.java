@@ -26,4 +26,10 @@ public class MobileSceCategoryServiceImpl implements MobileSceCategoryService{
 		return mobileSceCategoryDao.getScenListDropLetData(me);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MobileSceCategoryEntity> getCourseData(MobileSceCategoryEntity me) {
+		return mobileSceCategoryDao.selectCourseData(me);
+	}
+
 }

@@ -9,19 +9,26 @@
     <result column="Icon" property="icon" jdbcType="VARCHAR" />
     <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
     <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
+    <result column="CourseState" property="coursestate" jdbcType="VARCHAR" />
+    <result column="CourseLimit" property="courselimit" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    ID, FirCatId, SceCatName, index, Icon, DropLetID, DropLetConfTypeID
-  </sql>
+  
   
   <select id="getScenListDropLetData" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileSceCategoryEntity" >
     select * from t_scecategory t
-    
     where 1=1
     <if test="fircatid != null and fircatid != ''">
 		and FirCatId = #{fircatid}
 	</if>
-	
+	order by t.index asc
+  </select>
+  
+  <select id="selectCourseData" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileSceCategoryEntity" >
+    select * from t_scecategory t
+    where 1=1
+    <if test="fircatid != null and fircatid != ''">
+		and FirCatId = #{fircatid}
+	</if>
 	order by t.index asc
   </select>
   
@@ -54,6 +61,12 @@
       <if test="dropletconftypeid != null" >
         DropLetConfTypeID,
       </if>
+      <if test="coursestate != null" >
+        CourseState,
+      </if>
+      <if test="courselimit != null" >
+        CourseLimit,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -76,6 +89,12 @@
       </if>
       <if test="dropletconftypeid != null" >
         #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="coursestate != null" >
+        #{coursestate,jdbcType=VARCHAR},
+      </if>
+      <if test="courselimit != null" >
+        #{courselimit,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -100,6 +119,12 @@
       </if>
       <if test="dropletconftypeid != null" >
         DropLetConfTypeID = #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="coursestate != null" >
+        CourseState = #{coursestate,jdbcType=VARCHAR},
+      </if>
+      <if test="courselimit != null" >
+        CourseLimit = #{courselimit,jdbcType=INTEGER},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

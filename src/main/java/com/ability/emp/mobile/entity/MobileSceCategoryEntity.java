@@ -19,8 +19,29 @@ public class MobileSceCategoryEntity {
 
     private String dropletconftypeid;
     
+    private String coursestate;
+
+    private Integer courselimit;
     
     
+    
+    
+
+	public String getCoursestate() {
+		return coursestate;
+	}
+
+	public void setCoursestate(String coursestate) {
+		this.coursestate = coursestate;
+	}
+
+	public Integer getCourselimit() {
+		return courselimit;
+	}
+
+	public void setCourselimit(Integer courselimit) {
+		this.courselimit = courselimit;
+	}
 
 	public String getId() {
 		return id;
