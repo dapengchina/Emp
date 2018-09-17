@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileUserEntity;
+import com.ability.emp.mobile.entity.MobileUserTaskEntity;
 import com.ability.emp.mobile.server.MobileUserService;
+import com.ability.emp.mobile.server.MobileUserTaskService;
 import com.ability.emp.util.UUIDUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -37,6 +39,9 @@ public class MobileRegisterAction {
 	@Resource
 	private MobileUserService mobileUserService;
 	
+	@Resource
+	private MobileUserTaskService mobileUserTaskService;
+	
 	
 	@RequestMapping("/register")
 	@ResponseBody
@@ -54,8 +59,27 @@ public class MobileRegisterAction {
 		mue.setId(UUIDUtil.generateUUID());//主键
 		mue.setIsAppoint(SysConstant.NOT_ASSIGNED);//默认未指派
 		mue.setDel(SysConstant.NO_DEL);//默认未删除
-		int i = mobileUserService.registerUser(mue);
-		if(i>0){
+		String i = mobileUserService.registerUser(mue);
+		if(!i.equals("0")){
+			//开始保存任务
+			
+			String[] courseid = mue.getCourseid().split(",");
+			for(int k=0;k<courseid.length;k++){
+				MobileUserTaskEntity userTask = new MobileUserTaskEntity();
+				userTask.setId(UUIDUtil.generateUUID());
+				userTask.setCourseid(courseid[k]);
+				userTask.setUserid(mue.getId());
+				userTask.setCoursestartdate(new Date());
+				mobileUserTaskService.addUserTask(userTask);
+			}
+			
+//			if(j>0){
+//				map.put("result", "注册成功");
+//				map.put("code", 3);
+//			}else{
+//				map.put("result", "任务保存失败");
+//				map.put("code", 4);
+//			}
 			map.put("result", "注册成功");
 			map.put("code", 1);
 		}else{

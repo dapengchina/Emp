@@ -3,6 +3,7 @@ package com.ability.emp.mobile.entity.vo;
 public class CourseVo {
 	
 	
+	private String courseID;
 
     private String scecatname;
 
@@ -17,6 +18,14 @@ public class CourseVo {
     
     
     
+
+	public String getCourseID() {
+		return courseID;
+	}
+
+	public void setCourseID(String courseID) {
+		this.courseID = courseID;
+	}
 
 	public boolean isSelected() {
 		return selected;

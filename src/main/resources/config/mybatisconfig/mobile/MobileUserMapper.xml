@@ -65,7 +65,7 @@
     where ID = #{id,jdbcType=VARCHAR}
   </update>
   
-  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileUserEntity" >
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileUserEntity" keyProperty="id">
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

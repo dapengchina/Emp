@@ -37,6 +37,7 @@ public class MobileCourseAction {
 		List<MobileSceCategoryEntity> courseList = mobileSceCategoryService.getCourseData(me);
 		for(int i=0;i<courseList.size();i++){
 			CourseVo cv = new CourseVo();
+			cv.setCourseID(courseList.get(i).getId());
 			cv.setScecatname(courseList.get(i).getScecatname());
 			cv.setIcon(SysConstant.SERVICE_HOST+courseList.get(i).getIcon());
 			cv.setCoursestate(courseList.get(i).getCoursestate());

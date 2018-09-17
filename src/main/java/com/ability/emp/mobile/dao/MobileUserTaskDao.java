@@ -7,5 +7,7 @@ import com.ability.emp.base.BaseDao;
 
 @Mapper
 public interface MobileUserTaskDao<T> extends BaseDao<T> {
+	
+	
 
 }

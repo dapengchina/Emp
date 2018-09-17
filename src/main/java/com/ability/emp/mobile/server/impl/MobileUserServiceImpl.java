@@ -34,8 +34,14 @@ public class MobileUserServiceImpl implements MobileUserService{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public int registerUser(MobileUserEntity mue) {
-		return mobileUserDao.insert(mue);
+	public String registerUser(MobileUserEntity mue) {
+		int i = mobileUserDao.insert(mue);
+		if(i>0){
+			return mue.getId();
+		}else{
+			return "0";
+		}
+		
 	}
 
 	@Override

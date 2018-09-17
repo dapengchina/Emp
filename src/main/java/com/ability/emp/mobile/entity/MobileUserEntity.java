@@ -39,12 +39,22 @@ public class MobileUserEntity {
      */
     private String isAppointName;
     
+    private String courseid;
     
     
     
     
     
     
+    
+
+	public String getCourseid() {
+		return courseid;
+	}
+
+	public void setCourseid(String courseid) {
+		this.courseid = courseid;
+	}
 
 	public String getTutor() {
 		return tutor;

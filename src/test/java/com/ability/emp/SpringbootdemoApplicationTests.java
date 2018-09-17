@@ -10,10 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.ability.Application;
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileUserEntity;
@@ -52,14 +48,14 @@ public class SpringbootdemoApplicationTests {
 		mue.setId(UUIDUtil.generateUUID());//主键
 		mue.setIsAppoint(SysConstant.NOT_ASSIGNED);//默认未指派
 		mue.setDel(SysConstant.NO_DEL);//默认未删除
-		int i = mobileUserService.registerUser(mue);
-		if(i>0){
-			map.put("result", "注册成功");
-			map.put("code", 1);
-		}else{
-			map.put("result", "注册失败");
-			map.put("code", 0);
-		}
+//		int i = mobileUserService.registerUser(mue);
+//		if(i>0){
+//			map.put("result", "注册成功");
+//			map.put("code", 1);
+//		}else{
+//			map.put("result", "注册失败");
+//			map.put("code", 0);
+//		}
 		//return objectMapper.writeValueAsString(map);
 	}
 
