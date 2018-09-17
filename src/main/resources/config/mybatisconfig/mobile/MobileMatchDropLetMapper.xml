@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileMatchDropLetDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileMatchDropLetEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
+    <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetID" property="reladropletid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetConfTypeID" property="reladropletconftypeid" jdbcType="VARCHAR" />
+    <result column="MatchType" property="matchtype" jdbcType="VARCHAR" />
+    <result column="Audio" property="audio" jdbcType="VARCHAR" />
+    <result column="Image" property="image" jdbcType="VARCHAR" />
+    <result column="IfImageRight" property="ifimageright" jdbcType="VARCHAR" />
+    <result column="IfSentenceRight" property="ifsentenceright" jdbcType="VARCHAR" />
+    <result column="IFAnswerSentenceRight" property="ifanswersentenceright" jdbcType="VARCHAR" />
+    <result column="AnswerAudio" property="answeraudio" jdbcType="VARCHAR" />
+    <result column="IfAnswerAudioRight" property="ifansweraudioright" jdbcType="VARCHAR" />
+    <result column="Sentence" property="sentence" jdbcType="LONGVARCHAR" />
+    <result column="AnswerSentence" property="answersentence" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <select id="selectMatchData" resultType="com.ability.emp.mobile.entity.MobileMatchDropLetEntity" parameterType="com.ability.emp.mobile.entity.MobileMatchDropLetEntity" >
+    select * from t_matchdropletdata
+    where 1=1
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_matchdropletdata
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileMatchDropLetEntity" >
+    insert into t_matchdropletdata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dropletid != null" >
+        DropLetID,
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID,
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID,
+      </if>
+      <if test="reladropletconftypeid != null" >
+        RelaDropLetConfTypeID,
+      </if>
+      <if test="matchtype != null" >
+        MatchType,
+      </if>
+      <if test="audio != null" >
+        Audio,
+      </if>
+      <if test="image != null" >
+        Image,
+      </if>
+      <if test="ifimageright != null" >
+        IfImageRight,
+      </if>
+      <if test="ifsentenceright != null" >
+        IfSentenceRight,
+      </if>
+      <if test="ifanswersentenceright != null" >
+        IFAnswerSentenceRight,
+      </if>
+      <if test="answeraudio != null" >
+        AnswerAudio,
+      </if>
+      <if test="ifansweraudioright != null" >
+        IfAnswerAudioRight,
+      </if>
+      <if test="sentence != null" >
+        Sentence,
+      </if>
+      <if test="answersentence != null" >
+        AnswerSentence,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletid != null" >
+        #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletconftypeid != null" >
+        #{reladropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="matchtype != null" >
+        #{matchtype,jdbcType=VARCHAR},
+      </if>
+      <if test="audio != null" >
+        #{audio,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="ifimageright != null" >
+        #{ifimageright,jdbcType=VARCHAR},
+      </if>
+      <if test="ifsentenceright != null" >
+        #{ifsentenceright,jdbcType=VARCHAR},
+      </if>
+      <if test="ifanswersentenceright != null" >
+        #{ifanswersentenceright,jdbcType=VARCHAR},
+      </if>
+      <if test="answeraudio != null" >
+        #{answeraudio,jdbcType=VARCHAR},
+      </if>
+      <if test="ifansweraudioright != null" >
+        #{ifansweraudioright,jdbcType=VARCHAR},
+      </if>
+      <if test="sentence != null" >
+        #{sentence,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answersentence != null" >
+        #{answersentence,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileMatchDropLetEntity" >
+    update t_matchdropletdata
+    <set >
+      <if test="dropletid != null" >
+        DropLetID = #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID = #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID = #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletconftypeid != null" >
+        RelaDropLetConfTypeID = #{reladropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="matchtype != null" >
+        MatchType = #{matchtype,jdbcType=VARCHAR},
+      </if>
+      <if test="audio != null" >
+        Audio = #{audio,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        Image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="ifimageright != null" >
+        IfImageRight = #{ifimageright,jdbcType=VARCHAR},
+      </if>
+      <if test="ifsentenceright != null" >
+        IfSentenceRight = #{ifsentenceright,jdbcType=VARCHAR},
+      </if>
+      <if test="ifanswersentenceright != null" >
+        IFAnswerSentenceRight = #{ifanswersentenceright,jdbcType=VARCHAR},
+      </if>
+      <if test="answeraudio != null" >
+        AnswerAudio = #{answeraudio,jdbcType=VARCHAR},
+      </if>
+      <if test="ifansweraudioright != null" >
+        IfAnswerAudioRight = #{ifansweraudioright,jdbcType=VARCHAR},
+      </if>
+      <if test="sentence != null" >
+        Sentence = #{sentence,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answersentence != null" >
+        AnswerSentence = #{answersentence,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>
