@@ -16,15 +16,15 @@ public class MatchDropLetVo {
 
     private String image;
 
-    private String ifimageright;
+    private boolean ifimageright;
 
-    private String ifsentenceright;
+    private boolean ifsentenceright;
 
-    private String ifanswersentenceright;
+    private boolean ifanswersentenceright;
 
     private String answeraudio;
 
-    private String ifansweraudioright;
+    private boolean ifansweraudioright;
     
     private String sentence;
 
@@ -32,6 +32,40 @@ public class MatchDropLetVo {
     
     
     
+    
+    
+
+	public boolean isIfimageright() {
+		return ifimageright;
+	}
+
+	public void setIfimageright(boolean ifimageright) {
+		this.ifimageright = ifimageright;
+	}
+
+	public boolean isIfsentenceright() {
+		return ifsentenceright;
+	}
+
+	public void setIfsentenceright(boolean ifsentenceright) {
+		this.ifsentenceright = ifsentenceright;
+	}
+
+	public boolean isIfanswersentenceright() {
+		return ifanswersentenceright;
+	}
+
+	public void setIfanswersentenceright(boolean ifanswersentenceright) {
+		this.ifanswersentenceright = ifanswersentenceright;
+	}
+
+	public boolean isIfansweraudioright() {
+		return ifansweraudioright;
+	}
+
+	public void setIfansweraudioright(boolean ifansweraudioright) {
+		this.ifansweraudioright = ifansweraudioright;
+	}
 
 	public String getDropletlink() {
 		return dropletlink;
@@ -81,44 +115,12 @@ public class MatchDropLetVo {
 		this.image = image;
 	}
 
-	public String getIfimageright() {
-		return ifimageright;
-	}
-
-	public void setIfimageright(String ifimageright) {
-		this.ifimageright = ifimageright;
-	}
-
-	public String getIfsentenceright() {
-		return ifsentenceright;
-	}
-
-	public void setIfsentenceright(String ifsentenceright) {
-		this.ifsentenceright = ifsentenceright;
-	}
-
-	public String getIfanswersentenceright() {
-		return ifanswersentenceright;
-	}
-
-	public void setIfanswersentenceright(String ifanswersentenceright) {
-		this.ifanswersentenceright = ifanswersentenceright;
-	}
-
 	public String getAnsweraudio() {
 		return answeraudio;
 	}
 
 	public void setAnsweraudio(String answeraudio) {
 		this.answeraudio = answeraudio;
-	}
-
-	public String getIfansweraudioright() {
-		return ifansweraudioright;
-	}
-
-	public void setIfansweraudioright(String ifansweraudioright) {
-		this.ifansweraudioright = ifansweraudioright;
 	}
 
 	public String getSentence() {

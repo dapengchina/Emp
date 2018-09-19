@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileDropLetButtonEntity;
 import com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity;
 import com.ability.emp.mobile.entity.MobileDropLetEntity;
@@ -68,22 +69,30 @@ public class MobileMatchDropLetAction {
 		MobileMatchDropLetEntity matchEntity = mobileMatchDropLetService.getMatchData(me);
 		MatchDropLetVo mv = new MatchDropLetVo();
 		if(matchEntity!=null){
-			mv.setAudio(matchEntity.getAudio());
+			mv.setAudio(SysConstant.SERVICE_HOST+matchEntity.getAudio());
 			mv.setMatchtype(matchEntity.getMatchtype());
 			mv.setReladropletid(matchEntity.getReladropletid());
 			mv.setReladropletconftypeid(matchEntity.getReladropletconftypeid());
 			
-			mv.setImage(matchEntity.getImage());
-			mv.setIfimageright(matchEntity.getIfimageright());
+			mv.setImage(matchEntity.getImage()!=null?SysConstant.SERVICE_HOST+matchEntity.getImage():"");
+			if(matchEntity.getIfimageright()!=null){
+				mv.setIfimageright(matchEntity.getIfimageright().equals("false")?false:true);
+			}
 			
-			mv.setSentence(matchEntity.getSentence());
-			mv.setIfsentenceright(matchEntity.getIfsentenceright());
+			mv.setSentence(matchEntity.getSentence()!=null?matchEntity.getSentence():"");
+			if(matchEntity.getIfsentenceright()!=null){
+				mv.setIfsentenceright(matchEntity.getIfsentenceright().equals("false")?false:true);
+			}
 			
-			mv.setAnswersentence(matchEntity.getAnswersentence());
-			mv.setIfanswersentenceright(matchEntity.getIfanswersentenceright());
+			mv.setAnswersentence(matchEntity.getAnswersentence()!=null?matchEntity.getAnswersentence():"");
+			if(matchEntity.getIfanswersentenceright()!=null){
+				mv.setIfanswersentenceright(matchEntity.getIfanswersentenceright().equals("false")?false:true);
+			}
 			
-			mv.setAnsweraudio(matchEntity.getAnsweraudio());
-			mv.setIfansweraudioright(matchEntity.getIfansweraudioright());
+			mv.setAnsweraudio(matchEntity.getAnsweraudio()!=null?SysConstant.SERVICE_HOST+matchEntity.getAnsweraudio():"");
+			if(matchEntity.getIfansweraudioright()!=null){
+				mv.setIfansweraudioright(matchEntity.getIfansweraudioright().equals("false")?false:true);
+			}
 			
 			md.setId(matchEntity.getReladropletid());
     		MobileDropLetEntity mde = mobileDropLetService.getDropLetByID(md);
