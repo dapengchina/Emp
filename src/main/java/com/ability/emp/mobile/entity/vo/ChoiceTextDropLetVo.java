@@ -12,6 +12,10 @@ public class ChoiceTextDropLetVo {
     private String dropLetLink;
 
     private String reladropletconftypeid;
+    
+    private String choicetype;
+    
+    private String choicetext;
 
     private String choicetextaudio;
 
@@ -44,6 +48,22 @@ public class ChoiceTextDropLetVo {
 	
 
 	
+
+	public String getChoicetype() {
+		return choicetype;
+	}
+
+	public void setChoicetype(String choicetype) {
+		this.choicetype = choicetype;
+	}
+
+	public String getChoicetext() {
+		return choicetext;
+	}
+
+	public void setChoicetext(String choicetext) {
+		this.choicetext = choicetext;
+	}
 
 	public boolean isOptionflaga() {
 		return optionflaga;

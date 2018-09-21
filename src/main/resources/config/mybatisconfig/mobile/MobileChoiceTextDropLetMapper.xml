@@ -7,6 +7,8 @@
     <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
     <result column="RelaDropLetID" property="reladropletid" jdbcType="VARCHAR" />
     <result column="RelaDropLetConfTypeID" property="reladropletconftypeid" jdbcType="VARCHAR" />
+    <result column="ChoiceType" property="choicetype" jdbcType="VARCHAR" />
+    <result column="ChoiceText" property="choicetext" jdbcType="LONGVARCHAR" />
     <result column="ChoiceTextAudio" property="choicetextaudio" jdbcType="VARCHAR" />
     <result column="ChoiceTextImage" property="choicetextimage" jdbcType="VARCHAR" />
     <result column="OptionIndexA" property="optionindexa" jdbcType="INTEGER" />
@@ -55,6 +57,12 @@
       </if>
       <if test="reladropletconftypeid != null" >
         RelaDropLetConfTypeID,
+      </if>
+      <if test="choicetype != null" >
+        ChoiceType,
+      </if>
+      <if test="choicetext != null" >
+        ChoiceText,
       </if>
       <if test="choicetextaudio != null" >
         ChoiceTextAudio,
@@ -106,6 +114,12 @@
       <if test="reladropletconftypeid != null" >
         #{reladropletconftypeid,jdbcType=VARCHAR},
       </if>
+      <if test="choicetype != null" >
+        #{choicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="choicetext != null" >
+        #{choicetext,jdbcType=LONGVARCHAR},
+      </if>
       <if test="choicetextaudio != null" >
         #{choicetextaudio,jdbcType=VARCHAR},
       </if>
@@ -156,6 +170,12 @@
       </if>
       <if test="reladropletconftypeid != null" >
         RelaDropLetConfTypeID = #{reladropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="choicetype != null" >
+        ChoiceType = #{choicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="choicetext != null" >
+        ChoiceText = #{choicetext,jdbcType=LONGVARCHAR},
       </if>
       <if test="choicetextaudio != null" >
         ChoiceTextAudio = #{choicetextaudio,jdbcType=VARCHAR},

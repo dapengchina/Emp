@@ -43,5 +43,14 @@ public class SysConstant {
 	   //离线课程
 	   public static final String OFF_LINE = "0";
 	   
+	   /**
+	    * choicetextdropletdata
+	    */
+	   //问题为文本
+	   public static final String QUESTION_TEXT = "0";
+	   //问题为音频
+	   public static final String QUESTION_AUDIO = "1";
+	   
+	   
 
 }

@@ -14,22 +14,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.constant.SysConstant;
-import com.ability.emp.mobile.entity.MobileChoiceTextDropLetEntity;
 import com.ability.emp.mobile.entity.MobileDropLetButtonEntity;
 import com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity;
 import com.ability.emp.mobile.entity.MobileDropLetEntity;
-import com.ability.emp.mobile.entity.vo.ChoiceTextDropLetVo;
+import com.ability.emp.mobile.entity.MobileVideoDropLetEntity;
 import com.ability.emp.mobile.entity.vo.DropLetButtonVo;
-import com.ability.emp.mobile.server.MobileChoiceTextDropLetService;
+import com.ability.emp.mobile.entity.vo.VideoVo;
+import com.ability.emp.mobile.server.MobileCardListDropletService;
 import com.ability.emp.mobile.server.MobileDropLetButtonService;
 import com.ability.emp.mobile.server.MobileDropLetConfTypeService;
 import com.ability.emp.mobile.server.MobileDropLetService;
+import com.ability.emp.mobile.server.MobileVideoDropLetServer;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin//解决跨域请求
 @Controller
-@RequestMapping("/mobile/getChoiceDropLet")
-public class MobileChoiceTextDropLetAction {
+@RequestMapping("/mobile/getVideo")
+public class MobileVideoDropLetAction {
+	
+	
+	
+	@Resource
+	private MobileVideoDropLetServer mobileVideoDropLetServer;
+	
+	@Resource
+	private MobileCardListDropletService mobileCardListDropletService;
 	
 	@Resource
 	private MobileDropLetConfTypeService mobileDropLetConfTypeService;
@@ -40,73 +50,46 @@ public class MobileChoiceTextDropLetAction {
 	@Resource
 	private MobileDropLetService mobileDropLetService;
 	
-	@Resource
-	private MobileChoiceTextDropLetService mobileChoiceTextDropLetService;
-	
 	ObjectMapper objectMapper = new ObjectMapper();
 	
 	
-	
-	@RequestMapping("/getChoiceDropLet/{dropLetId}/{dropLetConfTypeId}")
+	@RequestMapping("/getVideo/{dropLetId}/{dropLetConfTypeId}")
 	@ResponseBody
-	public String getChoiceDropLet(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
+	public String getVideo(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws JsonProcessingException{
 		
-		List<DropLetButtonVo> list2 = new ArrayList<DropLetButtonVo>();
+		List<DropLetButtonVo> buttonList = new ArrayList<DropLetButtonVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
-		MobileChoiceTextDropLetEntity me = new MobileChoiceTextDropLetEntity();
+		MobileVideoDropLetEntity me = new MobileVideoDropLetEntity();
 		MobileDropLetEntity md = new MobileDropLetEntity();
+		
 		if(!dropLetId.equals("1")){
 			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
 		}
-		me.setDropletconftypeid(dropLetConfTypeId);;//确认是哪个位置的数据
-		
-		MobileChoiceTextDropLetEntity choiceEntity = mobileChoiceTextDropLetService.getChoiceDropLetData(me);
-		
-		ChoiceTextDropLetVo sv = new ChoiceTextDropLetVo();
-		if(choiceEntity.getChoicetextaudio()!=null){
-			sv.setChoicetextaudio(SysConstant.SERVICE_HOST+choiceEntity.getChoicetextaudio());
-		}
-		if(choiceEntity.getChoicetextimage()!=null){
-			sv.setChoicetextimage(SysConstant.SERVICE_HOST+choiceEntity.getChoicetextimage());
-		}
-		if(choiceEntity.getChoicetext()!=null){
-			sv.setChoicetext(choiceEntity.getChoicetext());
-		}
-		sv.setChoicetype(choiceEntity.getChoicetype());
-		
-		
-		
-		sv.setOptionindexa(choiceEntity.getOptionindexa());
-		sv.setOptiontexta(choiceEntity.getOptiontexta());
-		sv.setOptionflaga(choiceEntity.getOptionflaga().equals("false")?false:true);
-		
-		sv.setOptionindexb(choiceEntity.getOptionindexb());
-		sv.setOptiontextb(choiceEntity.getOptiontextb());
-		sv.setOptionflagb(choiceEntity.getOptionflagb().equals("false")?false:true);
-		
-		sv.setOptionindexc(choiceEntity.getOptionindexc());
-		sv.setOptiontextc(choiceEntity.getOptiontextc());
-		sv.setOptionflagc(choiceEntity.getOptionflagc().equals("false")?false:true);
-		
-		sv.setReladropletconftypeid(choiceEntity.getReladropletconftypeid());
-		sv.setReladropletid(choiceEntity.getReladropletid());
-		
-		md.setId(choiceEntity.getReladropletid());
-		MobileDropLetEntity mo = mobileDropLetService.getDropLetByID(md);
-		if(mo!=null){
-			sv.setDropLetLink(mo.getDropletlink());
-		}
+		me.setDropletconftypeid(dropLetConfTypeId);//确认是哪个位置下的数据
+		VideoVo vv = new VideoVo();
+		MobileVideoDropLetEntity videoEntity = mobileVideoDropLetServer.getVideoData(me);
+		if(videoEntity!=null){
+			vv.setVideo(SysConstant.SERVICE_HOST+videoEntity.getVideo());
+			vv.setReladropletid(videoEntity.getReladropletid());
+			vv.setReladropletcontypeid(videoEntity.getReladropletcontypeid());
 			
+			md.setId(videoEntity.getReladropletid());
+			MobileDropLetEntity mo = mobileDropLetService.getDropLetByID(md);
+			if(mo!=null){
+				vv.setDropletlink(mo.getDropletlink());
+			}
+		}
+		
 		/**
 		 * 获取button
 		 */
-		if(choiceEntity!=null 
-		   && choiceEntity.getDropletconftypeid()!=null
-		   && !"".equals(choiceEntity.getDropletconftypeid())
+		if(videoEntity!=null
+		   && videoEntity.getDropletconftypeid()!=null
+		   && !"".equals(videoEntity.getDropletconftypeid())
 		){
 			MobileDropLetConfTypeEntity mde = new MobileDropLetConfTypeEntity();
-			mde.setDropletconftype(choiceEntity.getDropletconftypeid());//确定是哪个位置
-			mde.setDropletid(choiceEntity.getDropletid());//确定是哪个droplet
+			mde.setDropletid(videoEntity.getDropletid());
+			mde.setDropletconftype(videoEntity.getDropletconftypeid());
 			
 			MobileDropLetConfTypeEntity remde = mobileDropLetConfTypeService.getDropLetConfigType(mde);
 			if(remde!=null){
@@ -121,7 +104,7 @@ public class MobileChoiceTextDropLetAction {
 						dv.setIcon(reme.getIcon());
 						dv.setReladropletid(reme.getReladropletid());
 						dv.setReladropletconftype(reme.getReladropletconftype());
-						list2.add(dv);
+						buttonList.add(dv);
 					}
 					
 				}
@@ -135,7 +118,7 @@ public class MobileChoiceTextDropLetAction {
 						dv.setIcon(reme.getIcon());
 						dv.setReladropletid(reme.getReladropletid());
 						dv.setReladropletconftype(reme.getReladropletconftype());
-						list2.add(dv);
+						buttonList.add(dv);
 					}
                 }
                 if(remde.getThirbuttonid()!=null && !"".equals(remde.getThirbuttonid())){
@@ -148,7 +131,7 @@ public class MobileChoiceTextDropLetAction {
 						dv.setIcon(reme.getIcon());
 						dv.setReladropletid(reme.getReladropletid());
 						dv.setReladropletconftype(reme.getReladropletconftype());
-						list2.add(dv);
+						buttonList.add(dv);
 					}
                 }
                 if(remde.getFourbuttonid()!=null && !"".equals(remde.getFourbuttonid())){
@@ -161,17 +144,15 @@ public class MobileChoiceTextDropLetAction {
 						dv.setIcon(reme.getIcon());
 						dv.setReladropletid(reme.getReladropletid());
 						dv.setReladropletconftype(reme.getReladropletconftype());
-						list2.add(dv);
+						buttonList.add(dv);
 					}
                 }
 			}
 		}
 		
-		
-		
 		//组合数据
-		map.put("choice", sv);
-		map.put("button", list2);
+		map.put("video", vv);
+		map.put("button", buttonList);
 		return objectMapper.writeValueAsString(map);
 	}
 

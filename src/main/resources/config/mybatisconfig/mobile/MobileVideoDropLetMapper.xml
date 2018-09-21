@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileVideoDropLetDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileVideoDropLetEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
+    <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetID" property="reladropletid" jdbcType="VARCHAR" />
+    <result column="RelaDropLetConTypeID" property="reladropletcontypeid" jdbcType="VARCHAR" />
+    <result column="Video" property="video" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectVideoData" resultType="com.ability.emp.mobile.entity.MobileVideoDropLetEntity" parameterType="com.ability.emp.mobile.entity.MobileVideoDropLetEntity" >
+    select * from t_videodropletdata
+    where 1=1
+    <if test="dropletid != null and dropletid != ''">
+		and DropLetID = #{dropletid}
+	</if>
+	<if test="dropletconftypeid != null and dropletconftypeid != ''">
+		and DropLetConfTypeID = #{dropletconftypeid}
+	</if>
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_videodropletdata
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileVideoDropLetEntity" >
+    insert into t_videodropletdata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dropletid != null" >
+        DropLetID,
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID,
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID,
+      </if>
+      <if test="reladropletcontypeid != null" >
+        RelaDropLetConTypeID,
+      </if>
+      <if test="video != null" >
+        Video,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletid != null" >
+        #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletcontypeid != null" >
+        #{reladropletcontypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null" >
+        #{video,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileVideoDropLetEntity" >
+    update t_videodropletdata
+    <set >
+      <if test="dropletid != null" >
+        DropLetID = #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID = #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletid != null" >
+        RelaDropLetID = #{reladropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="reladropletcontypeid != null" >
+        RelaDropLetConTypeID = #{reladropletcontypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null" >
+        Video = #{video,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>
