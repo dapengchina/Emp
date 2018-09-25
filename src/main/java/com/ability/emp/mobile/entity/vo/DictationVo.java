@@ -17,13 +17,21 @@ public class DictationVo {
 
     private String audio;
     
-    private String question;
+    private Object question[];
 
     private String anwser;
     
     
     
     
+
+	public Object[] getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Object[] question) {
+		this.question = question;
+	}
 
 	public String getReladropletid() {
 		return reladropletid;
@@ -63,14 +71,6 @@ public class DictationVo {
 
 	public void setAudio(String audio) {
 		this.audio = audio;
-	}
-
-	public String getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(String question) {
-		this.question = question;
 	}
 
 	public String getAnwser() {

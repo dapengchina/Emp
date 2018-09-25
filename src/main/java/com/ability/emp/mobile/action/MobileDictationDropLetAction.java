@@ -18,6 +18,7 @@ import com.ability.emp.mobile.entity.MobileDictationDropLetEntity;
 import com.ability.emp.mobile.entity.MobileDropLetButtonEntity;
 import com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity;
 import com.ability.emp.mobile.entity.MobileDropLetEntity;
+import com.ability.emp.mobile.entity.bean.DictationBean;
 import com.ability.emp.mobile.entity.vo.DictationVo;
 import com.ability.emp.mobile.entity.vo.DropLetButtonVo;
 import com.ability.emp.mobile.server.MobileCardListDropletService;
@@ -72,7 +73,20 @@ public class MobileDictationDropLetAction {
 		if(dictationEntity!=null){
 			dication.setImage(SysConstant.SERVICE_HOST+dictationEntity.getImage());
 			dication.setAudio(SysConstant.SERVICE_HOST+dictationEntity.getAudio());
-			dication.setQuestion(dictationEntity.getQuestion());
+			
+			String[] tempQuestion = dictationEntity.getQuestion().split(" ");
+			Object[] question = new Object[tempQuestion.length];
+			for(int i=0;i<tempQuestion.length;i++){
+				DictationBean db = new DictationBean();
+				db.setTit(tempQuestion[i]);
+				if(tempQuestion[i].equals(SysConstant.PLACE_HOLDER)){
+					db.setEmptyflag(true);
+				}else{
+					db.setEmptyflag(false);
+				}
+				question[i]=db;
+			}
+			dication.setQuestion(question);
 			dication.setAnwser(dictationEntity.getAnwser());
 			dication.setReladropletid(dictationEntity.getReladropletid());
 			dication.setReladropletcontypeid(dictationEntity.getReladropletcontypeid());

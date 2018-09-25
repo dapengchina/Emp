@@ -50,6 +50,8 @@ public class SysConstant {
 	   public static final String QUESTION_TEXT = "0";
 	   //问题为音频
 	   public static final String QUESTION_AUDIO = "1";
+	   //dictation占位符
+	   public static final String PLACE_HOLDER = "$$$";
 	   
 	   
 
