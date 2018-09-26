@@ -67,9 +67,7 @@ public class MobileRegisterAction {
 			for(int k=0;k<courseid.length;k++){
 				MobileUserTaskEntity userTask = new MobileUserTaskEntity();
 				userTask.setId(UUIDUtil.generateUUID());
-				userTask.setCourseid(courseid[k]);
 				userTask.setUserid(mue.getId());
-				userTask.setCoursestartdate(new Date());
 				mobileUserTaskService.addUserTask(userTask);
 			}
 			

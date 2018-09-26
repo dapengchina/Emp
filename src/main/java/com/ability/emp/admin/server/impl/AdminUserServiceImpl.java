@@ -90,8 +90,6 @@ public class AdminUserServiceImpl implements AdminUserService{
 		AdminWordRecordEntity wordRecordEntiy = new AdminWordRecordEntity();
 		for (int i = 0; i < array.length; i++) {
 			adminUserEntity.setId(array[i]);
-			adminUserEntity.setTaskid(taskid);
-			adminUserEntity.setIsAppoint("1");
 			userDao.update(adminUserEntity);
 			for (int j = 0; j < list.size(); j++) {
 				wordRecordEntiy.setUserId(array[i]);
@@ -201,8 +199,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 	           ue.setId(UUIDUtil.generateUUID());
 	           //赋值未删除
 	           ue.setDel(SysConstant.NO_DEL);
-	           //赋值未指派
-	           ue.setIsAppoint(SysConstant.NOT_ASSIGNED);
+	           
 	           
 	           
 	           String userName = "";

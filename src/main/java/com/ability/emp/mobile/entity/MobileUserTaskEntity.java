@@ -1,24 +1,30 @@
 package com.ability.emp.mobile.entity;
 
-import java.util.Date;
+
 
 public class MobileUserTaskEntity {
 	
     private String id;
 
     private String userid;
-
-    private String courseid;
-
-    private Date coursestartdate;
-
-    private Date courseenddate;
+    
+    private String taskid;
 
     private String completepercent;
     
     
+    
+    
 
-    public String getId() {
+    public String getTaskid() {
+		return taskid;
+	}
+
+	public void setTaskid(String taskid) {
+		this.taskid = taskid;
+	}
+
+	public String getId() {
         return id;
     }
 
@@ -32,30 +38,6 @@ public class MobileUserTaskEntity {
 
     public void setUserid(String userid) {
         this.userid = userid == null ? null : userid.trim();
-    }
-
-    public String getCourseid() {
-        return courseid;
-    }
-
-    public void setCourseid(String courseid) {
-        this.courseid = courseid == null ? null : courseid.trim();
-    }
-
-    public Date getCoursestartdate() {
-        return coursestartdate;
-    }
-
-    public void setCoursestartdate(Date coursestartdate) {
-        this.coursestartdate = coursestartdate;
-    }
-
-    public Date getCourseenddate() {
-        return courseenddate;
-    }
-
-    public void setCourseenddate(Date courseenddate) {
-        this.courseenddate = courseenddate;
     }
 
     public String getCompletepercent() {

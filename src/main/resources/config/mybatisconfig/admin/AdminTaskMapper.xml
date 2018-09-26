@@ -3,19 +3,17 @@
 <mapper namespace="com.ability.emp.admin.dao.AdminTaskDao" >
   <resultMap id="BaseResultMap" type="com.ability.emp.admin.entity.AdminTaskEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
-    <result column="PARAMID" property="paramid" jdbcType="VARCHAR" />
     <result column="THESAURES_TYPE" property="thesauresType" jdbcType="VARCHAR" />
     <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
     <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
     <result column="TASKNAME" property="taskname" jdbcType="VARCHAR" />
-    <result column="DEL" property="del" jdbcType="VARCHAR" />
+    <result column="TaskType" property="tasktype" jdbcType="VARCHAR" />
+    <result column="CourseId" property="courseid" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    ID, PARAMID, THESAURES_TYPE, START_DATE, END_DATE, TASKNAME, DEL
-  </sql>
+  
 
   <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminTaskEntity" >
-    select * from t_task where DEL = '0'
+    select * from t_task where 1=1
     <if test="taskname != null and taskname != ''">
     	AND TASKNAME like concat(concat('%',#{taskname}),'%')
     </if>
@@ -44,9 +42,6 @@
       <if test="id != null" >
         ID,
       </if>
-      <if test="paramid != null" >
-        PARAMID,
-      </if>
       <if test="thesauresType != null" >
         THESAURES_TYPE,
       </if>
@@ -59,18 +54,18 @@
       <if test="taskname != null" >
         TASKNAME,
       </if>
-      <if test="del != null" >
-        DEL,
+      <if test="tasktype != null" >
+        TaskType,
+      </if>
+      <if test="courseid != null" >
+        CourseId,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="paramid != null" >
-        #{paramid,jdbcType=VARCHAR},
-      </if>
-       <if test="thesauresType != null" >
+      <if test="thesauresType != null" >
         #{thesauresType,jdbcType=VARCHAR},
       </if>
       <if test="startDate != null" >
@@ -82,8 +77,11 @@
       <if test="taskname != null" >
         #{taskname,jdbcType=VARCHAR},
       </if>
-      <if test="del != null" >
-        #{del,jdbcType=VARCHAR},
+      <if test="tasktype != null" >
+        #{tasktype,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null" >
+        #{courseid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -91,9 +89,6 @@
   <update id="update" parameterType="com.ability.emp.admin.entity.AdminTaskEntity" >
     update t_task
     <set >
-      <if test="paramid != null" >
-        PARAMID = #{paramid,jdbcType=VARCHAR},
-      </if>
       <if test="thesauresType != null" >
         THESAURES_TYPE = #{thesauresType,jdbcType=VARCHAR},
       </if>
@@ -106,8 +101,11 @@
       <if test="taskname != null" >
         TASKNAME = #{taskname,jdbcType=VARCHAR},
       </if>
-      <if test="del != null" >
-        DEL = #{del,jdbcType=VARCHAR},
+      <if test="tasktype != null" >
+        TaskType = #{tasktype,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null" >
+        CourseId = #{courseid,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

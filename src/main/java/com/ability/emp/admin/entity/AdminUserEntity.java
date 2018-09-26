@@ -1,19 +1,16 @@
 package com.ability.emp.admin.entity;
 
 public class AdminUserEntity {
+	
+	
+	
     private String id;//主键
-
-    private String nickName;//昵称
-
-    private String userName;//中文名
+    
+    private String userName;//用户名
 
     private String phone;//电话
 
     private String openid;//唯一标识
-    
-    private String taskid;//任务ID
-
-    private String isAppoint;//是否被指派任务
     
 	private String del;
 	
@@ -31,11 +28,7 @@ public class AdminUserEntity {
      */
     private String taskName;
     
-    /**
-     * 汉字转换
-     * @return
-     */
-    private String isAppointName;
+    
     
     
     
@@ -74,14 +67,6 @@ public class AdminUserEntity {
 		this.id = id;
 	}
 
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-
 	public String getUserName() {
 		return userName;
 	}
@@ -106,22 +91,6 @@ public class AdminUserEntity {
 		this.openid = openid;
 	}
 
-	public String getTaskid() {
-		return taskid;
-	}
-
-	public void setTaskid(String taskid) {
-		this.taskid = taskid;
-	}
-
-	public String getIsAppoint() {
-		return isAppoint;
-	}
-
-	public void setIsAppoint(String isAppoint) {
-		this.isAppoint = isAppoint;
-	}
-
 	public String getDel() {
 		return del;
 	}
@@ -136,13 +105,5 @@ public class AdminUserEntity {
 
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
-	}
-
-	public String getIsAppointName() {
-		return isAppointName;
-	}
-
-	public void setIsAppointName(String isAppointName) {
-		this.isAppointName = isAppointName;
 	}
 }

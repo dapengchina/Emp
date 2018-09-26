@@ -61,8 +61,7 @@ public class AdminUserListAction {
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
 		List<AdminUserEntity> data = adminUserService.queryAll(adminUserEntity);
-		//汉字转换
-		convertText(data);
+		
 		Map<String,Object> map = new HashMap<String,Object>();
 		@SuppressWarnings("unchecked")
 		PageInfo<AdminUserEntity> page = new PageInfo(data);
@@ -159,27 +158,4 @@ public class AdminUserListAction {
 		 return adminUserService.verifyUserAppoint(req);
 	}
 	
-	
-	/*
-	 **汉字转换
-	 */
-	public void convertText(List<AdminUserEntity> data) {
-		if (data != null) {
-			for(int i=0;i<data.size();i++){
-				//未指派
-				if(data.get(i).getIsAppoint().equals("0")){
-					data.get(i).setIsAppointName("未指派");
-				}
-				//已指派
-		        if(data.get(i).getIsAppoint().equals("1")){
-		        	data.get(i).setIsAppointName("已指派");
-				}
-		        
-		        //任务名称
-		        String taskId = data.get(i).getTaskid();
-		        String taskName = adminUserService.findTaskName(taskId);
-		        data.get(i).setTaskName(taskName);
-			}
-		}
-	}
 }

@@ -49,7 +49,7 @@ function loadTaskList() {
 			title : 'Taskname',
 			sortable : true
 		}, {
-			field : 'tParamName',
+			field : 'thesauresTypeName',
 			title : 'Thesaure',
 			sortable : true
 		}, {

@@ -9,16 +9,12 @@ $(function () {
 //查找用户
 function userSearch(){
 	var userName = $("#txt_search_departmentname").val();
-    var nickName = $("#txt_search_nickName").val(); 
-    var phone = $("#txt_search_phone").val(); 
-    var isAppoint = $("#txt_search_statu").val();
+    var phone = $("#txt_search_phone").val();
     var tutor = $("#search_tutor").val();
 	var queryParams = { 
 		query: {  
 			userName:userName,
-			nickName:nickName,
 			phone:phone,
-			isAppoint:isAppoint,
 			tutor:tutor
         }
     }  
@@ -79,10 +75,6 @@ function loadUserList(){
         },{
             field: 'code',
             title: 'Code',
-            sortable: true
-        },{
-            field: 'isAppointName',
-            title: 'Status',
             sortable: true
         },{
             field: 'taskName',

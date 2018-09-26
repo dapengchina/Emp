@@ -3,27 +3,19 @@
 <mapper namespace="com.ability.emp.admin.dao.AdminUserDao" >
   <resultMap id="BaseResultMap" type="com.ability.emp.admin.entity.AdminUserEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
-    <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
     <result column="DEPARMENT" property="deparment" jdbcType="VARCHAR" />
     <result column="TUTOR" property="tutor" jdbcType="VARCHAR" />
     <result column="PHONE" property="phone" jdbcType="VARCHAR" />
     <result column="OPENID" property="openid" jdbcType="VARCHAR" />
-    <result column="TASKID" property="taskid" jdbcType="VARCHAR" />
-    <result column="IS_APPOINT" property="isAppoint" jdbcType="VARCHAR" />
     <result column="DEL" property="del" jdbcType="VARCHAR" />
     <result column="CODE" property="code" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    ID, NICK_NAME, DEPARMENT, TUTOR, USER_NAME, PHONE, OPENID, TASKID, IS_APPOINT, DEL, CODE
-  </sql>
+  
   <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminUserEntity" >
     select * from t_user where DEL = '0' 
     <if test="userName != null and userName != ''">
 		AND USER_NAME like concat(concat('%',#{userName}),'%')
-	</if>
-	<if test="nickName != null and nickName != ''">
-		AND NICK_NAME like concat(concat('%',#{nickName}),'%')
 	</if>
 	<if test="phone != null and phone != ''">
 		AND PHONE = #{phone}
@@ -33,9 +25,6 @@
 	</if>
 	<if test="code != null and code != ''">
 		AND CODE = #{code}
-	</if>
-	<if test="isAppoint != null and isAppoint != ''">
-		AND IS_APPOINT = #{isAppoint}
 	</if>
   </select>
   
@@ -54,9 +43,6 @@
       <if test="id != null" >
         ID,
       </if>
-      <if test="nickName != null" >
-        NICK_NAME,
-      </if>
       <if test="userName != null" >
         USER_NAME,
       </if>
@@ -72,12 +58,6 @@
       <if test="openid != null" >
         OPENID,
       </if>
-      <if test="taskid != null" >
-        TASKID,
-      </if>
-      <if test="isAppoint != null" >
-        IS_APPOINT,
-      </if>
       <if test="del != null" >
         DEL,
       </if>
@@ -88,9 +68,6 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="nickName != null" >
-        #{nickName,jdbcType=VARCHAR},
       </if>
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
@@ -107,12 +84,6 @@
       <if test="openid != null" >
         #{openid,jdbcType=VARCHAR},
       </if>
-      <if test="taskid != null" >
-        #{taskid,jdbcType=VARCHAR},
-      </if>
-      <if test="isAppoint != null" >
-        #{isAppoint,jdbcType=VARCHAR},
-      </if>
       <if test="del != null" >
         #{del,jdbcType=VARCHAR},
       </if>
@@ -125,9 +96,6 @@
   <update id="update" parameterType="com.ability.emp.admin.entity.AdminUserEntity" >
     update t_user
     <set >
-      <if test="nickName != null" >
-        NICK_NAME = #{nickName,jdbcType=VARCHAR},
-      </if>
       <if test="deparment != null" >
         DEPARMENT = #{deparment,jdbcType=VARCHAR},
       </if>
@@ -142,12 +110,6 @@
       </if>
       <if test="openid != null" >
         OPENID = #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="taskid != null" >
-        TASKID = #{taskid,jdbcType=VARCHAR},
-      </if>
-      <if test="isAppoint != null" >
-        IS_APPOINT = #{isAppoint,jdbcType=VARCHAR},
       </if>
       <if test="del != null" >
         DEL = #{del,jdbcType=VARCHAR},

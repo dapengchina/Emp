@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ability.emp.admin.entity.AdminSystemParamEntity;
 import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.admin.entity.AdminThesauresPramEntity;
 import com.ability.emp.admin.entity.AdminWordEntity;
@@ -28,7 +27,6 @@ import com.ability.emp.admin.server.AdminSystemParamService;
 import com.ability.emp.admin.server.AdminTaskService;
 import com.ability.emp.admin.server.AdminThesauresPramService;
 import com.ability.emp.admin.server.AdminWordService;
-import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.CalendarCountUtil;
 import com.ability.emp.util.UUIDUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -102,10 +100,7 @@ public class AdminTaskListAction {
 					adminThesauresPramEntity=adminThesauresPramService.getByID(data.get(i).getThesauresType());
 					
 					if(adminThesauresPramEntity!=null){
-						//data.get(i).settParamid(adminThesauresPramEntity.getId());
-					}
-					if(adminThesauresPramEntity!=null && adminThesauresPramEntity.getName()!=null){
-						data.get(i).settParamName(adminThesauresPramEntity.getName());
+						data.get(i).setThesauresTypeName(adminThesauresPramEntity.getName());
 					}
 				}
 			}
@@ -126,7 +121,6 @@ public class AdminTaskListAction {
 		taskEntity.setStartDate(sf.parse(taskEntity.getStartStringDate()));
 		taskEntity.setEndDate(sf.parse(taskEntity.getEndStringDate()));
 		taskEntity.setId(UUIDUtil.generateUUID());
-		taskEntity.setDel(SysConstant.NO_DEL);
 		int i = adminTaskService.insert(taskEntity);  
 		if(i>0){
 			return "0";
@@ -144,10 +138,10 @@ public class AdminTaskListAction {
 			for(int i=0;i<task.size();i++){
 				task.get(i).setStartStringDate(sf.format(task.get(i).getStartDate()!=null?task.get(i).getStartDate():""));
 				task.get(i).setEndStringDate(sf.format(task.get(i).getEndDate()!=null?task.get(i).getEndDate():""));
-				AdminSystemParamEntity aspe = adminSystemParamService.queryById(task.get(i).getParamid());
-				if(aspe!=null){
-					task.get(i).setParamValue(aspe.getChildValue());
-				}
+				//AdminSystemParamEntity aspe = adminSystemParamService.queryById(task.get(i).getParamid());
+//				if(aspe!=null){
+//					//task.get(i).setParamValue(aspe.getChildValue());
+//				}
 			}
 		}
 		return objectMapper.writeValueAsString(task.get(0));

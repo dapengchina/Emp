@@ -4,9 +4,7 @@
   <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileUserTaskEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="UserID" property="userid" jdbcType="VARCHAR" />
-    <result column="CourseID" property="courseid" jdbcType="VARCHAR" />
-    <result column="CourseStartDate" property="coursestartdate" jdbcType="TIMESTAMP" />
-    <result column="CourseEndDate" property="courseenddate" jdbcType="TIMESTAMP" />
+    <result column="TaskID" property="taskid" jdbcType="VARCHAR" />
     <result column="CompletePercent" property="completepercent" jdbcType="VARCHAR" />
   </resultMap>
   
@@ -29,14 +27,8 @@
       <if test="userid != null" >
         UserID,
       </if>
-      <if test="courseid != null" >
-        CourseID,
-      </if>
-      <if test="coursestartdate != null" >
-        CourseStartDate,
-      </if>
-      <if test="courseenddate != null" >
-        CourseEndDate,
+      <if test="taskid != null" >
+        TaskID,
       </if>
       <if test="completepercent != null" >
         CompletePercent,
@@ -49,14 +41,8 @@
       <if test="userid != null" >
         #{userid,jdbcType=VARCHAR},
       </if>
-      <if test="courseid != null" >
-        #{courseid,jdbcType=VARCHAR},
-      </if>
-      <if test="coursestartdate != null" >
-        #{coursestartdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="courseenddate != null" >
-        #{courseenddate,jdbcType=TIMESTAMP},
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
       </if>
       <if test="completepercent != null" >
         #{completepercent,jdbcType=VARCHAR},
@@ -70,14 +56,8 @@
       <if test="userid != null" >
         UserID = #{userid,jdbcType=VARCHAR},
       </if>
-      <if test="courseid != null" >
-        CourseID = #{courseid,jdbcType=VARCHAR},
-      </if>
-      <if test="coursestartdate != null" >
-        CourseStartDate = #{coursestartdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="courseenddate != null" >
-        CourseEndDate = #{courseenddate,jdbcType=TIMESTAMP},
+      <if test="taskid != null" >
+        TaskID = #{taskid,jdbcType=VARCHAR},
       </if>
       <if test="completepercent != null" >
         CompletePercent = #{completepercent,jdbcType=VARCHAR},

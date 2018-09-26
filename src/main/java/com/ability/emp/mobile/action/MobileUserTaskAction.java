@@ -35,7 +35,6 @@ public class MobileUserTaskAction {
 	public String addUserTask(MobileUserTaskEntity me) throws JsonProcessingException{
 		Map<String,Object> map = new HashMap<String,Object>();
 		me.setId(UUIDUtil.generateUUID());//主键
-		me.setCoursestartdate(new Date());//任务开始日期
 		int i = mobileUserTaskService.addUserTask(me);
 		if(i>0){
 			map.put("result", "保存任务成功");
