@@ -11,6 +11,8 @@ public class AdminTaskEntity {
     private String thesaures_Type;
     
     private String tasktype;
+    
+    private String tasktypename;
 
     private String courseid;
     
@@ -42,7 +44,15 @@ public class AdminTaskEntity {
     
     
     
-    public String getThesaures_Type() {
+    public String getTasktypename() {
+		return tasktypename;
+	}
+
+	public void setTasktypename(String tasktypename) {
+		this.tasktypename = tasktypename;
+	}
+
+	public String getThesaures_Type() {
 		return thesaures_Type;
 	}
 

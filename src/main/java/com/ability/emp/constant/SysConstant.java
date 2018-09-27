@@ -1,5 +1,7 @@
 package com.ability.emp.constant;
 
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 系统常量
@@ -58,6 +60,12 @@ public class SysConstant {
 	    */
 	   public static final String TASK_TYPE0 = "0";//背单词
 	   public static final String TASK_TYPE1 = "1";//其它
+	   public static final Map<String,Object> map = new HashMap<String,Object>();
+	   public static Map<String,Object> getTaskTypeMap(){
+		   map.put("0", "背单词");
+		   map.put("1", "其它");
+		   return map;
+	   }
 	   
 	   /**
 	    * 用户任务完成百分比初始值

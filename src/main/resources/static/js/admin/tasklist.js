@@ -49,7 +49,11 @@ function loadTaskList() {
 			field : 'taskname',
 			title : 'Taskname',
 			sortable : true
-		}, {
+		},{
+			field : 'tasktypename',
+			title : 'TaskType',
+			sortable : true
+		},{
 			field : 'thesauresTypeName',
 			title : 'Thesaure',
 			sortable : true
@@ -120,6 +124,17 @@ function saveTask() {
 		var bootstrapValidator = $("#addTaskForm").data('bootstrapValidator');
 		bootstrapValidator.validate();
 		if(bootstrapValidator.isValid()){
+			if(tasktype=='-1'){
+				alert("请选择任务类型");
+				return
+			}
+			//如果选择背单词,则必须选择词库
+			if(tasktype=='0'){
+				if(thesauresType=='-1'){
+					alert("请选择词库");
+					return
+				}
+			}
 			/**
 			 * 验证通过之后调用计算任务量方法
 			 */

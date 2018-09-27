@@ -27,6 +27,7 @@ import com.ability.emp.admin.server.AdminSystemParamService;
 import com.ability.emp.admin.server.AdminTaskService;
 import com.ability.emp.admin.server.AdminThesauresPramService;
 import com.ability.emp.admin.server.AdminWordService;
+import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.CalendarCountUtil;
 import com.ability.emp.util.UUIDUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -98,10 +99,15 @@ public class AdminTaskListAction {
 				tParamid=data.get(i).getThesauresType();
 				if(!StringUtils.pathEquals("", tParamid)){
 					adminThesauresPramEntity=adminThesauresPramService.getByID(data.get(i).getThesauresType());
-					
 					if(adminThesauresPramEntity!=null){
 						data.get(i).setThesauresTypeName(adminThesauresPramEntity.getName());
 					}
+				}
+				if(data.get(i).getTasktype().equals(SysConstant.TASK_TYPE0)){
+					data.get(i).setTasktypename(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE0).toString());
+				}
+				if(data.get(i).getTasktype().equals(SysConstant.TASK_TYPE1)){
+					data.get(i).setTasktypename(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE1).toString());
 				}
 			}
 		}
