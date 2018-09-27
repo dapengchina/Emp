@@ -76,10 +76,6 @@ function loadUserList(){
             field: 'code',
             title: 'Code',
             sortable: true
-        },{
-            field: 'taskName',
-            title: 'TaskName',
-            sortable: true
         },
         {
             field:'ID',
@@ -134,22 +130,24 @@ function openAppointPage(){
 	}
 	var id = user;
 	if(id != "" && id != null ){
-		$.ajax({
-			url:'/Emp/admin/user/verifyUserAppoint',
-			dataType:"json",
-			data:{"id":user},
-			async:true,
-			cache:false,
-			type:"post",
-			success:function(result){
-				if(result == "1"){
-					alert("用户已经存在指派任务");
-				}else{
-					$("#appointTask").modal('show');
-					loadTaskList();
-				}
-			}
-		});
+		$("#appointTask").modal('show');
+		loadTaskList();
+//		$.ajax({
+//			url:'/Emp/admin/user/verifyUserAppoint',
+//			dataType:"json",
+//			data:{"id":user},
+//			async:true,
+//			cache:false,
+//			type:"post",
+//			success:function(result){
+//				if(result == "1"){
+//					alert("用户已经存在指派任务");
+//				}else{
+//					$("#appointTask").modal('show');
+//					loadTaskList();
+//				}
+//			}
+//		});
 	}else{
 		alert("请选择需要指派任务的用户");
 	}
@@ -206,7 +204,7 @@ function loadTaskList(){
             title: 'Taskname',
             sortable: true
         },{
-			field : 'tParamName',
+			field : 'thesauresTypeName',
 			title : 'Thesaure',
 			sortable : true
 		},{

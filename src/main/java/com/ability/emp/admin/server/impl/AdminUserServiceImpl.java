@@ -90,7 +90,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 		AdminWordRecordEntity wordRecordEntiy = new AdminWordRecordEntity();
 		for (int i = 0; i < array.length; i++) {
 			adminUserEntity.setId(array[i]);
-			userDao.update(adminUserEntity);
+			//userDao.update(adminUserEntity);
 			for (int j = 0; j < list.size(); j++) {
 				wordRecordEntiy.setUserId(array[i]);
 				wordRecordEntiy.setWord(list.get(j).getWord());
