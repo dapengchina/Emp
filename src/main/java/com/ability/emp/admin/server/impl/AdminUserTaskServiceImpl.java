@@ -32,4 +32,9 @@ public class AdminUserTaskServiceImpl implements AdminUserTaskService{
 		return adminUserTaskDao.selectByUserId(ae);
 	}
 
+	@Override
+	public AdminUserTaskEntity getUserTask(AdminUserTaskEntity ae) {
+		return adminUserTaskDao.selectUserTask(ae);
+	}
+
 }

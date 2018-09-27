@@ -16,6 +16,17 @@
 	</if>
   </select>
   
+  <select id="selectUserTask" resultType="com.ability.emp.admin.entity.AdminUserTaskEntity" parameterType="com.ability.emp.admin.entity.AdminUserTaskEntity" >
+    select * from t_usertask
+    where 1=1
+    <if test="userid != null and userid != ''">
+		and UserID=#{userid}
+	</if>
+	<if test="taskid != null and taskid != ''">
+		and TaskID=#{taskid}
+	</if>
+  </select>
+  
   <delete id="delete" parameterType="com.ability.emp.admin.entity.AdminUserTaskEntity" >
     delete from t_usertask
     where ID = #{id,jdbcType=VARCHAR}

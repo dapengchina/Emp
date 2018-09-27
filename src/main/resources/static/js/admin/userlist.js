@@ -76,22 +76,14 @@ function loadUserList(){
             field: 'code',
             title: 'Code',
             sortable: true
-        },
-        {
-            field:'ID',
-            title: 'Operation',
-            width: 120,
-            align: 'center',
-            valign: 'middle'
-        }, ],
+        }],
         onLoadSuccess: function () {
         },
         onLoadError: function () {
-            //showTips("数据加载失败！");
+            
         },
         onDblClickRow: function (row, $element) {
-            //var id = row.ID;
-           // EditViewById(id, 'view');
+           
         },
         //注册加载子表的事件。注意下这里的三个参数！
         onExpandRow: function (index, row, $detail) {
@@ -261,14 +253,6 @@ function loadTaskList(){
         detailView: false,                  //是否显示父子表
         //得到查询的参数
         queryParams : function (params) {
-            //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-            /*var temp = {   
-                rows: params.limit,                         //页面大小
-                page: (params.offset / params.limit) + 1,   //页码
-                sort: params.sort,      //排序列名  
-                sortOrder: params.order //排位命令（desc，asc） 
-            };
-            return temp;*/
         	return {
         		pageSize: params.limit,
         		pageNumber: params.offset/params.limit+1,
@@ -293,21 +277,14 @@ function loadTaskList(){
             field: 'endStringDate',
             title: 'EndDate',
             sortable: true
-        }/*, {
-            field:'ID',
-            title: 'Operation',
-            width: 120,
-            align: 'center',
-            valign: 'middle'
-        }, */],
+        }],
         onLoadSuccess: function () {
         },
         onLoadError: function () {
-            //showTips("数据加载失败！");
+            
         },
         onDblClickRow: function (row, $element) {
-            //var id = row.ID;
-           // EditViewById(id, 'view');
+           
         },
     });
 }
@@ -336,6 +313,11 @@ function appoint(){
 			cache:false,
 			type:"post",
 			success:function(result){
+				if(result=='0'){
+					alert("任务添加成功");
+				}else{
+					alert("任务添加失败");
+				}
 				$("#appointTask").modal('hide');
 				$("#tasklist").bootstrapTable('refresh');
 				$("#userlist").bootstrapTable('refresh');

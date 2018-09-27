@@ -88,21 +88,29 @@ public class AdminUserServiceImpl implements AdminUserService{
 			//给用户任务表保存数据
 			AdminUserTaskEntity userTask = new AdminUserTaskEntity();
 			for(int i=0;i<ids.length;i++){
-				userTask.setId(UUIDUtil.generateUUID());
 				userTask.setUserid(ids[i]);
 				userTask.setTaskid(taskid);
-				userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
-				adminUserTaskDao.insert(userTask);
+				//根据任务ID和用户ID查询用户任务表,如果有数据则不保存
+				AdminUserTaskEntity ut = adminUserTaskDao.selectUserTask(userTask);
+				if(ut==null){
+					userTask.setId(UUIDUtil.generateUUID());
+					userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
+					adminUserTaskDao.insert(userTask);
+				}
 			}
 		}else{
 			//给用户任务表保存数据
 			AdminUserTaskEntity userTask = new AdminUserTaskEntity();
 			for(int i=0;i<ids.length;i++){
-				userTask.setId(UUIDUtil.generateUUID());
 				userTask.setUserid(ids[i]);
 				userTask.setTaskid(taskid);
-				userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
-				adminUserTaskDao.insert(userTask);
+				//根据任务ID和用户ID查询用户任务表,如果有数据则不保存
+				AdminUserTaskEntity ut = adminUserTaskDao.selectUserTask(userTask);
+				if(ut==null){
+					userTask.setId(UUIDUtil.generateUUID());
+					userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
+					adminUserTaskDao.insert(userTask);
+				}
 			}
 		}
 	}
