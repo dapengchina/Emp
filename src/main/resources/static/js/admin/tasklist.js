@@ -2,6 +2,7 @@ $(function() {
 	// 加载任务列表
 	loadTaskList();
 	datehandle();
+	loadCourse();
 });
 
 
@@ -92,6 +93,7 @@ function openTaskModal() {
 		success : function(datas) {//返回list数据并循环获取
 			$("#thesauresIDAdd").empty();
 			var select = $("#thesauresIDAdd");
+			select.append("<option value='-1'>"+"--请选择--"+ "</option>");
 			for (var i = 0; i < datas.length; i++) {
 				select.append("<option value='"+datas[i].id+"'>"+ datas[i].name + "</option>");
 			}
@@ -110,6 +112,8 @@ function saveTask() {
 		var taskName = $('#taskNameAdd').val();
 		var paramid = $('#paramaddID').val();
 		var thesauresType = $('#thesauresIDAdd option:selected').val();//选中的值
+		var courseid = $('#course option:selected').val();//选中的值
+		var tasktype = $('#taskType option:selected').val();//选中的值
 		var startDate = $('#startDateAdd').val();
 		var endDate = $('#endDateAdd').val();
 		
@@ -137,6 +141,8 @@ function saveTask() {
 				    		dataType:"json",
 				    		data:{"taskname":taskName,"paramid":paramid,
 				    			"thesauresType":thesauresType,
+				    			"tasktype":tasktype,
+				    			"courseid":courseid,
 				    			"startStringDate":startDate,
 				    			"endStringDate":endDate},
 				    		async:true,
@@ -144,9 +150,12 @@ function saveTask() {
 				    		type:"post",
 							success : function(result) {
 								if(result == "0"){
+									alert("新建任务成功");
 									$('#tasklist').bootstrapTable('refresh');
 									$("#addTaskForm").bootstrapValidator('resetForm');
 									$("#taskadd").modal('hide');
+				                }else{
+				                	alert("新建任务失败");
 				                }
 							},
 							error : function() {
@@ -498,4 +507,22 @@ function search(){
     }  
 	//刷新表格  
     $('#tasklist').bootstrapTable('refresh',queryParams);  
+}
+
+function loadCourse(){
+	$.ajax({
+		type : 'get',
+		url :"/Emp/admin/scecategory/getScecategory",
+		dataType : 'json',
+		success : function(datas) {//返回list数据并循环获取
+			$("#course").empty();
+			var select = $("#course");
+			select.append("<option value='-1'>"+"--请选择--"+ "</option>");
+			for (var i = 0; i < datas.length; i++) {
+				select.append("<option value='"+datas[i].id+"'>"+ datas[i].scecatname + "</option>");
+			}
+			$('.selectpicker').selectpicker('val', '');
+			$('.selectpicker').selectpicker('refresh');
+		}
+	});
 }

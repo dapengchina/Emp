@@ -57,9 +57,7 @@ public class SysConstant {
 	    * 任务类型
 	    */
 	   public static final String TASK_TYPE0 = "0";//背单词
-	   public static final String TASK_TYPE1 = "1";//阅读
-	   public static final String TASK_TYPE2 = "2";//Fin-Tech English
-	   public static final String TASK_TYPE3 = "3";//ExcelEssential
+	   public static final String TASK_TYPE1 = "1";//其它
 	   
 	   /**
 	    * 用户任务完成百分比初始值

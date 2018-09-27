@@ -84,35 +84,47 @@
 						<div class="form-group">
 							<label class="control-label col-sm-4">Task Name</label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control" id="taskNameAdd" name="taskNameAdd"/>
+							    <input style="width:220px" type="text" class="form-control" id="taskNameAdd" name="taskNameAdd"/>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-sm-4">Task Type</label>
+							<div class="col-sm-4">
+								<select id="taskType" name="taskType" class="selectpicker" data-live-search="true">
+								  <option value="-1">--请选择--</option>
+								  <option value="0">背单词</option>
+								  <option value="1">其它</option>
+								</select>
 							</div>
 						</div>  
 						
 						<div class="form-group">
-							<label class="control-label col-sm-4">Thesaures Name</label>
+							<label class="control-label col-sm-4">Thesaures</label>
 							<div class="col-sm-4">
-								<select id="thesauresIDAdd" name="thesauresIDAdd" class="form-control"></select>
+								<select id="thesauresIDAdd" name="thesauresIDAdd" class="selectpicker" data-live-search="true">
+								</select>
 							</div>
-						</div> 
+						</div>
 						
-						<!--<div class="form-group">
-							<label class="control-label col-sm-4" for="txt_search_statu">Task Count</label>
+						<div class="form-group">
+							<label class="control-label col-sm-4">Course</label>
 							<div class="col-sm-4">
-								<input readonly="readonly" type="text" id="taskcountAdd" name="taskcountAdd" class="form-control" value=""/>
-                                   
+								<select id="course" name="course" class="selectpicker" data-live-search="true">
+								 </select>
 							</div>
-						</div>--> 
+						</div>
 						
 						<div class="form-group">
 							<label class="control-label col-sm-4">Start Date</label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control form_datetime" id="startDateAdd" name="startDateAdd"  readonly="readonly"/>
+								<input style="width:220px" type="text" class="form-control form_datetime" id="startDateAdd" name="startDateAdd"  readonly="readonly"/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="control-label col-sm-4">End Date</label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control form_datetime" id="endDateAdd" name="endDateAdd" readonly="readonly"/>
+								<input style="width:220px" type="text" class="form-control form_datetime" id="endDateAdd" name="endDateAdd" readonly="readonly"/>
 							</div> 
 						</div>
 					</div>
