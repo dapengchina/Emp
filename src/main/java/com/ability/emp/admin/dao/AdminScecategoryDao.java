@@ -14,5 +14,7 @@ public interface AdminScecategoryDao<T>  extends BaseDao<T> {
 	
 	
 	public List<AdminScecategoryEntity> selectCourse(AdminScecategoryEntity ase);
+	
+	public AdminScecategoryEntity selectCourseByID(AdminScecategoryEntity ase);
 
 }

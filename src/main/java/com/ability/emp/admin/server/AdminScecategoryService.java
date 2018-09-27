@@ -8,5 +8,7 @@ public interface AdminScecategoryService {
 	
 	
 	   public List<AdminScecategoryEntity> getCourse(AdminScecategoryEntity ase);
+	   
+	   public AdminScecategoryEntity getCourseByID(AdminScecategoryEntity ase);
 
 }

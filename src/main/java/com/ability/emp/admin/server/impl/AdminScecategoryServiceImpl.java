@@ -25,4 +25,9 @@ public class AdminScecategoryServiceImpl implements AdminScecategoryService{
 		return adminScecategoryDao.selectCourse(ase);
 	}
 
+	@Override
+	public AdminScecategoryEntity getCourseByID(AdminScecategoryEntity ase) {
+		return adminScecategoryDao.selectCourseByID(ase);
+	}
+
 }

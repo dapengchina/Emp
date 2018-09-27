@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ability.emp.admin.entity.AdminScecategoryEntity;
 import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.admin.entity.AdminThesauresPramEntity;
 import com.ability.emp.admin.entity.AdminWordEntity;
+import com.ability.emp.admin.server.AdminScecategoryService;
 import com.ability.emp.admin.server.AdminSystemParamService;
 import com.ability.emp.admin.server.AdminTaskService;
 import com.ability.emp.admin.server.AdminThesauresPramService;
@@ -54,8 +56,9 @@ public class AdminTaskListAction {
 	@Resource
 	private AdminSystemParamService adminSystemParamService;
 	@Resource
-	AdminThesauresPramService adminThesauresPramService;
-	
+	private AdminThesauresPramService adminThesauresPramService;
+	@Resource
+	private AdminScecategoryService adminScecategoryService;
 	@Resource
 	private AdminWordService adminWordService;
 	
@@ -93,6 +96,7 @@ public class AdminTaskListAction {
 		 * 日期转换为String类型
 		 */
 		if(data!=null && data.size()>0){
+			AdminScecategoryEntity ase = new AdminScecategoryEntity();
 			for(int i=0;i<data.size();i++){
 				data.get(i).setStartStringDate(sf.format(data.get(i).getStartDate()!=null?data.get(i).getStartDate():""));
 				data.get(i).setEndStringDate(sf.format(data.get(i).getEndDate()!=null?data.get(i).getEndDate():""));
@@ -108,6 +112,13 @@ public class AdminTaskListAction {
 				}
 				if(data.get(i).getTasktype().equals(SysConstant.TASK_TYPE1)){
 					data.get(i).setTasktypename(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE1).toString());
+				}
+				if(data.get(i).getCourseid()!="-1" && data.get(i).getCourseid()!=null){
+					ase.setId(data.get(i).getCourseid());
+					AdminScecategoryEntity course = adminScecategoryService.getCourseByID(ase);
+					if(course!=null){
+						data.get(i).setCoursename(course.getScecatname());
+					}
 				}
 			}
 		}

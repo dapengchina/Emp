@@ -16,6 +16,8 @@ public class AdminTaskEntity {
 
     private String courseid;
     
+    private String coursename;
+    
     private Date startDate;
     
     private Date start_Date;
@@ -44,7 +46,15 @@ public class AdminTaskEntity {
     
     
     
-    public String getTasktypename() {
+    public String getCoursename() {
+		return coursename;
+	}
+
+	public void setCoursename(String coursename) {
+		this.coursename = coursename;
+	}
+
+	public String getTasktypename() {
 		return tasktypename;
 	}
 

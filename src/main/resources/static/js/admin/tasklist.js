@@ -54,6 +54,10 @@ function loadTaskList() {
 			title : 'TaskType',
 			sortable : true
 		},{
+			field : 'coursename',
+			title : 'Course',
+			sortable : true
+		},{
 			field : 'thesauresTypeName',
 			title : 'Thesaure',
 			sortable : true
