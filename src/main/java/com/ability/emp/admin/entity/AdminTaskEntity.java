@@ -8,13 +8,19 @@ public class AdminTaskEntity {
     
     private String thesauresType;
     
+    private String thesaures_Type;
+    
     private String tasktype;
 
     private String courseid;
     
     private Date startDate;
+    
+    private Date start_Date;
 
     private Date endDate;
+    
+    private Date end_Date;
     
     private String taskname;
     
@@ -36,7 +42,31 @@ public class AdminTaskEntity {
     
     
     
-    public String getThesauresTypeName() {
+    public String getThesaures_Type() {
+		return thesaures_Type;
+	}
+
+	public void setThesaures_Type(String thesaures_Type) {
+		this.thesaures_Type = thesaures_Type;
+	}
+
+	public Date getStart_Date() {
+		return start_Date;
+	}
+
+	public void setStart_Date(Date start_Date) {
+		this.start_Date = start_Date;
+	}
+
+	public Date getEnd_Date() {
+		return end_Date;
+	}
+
+	public void setEnd_Date(Date end_Date) {
+		this.end_Date = end_Date;
+	}
+
+	public String getThesauresTypeName() {
 		return thesauresTypeName;
 	}
 

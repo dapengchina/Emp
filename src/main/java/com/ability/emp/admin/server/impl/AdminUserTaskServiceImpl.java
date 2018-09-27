@@ -1,5 +1,7 @@
 package com.ability.emp.admin.server.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -22,6 +24,12 @@ public class AdminUserTaskServiceImpl implements AdminUserTaskService{
 	@Override
 	public int addUserTask(AdminUserTaskEntity ae) {
 		return adminUserTaskDao.insert(ae);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AdminUserTaskEntity> getUserTaskByUserId(AdminUserTaskEntity ae) {
+		return adminUserTaskDao.selectByUserId(ae);
 	}
 
 }
