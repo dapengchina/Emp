@@ -39,7 +39,7 @@ public class AdminTaskServiceImpl implements AdminTaskService{
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdminTaskEntity> queryTaskById(String id) {
+	public AdminTaskEntity queryTaskById(String id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		return adminTaskDao.queryTaskById(map);

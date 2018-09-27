@@ -32,7 +32,7 @@
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   
-  <select id="queryTaskById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="queryTaskById" resultType="com.ability.emp.admin.entity.AdminTaskEntity" parameterType="java.lang.String" >
     select * from t_task where ID = #{id,jdbcType=VARCHAR}
   </select>
   

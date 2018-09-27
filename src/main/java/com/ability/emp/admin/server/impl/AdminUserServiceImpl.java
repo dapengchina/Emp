@@ -25,10 +25,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ability.emp.admin.dao.AdminTaskDao;
 import com.ability.emp.admin.dao.AdminUserDao;
+import com.ability.emp.admin.dao.AdminUserTaskDao;
 import com.ability.emp.admin.dao.AdminWordDao;
 import com.ability.emp.admin.dao.AdminWordRecordDao;
 import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.admin.entity.AdminUserEntity;
+import com.ability.emp.admin.entity.AdminUserTaskEntity;
 import com.ability.emp.admin.entity.AdminWordEntity;
 import com.ability.emp.admin.entity.AdminWordRecordEntity;
 import com.ability.emp.admin.server.AdminUserService;
@@ -45,17 +47,25 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@SuppressWarnings("rawtypes")
 	@Resource
 	private AdminUserDao userDao;
+	
 	@SuppressWarnings("rawtypes")
 	@Resource
 	private AdminWordDao wordDao;
+	
 	@SuppressWarnings("rawtypes")
 	@Resource
 	private AdminWordRecordDao wordRecordDao;
+	
 	@Resource
 	private AdminWordService wordService;
+	
 	@SuppressWarnings("rawtypes")
 	@Resource
 	private AdminTaskDao taskDao;
+	
+	@SuppressWarnings("rawtypes")
+	@Resource
+	private AdminUserTaskDao adminUserTaskDao;
 	
 
 	@SuppressWarnings("unchecked")
@@ -68,40 +78,34 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public void taskAppoint(String[] ids, String taskid) {
-		//根据任务ID去查询对应的词库
-		@SuppressWarnings("rawtypes")
-		Map temap = new HashMap();
-		temap.put("id", taskid);
-		List<AdminTaskEntity> te = taskDao.queryTaskById(temap);
-		
-		AdminUserEntity adminUserEntity = new AdminUserEntity();
-		String[] array = ids;
-		
-		List<AdminWordEntity> list = null;
-		if(te!=null && te.size()>0){
-			AdminWordEntity ae = new AdminWordEntity();
-			ae.setThesaurusType(te.get(0).getThesauresType());
-			list = wordDao.queryWordAll(ae);
+		//根据任务ID查询任务,并判断任务类型
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("id", taskid);
+		AdminTaskEntity task = taskDao.queryTaskById(map);
+		//判断任务类型,如果是背单词任务,则调用背单词处理方法
+		if(task.getTasktype().equals(SysConstant.TASK_TYPE0)){
+			sweeWordsHandle(ids,taskid);
+			//给用户任务表保存数据
+			AdminUserTaskEntity userTask = new AdminUserTaskEntity();
+			for(int i=0;i<ids.length;i++){
+				userTask.setId(UUIDUtil.generateUUID());
+				userTask.setUserid(ids[i]);
+				userTask.setTaskid(taskid);
+				userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
+				adminUserTaskDao.insert(userTask);
+			}
 		}else{
-			AdminWordEntity ae = new AdminWordEntity();
-			list = wordDao.queryWordAll(ae);
-		}
-		
-		AdminWordRecordEntity wordRecordEntiy = new AdminWordRecordEntity();
-		for (int i = 0; i < array.length; i++) {
-			adminUserEntity.setId(array[i]);
-			//userDao.update(adminUserEntity);
-			for (int j = 0; j < list.size(); j++) {
-				wordRecordEntiy.setUserId(array[i]);
-				wordRecordEntiy.setWord(list.get(j).getWord());
-				wordRecordEntiy.setWordId(list.get(j).getId());
-				wordRecordEntiy.setId(UUIDUtil.generateUUID());
-				wordRecordEntiy.setCreateDate(new Date());
-				wordRecordDao.insert(wordRecordEntiy);
+			//给用户任务表保存数据
+			AdminUserTaskEntity userTask = new AdminUserTaskEntity();
+			for(int i=0;i<ids.length;i++){
+				userTask.setId(UUIDUtil.generateUUID());
+				userTask.setUserid(ids[i]);
+				userTask.setTaskid(taskid);
+				userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
+				adminUserTaskDao.insert(userTask);
 			}
 		}
 	}
-	
 	
 	/**
 	 * 上传excel文件到临时目录后并开始解析
@@ -317,5 +321,42 @@ public class AdminUserServiceImpl implements AdminUserService{
 			}
 		}
 		return "0";
+	}
+	
+	/**
+	 * 背单词业务处理
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void sweeWordsHandle(String[] ids, String taskid){
+		//根据任务ID去查询对应的词库
+		Map map = new HashMap();
+		map.put("id", taskid);
+		AdminTaskEntity task = taskDao.queryTaskById(map);
+				
+		AdminUserEntity adminUserEntity = new AdminUserEntity();
+		String[] array = ids;
+				
+		List<AdminWordEntity> list = null;
+		if(task!=null){
+			AdminWordEntity ae = new AdminWordEntity();
+			ae.setThesaurusType(task.getThesauresType());
+			list = wordDao.queryWordAll(ae);
+		}else{
+			AdminWordEntity ae = new AdminWordEntity();
+			list = wordDao.queryWordAll(ae);
+		}
+				
+		AdminWordRecordEntity wordRecordEntiy = new AdminWordRecordEntity();
+		for (int i = 0; i < array.length; i++) {
+			adminUserEntity.setId(array[i]);
+			for (int j = 0; j < list.size(); j++) {
+				wordRecordEntiy.setUserId(array[i]);
+				wordRecordEntiy.setWord(list.get(j).getWord());
+				wordRecordEntiy.setWordId(list.get(j).getId());
+				wordRecordEntiy.setId(UUIDUtil.generateUUID());
+				wordRecordEntiy.setCreateDate(new Date());
+				wordRecordDao.insert(wordRecordEntiy);
+			}
+	    }
 	}
 }

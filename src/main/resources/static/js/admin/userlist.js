@@ -235,7 +235,6 @@ function loadTaskList(){
 }
 
 function appoint(){
-	//$("#userlist").bootstrapTable('destroy');
 	//获取所选用户
 	var userRows = $("#userlist").bootstrapTable('getSelections');
 	var taskRows = $("#tasklist").bootstrapTable('getSelections');
@@ -243,7 +242,6 @@ function appoint(){
 	var task = [];
 	for(k in userRows){
 		user = user + userRows[k].id+",";
-	    //user.push(userRows[k].id);
 	}
 	for(j in taskRows){
 		task.push(taskRows[j].id);

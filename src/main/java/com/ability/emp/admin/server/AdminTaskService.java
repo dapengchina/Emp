@@ -11,7 +11,7 @@ public interface AdminTaskService {
 	
 	int update(AdminTaskEntity taskEntiy); 
 	
-	List<AdminTaskEntity> queryTaskById(String id);
+	AdminTaskEntity queryTaskById(String id);
 	
 	List<AdminTaskEntity> selectStudyCalendar(String id);
 	

@@ -132,19 +132,13 @@ public class AdminTaskListAction {
 	@RequestMapping(value = "/taskedit/{id}")
 	@ResponseBody
 	public String queryTaskById(@PathVariable("id") String id) throws Exception {
-		List<AdminTaskEntity> task = adminTaskService.queryTaskById(id);
+		AdminTaskEntity task = adminTaskService.queryTaskById(id);
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-		if(task!=null && task.size()>0){
-			for(int i=0;i<task.size();i++){
-				task.get(i).setStartStringDate(sf.format(task.get(i).getStartDate()!=null?task.get(i).getStartDate():""));
-				task.get(i).setEndStringDate(sf.format(task.get(i).getEndDate()!=null?task.get(i).getEndDate():""));
-				//AdminSystemParamEntity aspe = adminSystemParamService.queryById(task.get(i).getParamid());
-//				if(aspe!=null){
-//					//task.get(i).setParamValue(aspe.getChildValue());
-//				}
-			}
+		if(task!=null){
+			task.setStartStringDate(sf.format(task.getStartDate()!=null?task.getStartDate():""));
+			task.setEndStringDate(sf.format(task.getEndDate()!=null?task.getEndDate():""));
 		}
-		return objectMapper.writeValueAsString(task.get(0));
+		return objectMapper.writeValueAsString(task);
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)

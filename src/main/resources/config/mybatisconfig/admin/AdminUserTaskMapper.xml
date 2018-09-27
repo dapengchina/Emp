@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.admin.dao.AdminUserTaskDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.admin.entity.AdminUserTaskEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="UserID" property="userid" jdbcType="VARCHAR" />
+    <result column="CompletePercent" property="completepercent" jdbcType="VARCHAR" />
+    <result column="TaskID" property="taskid" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminUserTaskEntity" >
+    select * from t_usertask
+    where 1=1
+  </select>
+  
+  <delete id="delete" parameterType="com.ability.emp.admin.entity.AdminUserTaskEntity" >
+    delete from t_usertask
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminUserTaskEntity" >
+    insert into t_usertask
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="completepercent != null" >
+        CompletePercent,
+      </if>
+      <if test="taskid != null" >
+        TaskID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="completepercent != null" >
+        #{completepercent,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.admin.entity.AdminUserTaskEntity" >
+    update t_usertask
+    <set >
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="completepercent != null" >
+        CompletePercent = #{completepercent,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        TaskID = #{taskid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>
