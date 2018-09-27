@@ -69,7 +69,7 @@ public class AdminUserTaskAction {
 						AdminThesauresPramEntity thesaures = adminThesauresPramService.getByID(task.getThesaures_Type());
 					    autv.setThesauresTypeName(thesaures.getName());
 					    autv.setThesauresType(task.getThesauresType());
-					    autv.setTasktypeName("背单词");
+					    autv.setTasktypeName(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE0).toString());
 					}
 					autv.setTaskname(task.getTaskname());
 					autv.setStartDate(task.getStart_Date()!=null?sf.format(task.getStart_Date()):"");
