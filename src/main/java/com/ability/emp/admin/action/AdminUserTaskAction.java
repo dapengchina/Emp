@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ability.emp.admin.entity.AdminScecategoryEntity;
 import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.admin.entity.AdminThesauresPramEntity;
 import com.ability.emp.admin.entity.AdminUserEntity;
 import com.ability.emp.admin.entity.AdminUserTaskEntity;
 import com.ability.emp.admin.entity.vo.AdminUserTaskVo;
+import com.ability.emp.admin.server.AdminScecategoryService;
 import com.ability.emp.admin.server.AdminTaskService;
 import com.ability.emp.admin.server.AdminThesauresPramService;
 import com.ability.emp.admin.server.AdminUserTaskService;
@@ -41,6 +43,9 @@ public class AdminUserTaskAction {
 	@Resource
 	private AdminThesauresPramService adminThesauresPramService;
 	
+	@Resource
+	private AdminScecategoryService adminScecategoryService;
+	
 	private SimpleDateFormat sf = new SimpleDateFormat("YYYY-MM-dd");
 	
 	ObjectMapper objectMapper = new ObjectMapper();  
@@ -60,6 +65,7 @@ public class AdminUserTaskAction {
 		PageHelper.startPage(pageNumber,pageSize);  
 		List<AdminUserTaskEntity> userTaskList = adminUserTaskService.getUserTaskByUserId(ae);
 		if(userTaskList!=null && userTaskList.size()>0){
+			AdminScecategoryEntity ase = new AdminScecategoryEntity();
 			for(int i=0;i<userTaskList.size();i++){
 				AdminUserTaskVo autv = new AdminUserTaskVo();
 				AdminTaskEntity task = adminTaskService.queryTaskById(userTaskList.get(i).getTaskid());
@@ -70,6 +76,15 @@ public class AdminUserTaskAction {
 					    autv.setThesauresTypeName(thesaures.getName());
 					    autv.setThesauresType(task.getThesauresType());
 					    autv.setTasktypeName(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE0).toString());
+					}else{
+						autv.setTasktypeName(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE1).toString());
+					}
+					if(task.getCourseid()!="-1" && task.getCourseid()!=null){
+						ase.setId(task.getCourseid());
+						AdminScecategoryEntity course = adminScecategoryService.getCourseByID(ase);
+						if(course!=null){
+							autv.setCoursename(course.getScecatname());
+						}
 					}
 					autv.setTaskname(task.getTaskname());
 					autv.setStartDate(task.getStart_Date()!=null?sf.format(task.getStart_Date()):"");

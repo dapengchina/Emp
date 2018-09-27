@@ -22,6 +22,8 @@ public class AdminUserTaskVo {
 
     private String courseid;
     
+    private String coursename;
+    
     private String startDate;
 
     private String endDate;
@@ -31,6 +33,14 @@ public class AdminUserTaskVo {
     
     
     
+
+	public String getCoursename() {
+		return coursename;
+	}
+
+	public void setCoursename(String coursename) {
+		this.coursename = coursename;
+	}
 
 	public String getStartDate() {
 		return startDate;

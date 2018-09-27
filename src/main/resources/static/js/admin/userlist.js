@@ -143,6 +143,10 @@ function initSubTable(index, row, $detail) {
 			title : 'TaskType',
 			sortable : true
 		},{
+			field : 'coursename',
+			title : 'Course',
+			sortable : true
+		},{
 			field : 'startDate',
 			title : 'StartDate',
 			sortable : true
