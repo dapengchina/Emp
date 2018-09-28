@@ -139,8 +139,8 @@ function initSubTable(index, row, $detail) {
 			title : 'TaskName',
 			sortable : true
 		},{
-			field : 'tasktypeName',
-			title : 'TaskType',
+			field : 'taskstateName',
+			title : 'TaskState',
 			sortable : true
 		},{
 			field : 'coursename',
@@ -260,6 +260,7 @@ function loadTaskList(){
         	return {
         		pageSize: params.limit,
         		pageNumber: params.offset/params.limit+1,
+        		taskstate:0
             };
         },
         columns: [{
@@ -268,6 +269,10 @@ function loadTaskList(){
         }, {
             field: 'taskname',
             title: 'Taskname',
+            sortable: true
+        },{
+            field: 'taskstatename',
+            title: 'TaskState',
             sortable: true
         },{
 			field : 'thesauresTypeName',
