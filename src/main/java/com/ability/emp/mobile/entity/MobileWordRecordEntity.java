@@ -11,7 +11,6 @@ public class MobileWordRecordEntity {
 	private String isSel;
 	private String isPass;
 	private Date examPassDate;
-	private Date createDate;
 	private Date updateDate;
 
 	
@@ -99,12 +98,6 @@ public class MobileWordRecordEntity {
 	}
 	public void setIsSel(String isSel) {
 		this.isSel = isSel;
-	}
-	public Date getCreateDate() {
-		return createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
 	}
 	public Date getUpdateDate() {
 		return updateDate;

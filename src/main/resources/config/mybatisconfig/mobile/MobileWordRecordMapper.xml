@@ -9,15 +9,10 @@
     <result column="IS_FAIL" property="isFail" jdbcType="VARCHAR" />
     <result column="IS_SEL" property="isSel" jdbcType="VARCHAR" />
     <result column="IS_PASS" property="isPass" jdbcType="VARCHAR" />
-    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
     <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="EXAM_PASS_DATE" property="examPassDate" jdbcType="TIMESTAMP" />
   </resultMap>
   
-  <sql id="Base_Column_List" >
-    ID, WORD_ID, WORD, USER_ID, IS_FAIL, IS_SEL,IS_PASS, CREATE_DATE, UPDATE_DATE,
-    EXAM_PASS_DATE
-  </sql>
   
   <select id="query" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileWordRecordEntity" >
     select * from t_word_record t where 1=1
@@ -103,9 +98,6 @@
       <if test="isSel != null" >
         IS_SEL,
       </if>
-      <if test="createDate != null" >
-        CREATE_DATE,
-      </if>
       <if test="updateDate != null" >
         UPDATE_DATE,
       </if>
@@ -135,9 +127,6 @@
       <if test="isSel != null" >
         #{isSel,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null" >
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
       <if test="examPassDate != null" >
         #{examPassDate,jdbcType=TIMESTAMP},
       </if>
@@ -153,7 +142,7 @@
   <update id="update" parameterType="com.ability.emp.mobile.entity.MobileWordRecordEntity" >
     update t_word_record
     <set >
-    	<if test="id != null" >
+      <if test="id != null" >
        	ID = #{id,jdbcType=VARCHAR},
       </if>
       <if test="wordId != null" >
@@ -170,9 +159,6 @@
       </if>
       <if test="isSel != null" >
         IS_SEL = #{isSel,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null" >
-        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="updateDate != null" >
         UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},

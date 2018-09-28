@@ -3,12 +3,9 @@
 <mapper namespace="com.ability.emp.mobile.dao.MobileUserDao" >
   <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileUserEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
-    <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
     <result column="PHONE" property="phone" jdbcType="VARCHAR" />
     <result column="OPENID" property="openid" jdbcType="VARCHAR" />
-    <result column="TASKID" property="taskid" jdbcType="VARCHAR" />
-    <result column="IS_APPOINT" property="isAppoint" jdbcType="VARCHAR" />
     <result column="DEL" property="del" jdbcType="VARCHAR" />
     <result column="CODE" property="code" jdbcType="VARCHAR" />
     <result column="EMAIL" property="email" jdbcType="VARCHAR" />
@@ -31,9 +28,6 @@
   <update id="update" parameterType="com.ability.emp.mobile.entity.MobileUserEntity" >
     update t_user
     <set >
-      <if test="nickName != null" >
-        NICK_NAME = #{nickName,jdbcType=VARCHAR},
-      </if>
       <if test="userName != null" >
         USER_NAME = #{userName,jdbcType=VARCHAR},
       </if>
@@ -42,12 +36,6 @@
       </if>
       <if test="openid != null" >
         OPENID = #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="taskid != null" >
-        TASKID = #{taskid,jdbcType=VARCHAR},
-      </if>
-      <if test="isAppoint != null" >
-        IS_APPOINT = #{isAppoint,jdbcType=VARCHAR},
       </if>
       <if test="del != null" >
         DEL = #{del,jdbcType=VARCHAR},
@@ -71,9 +59,6 @@
       <if test="id != null" >
         ID,
       </if>
-      <if test="nickName != null" >
-        NICK_NAME,
-      </if>
       <if test="userName != null" >
         USER_NAME,
       </if>
@@ -88,12 +73,6 @@
       </if>
       <if test="openid != null" >
         OPENID,
-      </if>
-      <if test="taskid != null" >
-        TASKID,
-      </if>
-      <if test="isAppoint != null" >
-        IS_APPOINT,
       </if>
       <if test="del != null" >
         DEL,
@@ -112,9 +91,6 @@
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="nickName != null" >
-        #{nickName,jdbcType=VARCHAR},
-      </if>
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
@@ -129,12 +105,6 @@
       </if>
       <if test="openid != null" >
         #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="taskid != null" >
-        #{taskid,jdbcType=VARCHAR},
-      </if>
-      <if test="isAppoint != null" >
-        #{isAppoint,jdbcType=VARCHAR},
       </if>
       <if test="del != null" >
         #{del,jdbcType=VARCHAR},
