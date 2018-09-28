@@ -3,6 +3,7 @@ package com.ability.emp.admin.entity;
 import java.util.Date;
 
 public class AdminWordRecordEntity {
+	
 	private String id;
 	private String wordId;
 	private String word;
@@ -10,7 +11,6 @@ public class AdminWordRecordEntity {
 	private String isFail;
 	private String isSel;
 	private String isPass;
-	private Date createDate;
 	private Date updateDate;
 	
 	
@@ -59,12 +59,6 @@ public class AdminWordRecordEntity {
 	}
 	public void setIsSel(String isSel) {
 		this.isSel = isSel;
-	}
-	public Date getCreateDate() {
-		return createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
 	}
 	public Date getUpdateDate() {
 		return updateDate;

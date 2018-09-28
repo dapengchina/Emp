@@ -362,7 +362,6 @@ public class AdminUserServiceImpl implements AdminUserService{
 				wordRecordEntiy.setWord(list.get(j).getWord());
 				wordRecordEntiy.setWordId(list.get(j).getId());
 				wordRecordEntiy.setId(UUIDUtil.generateUUID());
-				wordRecordEntiy.setCreateDate(new Date());
 				wordRecordDao.insert(wordRecordEntiy);
 			}
 	    }

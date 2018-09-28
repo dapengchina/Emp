@@ -8,14 +8,11 @@
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
     <result column="IS_FAIL" property="isFail" jdbcType="VARCHAR" />
     <result column="IS_SEL" property="isSel" jdbcType="VARCHAR" />
-    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
     <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="IS_PASS" property="isPass" jdbcType="VARCHAR" />
   </resultMap>
   
-  <sql id="Base_Column_List" >
-    ID, WORD_ID, WORD, USER_ID, IS_FAIL, IS_SEL,IS_PASS, CREATE_DATE, UPDATE_DATE
-  </sql>
+  
   
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select * from t_word_record
@@ -57,9 +54,6 @@
       <if test="isSel != null" >
         IS_SEL,
       </if>
-      <if test="createDate != null" >
-        CREATE_DATE,
-      </if>
       <if test="updateDate != null" >
         UPDATE_DATE,
       </if>
@@ -85,9 +79,6 @@
       </if>
       <if test="isSel != null" >
         #{isSel,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null" >
-        #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="updateDate != null" >
         #{updateDate,jdbcType=TIMESTAMP},
@@ -118,9 +109,6 @@
       </if>
       <if test="isSel != null" >
         IS_SEL = #{isSel,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null" >
-        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="updateDate != null" >
         UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
