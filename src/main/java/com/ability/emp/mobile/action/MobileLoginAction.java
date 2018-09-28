@@ -76,7 +76,6 @@ public class MobileLoginAction {
 			MobileUserEntity t = new MobileUserEntity();
 			t.setId(u.getId());
 			t.setOpenid(ule.getOpenid());
-			t.setNickName(ule.getNickName());
 			int i = mobileUserService.update(t);
 			if(i>0){
 				map.put("uid", u.getId());

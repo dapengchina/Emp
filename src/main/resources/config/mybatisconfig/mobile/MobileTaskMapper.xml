@@ -3,18 +3,16 @@
 <mapper namespace="com.ability.emp.mobile.dao.MobileTaskDao" >
   <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileTaskEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
-    <result column="PARAMID" property="paramid" jdbcType="VARCHAR" />
     <result column="THESAURES_TYPE" property="thesauresType" jdbcType="VARCHAR" />
     <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
     <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
     <result column="TASKNAME" property="taskname" jdbcType="VARCHAR" />
-    <result column="DEL" property="del" jdbcType="VARCHAR" />
+    <result column="TaskType" property="tasktype" jdbcType="VARCHAR" />
+    <result column="CourseId" property="courseid" jdbcType="VARCHAR" />
   </resultMap>
 
   
-  <sql id="Base_Column_List" >
-    ID, PARAMID, THESAURES_TYPE, START_DATE, END_DATE, TASKNAME, DEL
-  </sql>
+  
 
   <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.String">
     select * from t_task where ID = #{id,jdbcType=VARCHAR}
@@ -44,14 +42,14 @@
     select * from t_task where ID = #{id,jdbcType=VARCHAR}
   </select>
   
-  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileTaskEntity" >
+  <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminTaskEntity" >
     insert into t_task
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
       </if>
-      <if test="paramid != null" >
-        PARAMID,
+      <if test="thesauresType != null" >
+        THESAURES_TYPE,
       </if>
       <if test="startDate != null" >
         START_DATE,
@@ -62,16 +60,19 @@
       <if test="taskname != null" >
         TASKNAME,
       </if>
-      <if test="del != null" >
-        DEL,
+      <if test="tasktype != null" >
+        TaskType,
+      </if>
+      <if test="courseid != null" >
+        CourseId,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="paramid != null" >
-        #{paramid,jdbcType=VARCHAR},
+      <if test="thesauresType != null" >
+        #{thesauresType,jdbcType=VARCHAR},
       </if>
       <if test="startDate != null" >
         #{startDate,jdbcType=TIMESTAMP},
@@ -82,17 +83,20 @@
       <if test="taskname != null" >
         #{taskname,jdbcType=VARCHAR},
       </if>
-      <if test="del != null" >
-        #{del,jdbcType=VARCHAR},
+      <if test="tasktype != null" >
+        #{tasktype,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null" >
+        #{courseid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   
-  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileTaskEntity" >
+  <update id="update" parameterType="com.ability.emp.admin.entity.AdminTaskEntity" >
     update t_task
     <set >
-      <if test="paramid != null" >
-        PARAMID = #{paramid,jdbcType=VARCHAR},
+      <if test="thesauresType != null" >
+        THESAURES_TYPE = #{thesauresType,jdbcType=VARCHAR},
       </if>
       <if test="startDate != null" >
         START_DATE = #{startDate,jdbcType=TIMESTAMP},
@@ -103,8 +107,11 @@
       <if test="taskname != null" >
         TASKNAME = #{taskname,jdbcType=VARCHAR},
       </if>
-      <if test="del != null" >
-        DEL = #{del,jdbcType=VARCHAR},
+      <if test="tasktype != null" >
+        TaskType = #{tasktype,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null" >
+        CourseId = #{courseid,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

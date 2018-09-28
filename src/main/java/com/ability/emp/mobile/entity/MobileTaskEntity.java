@@ -5,18 +5,30 @@ import java.util.Date;
 public class MobileTaskEntity {
 	
     private String id;
-
-    private String paramid;
     
     private String thesauresType;
+    
+    private String thesaures_Type;
+    
+    private String tasktype;
+    
+    private String tasktypename;
 
+    private String courseid;
+    
+    private String coursename;
+    
     private Date startDate;
+    
+    private Date start_Date;
 
     private Date endDate;
     
+    private Date end_Date;
+    
     private String taskname;
     
-    private String del;
+    
     
     
     /**
@@ -26,33 +38,84 @@ public class MobileTaskEntity {
     private String startStringDate;
     
     private String endStringDate;
+
+    private String thesauresTypeName;
     
-    private String paramValue;
     
     
     
-    public String getThesauresType() {
+    
+    
+    public String getThesaures_Type() {
+		return thesaures_Type;
+	}
+
+	public void setThesaures_Type(String thesaures_Type) {
+		this.thesaures_Type = thesaures_Type;
+	}
+
+	public String getTasktype() {
+		return tasktype;
+	}
+
+	public void setTasktype(String tasktype) {
+		this.tasktype = tasktype;
+	}
+
+	public String getTasktypename() {
+		return tasktypename;
+	}
+
+	public void setTasktypename(String tasktypename) {
+		this.tasktypename = tasktypename;
+	}
+
+	public String getCourseid() {
+		return courseid;
+	}
+
+	public void setCourseid(String courseid) {
+		this.courseid = courseid;
+	}
+
+	public String getCoursename() {
+		return coursename;
+	}
+
+	public void setCoursename(String coursename) {
+		this.coursename = coursename;
+	}
+
+	public Date getStart_Date() {
+		return start_Date;
+	}
+
+	public void setStart_Date(Date start_Date) {
+		this.start_Date = start_Date;
+	}
+
+	public Date getEnd_Date() {
+		return end_Date;
+	}
+
+	public void setEnd_Date(Date end_Date) {
+		this.end_Date = end_Date;
+	}
+
+	public String getThesauresTypeName() {
+		return thesauresTypeName;
+	}
+
+	public void setThesauresTypeName(String thesauresTypeName) {
+		this.thesauresTypeName = thesauresTypeName;
+	}
+
+	public String getThesauresType() {
 		return thesauresType;
 	}
 
 	public void setThesauresType(String thesauresType) {
 		this.thesauresType = thesauresType;
-	}
-
-	public String getParamValue() {
-		return paramValue;
-	}
-
-	public void setParamValue(String paramValue) {
-		this.paramValue = paramValue;
-	}
-
-	public String getDel() {
-		return del;
-	}
-
-	public void setDel(String del) {
-		this.del = del;
 	}
 
 	public String getTaskname() {
@@ -85,14 +148,6 @@ public class MobileTaskEntity {
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
-    }
-
-    public String getParamid() {
-        return paramid;
-    }
-
-    public void setParamid(String paramid) {
-        this.paramid = paramid == null ? null : paramid.trim();
     }
 
     public Date getStartDate() {

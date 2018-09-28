@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileHitCardEntity;
 import com.ability.emp.mobile.entity.MobileTaskEntity;
-import com.ability.emp.mobile.entity.MobileUserEntity;
+import com.ability.emp.mobile.entity.MobileUserTaskEntity;
 import com.ability.emp.mobile.server.MobileStudyCalendarService;
 import com.ability.emp.mobile.server.MobileTaskService;
 import com.ability.emp.mobile.server.MobileUserService;
+import com.ability.emp.mobile.server.MobileUserTaskService;
 import com.ability.emp.util.QueryDateUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,6 +37,11 @@ public class MobileStudyCalendarAction {
 	   
 	   @Resource
 	   private MobileTaskService mobileTaskService;
+	   
+	   @Resource
+	   private MobileUserTaskService mobileUserTaskService;
+	   
+	   private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
 	
 	   ObjectMapper objectMapper = new ObjectMapper(); 
 	   
@@ -70,20 +77,26 @@ public class MobileStudyCalendarAction {
 	   @RequestMapping("/queryDate/{id}")
 	   @ResponseBody
 	   public String queryDate(@PathVariable("id") String id) throws JsonProcessingException{
-		    //获取用户任务ID
-			MobileUserEntity mue = mobileUserService.queryById(id);
-			//获取参数ID
-			MobileTaskEntity mte = mobileTaskService.queryById(mue.getTaskid());
+		 QueryDateUtil qd = new QueryDateUtil();
+		 //获取用户任务
+		 MobileUserTaskEntity userTask = new MobileUserTaskEntity();
+		 userTask.setUserid(id);
+		 List<MobileUserTaskEntity> userTaskList = mobileUserTaskService.getUserTask(userTask);
 			
-			QueryDateUtil qd = new QueryDateUtil();
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
-			if(mte!=null){
-				if(mte.getStartDate()!=null && mte.getEndDate()!=null){
-					qd.setStartDate(sf.format(mte.getStartDate()));
-					qd.setEndDate(sf.format(mte.getEndDate()));
+		 for(int i=0;i<userTaskList.size();i++){
+			//查询用户未完成的任务
+			if(userTaskList.get(i).getCompletepercent().equals(SysConstant.COMPLETE_PERCENT_INIT)){
+				MobileTaskEntity task = mobileTaskService.queryById(userTaskList.get(i).getTaskid());
+				if(task.getTasktype().equals(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE0))){
+					if(task.getStartDate()!=null && task.getEndDate()!=null){
+						qd.setStartDate(sf.format(task.getStartDate()));
+						qd.setEndDate(sf.format(task.getEndDate()));
+					}
 				}
 			}
-			return objectMapper.writeValueAsString(qd);
+		 }
+			
+		 return objectMapper.writeValueAsString(qd);
 	   }
 
 }

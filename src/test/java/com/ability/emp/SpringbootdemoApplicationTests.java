@@ -46,7 +46,7 @@ public class SpringbootdemoApplicationTests {
 		//校验通过注册
 		mue.setRegisterdate(new Date());//注册时间
 		mue.setId(UUIDUtil.generateUUID());//主键
-		mue.setIsAppoint(SysConstant.NOT_ASSIGNED);//默认未指派
+		
 		mue.setDel(SysConstant.NO_DEL);//默认未删除
 //		int i = mobileUserService.registerUser(mue);
 //		if(i>0){
