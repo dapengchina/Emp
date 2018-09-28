@@ -15,6 +15,13 @@ $(function () {
             }
           }
         },
+        course: {
+            validators: {
+              notEmpty: {
+                message: 'Please Select Course'
+              }
+            }
+        },
         startDateAdd: {
           validators: {
             notEmpty: {

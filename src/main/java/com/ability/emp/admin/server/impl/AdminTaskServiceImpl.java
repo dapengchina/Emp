@@ -50,4 +50,9 @@ public class AdminTaskServiceImpl implements AdminTaskService{
 	public List<AdminTaskEntity> selectStudyCalendar(String id) {
 		return adminTaskDao.selectStudyCalendar(id);
 	}
+
+	@Override
+	public AdminTaskEntity getTask(AdminTaskEntity ate) {
+		return adminTaskDao.selectTask(ate);
+	}
 }

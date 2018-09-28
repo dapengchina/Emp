@@ -10,9 +10,9 @@ public class AdminTaskEntity {
     
     private String thesaures_Type;
     
-    private String tasktype;
+    private String taskstate;
     
-    private String tasktypename;
+    private String taskstatename;
 
     private String courseid;
     
@@ -46,20 +46,28 @@ public class AdminTaskEntity {
     
     
     
-    public String getCoursename() {
+    public String getTaskstatename() {
+		return taskstatename;
+	}
+
+	public void setTaskstatename(String taskstatename) {
+		this.taskstatename = taskstatename;
+	}
+
+	public String getTaskstate() {
+		return taskstate;
+	}
+
+	public void setTaskstate(String taskstate) {
+		this.taskstate = taskstate;
+	}
+
+	public String getCoursename() {
 		return coursename;
 	}
 
 	public void setCoursename(String coursename) {
 		this.coursename = coursename;
-	}
-
-	public String getTasktypename() {
-		return tasktypename;
-	}
-
-	public void setTasktypename(String tasktypename) {
-		this.tasktypename = tasktypename;
 	}
 
 	public String getThesaures_Type() {
@@ -92,14 +100,6 @@ public class AdminTaskEntity {
 
 	public void setThesauresTypeName(String thesauresTypeName) {
 		this.thesauresTypeName = thesauresTypeName;
-	}
-
-	public String getTasktype() {
-		return tasktype;
-	}
-
-	public void setTasktype(String tasktype) {
-		this.tasktype = tasktype;
 	}
 
 	public String getCourseid() {

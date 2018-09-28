@@ -15,4 +15,6 @@ public interface AdminTaskService {
 	
 	List<AdminTaskEntity> selectStudyCalendar(String id);
 	
+	AdminTaskEntity getTask(AdminTaskEntity ate);
+	
 }

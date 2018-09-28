@@ -61,7 +61,6 @@ public class MobileRegisterAction {
 		String i = mobileUserService.registerUser(mue);
 		if(!i.equals("0")){
 			//开始保存任务
-			
 			String[] courseid = mue.getCourseid().split(",");
 			for(int k=0;k<courseid.length;k++){
 				MobileUserTaskEntity userTask = new MobileUserTaskEntity();

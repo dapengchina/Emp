@@ -52,14 +52,27 @@ public class SysConstant {
 	   public static final String PLACE_HOLDER = "$$$";
 	   
 	   /**
+	    * 任务状态
+	    */
+	   public static final String TASK_STATE0 = "0";//未结束
+	   public static final String TASK_STATE1 = "1";//结束
+	   public static final String TASK_STATE2 = "2";//延期
+	   public static final Map<String,Object> map = new HashMap<String,Object>();
+	   public static Map<String,Object> getTaskStateMap(){
+		   map.put("0", "未结束");
+		   map.put("1", "结束");
+		   map.put("2", "延期");
+		   return map;
+	   }
+	   
+	   /**
 	    * 任务类型
 	    */
-	   public static final String TASK_TYPE0 = "0";//背单词
-	   public static final String TASK_TYPE1 = "1";//其它
-	   public static final Map<String,Object> map = new HashMap<String,Object>();
+	   public static final String TASK_TYPE0 = "0";//其它
+	   public static final String TASK_TYPE1 = "1";//背单词
 	   public static Map<String,Object> getTaskTypeMap(){
-		   map.put("0", "背单词");
-		   map.put("1", "其它");
+		   map.put("0", "其它");
+		   map.put("1", "背单词");
 		   return map;
 	   }
 	   

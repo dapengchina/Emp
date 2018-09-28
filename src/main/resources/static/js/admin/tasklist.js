@@ -3,6 +3,7 @@ $(function() {
 	loadTaskList();
 	datehandle();
 	loadCourse();
+	$("#thesaure").hide();
 });
 
 
@@ -50,8 +51,8 @@ function loadTaskList() {
 			title : 'Taskname',
 			sortable : true
 		},{
-			field : 'tasktypename',
-			title : 'TaskType',
+			field : 'taskstatename',
+			title : 'TaskState',
 			sortable : true
 		},{
 			field : 'coursename',
@@ -121,19 +122,15 @@ function saveTask() {
 		var paramid = $('#paramaddID').val();
 		var thesauresType = $('#thesauresIDAdd option:selected').val();//选中的值
 		var courseid = $('#course option:selected').val();//选中的值
-		var tasktype = $('#taskType option:selected').val();//选中的值
 		var startDate = $('#startDateAdd').val();
 		var endDate = $('#endDateAdd').val();
 		
 		var bootstrapValidator = $("#addTaskForm").data('bootstrapValidator');
 		bootstrapValidator.validate();
+		
 		if(bootstrapValidator.isValid()){
-			if(tasktype=='-1'){
-				alert("请选择任务类型");
-				return
-			}
 			//如果选择背单词,则必须选择词库
-			if(tasktype=='0'){
+			if(courseid=='1'){
 				if(thesauresType=='-1'){
 					alert("请选择词库");
 					return
@@ -158,9 +155,8 @@ function saveTask() {
 						$.ajax({
 							url : '/Emp/admin/task/add',
 				    		dataType:"json",
-				    		data:{"taskname":taskName,"paramid":paramid,
+				    		data:{"taskname":taskName,
 				    			"thesauresType":thesauresType,
-				    			"tasktype":tasktype,
 				    			"courseid":courseid,
 				    			"startStringDate":startDate,
 				    			"endStringDate":endDate},
@@ -168,13 +164,13 @@ function saveTask() {
 				    		cache:false,
 				    		type:"post",
 							success : function(result) {
-								if(result == "0"){
-									alert("新建任务成功");
+								if(result.code == "1"){
+									alert(result.msg);
 									$('#tasklist').bootstrapTable('refresh');
 									$("#addTaskForm").bootstrapValidator('resetForm');
 									$("#taskadd").modal('hide');
 				                }else{
-				                	alert("新建任务失败");
+				                	alert(result.msg);
 				                }
 							},
 							error : function() {
@@ -544,4 +540,14 @@ function loadCourse(){
 			$('.selectpicker').selectpicker('refresh');
 		}
 	});
+}
+
+function courseChange(){
+	var courseid = $('#course option:selected').val();//选中的值
+	//如果选择的是背单词,则显示词库选择框
+	if(courseid=="1"){
+		$("#thesaure").show();
+	}else{
+		$("#thesaure").hide();
+	}
 }

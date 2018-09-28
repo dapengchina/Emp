@@ -71,13 +71,13 @@ public class AdminUserTaskAction {
 				AdminTaskEntity task = adminTaskService.queryTaskById(userTaskList.get(i).getTaskid());
 				
 				if(task!=null){
-					if(task.getTasktype().equals(SysConstant.TASK_TYPE0)){
+					if(task.getThesaures_Type()!=null){
 						AdminThesauresPramEntity thesaures = adminThesauresPramService.getByID(task.getThesaures_Type());
 					    autv.setThesauresTypeName(thesaures.getName());
 					    autv.setThesauresType(task.getThesauresType());
-					    autv.setTasktypeName(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE0).toString());
+					    autv.setTaskstateName(SysConstant.getTaskStateMap().get(task.getTaskstate()).toString());
 					}else{
-						autv.setTasktypeName(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE1).toString());
+						autv.setTaskstateName(SysConstant.getTaskStateMap().get(task.getTaskstate()).toString());
 					}
 					if(task.getCourseid()!="-1" && task.getCourseid()!=null){
 						ase.setId(task.getCourseid());
@@ -89,7 +89,7 @@ public class AdminUserTaskAction {
 					autv.setTaskname(task.getTaskname());
 					autv.setStartDate(task.getStart_Date()!=null?sf.format(task.getStart_Date()):"");
 					autv.setEndDate(task.getEnd_Date()!=null?sf.format(task.getEnd_Date()):"");
-					autv.setTasktype(task.getTasktype());
+					autv.setTaskstate(task.getTaskstate());
 				}
 				autv.setCompletepercent(userTaskList.get(i).getCompletepercent());
 				

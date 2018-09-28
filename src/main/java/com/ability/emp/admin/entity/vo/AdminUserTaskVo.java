@@ -16,9 +16,9 @@ public class AdminUserTaskVo {
     
     private String thesauresTypeName;
     
-    private String tasktype;
+    private String taskstate;
     
-    private String tasktypeName;
+    private String taskstateName;
 
     private String courseid;
     
@@ -33,6 +33,22 @@ public class AdminUserTaskVo {
     
     
     
+
+	public String getTaskstate() {
+		return taskstate;
+	}
+
+	public void setTaskstate(String taskstate) {
+		this.taskstate = taskstate;
+	}
+
+	public String getTaskstateName() {
+		return taskstateName;
+	}
+
+	public void setTaskstateName(String taskstateName) {
+		this.taskstateName = taskstateName;
+	}
 
 	public String getCoursename() {
 		return coursename;
@@ -66,14 +82,6 @@ public class AdminUserTaskVo {
 		this.thesauresTypeName = thesauresTypeName;
 	}
 
-	public String getTasktypeName() {
-		return tasktypeName;
-	}
-
-	public void setTasktypeName(String tasktypeName) {
-		this.tasktypeName = tasktypeName;
-	}
-
 	public String getUserid() {
 		return userid;
 	}
@@ -104,14 +112,6 @@ public class AdminUserTaskVo {
 
 	public void setThesauresType(String thesauresType) {
 		this.thesauresType = thesauresType;
-	}
-
-	public String getTasktype() {
-		return tasktype;
-	}
-
-	public void setTasktype(String tasktype) {
-		this.tasktype = tasktype;
 	}
 
 	public String getCourseid() {

@@ -7,7 +7,7 @@
     <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
     <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
     <result column="TASKNAME" property="taskname" jdbcType="VARCHAR" />
-    <result column="TaskType" property="tasktype" jdbcType="VARCHAR" />
+    <result column="TaskState" property="taskstate" jdbcType="VARCHAR" />
     <result column="CourseId" property="courseid" jdbcType="VARCHAR" />
   </resultMap>
   
@@ -16,6 +16,25 @@
     select * from t_task where 1=1
     <if test="taskname != null and taskname != ''">
     	AND TASKNAME like concat(concat('%',#{taskname}),'%')
+    </if>
+    <if test="courseid != null and courseid != ''">
+    	AND CourseId = #{courseid}
+    </if>
+    <if test="taskstate != null and taskstate != ''">
+    	AND TaskState = #{taskstate}
+    </if>
+  </select>
+  
+  <select id="selectTask" resultType="com.ability.emp.admin.entity.AdminTaskEntity" parameterType="com.ability.emp.admin.entity.AdminTaskEntity" >
+    select * from t_task where 1=1
+    <if test="taskname != null and taskname != ''">
+    	AND TASKNAME like concat(concat('%',#{taskname}),'%')
+    </if>
+    <if test="courseid != null and courseid != ''">
+    	AND CourseId = #{courseid}
+    </if>
+    <if test="taskstate != null and taskstate != ''">
+    	AND TaskState = #{taskstate}
     </if>
   </select>
   
@@ -54,8 +73,8 @@
       <if test="taskname != null" >
         TASKNAME,
       </if>
-      <if test="tasktype != null" >
-        TaskType,
+      <if test="taskstate != null" >
+        TaskState,
       </if>
       <if test="courseid != null" >
         CourseId,
@@ -77,8 +96,8 @@
       <if test="taskname != null" >
         #{taskname,jdbcType=VARCHAR},
       </if>
-      <if test="tasktype != null" >
-        #{tasktype,jdbcType=VARCHAR},
+      <if test="taskstate != null" >
+        #{taskstate,jdbcType=VARCHAR},
       </if>
       <if test="courseid != null" >
         #{courseid,jdbcType=VARCHAR},
@@ -101,8 +120,8 @@
       <if test="taskname != null" >
         TASKNAME = #{taskname,jdbcType=VARCHAR},
       </if>
-      <if test="tasktype != null" >
-        TaskType = #{tasktype,jdbcType=VARCHAR},
+      <if test="taskstate != null" >
+        TaskState = #{taskstate,jdbcType=VARCHAR},
       </if>
       <if test="courseid != null" >
         CourseId = #{courseid,jdbcType=VARCHAR},

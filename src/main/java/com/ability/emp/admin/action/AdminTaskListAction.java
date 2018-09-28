@@ -62,6 +62,8 @@ public class AdminTaskListAction {
 	@Resource
 	private AdminWordService adminWordService;
 	
+	private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+	
 	ObjectMapper objectMapper = new ObjectMapper();  
 	
 	
@@ -107,12 +109,7 @@ public class AdminTaskListAction {
 						data.get(i).setThesauresTypeName(adminThesauresPramEntity.getName());
 					}
 				}
-				if(data.get(i).getTasktype().equals(SysConstant.TASK_TYPE0)){
-					data.get(i).setTasktypename(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE0).toString());
-				}
-				if(data.get(i).getTasktype().equals(SysConstant.TASK_TYPE1)){
-					data.get(i).setTasktypename(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE1).toString());
-				}
+				data.get(i).setTaskstatename(SysConstant.getTaskStateMap().get(data.get(i).getTaskstate()).toString());
 				if(data.get(i).getCourseid()!="-1" && data.get(i).getCourseid()!=null){
 					ase.setId(data.get(i).getCourseid());
 					AdminScecategoryEntity course = adminScecategoryService.getCourseByID(ase);
@@ -132,18 +129,32 @@ public class AdminTaskListAction {
 	
 	@RequestMapping("/add")
 	@ResponseBody
-	public String addTask(AdminTaskEntity taskEntity) throws ParseException {
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-	    
-		taskEntity.setStartDate(sf.parse(taskEntity.getStartStringDate()));
-		taskEntity.setEndDate(sf.parse(taskEntity.getEndStringDate()));
-		taskEntity.setId(UUIDUtil.generateUUID());
-		int i = adminTaskService.insert(taskEntity);  
-		if(i>0){
-			return "0";
+	public String addTask(AdminTaskEntity taskEntity) throws ParseException, JsonProcessingException {
+	    Map<String,Object> result = new HashMap<String,Object>();
+		//根据课程ID和任务状态查询,是否存在未结束的任务
+		AdminTaskEntity ate = new AdminTaskEntity();
+		ate.setCourseid(taskEntity.getCourseid());//课程ID
+		ate.setTaskstate(SysConstant.TASK_STATE0);//未结束
+		AdminTaskEntity te = adminTaskService.getTask(ate);
+		//如果找到,则不保存
+		if(te!=null){
+			result.put("msg", "此课程存在未结束的任务");
+			result.put("code", "0");
 		}else{
-			return "1";
+			taskEntity.setStartDate(sf.parse(taskEntity.getStartStringDate()));
+			taskEntity.setEndDate(sf.parse(taskEntity.getEndStringDate()));
+			taskEntity.setId(UUIDUtil.generateUUID());
+			taskEntity.setTaskstate(SysConstant.TASK_STATE0);//赋值未结束
+			int i = adminTaskService.insert(taskEntity);  
+			if(i>0){
+				result.put("msg", "任务创建成功");
+				result.put("code", "1");
+			}else{
+				result.put("msg", "任务创建失败");
+				result.put("code", "-1");
+			}
 		}
+		return objectMapper.writeValueAsString(result);
 	}
 	
 	@RequestMapping(value = "/taskedit/{id}")

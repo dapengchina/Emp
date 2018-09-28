@@ -83,7 +83,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 		map.put("id", taskid);
 		AdminTaskEntity task = taskDao.queryTaskById(map);
 		//判断任务类型,如果是背单词任务,则调用背单词处理方法
-		if(task.getTasktype().equals(SysConstant.TASK_TYPE0)){
+		if(task.getCourseid().equals(SysConstant.TASK_TYPE0)){
 			sweeWordsHandle(ids,taskid);
 			//给用户任务表保存数据
 			AdminUserTaskEntity userTask = new AdminUserTaskEntity();
