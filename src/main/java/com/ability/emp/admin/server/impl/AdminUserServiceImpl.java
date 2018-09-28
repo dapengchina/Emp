@@ -347,7 +347,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 		List<AdminWordEntity> list = null;
 		if(task!=null){
 			AdminWordEntity ae = new AdminWordEntity();
-			ae.setThesaurusType(task.getThesauresType());
+			ae.setThesaurusType(task.getThesaures_Type());
 			list = wordDao.queryWordAll(ae);
 		}else{
 			AdminWordEntity ae = new AdminWordEntity();

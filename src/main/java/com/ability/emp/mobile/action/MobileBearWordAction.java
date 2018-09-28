@@ -90,7 +90,7 @@ public class MobileBearWordAction {
 			//查询用户未完成的任务
 			if(userTaskList.get(i).getCompletepercent().equals(SysConstant.COMPLETE_PERCENT_INIT)){
 				MobileTaskEntity task = mobileTaskService.queryById(userTaskList.get(i).getTaskid());
-				if(task.getTasktype().equals(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE0))){
+				if(task.getTasktype().equals(SysConstant.TASK_TYPE0)){
 					taskcount = calculateTaskCount(sdf.format(task.getStartDate()),sdf.format(task.getEndDate()),task.getThesauresType());
 				    break;
 				}

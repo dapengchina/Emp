@@ -66,7 +66,7 @@ public class MobileCheckTaskExpireAction {
 			//查询用户未完成的任务
 			if(userTaskList.get(i).getCompletepercent().equals(SysConstant.COMPLETE_PERCENT_INIT)){
 				MobileTaskEntity task = mobileTaskService.queryById(userTaskList.get(i).getTaskid());
-				if(task.getTasktype().equals(SysConstant.getTaskTypeMap().get(SysConstant.TASK_TYPE0))){
+				if(task.getTasktype().equals(SysConstant.TASK_TYPE0)){
 					map.put("endDate", sdf.format(task.getEndDate()));
 					break;
 				}
