@@ -12,5 +12,7 @@ public interface AdminUserTaskService {
 	   public List<AdminUserTaskEntity> getUserTaskByUserId(AdminUserTaskEntity ae);
 	   
 	   public AdminUserTaskEntity getUserTask(AdminUserTaskEntity ae);
+	   
+	   public List<AdminUserTaskEntity> getTask(AdminUserTaskEntity ae);
 
 }

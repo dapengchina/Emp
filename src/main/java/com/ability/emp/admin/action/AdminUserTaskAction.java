@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,6 +25,7 @@ import com.ability.emp.admin.server.AdminTaskService;
 import com.ability.emp.admin.server.AdminThesauresPramService;
 import com.ability.emp.admin.server.AdminUserTaskService;
 import com.ability.emp.constant.SysConstant;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -52,8 +54,10 @@ public class AdminUserTaskAction {
 	
 	
 	/**
-	 * 返回首页
-	 * @param userEntity
+	 * 
+	 * @param pageSize
+	 * @param pageNumber
+	 * @param ae
 	 * @return
 	 * @throws Exception
 	 */
@@ -101,6 +105,30 @@ public class AdminUserTaskAction {
 		PageInfo<AdminUserEntity> page = new PageInfo(userTaskList);
 		map.put("total",page.getTotal());
 		map.put("rows", list);
+		return objectMapper.writeValueAsString(map);
+	}
+	
+	
+	/**
+	 * 
+	 * @param taskid
+	 * @return
+	 * @throws JsonProcessingException
+	 */
+	@RequestMapping("/getTask/{taskid}")
+	@ResponseBody
+	public String getTask(@PathVariable("taskid") String taskid) throws JsonProcessingException{
+		Map<String,Object> map = new HashMap<String,Object>();
+		AdminUserTaskEntity task = new AdminUserTaskEntity();
+		task.setTaskid(taskid);
+		List<AdminUserTaskEntity> list = adminUserTaskService.getTask(task);
+		if(list!=null && list.size()>0){
+			map.put("msg", "任务已指派,不可删除");
+			map.put("code", "-1");
+		}else{
+			map.put("msg", "任务未指派,可删除");
+			map.put("code", "0");
+		}
 		return objectMapper.writeValueAsString(map);
 	}
 

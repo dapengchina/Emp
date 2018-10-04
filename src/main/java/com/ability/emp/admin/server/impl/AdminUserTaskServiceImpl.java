@@ -29,12 +29,18 @@ public class AdminUserTaskServiceImpl implements AdminUserTaskService{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AdminUserTaskEntity> getUserTaskByUserId(AdminUserTaskEntity ae) {
-		return adminUserTaskDao.selectByUserId(ae);
+		return adminUserTaskDao.selectTask(ae);
 	}
 
 	@Override
 	public AdminUserTaskEntity getUserTask(AdminUserTaskEntity ae) {
 		return adminUserTaskDao.selectUserTask(ae);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AdminUserTaskEntity> getTask(AdminUserTaskEntity ae) {
+		return adminUserTaskDao.selectTask(ae);
 	}
 
 }

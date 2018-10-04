@@ -8,7 +8,7 @@ public interface BaseDao<T> {
 	
     int insert(T t);  
    
-    int delete(T t);  
+    int delete(String id);  
     
     int update(T t);  
     

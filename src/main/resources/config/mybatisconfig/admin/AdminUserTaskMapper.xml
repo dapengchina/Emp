@@ -8,7 +8,7 @@
     <result column="TaskID" property="taskid" jdbcType="VARCHAR" />
   </resultMap>
   
-  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminUserTaskEntity" >
+  <select id="selectTask" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminUserTaskEntity" >
     select * from t_usertask
     where 1=1
     <if test="userid != null and userid != ''">

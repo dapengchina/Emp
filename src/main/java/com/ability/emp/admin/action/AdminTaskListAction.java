@@ -53,12 +53,16 @@ public class AdminTaskListAction {
 	
 	@Resource
 	private AdminTaskService adminTaskService;
+	
 	@Resource
 	private AdminSystemParamService adminSystemParamService;
+	
 	@Resource
 	private AdminThesauresPramService adminThesauresPramService;
+	
 	@Resource
 	private AdminScecategoryService adminScecategoryService;
+	
 	@Resource
 	private AdminWordService adminWordService;
 	
@@ -184,6 +188,20 @@ public class AdminTaskListAction {
 		}
 	}
 	
+	@RequestMapping(value = "/delete/{taskid}")
+	@ResponseBody
+	public String delete(@PathVariable("taskid") String taskid) throws JsonProcessingException{
+		Map<String,Object> map = new HashMap<String,Object>();
+		int i = adminTaskService.delete(taskid);
+		if(i>0){
+			map.put("msg", "删除成功");
+			map.put("code", "1");
+		}else{
+			map.put("msg", "删除失败");
+			map.put("code", "-1");
+		}
+		return objectMapper.writeValueAsString(map);
+	}
 	
 	/**
 	 * 计算任务量
@@ -223,4 +241,5 @@ public class AdminTaskListAction {
 		}
 	}
 
+	
 }

@@ -55,4 +55,9 @@ public class AdminTaskServiceImpl implements AdminTaskService{
 	public AdminTaskEntity getTask(AdminTaskEntity ate) {
 		return adminTaskDao.selectTask(ate);
 	}
+
+	@Override
+	public int delete(String id) {
+		return adminTaskDao.delete(id);
+	}
 }
