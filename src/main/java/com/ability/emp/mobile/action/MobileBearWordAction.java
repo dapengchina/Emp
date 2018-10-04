@@ -86,11 +86,13 @@ public class MobileBearWordAction {
 		List<MobileUserTaskEntity> userTaskList = mobileUserTaskService.getUserTask(userTask);
 		
 		int taskcount = 0;
+		MobileTaskEntity mte = new MobileTaskEntity();
 		for(int i=0;i<userTaskList.size();i++){
 			//查询用户未完成的任务
 			if(userTaskList.get(i).getCompletepercent().equals(SysConstant.COMPLETE_PERCENT_INIT)){
-				MobileTaskEntity task = mobileTaskService.queryById(userTaskList.get(i).getTaskid());
-				if(task.getTasktype().equals(SysConstant.TASK_TYPE0)){
+				mte.setId(userTaskList.get(i).getTaskid());
+				MobileTaskEntity task = mobileTaskService.getTask(mte);
+				if(task.getCourseid().equals(SysConstant.TASK_TYPE1)){
 					taskcount = calculateTaskCount(sdf.format(task.getStartDate()),sdf.format(task.getEndDate()),task.getThesauresType());
 				    break;
 				}

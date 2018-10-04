@@ -29,4 +29,9 @@ public class MobileTaskServiceImpl implements MobileTaskService{
 		return (MobileTaskEntity) mobileTaskDao.queryById(id);
 	}
 
+	@Override
+	public MobileTaskEntity getTask(MobileTaskEntity mte) {
+		return mobileTaskDao.selectTask(mte);
+	}
+
 }

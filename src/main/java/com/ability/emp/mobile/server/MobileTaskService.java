@@ -10,4 +10,6 @@ public interface MobileTaskService {
 	
 	MobileTaskEntity queryById(String id);
 	
+	MobileTaskEntity getTask(MobileTaskEntity mte);
+	
 }

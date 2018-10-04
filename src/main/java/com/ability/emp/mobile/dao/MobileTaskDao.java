@@ -11,4 +11,6 @@ public interface MobileTaskDao<T> extends BaseDao<T>{
 	
 	List<MobileTaskEntity> selectStudyCalendar(String id);
 	
+	public MobileTaskEntity selectTask(MobileTaskEntity mte);
+	
 }
