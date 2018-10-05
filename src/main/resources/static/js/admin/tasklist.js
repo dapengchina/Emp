@@ -13,7 +13,7 @@ function loadTaskList() {
 	var table = $('#tasklist').bootstrapTable({
 		url : queryUrl, // 请求后台的URL（*）
 		method : 'GET', // 请求方式（*）
-		toolbar : '#toolbar', // 工具按钮用哪个容器 
+		toolbar: '#toolbar', // 工具按钮用哪个容器 
 		striped : true, // 是否显示行间隔色
 		cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
 		pagination : true, // 是否显示分页（*）
@@ -24,7 +24,7 @@ function loadTaskList() {
 		pageSize : 10, // 每页的记录行数（*）
 		pageList : [ 10, 25, 50, 100 ], // 可供选择的每页的行数（*）
 		search : false, // 是否显示表格搜索
-		strictSearch : true,
+		strictSearch : false,
 		showColumns : true, // 是否显示所有的列（选择显示的列）
 		showRefresh : true, // 是否显示刷新按钮
 		minimumCountColumns : 2, // 最少允许的列数

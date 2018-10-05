@@ -63,10 +63,10 @@
     
     <!-- 工具栏  -->
     <div id="toolbar" class="btn-group">
-            <button onclick="openImportPage()" id="btn_add" type="button" class="btn btn-default">
+            <button onclick="openImportPage()" id="btn_add" type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Import
             </button>
-            <button onclick="openAppointPage()" id="btn_add" type="button" class="btn btn-default">
+            <button onclick="openAppointPage()" id="btn_add" type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>Appoint
             </button>
     </div>
@@ -123,5 +123,32 @@
 		  </div>	
 		</div>
 	</div>
+
+    <!-- 取消任务 -->
+    <div class="modal fade" id="removetask" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<input type="hidden" id="taskid"></input>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h4 class="modal-title glyphicon glyphicon-remove" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body">
+				  <font color="red">
+					This task may be used by someone. Be careful when removing it !!!
+					Are you sure you want to remove it?	
+				  </font>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button onclick="deleteSure()" type="button" class="btn btn-primary">Sure</button>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>

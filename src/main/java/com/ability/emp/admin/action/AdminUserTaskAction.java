@@ -96,6 +96,8 @@ public class AdminUserTaskAction {
 					autv.setTaskstate(task.getTaskstate());
 				}
 				autv.setCompletepercent(userTaskList.get(i).getCompletepercent());
+				autv.setUserid(userTaskList.get(i).getUserid());
+				autv.setTaskid(userTaskList.get(i).getTaskid());
 				
 				list.add(autv);
 			}

@@ -165,6 +165,14 @@ function initSubTable(index, row, $detail) {
 			field : 'thesauresTypeName',
 			title : 'Thesaures',
 			sortable : true
+		},{
+			title : 'Operation',
+			width : 120,
+			align : 'center',
+			valign : 'middle',
+			formatter: function (value, row, index) {
+				return [ '<button type="button" onclick="removeTask(\''+ row.userid+ '\',\''+ row.taskid+ '\')" class="btn btn-danger">remove</button>' ];
+			}
 		}]
     });
     $("#cur_table").bootstrapTable('refresh');
@@ -352,4 +360,10 @@ function loadTutor(){
 		    })
 		}
 	});
+}
+
+function removeTask(userid,taskid){
+	alert(userid);
+	alert(taskid);
+	$("#removetask").modal('show');
 }

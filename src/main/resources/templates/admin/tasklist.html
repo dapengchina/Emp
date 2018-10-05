@@ -15,7 +15,6 @@
 
 <link rel="stylesheet" href="/Emp/css/bootstrap-select/bootstrap-select.css" type="text/css" />
 <link rel="stylesheet" href="/Emp/css/bootstrap-select/bootstrap-select.min.css" type="text/css" />
-<link rel="stylesheet" href="/Emp/css/bootstrap-3.3.7-dist/bootstrap-treeview.min.css" type="text/css" />
 
 <!-- JS引用 -->
 <script src="/Emp/js/jquery/jquery.js" type="text/javascript"></script>
@@ -32,6 +31,7 @@
 <script src="/Emp/js/bootstrap-select/bootstrap-select.min.js"></script>
 <script src="/Emp/js/bootstrap-select/bootstrap-select.js"></script>
 <script src="/Emp/js/bootstrap-table/dist/extensions/tree-view/bootstrap-treeview.min.js"></script>
+<script src="/Emp/js/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
 
 <script src="/Emp/js/admin/tasklist.js"></script>
 <script src="/Emp/js/admin/taskvalidate.js"></script>
@@ -48,6 +48,7 @@
 					<div class="col-sm-3">
 						<input type="text" class="form-control" id="taskNameSearch" />
 					</div> 
+					
 					<div class="col-sm-4" style="text-align: left;">
 						<button onclick="search()" type="button" style="margin-left: 50px" id="btn_task_query"
 							class="btn btn-primary">Search</button>
@@ -56,13 +57,14 @@
 			</form>
 		</div>
 	</div>
-
+    
+    
 	<!-- 工具栏  -->
 	<div id="toolbar" class="btn-group">
 		<button id="btn_add" type="button" onclick="openTaskModal()" class="btn btn-default">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Create
 		</button>
-	</div>
+	</div> 
 
 	<!-- 数据列表  -->
 	<table id="tasklist"></table>
@@ -75,7 +77,8 @@
 				<div class="modal-header">
 				    <button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
-					<h4 class="modal-title" id="myModalLabel">Create Task</h4> 
+					<h4 class="modal-title" id="myModalLabel">
+<span class="glyphicon glyphicon-tasks" style="color: rgb(107, 140, 190); font-size: 20px;"> CreateTask</span></h4> 
 				</div>
 				<form class="form-horizontal" id="addTaskForm">
 				    <input type="hidden" id="paramaddID" name="paramaddID"></input>
