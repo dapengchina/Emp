@@ -9,5 +9,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface AdminWordRecordDao <T> extends BaseDao<T> {
+	
+	
 	List<AdminWordRecordEntity> selectWord(String id);
+	
+	int deleteUserWordRecord(AdminWordRecordEntity awee);
 }

@@ -5,19 +5,34 @@ import java.util.Date;
 public class AdminWordRecordEntity {
 	
 	private String id;
+	
 	private String wordId;
+	
 	private String word;
+	
 	private String userId;
+	
 	private String isFail;
+	
 	private String isSel;
+	
 	private String isPass;
+	
 	private Date updateDate;
 	
+	private String thesaurus;
 	
 	
 	
 	
 	
+	
+	public String getThesaurus() {
+		return thesaurus;
+	}
+	public void setThesaurus(String thesaurus) {
+		this.thesaurus = thesaurus;
+	}
 	public String getIsPass() {
 		return isPass;
 	}

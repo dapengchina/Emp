@@ -125,6 +125,8 @@
 	</div>
 
     <!-- 取消任务 -->
+    <input type="hidden" id="userid"></input>
+    <input type="hidden" id="taskid"></input>
     <div class="modal fade" id="removetask" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<input type="hidden" id="taskid"></input>
@@ -143,7 +145,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button onclick="deleteSure()" type="button" class="btn btn-primary">Sure</button>
+					<button onclick="removeSure()" type="button" class="btn btn-primary">Sure</button>
 				</div>
 				
 			</div>

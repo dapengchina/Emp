@@ -331,9 +331,9 @@ function appoint(){
 			type:"post",
 			success:function(result){
 				if(result=='0'){
-					alert("任务添加成功");
+					alert("任务指派成功");
 				}else{
-					alert("任务添加失败");
+					alert("任务指派失败");
 				}
 				$("#appointTask").modal('hide');
 				$("#tasklist").bootstrapTable('refresh');
@@ -363,7 +363,26 @@ function loadTutor(){
 }
 
 function removeTask(userid,taskid){
-	alert(userid);
-	alert(taskid);
+	$("#userid").val(userid);
+	$("#taskid").val(taskid);
 	$("#removetask").modal('show');
+}
+
+function removeSure(){
+	var userid = $("#userid").val();
+	var taskid = $("#taskid").val();
+	$.ajax({
+		type : 'get',
+		url :"/Emp/admin/userTask/deleteUserTask/"+userid+"/"+taskid,
+		dataType : 'json',
+		success : function(result) {
+			if(result.code=="1"){
+				alert(result.msg);
+				$('#userlist').bootstrapTable('refresh');
+				$("#removetask").modal('hide');
+			}else{
+				alert(result.msg);
+			}
+		}
+	});
 }

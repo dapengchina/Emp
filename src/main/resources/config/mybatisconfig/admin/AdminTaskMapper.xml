@@ -36,6 +36,9 @@
     <if test="taskstate != null and taskstate != ''">
     	AND TaskState = #{taskstate}
     </if>
+    <if test="id != null and id != ''">
+    	AND ID = #{id}
+    </if>
   </select>
   
   <select id="findTaskName" resultType="java.lang.String" parameterType="com.ability.emp.admin.entity.AdminTaskEntity">

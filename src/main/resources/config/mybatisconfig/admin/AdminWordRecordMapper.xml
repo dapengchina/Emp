@@ -10,6 +10,7 @@
     <result column="IS_SEL" property="isSel" jdbcType="VARCHAR" />
     <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="IS_PASS" property="isPass" jdbcType="VARCHAR" />
+    <result column="THESAURUS" property="thesaurus" jdbcType="VARCHAR" />
   </resultMap>
   
   
@@ -31,6 +32,17 @@
   <delete id="delete" parameterType="java.lang.String" >
     delete from t_word_record
     where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteUserWordRecord" parameterType="com.ability.emp.admin.entity.AdminWordRecordEntity" >
+    delete from t_word_record
+    where 1=1
+    <if test="userId != null and userId != ''">
+    	AND USER_ID = #{userId}
+    </if>
+    <if test="thesaurus != null and thesaurus != ''">
+    	AND THESAURUS = #{thesaurus}
+    </if>
   </delete>
   
   <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminWordRecordEntity" >
@@ -60,6 +72,9 @@
       <if test="isPass != null" >
         IS_PASS,
       </if>
+      <if test="thesaurus != null" >
+        THESAURUS,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -86,13 +101,16 @@
       <if test="isPass != null" >
         #{isPass,jdbcType=VARCHAR},
       </if>
+      <if test="thesaurus != null" >
+        #{thesaurus,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   
   <update id="update" parameterType="com.ability.emp.admin.entity.AdminWordRecordEntity" >
     update t_word_record
     <set >
-    	<if test="id != null" >
+      <if test="id != null" >
        	ID = #{id,jdbcType=VARCHAR},
       </if>
       <if test="wordId != null" >
@@ -115,6 +133,9 @@
       </if>
       <if test="isPass != null" >
         IS_PASS = #{isPass,jdbcType=VARCHAR},
+      </if>
+      <if test="thesaurus != null" >
+        THESAURUS = #{thesaurus,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

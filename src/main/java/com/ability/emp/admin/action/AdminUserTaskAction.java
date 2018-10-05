@@ -133,5 +133,30 @@ public class AdminUserTaskAction {
 		}
 		return objectMapper.writeValueAsString(map);
 	}
+	
+	/**
+	 * 
+	 * @param userid
+	 * @param taskid
+	 * @return
+	 * @throws JsonProcessingException 
+	 */
+	@RequestMapping("/deleteUserTask/{userid}/{taskid}")
+	@ResponseBody
+	public String deleteUserTask(@PathVariable("userid") String userid,@PathVariable("taskid") String taskid) throws JsonProcessingException{
+		Map<String,Object> map = new HashMap<String,Object>();
+		AdminUserTaskEntity aute = new AdminUserTaskEntity();
+		aute.setUserid(userid);
+		aute.setTaskid(taskid);
+		int i = adminUserTaskService.deleteUserTask(aute);
+		if(i>0){
+			map.put("msg", "移除成功");
+			map.put("code", "1");
+		}else{
+			map.put("msg", "移除失败");
+			map.put("code", "-1");
+		}
+		return objectMapper.writeValueAsString(map);
+	}
 
 }
