@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileSubTaskDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileSubTaskEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TaskId" property="taskid" jdbcType="VARCHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
+    <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
+    <result column="Score" property="score" jdbcType="VARCHAR" />
+    <result column="Passscore" property="passscore" jdbcType="VARCHAR" />
+    <result column="Ifpass" property="ifpass" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileSubTaskEntity" >
+    select * from t_subtask
+    where 1=1
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_subtask
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileSubTaskEntity" >
+    insert into t_subtask
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="taskid != null" >
+        TaskId,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="dropletid != null" >
+        DropLetID,
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID,
+      </if>
+      <if test="score != null" >
+        Score,
+      </if>
+      <if test="passscore != null" >
+        Passscore,
+      </if>
+      <if test="ifpass != null" >
+        Ifpass,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletid != null" >
+        #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="passscore != null" >
+        #{passscore,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpass != null" >
+        #{ifpass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileSubTaskEntity" >
+    update t_subtask
+    <set >
+      <if test="taskid != null" >
+        TaskId = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletid != null" >
+        DropLetID = #{dropletid,jdbcType=VARCHAR},
+      </if>
+      <if test="dropletconftypeid != null" >
+        DropLetConfTypeID = #{dropletconftypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        Score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="passscore != null" >
+        Passscore = #{passscore,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpass != null" >
+        Ifpass = #{ifpass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>
