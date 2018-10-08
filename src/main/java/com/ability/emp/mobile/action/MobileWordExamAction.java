@@ -99,7 +99,7 @@ public class MobileWordExamAction {
 			//查询用户未完成的任务
 		    if(userTaskList.get(i).getCompletepercent().equals(SysConstant.COMPLETE_PERCENT_INIT)){
 				MobileTaskEntity task = mobileTaskService.queryById(userTaskList.get(i).getTaskid());
-				if(task.getTasktype().equals(SysConstant.TASK_TYPE0)){
+				if(task.getCourseid().equals(SysConstant.TASK_TYPE1)){
 					taskcount = calculateTaskCount(sdf.format(task.getStartDate()),sdf.format(task.getEndDate()),task.getThesauresType());
 				    break;
 				}

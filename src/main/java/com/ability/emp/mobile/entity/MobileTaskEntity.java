@@ -9,10 +9,6 @@ public class MobileTaskEntity {
     private String thesauresType;
     
     private String thesaures_Type;
-    
-    private String tasktype;
-    
-    private String tasktypename;
 
     private String courseid;
     
@@ -62,22 +58,6 @@ public class MobileTaskEntity {
 
 	public void setThesaures_Type(String thesaures_Type) {
 		this.thesaures_Type = thesaures_Type;
-	}
-
-	public String getTasktype() {
-		return tasktype;
-	}
-
-	public void setTasktype(String tasktype) {
-		this.tasktype = tasktype;
-	}
-
-	public String getTasktypename() {
-		return tasktypename;
-	}
-
-	public void setTasktypename(String tasktypename) {
-		this.tasktypename = tasktypename;
 	}
 
 	public String getCourseid() {

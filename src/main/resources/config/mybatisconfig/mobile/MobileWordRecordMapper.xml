@@ -11,6 +11,7 @@
     <result column="IS_PASS" property="isPass" jdbcType="VARCHAR" />
     <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="EXAM_PASS_DATE" property="examPassDate" jdbcType="TIMESTAMP" />
+    <result column="THESAURUS" property="thesaurus" jdbcType="VARCHAR" />
   </resultMap>
   
   
@@ -107,6 +108,9 @@
       <if test="isPass != null" >
         IS_PASS,
       </if>
+      <if test="thesaurus != null" >
+        THESAURUS,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -135,6 +139,9 @@
       </if>
       <if test="isPass != null" >
         #{isPass,jdbcType=VARCHAR},
+      </if>
+      <if test="thesaurus != null" >
+        #{thesaurus,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -168,6 +175,9 @@
       </if>
       <if test="isPass != null" >
         IS_PASS = #{isPass,jdbcType=VARCHAR},
+      </if>
+      <if test="thesaurus != null" >
+        THESAURUS = #{thesaurus,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

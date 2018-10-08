@@ -3,15 +3,26 @@ package com.ability.emp.mobile.entity;
 import java.util.Date;
 
 public class MobileWordRecordEntity {
+	
 	private String id;
+	
 	private String wordId;
+	
 	private String word;
+	
 	private String userId;
+	
 	private String isFail;
+	
 	private String isSel;
+	
 	private String isPass;
+	
 	private Date examPassDate;
+	
 	private Date updateDate;
+	
+	private String thesaurus;
 
 	
 	
@@ -26,6 +37,12 @@ public class MobileWordRecordEntity {
 	
 	
 	
+	public String getThesaurus() {
+		return thesaurus;
+	}
+	public void setThesaurus(String thesaurus) {
+		this.thesaurus = thesaurus;
+	}
 	public String getStringPassDate() {
 		return stringPassDate;
 	}
