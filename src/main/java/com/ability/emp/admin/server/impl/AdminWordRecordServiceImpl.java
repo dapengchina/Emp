@@ -43,5 +43,11 @@ public class AdminWordRecordServiceImpl implements AdminWordRecordService {
 	@Override
 	public Integer insert(AdminWordRecordEntity wordRecordEntiy) {
 		return wordRecordDao.insert(wordRecordEntiy);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AdminWordRecordEntity> getWordRecord(AdminWordRecordEntity awee) {
+		return wordRecordDao.selectWordRecord(awee);
 	}	
 }

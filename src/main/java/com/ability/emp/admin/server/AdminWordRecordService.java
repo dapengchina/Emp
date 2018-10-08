@@ -14,4 +14,6 @@ public interface AdminWordRecordService {
 	
 	Integer insert(AdminWordRecordEntity wordRecordEntiy);
 	
+	List<AdminWordRecordEntity> getWordRecord(AdminWordRecordEntity awee);
+	
 }

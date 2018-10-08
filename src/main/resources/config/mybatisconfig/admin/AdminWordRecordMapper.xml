@@ -19,6 +19,20 @@
     select * from t_word_record
   </select>
   
+  <select id="selectWordRecord" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminWordRecordEntity" >
+    select * from t_word_record
+    where 1=1
+    <if test="userId != null and userId != ''">
+    	AND USER_ID = #{userId}
+    </if>
+    <if test="isPass != null and isPass != ''">
+    	AND IS_PASS = #{isPass}
+    </if>
+    <if test="thesaurus != null and thesaurus != ''">
+    	AND THESAURUS = #{thesaurus}
+    </if>
+  </select>
+  
   <select id="count" parameterType="java.lang.String" resultType="Integer">
     select count(*) from t_word_record
   </select>

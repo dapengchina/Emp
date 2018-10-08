@@ -14,4 +14,6 @@ public interface AdminWordRecordDao <T> extends BaseDao<T> {
 	List<AdminWordRecordEntity> selectWord(String id);
 	
 	int deleteUserWordRecord(AdminWordRecordEntity awee);
+	
+	public List<AdminWordRecordEntity> selectWordRecord(AdminWordRecordEntity awee);
 }

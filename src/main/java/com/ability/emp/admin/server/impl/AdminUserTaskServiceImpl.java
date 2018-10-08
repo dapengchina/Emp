@@ -14,6 +14,7 @@ import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.admin.entity.AdminUserTaskEntity;
 import com.ability.emp.admin.entity.AdminWordRecordEntity;
 import com.ability.emp.admin.server.AdminUserTaskService;
+import com.ability.emp.constant.SysConstant;
 
 
 @Service("AdminUserTaskService")
@@ -66,10 +67,12 @@ public class AdminUserTaskServiceImpl implements AdminUserTaskService{
 			task.setId(ae.getTaskid());
 			AdminTaskEntity returnTask = adminTaskDao.selectTask(task);
 			//根据词库类型和用户ID删除用户单词记录表
-			AdminWordRecordEntity userWordRecord = new AdminWordRecordEntity();
-			userWordRecord.setThesaurus(returnTask.getThesaures_Type());
-			userWordRecord.setUserId(ae.getUserid());
-			adminWordRecordDao.deleteUserWordRecord(userWordRecord);
+			if(returnTask.getThesaures_Type().equals(SysConstant.TASK_TYPE1)){
+				AdminWordRecordEntity userWordRecord = new AdminWordRecordEntity();
+				userWordRecord.setThesaurus(returnTask.getThesaures_Type());
+				userWordRecord.setUserId(ae.getUserid());
+				adminWordRecordDao.deleteUserWordRecord(userWordRecord);
+			}
 			adminUserTaskDao.deleteUserTask(ae);
 			
 			return 1;

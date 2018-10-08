@@ -8,6 +8,7 @@
     <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
     <result column="TASKNAME" property="taskname" jdbcType="VARCHAR" />
     <result column="TaskType" property="tasktype" jdbcType="VARCHAR" />
+    <result column="TaskState" property="taskstate" jdbcType="VARCHAR" />
     <result column="CourseId" property="courseid" jdbcType="VARCHAR" />
   </resultMap>
 
@@ -74,6 +75,9 @@
       <if test="tasktype != null" >
         TaskType,
       </if>
+      <if test="taskstate != null" >
+        TaskState,
+      </if>
       <if test="courseid != null" >
         CourseId,
       </if>
@@ -96,6 +100,9 @@
       </if>
       <if test="tasktype != null" >
         #{tasktype,jdbcType=VARCHAR},
+      </if>
+      <if test="taskstate != null" >
+        #{taskstate,jdbcType=VARCHAR},
       </if>
       <if test="courseid != null" >
         #{courseid,jdbcType=VARCHAR},
@@ -120,6 +127,9 @@
       </if>
       <if test="tasktype != null" >
         TaskType = #{tasktype,jdbcType=VARCHAR},
+      </if>
+      <if test="taskstate != null" >
+        TaskState = #{taskstate,jdbcType=VARCHAR},
       </if>
       <if test="courseid != null" >
         CourseId = #{courseid,jdbcType=VARCHAR},

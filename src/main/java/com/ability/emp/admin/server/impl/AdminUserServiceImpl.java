@@ -353,7 +353,16 @@ public class AdminUserServiceImpl implements AdminUserService{
 			AdminWordEntity ae = new AdminWordEntity();
 			list = wordDao.queryWordAll(ae);
 		}
-				
+		AdminWordRecordEntity temp = new AdminWordRecordEntity();
+		for(int k=0;k<array.length;k++){
+			temp.setUserId(array[k]);
+			temp.setThesaurus(task.getThesaures_Type());
+			temp.setIsPass(SysConstant.NO_PASS);
+			List<AdminWordRecordEntity> tempList = wordRecordDao.selectWordRecord(temp);
+			if(tempList!=null && tempList.size()>0){
+				return;
+			}
+		}
 		AdminWordRecordEntity wordRecordEntiy = new AdminWordRecordEntity();
 		for (int i = 0; i < array.length; i++) {
 			adminUserEntity.setId(array[i]);
@@ -363,6 +372,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 				wordRecordEntiy.setWordId(list.get(j).getId());
 				wordRecordEntiy.setId(UUIDUtil.generateUUID());
 				wordRecordEntiy.setThesaurus(list.get(j).getThesaurusType());
+				
 				wordRecordDao.insert(wordRecordEntiy);
 			}
 	    }

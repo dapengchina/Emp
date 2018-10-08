@@ -77,7 +77,7 @@ public class AdminUserTaskAction {
 				if(task!=null){
 					if(task.getThesaures_Type()!=null){
 						AdminThesauresPramEntity thesaures = adminThesauresPramService.getByID(task.getThesaures_Type());
-					    autv.setThesauresTypeName(thesaures.getName());
+					    autv.setThesauresTypeName(thesaures!=null?thesaures.getName():"");
 					    autv.setThesauresType(task.getThesauresType());
 					    autv.setTaskstateName(SysConstant.getTaskStateMap().get(task.getTaskstate()).toString());
 					}else{

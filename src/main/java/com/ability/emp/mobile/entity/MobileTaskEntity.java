@@ -28,6 +28,8 @@ public class MobileTaskEntity {
     
     private String taskname;
     
+    private String taskstate;
+    
     
     
     
@@ -46,7 +48,15 @@ public class MobileTaskEntity {
     
     
     
-    public String getThesaures_Type() {
+    public String getTaskstate() {
+		return taskstate;
+	}
+
+	public void setTaskstate(String taskstate) {
+		this.taskstate = taskstate;
+	}
+
+	public String getThesaures_Type() {
 		return thesaures_Type;
 	}
 
