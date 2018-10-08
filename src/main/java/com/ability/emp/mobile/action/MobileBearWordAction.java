@@ -93,7 +93,7 @@ public class MobileBearWordAction {
 				mte.setId(userTaskList.get(i).getTaskid());
 				MobileTaskEntity task = mobileTaskService.getTask(mte);
 				if(task.getCourseid().equals(SysConstant.TASK_TYPE1)){
-					taskcount = calculateTaskCount(sdf.format(task.getStartDate()),sdf.format(task.getEndDate()),task.getThesauresType());
+					taskcount = calculateTaskCount(sdf.format(task.getStart_Date()),sdf.format(task.getEnd_Date()),task.getThesaures_Type());
 				    break;
 				}
 			}
