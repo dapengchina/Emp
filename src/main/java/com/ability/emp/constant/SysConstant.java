@@ -82,5 +82,22 @@ public class SysConstant {
 	   public static final String COMPLETE_PERCENT_INIT = "0";
 	   
 	   
+	   /**
+	    * dropLet对应的表
+	    */
+	   public static final String DROPLET_ID2 = "2";//ScenListDropLet
+	   public static final String DROPLET_ID3 = "3";//CardListDroplet
+	   public static final String DROPLET_ID4 = "4";//ScenarioDropLet
+	   public static final String DROPLET_ID5 = "5";//TextChoiceDropLet
+	   public static final String DROPLET_ID6 = "6";//FillBlankDropLet
+	   public static final String DROPLET_ID7 = "7";//SuccessDropLet
+	   public static final String DROPLET_ID8 = "8";//AudioChoiceDropLet
+	   public static final String DROPLET_ID9 = "9";//ReadSpeakDropLet
+	   public static final String DROPLET_ID10 = "10";//SortDropLet
+	   public static final String DROPLET_ID11 = "11";//MatchDropLet
+	   public static final String DROPLET_ID12 = "12";//VideoDropLet
+	   public static final String DROPLET_ID13 = "13";//DictationDropLet
+	   
+	   
 
 }

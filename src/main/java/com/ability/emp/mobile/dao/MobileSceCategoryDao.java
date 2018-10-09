@@ -15,5 +15,7 @@ public interface MobileSceCategoryDao<T> extends BaseDao<T> {
 	   public List<MobileSceCategoryEntity> getScenListDropLetData(MobileSceCategoryEntity me);
 	   
 	   public List<MobileSceCategoryEntity> selectCourseData(MobileSceCategoryEntity me);
+	   
+	   public MobileSceCategoryEntity selectCourseByID(MobileSceCategoryEntity me);
 
 }

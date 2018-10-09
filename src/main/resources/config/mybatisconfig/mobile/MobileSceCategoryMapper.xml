@@ -10,7 +10,7 @@
     <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
     <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
     <result column="CourseState" property="coursestate" jdbcType="VARCHAR" />
-    <result column="CourseLimit" property="courselimit" jdbcType="INTEGER" />
+    <result column="CourseEndDate" property="courseenddate" jdbcType="TIMESTAMP" />
   </resultMap>
   
   
@@ -30,6 +30,15 @@
 		and FirCatId = #{fircatid}
 	</if>
 	order by t.index asc
+  </select>
+  
+  <select id="selectCourseByID" resultType="com.ability.emp.mobile.entity.MobileSceCategoryEntity" parameterType="com.ability.emp.mobile.entity.MobileSceCategoryEntity" >
+    select * from t_scecategory t
+    where 1=1
+    <if test="id != null and id != ''">
+		and ID = #{id}
+	</if>
+	
   </select>
   
   <delete id="delete" parameterType="java.lang.String" >
@@ -64,8 +73,8 @@
       <if test="coursestate != null" >
         CourseState,
       </if>
-      <if test="courselimit != null" >
-        CourseLimit,
+      <if test="courseenddate != null" >
+        CourseEndDate,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -93,8 +102,8 @@
       <if test="coursestate != null" >
         #{coursestate,jdbcType=VARCHAR},
       </if>
-      <if test="courselimit != null" >
-        #{courselimit,jdbcType=INTEGER},
+      <if test="courseenddate != null" >
+        #{courseenddate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -123,8 +132,8 @@
       <if test="coursestate != null" >
         CourseState = #{coursestate,jdbcType=VARCHAR},
       </if>
-      <if test="courselimit != null" >
-        CourseLimit = #{courselimit,jdbcType=INTEGER},
+      <if test="courseenddate != null" >
+        CourseEndDate = #{courseenddate,jdbcType=TIMESTAMP},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

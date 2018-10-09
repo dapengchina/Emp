@@ -11,7 +11,7 @@ public interface MobileUserService {
 	   
 	   int update(MobileUserEntity mue);
 	   
-	   String registerUser(MobileUserEntity mue);
+	   void registerUser(MobileUserEntity mue);
 	   
 	   MobileUserEntity getUser(MobileUserEntity mue);
 }

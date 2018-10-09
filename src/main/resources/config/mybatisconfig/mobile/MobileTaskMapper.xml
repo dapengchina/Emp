@@ -24,15 +24,15 @@
     <if test="id != null and id != ''">
     	AND ID = #{id}
     </if>
-    <if test="id != null and id != ''">
-    	AND ID = #{id}
-    </if>
   </select>
 
-  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileTaskEntity" >
-    select * from t_task where DEL = '0'
+  <select id="selectTaskList" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileTaskEntity" >
+    select * from t_task where 1=1
     <if test="taskname != null and taskname != ''">
     	AND TASKNAME like concat(concat('%',#{taskname}),'%')
+    </if>
+    <if test="courseid != null and courseid != ''">
+    	AND CourseId = #{courseid}
     </if>
   </select>
   
@@ -53,7 +53,7 @@
     select * from t_task where ID = #{id,jdbcType=VARCHAR}
   </select>
   
-  <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminTaskEntity" >
+  <insert id="insert" parameterType="com.ability.emp.admin.entity.AdminTaskEntity" keyProperty="id">
     insert into t_task
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

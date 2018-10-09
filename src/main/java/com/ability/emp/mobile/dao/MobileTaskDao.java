@@ -13,4 +13,6 @@ public interface MobileTaskDao<T> extends BaseDao<T>{
 	
 	public MobileTaskEntity selectTask(MobileTaskEntity mte);
 	
+	public List<MobileTaskEntity> selectTaskList(MobileTaskEntity mte);
+	
 }
