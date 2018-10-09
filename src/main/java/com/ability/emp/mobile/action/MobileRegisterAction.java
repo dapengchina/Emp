@@ -46,19 +46,25 @@ public class MobileRegisterAction {
 	@ResponseBody
 	public String register(@RequestBody MobileUserEntity mue) throws Exception {
 		Map<String,Object> map = new HashMap<String,Object>();
-		//查询此手机号是否被注册
-		MobileUserEntity me = mobileUserService.getUser(mue);
-		if(me!=null){
-			map.put("result", "此手机号已被注册");
-			map.put("code", 2);
-			return objectMapper.writeValueAsString(map);
+		try{
+			//查询此手机号是否被注册
+			MobileUserEntity me = mobileUserService.getUser(mue);
+			if(me!=null){
+				map.put("result", "此手机号已被注册");
+				map.put("code", 2);
+				return objectMapper.writeValueAsString(map);
+			}
+			//校验通过注册
+			mue.setRegisterdate(new Date());//注册时间
+			mue.setId(UUIDUtil.generateUUID());//主键
+			mue.setDel(SysConstant.NO_DEL);//默认未删除
+			mobileUserService.registerUser(mue);
+			map.put("result", "注册成功");
+			map.put("code", 1);
+		}catch(Exception e){
+			map.put("result", "注册失败");
+			map.put("code", 0);
 		}
-		//校验通过注册
-		mue.setRegisterdate(new Date());//注册时间
-		mue.setId(UUIDUtil.generateUUID());//主键
-		mue.setDel(SysConstant.NO_DEL);//默认未删除
-		mobileUserService.registerUser(mue);
-		
 		return objectMapper.writeValueAsString(map);
 	}
 

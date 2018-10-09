@@ -170,7 +170,7 @@ public class MobileUserServiceImpl implements MobileUserService{
 					subtask.setName(recourse.getScecatname());
 					subtask.setTaskid(task.getId());
 					mobileSubTaskDao.insert(subtask);
-					handleSubTask(courseid[k],recourse,task.getId());
+					handleSubTask(recourse.getDropletid(),recourse.getDropletid(),recourse.getDropletconftypeid(),task.getId());
 				}
 			}
 		}else{
@@ -184,9 +184,9 @@ public class MobileUserServiceImpl implements MobileUserService{
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void handleSubTask(String courseid,MobileSceCategoryEntity recourse,String taskid){
+	private void handleSubTask(String courseid,String dropLetID,String dropLetConfTypeID,String taskid){
+		
 		MobileSubTaskEntity subtask = new MobileSubTaskEntity();//子任务
-		MobileSceCategoryEntity course = new MobileSceCategoryEntity();//课程
 		MobileScenListDropLetEntity scenListDropLet = new MobileScenListDropLetEntity();
 		MobileCardListDropletEntity cardListDropLet = new MobileCardListDropletEntity();
 		MobileScenarioDropLetEntity scenarioDropLet = new MobileScenarioDropLetEntity();
@@ -198,204 +198,196 @@ public class MobileUserServiceImpl implements MobileUserService{
 		MobileMatchDropLetEntity matchDropLet = new MobileMatchDropLetEntity();
 		MobileVideoDropLetEntity videoDropLet = new MobileVideoDropLetEntity();
 		MobileDictationDropLetEntity dictationDropLet = new MobileDictationDropLetEntity();
+		
 		//根据课程ID判断需要查询哪个表,用以保存到子任务
 		if(courseid.equals(SysConstant.DROPLET_ID2)){
 			//ScenListDropLet
-			scenListDropLet.setDropletid(recourse.getDropletid());
-			scenListDropLet.setDropletconftypeid(recourse.getDropletconftypeid());
+			scenListDropLet.setDropletid(dropLetID);
+			scenListDropLet.setDropletconftypeid(dropLetConfTypeID);
 			List<MobileScenListDropLetEntity> scenList = mobileScenListDropLetDao.selectScenList(scenListDropLet);
-			//保存subtask
-			subtask.setId(UUIDUtil.generateUUID());
-			subtask.setDropletid(recourse.getDropletid());
-			subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-			subtask.setName(recourse.getScecatname());
-			subtask.setTaskid(taskid);
-			mobileSubTaskDao.insert(subtask);
+			
 			for(int i=0;i<scenList.size();i++){
-				//根据课程ID查询课程
-				course.setId(scenList.get(i).getDropletid());
-				MobileSceCategoryEntity retcourse = mobileSceCategoryDao.selectCourseByID(course);
-				handleSubTask(scenList.get(i).getDropletid(),retcourse,taskid);
+				//保存subtask
+				subtask.setId(UUIDUtil.generateUUID());
+				subtask.setDropletid(scenList.get(i).getDropletid());
+				subtask.setDropletconftypeid(scenList.get(i).getDropletconftypeid());
+				subtask.setName(scenList.get(i).getScenname());
+				subtask.setTaskid(taskid);
+				mobileSubTaskDao.insert(subtask);
+				
+			}
+			for(int j=0;j<scenList.size();j++){
+				if(scenList.get(j).getReladropletid()!=null && !"".equals(scenList.get(j).getReladropletid())){
+					handleSubTask(scenList.get(j).getReladropletid(),scenList.get(j).getReladropletid(),scenList.get(j).getReladropletcontypeid(),taskid);
+				}
 			}
 		}
 		if(courseid.equals(SysConstant.DROPLET_ID3)){
 			//CardListDroplet
-			cardListDropLet.setDropletid(recourse.getDropletid());
-			cardListDropLet.setDropletconftypeid(recourse.getDropletconftypeid());
+			cardListDropLet.setDropletid(dropLetID);
+			cardListDropLet.setDropletconftypeid(dropLetConfTypeID);
 			List<MobileCardListDropletEntity> cardList = mobileCardListDropletDao.selectCardListDroplet(cardListDropLet);
-			//保存subtask
-			subtask.setId(UUIDUtil.generateUUID());
-			subtask.setDropletid(recourse.getDropletid());
-			subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-			subtask.setName(recourse.getScecatname());
-			subtask.setTaskid(taskid);
-			mobileSubTaskDao.insert(subtask);
+			
 			for(int i=0;i<cardList.size();i++){
-				//根据课程ID查询课程
-				course.setId(cardList.get(i).getDropletid());
-				MobileSceCategoryEntity retcourse = mobileSceCategoryDao.selectCourseByID(course);
-				handleSubTask(cardList.get(i).getDropletid(),retcourse,taskid);
+				//保存subtask
+				subtask.setId(UUIDUtil.generateUUID());
+				subtask.setDropletid(cardList.get(i).getDropletid());
+				subtask.setDropletconftypeid(cardList.get(i).getDropletconftypeid());
+				subtask.setName(cardList.get(i).getCardname());
+				subtask.setTaskid(taskid);
+				mobileSubTaskDao.insert(subtask);
+			}
+			for(int j=0;j<cardList.size();j++){
+				if(cardList.get(j).getReladropletid()!=null && !"".equals(cardList.get(j).getReladropletid())){
+					handleSubTask(cardList.get(j).getReladropletid(),cardList.get(j).getReladropletid(),cardList.get(j).getReladropletcontypeid(),taskid);
+				}
 			}
 		}
 		if(courseid.equals(SysConstant.DROPLET_ID4)){
 			//ScenarioDropLet
-			scenarioDropLet.setDropletid(recourse.getDropletid());
-			scenarioDropLet.setDropletconftypeid(recourse.getDropletconftypeid());
+			scenarioDropLet.setDropletid(dropLetID);
+			scenarioDropLet.setDropletconftypeid(dropLetConfTypeID);
 			List<MobileScenarioDropLetEntity> scenario = mobileScenarioDropLetDao.selectScenarioData(scenarioDropLet);
-			//保存subtask
-			subtask.setId(UUIDUtil.generateUUID());
-			subtask.setDropletid(recourse.getDropletid());
-			subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-			subtask.setName(recourse.getScecatname());
-			subtask.setTaskid(taskid);
-			mobileSubTaskDao.insert(subtask);
+			
 			for(int i=0;i<scenario.size();i++){
-				//根据课程ID查询课程
-				course.setId(scenario.get(i).getDropletid());
-				MobileSceCategoryEntity retcourse = mobileSceCategoryDao.selectCourseByID(course);
-				handleSubTask(scenario.get(i).getDropletid(),retcourse,taskid);
+				//保存subtask
+				subtask.setId(UUIDUtil.generateUUID());
+				subtask.setDropletid(scenario.get(i).getDropletid());
+				subtask.setDropletconftypeid(scenario.get(i).getDropletconftypeid());
+				subtask.setTaskid(taskid);
+				mobileSubTaskDao.insert(subtask);
+			}
+			for(int j=0;j<scenario.size();j++){
+				if(scenario.get(j).getReladropletid()!=null && !"".equals(scenario.get(j).getReladropletid())){
+					handleSubTask(scenario.get(j).getReladropletid(),scenario.get(j).getReladropletid(),scenario.get(j).getReladropletconftypeid(),taskid);
+				}
 			}
 		}
 		if(courseid.equals(SysConstant.DROPLET_ID5)){
 			//TextChoiceDropLet
-			choiceTextDropLet.setDropletid(recourse.getDropletid());
-			choiceTextDropLet.setDropletconftypeid(recourse.getDropletconftypeid());
+			choiceTextDropLet.setDropletid(dropLetID);
+			choiceTextDropLet.setDropletconftypeid(dropLetConfTypeID);
 			MobileChoiceTextDropLetEntity choiceText = mobileChoiceTextDropLetDao.selectChoiceDropLetData(choiceTextDropLet);
+			
 			//保存subtask
 			subtask.setId(UUIDUtil.generateUUID());
-			subtask.setDropletid(recourse.getDropletid());
-			subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-			subtask.setName(recourse.getScecatname());
+			subtask.setDropletid(choiceText.getDropletid());
+			subtask.setDropletconftypeid(choiceText.getDropletconftypeid());
 			subtask.setTaskid(taskid);
 			mobileSubTaskDao.insert(subtask);
-			//根据课程ID查询课程
-			course.setId(choiceText.getDropletid());
-			MobileSceCategoryEntity retcourse = mobileSceCategoryDao.selectCourseByID(course);
-			handleSubTask(choiceText.getDropletid(),retcourse,taskid);
+			handleSubTask(choiceText.getReladropletid(),choiceText.getReladropletid(),choiceText.getReladropletconftypeid(),taskid);
 		}
 		if(courseid.equals(SysConstant.DROPLET_ID6)){
 			//FillBlankDropLet
-			fillBlankDropLet.setDropletid(recourse.getDropletid());
-			fillBlankDropLet.setDropletconftypeid(recourse.getDropletconftypeid());
+			fillBlankDropLet.setDropletid(dropLetID);
+			fillBlankDropLet.setDropletconftypeid(dropLetConfTypeID);
 			MobileFillBlankDropLetEntity fillBlank = mobileFillBlankDropLetDao.selectFillBlankData(fillBlankDropLet);
+			
 			//保存subtask
 			subtask.setId(UUIDUtil.generateUUID());
-			subtask.setDropletid(recourse.getDropletid());
-			subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-			subtask.setName(recourse.getScecatname());
+			subtask.setDropletid(fillBlank.getDropletid());
+			subtask.setDropletconftypeid(fillBlank.getDropletconftypeid());
 			subtask.setTaskid(taskid);
 			mobileSubTaskDao.insert(subtask);
-			//根据课程ID查询课程
-			course.setId(fillBlank.getDropletid());
-			MobileSceCategoryEntity retcourse = mobileSceCategoryDao.selectCourseByID(course);
-			handleSubTask(fillBlank.getDropletid(),retcourse,taskid);
+			handleSubTask(fillBlank.getReladropletid(),fillBlank.getReladropletid(),fillBlank.getReladropletconftypeid(),taskid);
 		}
 		if(courseid.equals(SysConstant.DROPLET_ID7)){
 			//SuccessDropLet
 		}
 		if(courseid.equals(SysConstant.DROPLET_ID8)){
 			//AudioChoiceDropLet
-			choiceAudioDropLet.setDropletid(recourse.getDropletid());
-			choiceAudioDropLet.setDropletconftypeid(recourse.getDropletconftypeid());
+			choiceAudioDropLet.setDropletid(dropLetID);
+			choiceAudioDropLet.setDropletconftypeid(dropLetConfTypeID);
 			MobileChoiceAudioDropletEntity choiceAudio = mobileChoiceAudioDropletDao.selectChoiceAudioDropletData(choiceAudioDropLet);
+			
 			//保存subtask
 			subtask.setId(UUIDUtil.generateUUID());
-			subtask.setDropletid(recourse.getDropletid());
-			subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-			subtask.setName(recourse.getScecatname());
+			subtask.setDropletid(choiceAudio.getDropletid());
+			subtask.setDropletconftypeid(choiceAudio.getDropletconftypeid());
 			subtask.setTaskid(taskid);
 			mobileSubTaskDao.insert(subtask);
-			//根据课程ID查询课程
-			course.setId(choiceAudio.getDropletid());
-			MobileSceCategoryEntity retcourse = mobileSceCategoryDao.selectCourseByID(course);
-			handleSubTask(choiceAudio.getDropletid(),retcourse,taskid);
+			
+			handleSubTask(choiceAudio.getReladropletid(),choiceAudio.getReladropletid(),choiceAudio.getReladropletconftypeid(),taskid);
 		}
 		if(courseid.equals(SysConstant.DROPLET_ID9)){
 			//ReadSpeakDropLet
-			readSpeakDropLet.setDropletid(recourse.getDropletid());
-			readSpeakDropLet.setDropletconftypeid(recourse.getDropletconftypeid());
+			readSpeakDropLet.setDropletid(dropLetID);
+			readSpeakDropLet.setDropletconftypeid(dropLetConfTypeID);
 			MobileReadSpeakDropLetEntity readSpeak = mobileReadSpeakDropLetDao.selectReadSpeakData(readSpeakDropLet);
+			
 			//保存subtask
 			subtask.setId(UUIDUtil.generateUUID());
-			subtask.setDropletid(recourse.getDropletid());
-			subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-			subtask.setName(recourse.getScecatname());
+			subtask.setDropletid(readSpeak.getDropletid());
+			subtask.setDropletconftypeid(readSpeak.getDropletconftypeid());
 			subtask.setTaskid(taskid);
 			mobileSubTaskDao.insert(subtask);
-			//根据课程ID查询课程
-			course.setId(readSpeak.getDropletid());
-			MobileSceCategoryEntity retcourse = mobileSceCategoryDao.selectCourseByID(course);
-			handleSubTask(readSpeak.getDropletid(),retcourse,taskid);
+			
+			handleSubTask(readSpeak.getReladropletid(),readSpeak.getReladropletid(),readSpeak.getReladropletconftypeid(),taskid);
 		}
 		if(courseid.equals(SysConstant.DROPLET_ID10)){
 			//SortDropLet
-			sortDropLet.setDropletid(recourse.getDropletid());
-			sortDropLet.setDropletconftypeid(recourse.getDropletconftypeid());
+			sortDropLet.setDropletid(dropLetID);
+			sortDropLet.setDropletconftypeid(dropLetConfTypeID);
 			List<MobileSortDropLetEntity> sortDropList = mobileSortDropLetDao.selectSortData(sortDropLet);
-			//保存subtask
-			subtask.setId(UUIDUtil.generateUUID());
-			subtask.setDropletid(recourse.getDropletid());
-			subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-			subtask.setName(recourse.getScecatname());
-			subtask.setTaskid(taskid);
-			mobileSubTaskDao.insert(subtask);
+			
 			for(int i=0;i<sortDropList.size();i++){
-				//根据课程ID查询课程
-				course.setId(sortDropList.get(i).getDropletid());
-				MobileSceCategoryEntity retcourse = mobileSceCategoryDao.selectCourseByID(course);
-				handleSubTask(sortDropList.get(i).getDropletid(),retcourse,taskid);
+				//保存subtask
+				subtask.setId(UUIDUtil.generateUUID());
+				subtask.setDropletid(sortDropList.get(i).getDropletid());
+				subtask.setDropletconftypeid(sortDropList.get(i).getDropletconftypeid());
+				subtask.setTaskid(taskid);
+				mobileSubTaskDao.insert(subtask);
+			}
+			for(int j=0;j<sortDropList.size();j++){
+				if(sortDropList.get(j).getReladropletid()!=null && !"".equals(sortDropList.get(j).getReladropletid())){
+					handleSubTask(sortDropList.get(j).getReladropletid(),sortDropList.get(j).getReladropletid(),sortDropList.get(j).getReladropletconftypeid(),taskid);
+				}
 			}
 		}
 		if(courseid.equals(SysConstant.DROPLET_ID11)){
 			//MatchDropLet
-			matchDropLet.setDropletid(recourse.getDropletid());
-			matchDropLet.setDropletconftypeid(recourse.getDropletconftypeid());
+			matchDropLet.setDropletid(dropLetID);
+			matchDropLet.setDropletconftypeid(dropLetConfTypeID);
 			MobileMatchDropLetEntity match = mobileMatchDropLetDao.selectMatchData(matchDropLet);
+			
 			//保存subtask
 			subtask.setId(UUIDUtil.generateUUID());
-			subtask.setDropletid(recourse.getDropletid());
-			subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-			subtask.setName(recourse.getScecatname());
+			subtask.setDropletid(match.getDropletid());
+			subtask.setDropletconftypeid(match.getDropletconftypeid());
 			subtask.setTaskid(taskid);
 			mobileSubTaskDao.insert(subtask);
-			//根据课程ID查询课程
-			course.setId(match.getDropletid());
-			MobileSceCategoryEntity retcourse = mobileSceCategoryDao.selectCourseByID(course);
-			handleSubTask(match.getDropletid(),retcourse,taskid);
+			
+			handleSubTask(match.getReladropletid(),match.getReladropletid(),match.getReladropletconftypeid(),taskid);
 		}
 		if(courseid.equals(SysConstant.DROPLET_ID12)){
 			//VideoDropLet
-			videoDropLet.setDropletid(recourse.getDropletid());
-			videoDropLet.setDropletconftypeid(recourse.getDropletconftypeid());
+			videoDropLet.setDropletid(dropLetID);
+			videoDropLet.setDropletconftypeid(dropLetConfTypeID);
 			MobileVideoDropLetEntity video = mobileVideoDropLetDao.selectVideoData(videoDropLet);
+			
 			//保存subtask
 			subtask.setId(UUIDUtil.generateUUID());
-			subtask.setDropletid(recourse.getDropletid());
-			subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-			subtask.setName(recourse.getScecatname());
+			subtask.setDropletid(video.getDropletid());
+			subtask.setDropletconftypeid(video.getDropletconftypeid());
 			subtask.setTaskid(taskid);
 			mobileSubTaskDao.insert(subtask);
-			//根据课程ID查询课程
-			course.setId(video.getDropletid());
-			MobileSceCategoryEntity retcourse = mobileSceCategoryDao.selectCourseByID(course);
-			handleSubTask(video.getDropletid(),retcourse,taskid);
+			
+			handleSubTask(video.getReladropletid(),video.getReladropletid(),video.getDropletconftypeid(),taskid);
 		}
 		if(courseid.equals(SysConstant.DROPLET_ID13)){
 			//DictationDropLet
-			dictationDropLet.setDropletid(recourse.getDropletid());
-			dictationDropLet.setDropletconftypeid(recourse.getDropletconftypeid());
+			dictationDropLet.setDropletid(dropLetID);
+			dictationDropLet.setDropletconftypeid(dropLetConfTypeID);
 			MobileDictationDropLetEntity dictation = mobileDictationDropLetDao.selectDictationData(dictationDropLet);
+			
 			//保存subtask
 			subtask.setId(UUIDUtil.generateUUID());
-			subtask.setDropletid(recourse.getDropletid());
-			subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-			subtask.setName(recourse.getScecatname());
+			subtask.setDropletid(dictation.getDropletid());
+			subtask.setDropletconftypeid(dictation.getDropletconftypeid());
 			subtask.setTaskid(taskid);
 			mobileSubTaskDao.insert(subtask);
-			//根据课程ID查询课程
-			course.setId(dictation.getDropletid());
-			MobileSceCategoryEntity retcourse = mobileSceCategoryDao.selectCourseByID(course);
-			handleSubTask(dictation.getDropletid(),retcourse,taskid);
+			
+			handleSubTask(dictation.getReladropletid(),dictation.getReladropletid(),dictation.getDropletconftypeid(),taskid);
 		}
 	}
 	
