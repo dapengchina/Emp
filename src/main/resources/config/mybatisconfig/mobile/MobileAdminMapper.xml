@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileAdminDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileAdminEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ADMIN_NAME" property="adminName" jdbcType="VARCHAR" />
+    <result column="ADMIN_PWD" property="adminPwd" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectTutor" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileAdminEntity" >
+    select * from t_admin
+    where 1=1
+    <if test="status != null and status != ''">
+		and STATUS = #{status}
+	</if>
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from t_admin
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.ability.emp.mobile.entity.MobileAdminEntity" >
+    insert into t_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="adminName != null" >
+        ADMIN_NAME,
+      </if>
+      <if test="adminPwd != null" >
+        ADMIN_PWD,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null" >
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPwd != null" >
+        #{adminPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.ability.emp.mobile.entity.MobileAdminEntity" >
+    update t_admin
+    <set >
+      <if test="adminName != null" >
+        ADMIN_NAME = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPwd != null" >
+        ADMIN_PWD = #{adminPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>
