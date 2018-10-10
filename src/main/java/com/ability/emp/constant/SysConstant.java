@@ -40,6 +40,8 @@ public class SysConstant {
 	   public static final String ON_LINE = "1";
 	   //离线课程
 	   public static final String OFF_LINE = "0";
+	   //离线课程默认2个月期限
+	   public static final int OFF_LINE_DEADLINE = 2;
 	   
 	   /**
 	    * choicetextdropletdata

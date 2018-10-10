@@ -132,7 +132,7 @@ public class MobileUserServiceImpl implements MobileUserService{
 		MobileTaskEntity task = new MobileTaskEntity();//任务
 		Calendar calender = Calendar.getInstance();
         calender.setTime(new Date());
-        calender.add(Calendar.MONTH, 2);
+        calender.add(Calendar.MONTH, SysConstant.OFF_LINE_DEADLINE);
 		
 		int i = mobileUserDao.insert(mue);
 		if(i>0){
@@ -145,41 +145,58 @@ public class MobileUserServiceImpl implements MobileUserService{
 				task.setCourseid(courseid[k]);
 				List<MobileTaskEntity> taskList = mobileTaskDao.selectTaskList(task);
 				if(taskList!=null && taskList.size()>0){
-					
+					//如果课程对应的任务已经结束,则执行保存操作
+					if(taskList.get(i).getTaskstate().equals(SysConstant.TASK_STATE1)){
+						executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId());
+					}
 				}else{
-					//保存任务
-					task.setId(UUIDUtil.generateUUID());
-					task.setCourseid(courseid[k]);
-					task.setTaskname(recourse.getScecatname());
-					task.setTaskstate(SysConstant.TASK_STATE0);//未结束
-					task.setStartDate(new Date());//任务开始日期
-					task.setEndDate(calender.getTime());//任务结束日期,自动默认2个月
-					task.setThesauresType("-1");
-					mobileTaskDao.insert(task);
-					//保存用户任务
-					userTask.setId(UUIDUtil.generateUUID());
-					userTask.setUserid(mue.getId());
-					userTask.setTaskid(task.getId());
-					userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
-					mobileUserTaskDao.insert(userTask);
-					//保存subtask
-					subtask.setId(UUIDUtil.generateUUID());
-					subtask.setDropletid(recourse.getDropletid());
-					subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-					subtask.setName(recourse.getScecatname());
-					subtask.setTaskid(task.getId());
-					mobileSubTaskDao.insert(subtask);
-					handleSubTask(recourse.getDropletid(),recourse.getDropletid(),recourse.getDropletconftypeid(),task.getId());
+					executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId());
 				}
 			}
-		}else{
-			
 		}
 	}
 
 	@Override
 	public MobileUserEntity getUser(MobileUserEntity mue) {
 		return mobileUserDao.selectUser(mue);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void executeSave(
+			MobileTaskEntity task,
+			MobileUserTaskEntity userTask,
+			MobileSubTaskEntity subtask,
+			MobileSceCategoryEntity recourse,
+			String courseid,
+			Calendar calender,
+			String userid
+			){
+		//保存任务
+		task.setId(UUIDUtil.generateUUID());
+		task.setCourseid(courseid);
+		task.setTaskname(recourse.getScecatname());
+		task.setTaskstate(SysConstant.TASK_STATE0);//未结束
+		//在线课程没有开始日期和结束日期(背单词除外)
+		if(recourse.getCoursestate().equals(SysConstant.OFF_LINE)){
+			task.setStartDate(new Date());//任务开始日期
+			task.setEndDate(calender.getTime());//任务结束日期,自动默认2个月
+		}
+		task.setThesauresType("-1");
+		mobileTaskDao.insert(task);
+		//保存用户任务
+		userTask.setId(UUIDUtil.generateUUID());
+		userTask.setUserid(userid);
+		userTask.setTaskid(task.getId());
+		userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
+		mobileUserTaskDao.insert(userTask);
+		//保存subtask
+		subtask.setId(UUIDUtil.generateUUID());
+		subtask.setDropletid(recourse.getDropletid());
+		subtask.setDropletconftypeid(recourse.getDropletconftypeid());
+		subtask.setName(recourse.getScecatname());
+		subtask.setTaskid(task.getId());
+		mobileSubTaskDao.insert(subtask);
+		handleSubTask(recourse.getDropletid(),recourse.getDropletid(),recourse.getDropletconftypeid(),task.getId());
 	}
 	
 	@SuppressWarnings("unchecked")

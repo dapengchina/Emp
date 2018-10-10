@@ -104,8 +104,12 @@ public class AdminTaskListAction {
 		if(data!=null && data.size()>0){
 			AdminScecategoryEntity ase = new AdminScecategoryEntity();
 			for(int i=0;i<data.size();i++){
-				data.get(i).setStartStringDate(sf.format(data.get(i).getStartDate()!=null?data.get(i).getStartDate():""));
-				data.get(i).setEndStringDate(sf.format(data.get(i).getEndDate()!=null?data.get(i).getEndDate():""));
+				if(data.get(i).getStartDate()!=null){
+					data.get(i).setStartStringDate(sf.format(data.get(i).getStartDate()!=null?data.get(i).getStartDate():""));
+				}
+				if(data.get(i).getEndDate()!=null){
+					data.get(i).setEndStringDate(sf.format(data.get(i).getEndDate()!=null?data.get(i).getEndDate():""));
+				}
 				tParamid=data.get(i).getThesauresType();
 				if(!StringUtils.pathEquals("", tParamid)){
 					adminThesauresPramEntity=adminThesauresPramService.getByID(data.get(i).getThesauresType());

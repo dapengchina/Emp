@@ -41,7 +41,6 @@ public class MobileCourseAction {
 			cv.setScecatname(courseList.get(i).getScecatname());
 			cv.setIcon(SysConstant.SERVICE_HOST+courseList.get(i).getIcon());
 			cv.setCoursestate(courseList.get(i).getCoursestate());
-			cv.setCourselimit(courseList.get(i).getCourselimit());
 			
 			list.add(cv);
 		}
