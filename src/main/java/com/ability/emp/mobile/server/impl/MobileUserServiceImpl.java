@@ -145,12 +145,17 @@ public class MobileUserServiceImpl implements MobileUserService{
 				task.setCourseid(courseid[k]);
 				List<MobileTaskEntity> taskList = mobileTaskDao.selectTaskList(task);
 				if(taskList!=null && taskList.size()>0){
-					//如果课程对应的任务已经结束,则执行保存操作
-					if(taskList.get(i).getTaskstate().equals(SysConstant.TASK_STATE1)){
-						executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId());
+					for(int m=0;m<taskList.size();m++){
+						//如果课程对应的任务已经结束,则执行保存操作
+						if(taskList.get(m).getTaskstate().equals(SysConstant.TASK_STATE1)){
+							executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),null,false);
+						}else{
+							//如果没有结束,则将此任务保存到用户下
+							executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),taskList.get(m).getId(),true);
+						}
 					}
 				}else{
-					executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId());
+					executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),null,false);
 				}
 			}
 		}
@@ -169,24 +174,28 @@ public class MobileUserServiceImpl implements MobileUserService{
 			MobileSceCategoryEntity recourse,
 			String courseid,
 			Calendar calender,
-			String userid
+			String userid,
+			String taskid,
+			boolean flag
 			){
-		//保存任务
-		task.setId(UUIDUtil.generateUUID());
-		task.setCourseid(courseid);
-		task.setTaskname(recourse.getScecatname());
-		task.setTaskstate(SysConstant.TASK_STATE0);//未结束
-		//在线课程没有开始日期和结束日期(背单词除外)
-		if(recourse.getCoursestate().equals(SysConstant.OFF_LINE)){
-			task.setStartDate(new Date());//任务开始日期
-			task.setEndDate(calender.getTime());//任务结束日期,自动默认2个月
+		if(flag==false){
+			//保存任务
+			task.setId(UUIDUtil.generateUUID());
+			task.setCourseid(courseid);
+			task.setTaskname(recourse.getScecatname());
+			task.setTaskstate(SysConstant.TASK_STATE0);//未结束
+			//在线课程没有开始日期和结束日期(背单词除外)
+			if(recourse.getCoursestate().equals(SysConstant.OFF_LINE)){
+				task.setStartDate(new Date());//任务开始日期
+				task.setEndDate(calender.getTime());//任务结束日期,自动默认2个月
+			}
+			task.setThesauresType("-1");
+			mobileTaskDao.insert(task);
 		}
-		task.setThesauresType("-1");
-		mobileTaskDao.insert(task);
 		//保存用户任务
 		userTask.setId(UUIDUtil.generateUUID());
 		userTask.setUserid(userid);
-		userTask.setTaskid(task.getId());
+		userTask.setTaskid(flag==false?task.getId():taskid);
 		userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
 		mobileUserTaskDao.insert(userTask);
 		//保存subtask
@@ -194,10 +203,10 @@ public class MobileUserServiceImpl implements MobileUserService{
 		subtask.setDropletid(recourse.getDropletid());
 		subtask.setDropletconftypeid(recourse.getDropletconftypeid());
 		subtask.setName(recourse.getScecatname());
-		subtask.setTaskid(task.getId());
+		subtask.setTaskid(flag==false?task.getId():taskid);
 		subtask.setUserid(userid);
 		mobileSubTaskDao.insert(subtask);
-		handleSubTask(recourse.getDropletid(),recourse.getDropletid(),recourse.getDropletconftypeid(),task.getId(),userid);
+		handleSubTask(recourse.getDropletid(),recourse.getDropletid(),recourse.getDropletconftypeid(),flag==false?task.getId():taskid,userid);
 	}
 	
 	@SuppressWarnings("unchecked")
