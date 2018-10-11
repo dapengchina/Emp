@@ -205,6 +205,7 @@ public class MobileUserServiceImpl implements MobileUserService{
 		subtask.setName(recourse.getScecatname());
 		subtask.setTaskid(flag==false?task.getId():taskid);
 		subtask.setUserid(userid);
+		//subtask.setIndex(recourse.getIndex());
 		mobileSubTaskDao.insert(subtask);
 		handleSubTask(recourse.getDropletid(),recourse.getDropletid(),recourse.getDropletconftypeid(),flag==false?task.getId():taskid,userid);
 	}
@@ -237,8 +238,8 @@ public class MobileUserServiceImpl implements MobileUserService{
 				subtask.setName(scenList.get(i).getScenname());
 				subtask.setTaskid(taskid);
 				subtask.setUserid(userid);
+				subtask.setIndex(scenList.get(i).getIndex());
 				mobileSubTaskDao.insert(subtask);
-				
 			}
 			for(int j=0;j<scenList.size();j++){
 				if(scenList.get(j).getReladropletid()!=null && !"".equals(scenList.get(j).getReladropletid())){
@@ -260,6 +261,7 @@ public class MobileUserServiceImpl implements MobileUserService{
 				subtask.setName(cardList.get(i).getCardname());
 				subtask.setTaskid(taskid);
 				subtask.setUserid(userid);
+				subtask.setIndex(cardList.get(i).getIndex());
 				mobileSubTaskDao.insert(subtask);
 			}
 			for(int j=0;j<cardList.size();j++){

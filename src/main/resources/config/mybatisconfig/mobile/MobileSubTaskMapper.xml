@@ -5,6 +5,7 @@
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="TaskId" property="taskid" jdbcType="VARCHAR" />
     <result column="UserId" property="userid" jdbcType="VARCHAR" />
+    <result column="Index" property="index" jdbcType="INTEGER" />
     <result column="Name" property="name" jdbcType="VARCHAR" />
     <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
     <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
@@ -35,6 +36,9 @@
       </if>
       <if test="userid != null" >
         UserId,
+      </if>
+      <if test="index != null" >
+        `Index`,
       </if>
       <if test="name != null" >
         Name,
@@ -68,6 +72,9 @@
       <if test="userid != null" >
         #{userid,jdbcType=VARCHAR},
       </if>
+      <if test="index != null" >
+        #{index,jdbcType=INTEGER},
+      </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
@@ -100,6 +107,9 @@
       </if>
       <if test="userid != null" >
         UserId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null" >
+        Index = #{index,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         Name = #{name,jdbcType=VARCHAR},

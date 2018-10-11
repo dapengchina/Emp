@@ -8,6 +8,8 @@ public class MobileSubTaskEntity {
     private String taskid;
     
     private String userid;
+    
+    private Integer index;
 
     private String name;
 
@@ -27,7 +29,15 @@ public class MobileSubTaskEntity {
     
     
 
-    public String getUserid() {
+    public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
+
+	public String getUserid() {
 		return userid;
 	}
 
