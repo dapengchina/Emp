@@ -195,12 +195,19 @@ public class MobileUserServiceImpl implements MobileUserService{
 		subtask.setDropletconftypeid(recourse.getDropletconftypeid());
 		subtask.setName(recourse.getScecatname());
 		subtask.setTaskid(task.getId());
+		subtask.setUserid(userid);
 		mobileSubTaskDao.insert(subtask);
-		handleSubTask(recourse.getDropletid(),recourse.getDropletid(),recourse.getDropletconftypeid(),task.getId());
+		handleSubTask(recourse.getDropletid(),recourse.getDropletid(),recourse.getDropletconftypeid(),task.getId(),userid);
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void handleSubTask(String courseid,String dropLetID,String dropLetConfTypeID,String taskid){
+	private void handleSubTask(
+			String courseid,
+			String dropLetID,
+			String dropLetConfTypeID,
+			String taskid,
+			String userid
+			){
 		
 		MobileSubTaskEntity subtask = new MobileSubTaskEntity();//子任务
 		MobileScenListDropLetEntity scenListDropLet = new MobileScenListDropLetEntity();
@@ -220,12 +227,13 @@ public class MobileUserServiceImpl implements MobileUserService{
 				subtask.setDropletconftypeid(scenList.get(i).getDropletconftypeid());
 				subtask.setName(scenList.get(i).getScenname());
 				subtask.setTaskid(taskid);
+				subtask.setUserid(userid);
 				mobileSubTaskDao.insert(subtask);
 				
 			}
 			for(int j=0;j<scenList.size();j++){
 				if(scenList.get(j).getReladropletid()!=null && !"".equals(scenList.get(j).getReladropletid())){
-					handleSubTask(scenList.get(j).getReladropletid(),scenList.get(j).getReladropletid(),scenList.get(j).getReladropletcontypeid(),taskid);
+					handleSubTask(scenList.get(j).getReladropletid(),scenList.get(j).getReladropletid(),scenList.get(j).getReladropletcontypeid(),taskid,userid);
 				}
 			}
 		}
@@ -242,11 +250,12 @@ public class MobileUserServiceImpl implements MobileUserService{
 				subtask.setDropletconftypeid(cardList.get(i).getDropletconftypeid());
 				subtask.setName(cardList.get(i).getCardname());
 				subtask.setTaskid(taskid);
+				subtask.setUserid(userid);
 				mobileSubTaskDao.insert(subtask);
 			}
 			for(int j=0;j<cardList.size();j++){
 				if(cardList.get(j).getReladropletid()!=null && !"".equals(cardList.get(j).getReladropletid())){
-					handleSubTask(cardList.get(j).getReladropletid(),cardList.get(j).getReladropletid(),cardList.get(j).getReladropletcontypeid(),taskid);
+					handleSubTask(cardList.get(j).getReladropletid(),cardList.get(j).getReladropletid(),cardList.get(j).getReladropletcontypeid(),taskid,userid);
 				}
 			}
 		}

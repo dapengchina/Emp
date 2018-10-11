@@ -4,12 +4,14 @@
   <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileSubTaskEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="TaskId" property="taskid" jdbcType="VARCHAR" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
     <result column="Name" property="name" jdbcType="VARCHAR" />
     <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
     <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
     <result column="Score" property="score" jdbcType="VARCHAR" />
     <result column="Passscore" property="passscore" jdbcType="VARCHAR" />
     <result column="Ifpass" property="ifpass" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileSubTaskEntity" >
@@ -31,6 +33,9 @@
       <if test="taskid != null" >
         TaskId,
       </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
       <if test="name != null" >
         Name,
       </if>
@@ -49,6 +54,9 @@
       <if test="ifpass != null" >
         Ifpass,
       </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -56,6 +64,9 @@
       </if>
       <if test="taskid != null" >
         #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -75,6 +86,9 @@
       <if test="ifpass != null" >
         #{ifpass,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   
@@ -83,6 +97,9 @@
     <set >
       <if test="taskid != null" >
         TaskId = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
         Name = #{name,jdbcType=VARCHAR},
@@ -101,6 +118,9 @@
       </if>
       <if test="ifpass != null" >
         Ifpass = #{ifpass,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

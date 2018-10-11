@@ -1,5 +1,6 @@
 package com.ability.emp.mobile.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileAdminEntity;
+import com.ability.emp.mobile.entity.vo.TutorVo;
 import com.ability.emp.mobile.server.MobileAdminService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,10 +31,18 @@ public class MobileAdminAction {
 	   @RequestMapping("/getTutor")
 	   @ResponseBody
 	   public String getTutor() throws JsonProcessingException{
+		   List<TutorVo> list = new ArrayList<TutorVo>();
 		   MobileAdminEntity me = new MobileAdminEntity();
 		   me.setStatus(SysConstant.STARTUSE);
 		   List<MobileAdminEntity> tutorList = mobileAdminService.getTutor(me);
-		   return objectMapper.writeValueAsString(tutorList);
+		   for(int i=0;i<tutorList.size();i++){
+			   TutorVo tv = new TutorVo();
+			   tv.setId(tutorList.get(i).getId());
+			   tv.setName(tutorList.get(i).getAdminName());
+			   
+			   list.add(tv);
+		   }
+		   return objectMapper.writeValueAsString(list);
 	   }
 
 }

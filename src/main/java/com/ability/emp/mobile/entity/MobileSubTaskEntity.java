@@ -6,6 +6,8 @@ public class MobileSubTaskEntity {
     private String id;
 
     private String taskid;
+    
+    private String userid;
 
     private String name;
 
@@ -18,8 +20,30 @@ public class MobileSubTaskEntity {
     private String passscore;
 
     private String ifpass;
+    
+    private String remark;
+    
+    
+    
+    
 
-    public String getId() {
+    public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getId() {
         return id;
     }
 
