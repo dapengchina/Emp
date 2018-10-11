@@ -35,6 +35,10 @@ public class MobileAdminAction {
 		   MobileAdminEntity me = new MobileAdminEntity();
 		   me.setStatus(SysConstant.STARTUSE);
 		   List<MobileAdminEntity> tutorList = mobileAdminService.getTutor(me);
+		   TutorVo temp = new TutorVo();
+		   temp.setId("-1");
+		   temp.setName("--请选择--");
+		   list.add(temp);
 		   for(int i=0;i<tutorList.size();i++){
 			   TutorVo tv = new TutorVo();
 			   tv.setId(tutorList.get(i).getId());

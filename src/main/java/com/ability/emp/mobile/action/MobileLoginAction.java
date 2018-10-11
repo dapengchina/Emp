@@ -1,5 +1,7 @@
 package com.ability.emp.mobile.action;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +38,8 @@ public class MobileLoginAction {
 	@Resource
 	private MobileUserService mobileUserService;
 	
+	private SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+	
 	@RequestMapping("/login")
 	@ResponseBody
 	public String login(@RequestBody MobileLoginEntity ule) throws Exception {
@@ -57,7 +61,7 @@ public class MobileLoginAction {
             userInfo.put("nickName", userInfoJSON.get("nickName"));//用户昵称
             userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));//头像地址
             map.put("userInfo", userInfo);
-            System.out.println("==========="+"Login Success"+userInfoJSON.get("nickName"));
+            System.out.println("==========="+"Login Success"+userInfoJSON.get("nickName")+"==="+sdf.format(new Date()));
         }
 	    return objectMapper.writeValueAsString(map);
 	}
