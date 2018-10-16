@@ -18,12 +18,14 @@ import com.ability.emp.mobile.entity.MobileCardListDropletEntity;
 import com.ability.emp.mobile.entity.MobileDropLetButtonEntity;
 import com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity;
 import com.ability.emp.mobile.entity.MobileDropLetEntity;
+import com.ability.emp.mobile.entity.MobileSubTaskEntity;
 import com.ability.emp.mobile.entity.vo.CardListDropletVo;
 import com.ability.emp.mobile.entity.vo.DropLetButtonVo;
 import com.ability.emp.mobile.server.MobileCardListDropletService;
 import com.ability.emp.mobile.server.MobileDropLetButtonService;
 import com.ability.emp.mobile.server.MobileDropLetConfTypeService;
 import com.ability.emp.mobile.server.MobileDropLetService;
+import com.ability.emp.mobile.server.MobileSubTaskService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin//解决跨域请求
@@ -44,18 +46,22 @@ public class MobileCardListDropletAction {
 	@Resource
 	private MobileDropLetService mobileDropLetService;
 	
+	@Resource
+	private MobileSubTaskService mobileSubTaskService;
+	
 	ObjectMapper objectMapper = new ObjectMapper();
 	
 	
 	
-	@RequestMapping("/getCardListDroplet/{dropLetId}/{dropLetConfTypeId}")
+	@RequestMapping("/getCardListDroplet/{dropLetId}/{dropLetConfTypeId}/{userid}")
 	@ResponseBody
-	public String getCardListDroplet(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
+	public String getCardListDroplet(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId,@PathVariable("userid") String userid) throws Exception {
 		List<CardListDropletVo> list = new ArrayList<CardListDropletVo>();
 		List<DropLetButtonVo> list2 = new ArrayList<DropLetButtonVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		MobileCardListDropletEntity me = new MobileCardListDropletEntity();
 		MobileDropLetEntity md = new MobileDropLetEntity();
+		MobileSubTaskEntity subtask = new MobileSubTaskEntity();
 		
 		if(!dropLetId.equals("1")){
 			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
@@ -74,6 +80,17 @@ public class MobileCardListDropletAction {
 			cv.setDropletid(cardListDropletList.get(i).getDropletid());
 			cv.setDropletcontypeid(cardListDropletList.get(i).getDropletconftypeid());
 			
+			//查询分数
+			subtask.setUserid(userid);
+			subtask.setIndex(cardListDropletList.get(i).getIndex());
+			subtask.setDropletid(cardListDropletList.get(i).getDropletid());
+			subtask.setDropletconftypeid(cardListDropletList.get(i).getDropletconftypeid());
+			MobileSubTaskEntity resubtask = mobileSubTaskService.getSubTask(subtask);
+			if(resubtask!=null){
+				cv.setScore(resubtask.getScore()!=null?resubtask.getScore():"0");
+			}else{
+				cv.setScore("0");
+			}
 			
 			md.setId(cardListDropletList.get(i).getReladropletid());
     		MobileDropLetEntity mde = mobileDropLetService.getDropLetByID(md);

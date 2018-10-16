@@ -22,11 +22,21 @@ public class CardListDropletVo {
 	  
 	  private String index;
 	  
+	  private String score;
+	  
 	  
 	  
 	  
 
-	  public String getDropletid() {
+	  public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
+
+	public String getDropletid() {
 		return dropletid;
 	}
 
