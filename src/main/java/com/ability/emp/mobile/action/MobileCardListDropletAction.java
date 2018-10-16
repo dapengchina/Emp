@@ -71,6 +71,8 @@ public class MobileCardListDropletAction {
 			cv.setIndex(cardListDropletList.get(i).getIndex().toString());
 			cv.setReladropletid(cardListDropletList.get(i).getReladropletid());
 			cv.setReladropletcontypeid(cardListDropletList.get(i).getReladropletcontypeid());
+			cv.setDropletid(cardListDropletList.get(i).getDropletid());
+			cv.setDropletcontypeid(cardListDropletList.get(i).getDropletconftypeid());
 			
 			
 			md.setId(cardListDropletList.get(i).getReladropletid());

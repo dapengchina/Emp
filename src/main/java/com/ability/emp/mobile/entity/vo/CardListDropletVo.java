@@ -14,6 +14,10 @@ public class CardListDropletVo {
 
 	  private String reladropletid;
 	  
+	  private String dropletid;
+	  
+	  private String dropletcontypeid;
+	  
 	  private String dropletlink;
 	  
 	  private String index;
@@ -22,7 +26,23 @@ public class CardListDropletVo {
 	  
 	  
 
-	  public String getDropletlink() {
+	  public String getDropletid() {
+		return dropletid;
+	}
+
+	public void setDropletid(String dropletid) {
+		this.dropletid = dropletid;
+	}
+
+	public String getDropletcontypeid() {
+		return dropletcontypeid;
+	}
+
+	public void setDropletcontypeid(String dropletcontypeid) {
+		this.dropletcontypeid = dropletcontypeid;
+	}
+
+	public String getDropletlink() {
 		return dropletlink;
 	}
 
