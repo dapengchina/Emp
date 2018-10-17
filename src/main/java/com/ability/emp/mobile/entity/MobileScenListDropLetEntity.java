@@ -20,21 +20,6 @@ public class MobileScenListDropLetEntity {
 
     private Integer index;
 
-    private String compperc;
-
-    private String averagescore;
-
-    private String currentpoint;
-
-    private String totalpoint;
-    
-    
-    
-    
-    
-
-    
-
 
 	public String getReladropletcontypeid() {
 		return reladropletcontypeid;
@@ -100,35 +85,5 @@ public class MobileScenListDropLetEntity {
         this.index = index;
     }
 
-    public String getCompperc() {
-        return compperc;
-    }
-
-    public void setCompperc(String compperc) {
-        this.compperc = compperc == null ? null : compperc.trim();
-    }
-
-    public String getAveragescore() {
-        return averagescore;
-    }
-
-    public void setAveragescore(String averagescore) {
-        this.averagescore = averagescore == null ? null : averagescore.trim();
-    }
-
-    public String getCurrentpoint() {
-        return currentpoint;
-    }
-
-    public void setCurrentpoint(String currentpoint) {
-        this.currentpoint = currentpoint == null ? null : currentpoint.trim();
-    }
-
-    public String getTotalpoint() {
-        return totalpoint;
-    }
-
-    public void setTotalpoint(String totalpoint) {
-        this.totalpoint = totalpoint == null ? null : totalpoint.trim();
-    }
+    
 }

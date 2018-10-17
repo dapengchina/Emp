@@ -10,10 +10,6 @@
     <result column="ScenIcon" property="scenicon" jdbcType="VARCHAR" />
     <result column="ScenName" property="scenname" jdbcType="VARCHAR" />
     <result column="Index" property="index" jdbcType="INTEGER" />
-    <result column="CompPerc" property="compperc" jdbcType="VARCHAR" />
-    <result column="AverageScore" property="averagescore" jdbcType="VARCHAR" />
-    <result column="CurrentPoint" property="currentpoint" jdbcType="VARCHAR" />
-    <result column="TotalPoint" property="totalpoint" jdbcType="VARCHAR" />
   </resultMap>
   
   
@@ -62,18 +58,6 @@
       <if test="index != null" >
         Index,
       </if>
-      <if test="compperc != null" >
-        CompPerc,
-      </if>
-      <if test="averagescore != null" >
-        AverageScore,
-      </if>
-      <if test="currentpoint != null" >
-        CurrentPoint,
-      </if>
-      <if test="totalpoint != null" >
-        TotalPoint,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -99,18 +83,6 @@
       </if>
       <if test="index != null" >
         #{index,jdbcType=INTEGER},
-      </if>
-      <if test="compperc != null" >
-        #{compperc,jdbcType=VARCHAR},
-      </if>
-      <if test="averagescore != null" >
-        #{averagescore,jdbcType=VARCHAR},
-      </if>
-      <if test="currentpoint != null" >
-        #{currentpoint,jdbcType=VARCHAR},
-      </if>
-      <if test="totalpoint != null" >
-        #{totalpoint,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -138,18 +110,6 @@
       </if>
       <if test="index != null" >
         Index = #{index,jdbcType=INTEGER},
-      </if>
-      <if test="compperc != null" >
-        CompPerc = #{compperc,jdbcType=VARCHAR},
-      </if>
-      <if test="averagescore != null" >
-        AverageScore = #{averagescore,jdbcType=VARCHAR},
-      </if>
-      <if test="currentpoint != null" >
-        CurrentPoint = #{currentpoint,jdbcType=VARCHAR},
-      </if>
-      <if test="totalpoint != null" >
-        TotalPoint = #{totalpoint,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
