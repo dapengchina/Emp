@@ -205,6 +205,7 @@ public class MobileUserServiceImpl implements MobileUserService{
 		subtask.setName(recourse.getScecatname());
 		subtask.setTaskid(flag==false?task.getId():taskid);
 		subtask.setUserid(userid);
+		subtask.setIfpass(SysConstant.CARD_STUDY_NOPASS);
 		//subtask.setIndex(recourse.getIndex());
 		mobileSubTaskDao.insert(subtask);
 		handleSubTask(recourse.getDropletid(),recourse.getDropletid(),recourse.getDropletconftypeid(),flag==false?task.getId():taskid,userid);
@@ -239,6 +240,7 @@ public class MobileUserServiceImpl implements MobileUserService{
 				subtask.setTaskid(taskid);
 				subtask.setUserid(userid);
 				subtask.setIndex(scenList.get(i).getIndex());
+				subtask.setIfpass(SysConstant.CARD_STUDY_NOPASS);
 				mobileSubTaskDao.insert(subtask);
 			}
 			for(int j=0;j<scenList.size();j++){
@@ -262,6 +264,7 @@ public class MobileUserServiceImpl implements MobileUserService{
 				subtask.setTaskid(taskid);
 				subtask.setUserid(userid);
 				subtask.setIndex(cardList.get(i).getIndex());
+				subtask.setIfpass(SysConstant.CARD_STUDY_NOPASS);
 				mobileSubTaskDao.insert(subtask);
 			}
 			for(int j=0;j<cardList.size();j++){
