@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileSubTaskEntity;
 import com.ability.emp.mobile.server.MobileSubTaskService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -36,6 +37,9 @@ public class MobileSubTaskAction {
 			MobileSubTaskEntity subtask = mobileSubTaskService.getSubTask(mste);
 			if(subtask!=null){
 				mste.setId(subtask.getId());
+				if(Integer.parseInt(mste.getScore())>0){
+					mste.setIfpass(SysConstant.CARD_STUDY_PASS);
+				}
 				mobileSubTaskService.saveScore(mste);
 				map.put("result", "保存分数成功");
 				map.put("code", "1");
