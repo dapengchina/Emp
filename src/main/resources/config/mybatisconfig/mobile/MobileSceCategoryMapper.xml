@@ -29,6 +29,9 @@
     <if test="fircatid != null and fircatid != ''">
 		and FirCatId = #{fircatid}
 	</if>
+	<if test="coursestate != null and coursestate != ''">
+		and CourseState = #{coursestate}
+	</if>
 	order by t.index asc
   </select>
   
