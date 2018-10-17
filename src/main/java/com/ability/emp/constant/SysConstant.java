@@ -100,6 +100,13 @@ public class SysConstant {
 	   public static final String DROPLET_ID12 = "12";//VideoDropLet
 	   public static final String DROPLET_ID13 = "13";//DictationDropLet
 	   
+	   //一个card 默认100个星
+	   public static final Integer CARD_STAR = 100;
+	   //卡片场景学习通过
+	   public static final String CARD_STUDY_PASS = "0";
+	   //卡片场景学习未通过
+	   public static final String CARD_STUDY_NOPASS = "1";
+	   
 	   
 
 }

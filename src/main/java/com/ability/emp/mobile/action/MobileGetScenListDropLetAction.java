@@ -1,5 +1,8 @@
 package com.ability.emp.mobile.action;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,12 +21,14 @@ import com.ability.emp.mobile.entity.MobileDropLetButtonEntity;
 import com.ability.emp.mobile.entity.MobileDropLetConfTypeEntity;
 import com.ability.emp.mobile.entity.MobileDropLetEntity;
 import com.ability.emp.mobile.entity.MobileScenListDropLetEntity;
+import com.ability.emp.mobile.entity.MobileSubTaskEntity;
 import com.ability.emp.mobile.entity.vo.DropLetButtonVo;
 import com.ability.emp.mobile.entity.vo.ScenListDropLetVo;
 import com.ability.emp.mobile.server.MobileDropLetButtonService;
 import com.ability.emp.mobile.server.MobileDropLetConfTypeService;
 import com.ability.emp.mobile.server.MobileDropLetService;
 import com.ability.emp.mobile.server.MobileScenListDropLetService;
+import com.ability.emp.mobile.server.MobileSubTaskService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @CrossOrigin//解决跨域请求
@@ -45,19 +50,28 @@ public class MobileGetScenListDropLetAction {
 	@Resource
 	private MobileDropLetButtonService mobileDropLetButtonService;
 	
+	@Resource
+	private MobileSubTaskService mobileSubTaskService;
+	
 	
     ObjectMapper objectMapper = new ObjectMapper();  
 	
 	
 	
-	@RequestMapping("/getScenListDropLetData/{dropLetId}/{dropLetConfTypeId}")
+	@RequestMapping("/getScenListDropLetData/{dropLetId}/{dropLetConfTypeId}/{userid}")
 	@ResponseBody
-	public String getScenListDropLetData(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId) throws Exception {
+	public String getScenListDropLetData(@PathVariable("dropLetId") String dropLetId,@PathVariable("dropLetConfTypeId") String dropLetConfTypeId,@PathVariable("userid") String userid) throws Exception {
 		List<ScenListDropLetVo> list = new ArrayList<ScenListDropLetVo>();
 		List<DropLetButtonVo> list2 = new ArrayList<DropLetButtonVo>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		MobileScenListDropLetEntity me = new MobileScenListDropLetEntity();
 		MobileDropLetEntity md = new MobileDropLetEntity();
+		MobileSubTaskEntity subtask = new MobileSubTaskEntity();
+		int currentPoint = 0;
+		double done = 0.0;
+		double total = 0.0;
+		Double score = 0.0;
+		DecimalFormat df = (DecimalFormat)NumberFormat.getInstance();
 		if(!dropLetId.equals("1")){
 			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
 		}
@@ -68,14 +82,56 @@ public class MobileGetScenListDropLetAction {
 			ScenListDropLetVo sv = new ScenListDropLetVo();
 			sv.setScenName(scenListDropLetList.get(i).getScenname());
 			sv.setScenIcon(SysConstant.SERVICE_HOST+scenListDropLetList.get(i).getScenicon());
-			sv.setCompPerc(scenListDropLetList.get(i).getCompperc());
-			sv.setAverageScore(scenListDropLetList.get(i).getAveragescore());
-			sv.setCurrentPoint(scenListDropLetList.get(i).getCurrentpoint());
-			sv.setTotalPoint(scenListDropLetList.get(i).getTotalpoint());
 			sv.setIndex(scenListDropLetList.get(i).getIndex().toString());
 			sv.setRelaDropLetId(scenListDropLetList.get(i).getReladropletid());
 			sv.setId(scenListDropLetList.get(i).getId());
 			sv.setReladropletcontypeid(scenListDropLetList.get(i).getReladropletcontypeid());
+			
+			//处理用户得分
+			if(
+				userid!=null && 
+				scenListDropLetList.get(i).getReladropletid()!=null &&
+				scenListDropLetList.get(i).getReladropletcontypeid()!=null &&
+				!"".equals(scenListDropLetList.get(i).getReladropletid()) &&
+				!"".equals(scenListDropLetList.get(i).getReladropletcontypeid())
+				
+			){
+				subtask.setUserid(userid);
+				subtask.setDropletid(scenListDropLetList.get(i).getReladropletid());
+				subtask.setDropletconftypeid(scenListDropLetList.get(i).getReladropletcontypeid());
+				List<MobileSubTaskEntity> subtasklist = mobileSubTaskService.getSubTaskList(subtask);
+				if(subtasklist!=null && subtasklist.size()>0){
+					total = subtasklist.size();
+					sv.setTotalPoint(String.valueOf(subtasklist.size() * SysConstant.CARD_STAR));
+					for(int j=0;j<subtasklist.size();j++){
+						if(subtasklist.get(j).getIfpass().equals(SysConstant.CARD_STUDY_PASS)){
+							currentPoint = currentPoint + SysConstant.CARD_STAR;
+							done = done + 1;
+						}
+						if(subtasklist.get(j).getScore()!=null){
+							score = score + Double.parseDouble(subtasklist.get(j).getScore());
+						}
+					}
+					//可以设置精确几位小数
+					df.setMaximumFractionDigits(0);
+					//模式 例如四舍五入
+					df.setRoundingMode(RoundingMode.HALF_UP);
+					sv.setCurrentPoint(String.valueOf(currentPoint));
+					sv.setAverageScore(String.valueOf(df.format(score)));
+					double accuracy_num = done / total;
+					sv.setCompPerc(Double.parseDouble(df.format(accuracy_num * 100)));
+				}else{
+					sv.setTotalPoint("0");
+					sv.setCurrentPoint("0");
+					sv.setCompPerc(0.0);
+					sv.setAverageScore("0");
+				}
+			}else{
+				sv.setTotalPoint("0");
+				sv.setCurrentPoint("0");
+				sv.setCompPerc(0.0);
+				sv.setAverageScore("0");
+			}
 			
 			md.setId(scenListDropLetList.get(i).getReladropletid());
 			MobileDropLetEntity mde = mobileDropLetService.getDropLetByID(md);

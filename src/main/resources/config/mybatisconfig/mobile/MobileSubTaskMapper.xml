@@ -32,6 +32,20 @@
     </if>
   </select>
   
+  <select id="selectSubTaskList" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileSubTaskEntity" >
+    select * from t_subtask
+    where 1=1
+    <if test="userid != null and userid !=''" >
+      and UserId=#{userid}
+    </if>
+    <if test="dropletid != null and dropletid !=''" >
+      and DropLetID=#{dropletid}
+    </if>
+    <if test="dropletconftypeid != null and dropletconftypeid !=''" >
+      and DropLetConfTypeID=#{dropletconftypeid}
+    </if>
+  </select>
+  
   <delete id="delete" parameterType="java.lang.String" >
     delete from t_subtask
     where ID = #{id,jdbcType=VARCHAR}

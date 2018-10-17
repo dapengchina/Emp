@@ -11,7 +11,7 @@ public class ScenListDropLetVo {
 	   
 	   private String index;
 	   
-	   private String compPerc;
+	   private double compPerc;
 	   
 	   private String averageScore;
 	   
@@ -26,22 +26,17 @@ public class ScenListDropLetVo {
 	   private String reladropletcontypeid;
 	   
 	   
-	   
-	   
-	   
-	   
-	   
 
 	   public String getReladropletcontypeid() {
-		return reladropletcontypeid;
-	}
+		   return reladropletcontypeid;
+	   }
 
-	public void setReladropletcontypeid(String reladropletcontypeid) {
-		this.reladropletcontypeid = reladropletcontypeid;
-	}
+	   public void setReladropletcontypeid(String reladropletcontypeid) {
+		   this.reladropletcontypeid = reladropletcontypeid;
+	   }
 
-	public String getId() {
-		  return id;
+	   public String getId() {
+		   return id;
 	   }
 
 	   public void setId(String id) {
@@ -88,11 +83,11 @@ public class ScenListDropLetVo {
 		  this.index = index;
 	   }
 
-	   public String getCompPerc() {
+	   public double getCompPerc() {
 		  return compPerc;
 	   }
 
-	   public void setCompPerc(String compPerc) {
+	   public void setCompPerc(double compPerc) {
 		  this.compPerc = compPerc;
 	   }
 

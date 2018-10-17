@@ -1,5 +1,7 @@
 package com.ability.emp.mobile.server.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -27,6 +29,12 @@ public class MobileSubTaskServiceImpl implements MobileSubTaskService{
 	@Override
 	public MobileSubTaskEntity getSubTask(MobileSubTaskEntity mste) {
 		return mobileSubTaskDao.selectSubTask(mste);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MobileSubTaskEntity> getSubTaskList(MobileSubTaskEntity mste) {
+		return mobileSubTaskDao.selectSubTaskList(mste);
 	}
 
 }
