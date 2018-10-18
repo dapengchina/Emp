@@ -72,6 +72,7 @@ public class MobileGetScenListDropLetAction {
 		double total = 0.0;
 		Double score = 0.0;
 		DecimalFormat df = (DecimalFormat)NumberFormat.getInstance();
+		DecimalFormat df1 = (DecimalFormat)NumberFormat.getInstance();
 		if(!dropLetId.equals("1")){
 			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
 		}
@@ -114,10 +115,11 @@ public class MobileGetScenListDropLetAction {
 					}
 					//可以设置精确几位小数
 					df.setMaximumFractionDigits(0);
-					//模式 例如四舍五入
+					df1.setMaximumFractionDigits(1);
+					//模式四舍五入
 					df.setRoundingMode(RoundingMode.HALF_UP);
 					sv.setCurrentPoint(String.valueOf(currentPoint));
-					sv.setAverageScore(String.valueOf(df.format(score)));
+					sv.setAverageScore(String.valueOf(df1.format(score/total)));
 					double accuracy_num = done / total;
 					sv.setCompPerc(Double.parseDouble(df.format(accuracy_num * 100)));
 				}else{
