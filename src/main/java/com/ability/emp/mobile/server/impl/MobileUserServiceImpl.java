@@ -137,25 +137,27 @@ public class MobileUserServiceImpl implements MobileUserService{
 		int i = mobileUserDao.insert(mue);
 		if(i>0){
 			String[] courseid = mue.getCourseid().split(",");
-			for(int k=0;k<courseid.length;k++){
-				//根据课程ID查询课程
-				course.setId(courseid[k]);
-				MobileSceCategoryEntity recourse = mobileSceCategoryDao.selectCourseByID(course);
-				//根据课程ID查询任务状态
-				task.setCourseid(courseid[k]);
-				List<MobileTaskEntity> taskList = mobileTaskDao.selectTaskList(task);
-				if(taskList!=null && taskList.size()>0){
-					for(int m=0;m<taskList.size();m++){
-						//如果课程对应的任务已经结束,则执行保存操作
-						if(taskList.get(m).getTaskstate().equals(SysConstant.TASK_STATE1)){
-							executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),null,false);
-						}else{
-							//如果没有结束,则将此任务保存到用户下
-							executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),taskList.get(m).getId(),true);
+			if(!"".equals(mue.getCourseid()) && mue.getCourseid()!=null){
+				for(int k=0;k<courseid.length;k++){
+					//根据课程ID查询课程
+					course.setId(courseid[k]);
+					MobileSceCategoryEntity recourse = mobileSceCategoryDao.selectCourseByID(course);
+					//根据课程ID查询任务状态
+					task.setCourseid(courseid[k]);
+					List<MobileTaskEntity> taskList = mobileTaskDao.selectTaskList(task);
+					if(taskList!=null && taskList.size()>0){
+						for(int m=0;m<taskList.size();m++){
+							//如果课程对应的任务已经结束,则执行保存操作
+							if(taskList.get(m).getTaskstate().equals(SysConstant.TASK_STATE1)){
+								executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),null,false);
+							}else{
+								//如果没有结束,则将此任务保存到用户下
+								executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),taskList.get(m).getId(),true);
+							}
 						}
+					}else{
+						executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),null,false);
 					}
-				}else{
-					executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),null,false);
 				}
 			}
 		}
