@@ -1,22 +1,24 @@
 $(function () {
-    loadUserReportList();
-    datehandle();
+	//加载用户列表
+    loadUserList();
+    //加载导师
     loadTutor();
 });
 
-	
-function loadUserReportList(){
-    var queryUrl = '/Emp/admin/userreport/queryAll'
-    var table = $('#userreportlist').bootstrapTable({
+
+//用户列表
+function loadUserList(){
+    var queryUrl = '/Emp/admin/user/queryAll'
+    var table = $('#userlist').bootstrapTable({
         url: queryUrl,                      //请求后台的URL（*）
         method: 'GET',                      //请求方式（*）
-        toolbar: '#toolbar',              //工具按钮用哪个容器
+        //toolbar: '#toolbar',              //工具按钮用哪个容器
         striped: true,                      //是否显示行间隔色
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         pagination: true,                   //是否显示分页（*）
-        sortable: false,                     //是否启用排序
+        sortable: true,                     //是否启用排序
         sortOrder: "asc",                   //排序方式
-        sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+        sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
         pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
         pageSize: 10,                     //每页的记录行数（*）
         pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
@@ -30,7 +32,7 @@ function loadUserReportList(){
         uniqueId: "id",                     //每一行的唯一标识，一般为主键列
         showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
         cardView: false,                    //是否显示详细视图
-        detailView: false,                  //是否显示父子表
+        detailView: true,                  //是否显示父子表
         singleSelect:false, 				//禁止多选_____
         //得到查询的参数
         queryParams : function (params) {
@@ -39,18 +41,12 @@ function loadUserReportList(){
         		pageNumber: params.offset/params.limit+1,
             };
         },
-        columns: [
-         /*{
-				title: 'Ln',//标题  可不加
-				formatter: function (value, row, index) {
-					return "<div style='width:50px;'>"+(index+1)+"</div>";
-				}
-         }*/{
+        columns: [{
             checkbox: true,  
             visible: true                  //是否显示复选框  
         },{
             field: 'userName',
-            title: 'UserName',
+            title: 'Name',
             sortable: true
         },{
             field: 'tutor',
@@ -60,13 +56,6 @@ function loadUserReportList(){
             field: 'phone',
             title: 'Phone',
             sortable: true
-        },{
-            field: 'stringDate',
-            title: 'Date',
-            sortable: true,
-            formatter:function(value, row, index){
-            	return "<font color='red' family='黑体'><strong>"+value+"</strong></font>";
-            }
         }],
         onLoadSuccess: function () {
         },
@@ -78,54 +67,15 @@ function loadUserReportList(){
         },
         //注册加载子表的事件。注意下这里的三个参数！
         onExpandRow: function (index, row, $detail) {
-            
+            //initSubTable(index, row, $detail);
         }
     });
 }
 
-//查找用户
-function userSearch(){
-	
-	var userName = $("#search_name").val();
-    var phone = $("#search_phone").val(); 
-    var tutor = $("#search_tutor").val();
-    var startDate = $("#search_startDate").val();
-    var endDate = $("#search_endDate").val();
-    if(startDate==''){
-    	startDate=null;
-    }
-    if(endDate==''){
-    	endDate=null;
-    }
-    
-	var queryParams = { 
-		query: {  
-			userName:userName,
-			phone:phone,
-			tutor:tutor,
-			startDate:startDate,
-			endDate:endDate
-        }
-    }  
-	//刷新表格  
-    $('#userreportlist').bootstrapTable('refresh',queryParams);  
-}
 
 
-function datehandle(){
-	$('.form_datetime').datetimepicker({
-		format: 'yyyy-mm-dd',//显示格式
-		todayHighlight: 1,//今天高亮
-		minView: "month",//设置只显示到月份
-		startView:2,
-		forceParse: 0,
-		showMeridian: 1,
-		autoclose: 1//选择后自动关闭
-	}).on('changeDate', function(ev){
-//		 $('#addTaskForm').bootstrapValidator('revalidateField', 'startDateAdd');
-//		 $('#addTaskForm').bootstrapValidator('revalidateField', 'endDateAdd');
-	});;
-}
+
+
 
 function loadTutor(){
 	$.ajax({
@@ -141,4 +91,3 @@ function loadTutor(){
 		}
 	});
 }
-

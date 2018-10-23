@@ -7,8 +7,6 @@ public class AdminUserReportVo {
 	
 	private String id;//用户ID
 
-    private String nickName;//昵称
-
     private String userName;//中文名
 
     private String phone;//电话
@@ -69,14 +67,6 @@ public class AdminUserReportVo {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
 	}
 
 	public String getUserName() {

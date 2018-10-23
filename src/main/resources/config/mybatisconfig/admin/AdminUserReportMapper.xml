@@ -16,7 +16,7 @@
   </select>
   
   <select id="getUser" resultType="com.ability.emp.admin.entity.vo.AdminUserReportVo" parameterType="com.ability.emp.admin.entity.vo.AdminUserReportVo" >
-   select t.id,t.USER_NAME as userName,t.NICK_NAME as nickName,t.PHONE,t.TUTOR as tutor from t_user t
+   select t.id,t.USER_NAME as userName,t.PHONE,t.TUTOR as tutor from t_user t
    where 1=1
    <if test="userName != null and userName != ''">
 		and USER_NAME=#{userName}
@@ -26,9 +26,6 @@
    </if>
    <if test="tutor != null and tutor != ''">
 		and TUTOR=#{tutor}
-   </if>
-   <if test="nickName != null and nickName != ''">
-		and NICK_NAME=#{nickName}
    </if>
   </select>
   

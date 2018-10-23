@@ -161,7 +161,6 @@ public class AdminUserReportAction {
 					AdminUserReportVo aurv = new AdminUserReportVo();
 					aurv.setStringDate(sdate+"---未打卡");
 					aurv.setId(data.get(m).getId());
-					aurv.setNickName(data.get(m).getNickName());
 					aurv.setPhone(data.get(m).getPhone());
 					aurv.setUserName(data.get(m).getUserName());
 					aurv.setTutor(data.get(m).getTutor());
@@ -285,7 +284,6 @@ public class AdminUserReportAction {
 					AdminUserReportVo aurv = new AdminUserReportVo();
 					aurv.setStringDate(sdate+"---未打卡");
 					aurv.setId(data.get(m).getId());
-					aurv.setNickName(data.get(m).getNickName());
 					aurv.setPhone(data.get(m).getPhone());
 					aurv.setUserName(data.get(m).getUserName());
 					aurv.setTutor(data.get(m).getTutor());

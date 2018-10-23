@@ -2,7 +2,7 @@
 <html>
 <head>
    <meta charset="UTF-8"/>
-   <title>userReportList</title>
+   <title>taskprogressreport</title>
     
     <!-- CSS引用 -->
     <link rel="stylesheet" href="/Emp/css/bootstarp-table/bootstrap-table.css" type="text/css" />
@@ -26,8 +26,7 @@
 	<script src="/Emp/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
     <script src="/Emp/js/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
 	
-    
-    <script src="/Emp/js/admin/userreportlist.js"></script>
+    <script src="/Emp/js/admin/usertaskprogressreport.js"></script>
 </head>
 <body>
     
@@ -60,19 +59,6 @@
               </div>
               <br/>
               <br/>
-              
-              <div class="group">
-                  <label class="control-label col-sm-1">StartDate</label>
-				  <div class="col-sm-3">
-					<input type="text" class="form-control form_datetime" id="search_startDate" name="search_startDate" readonly="readonly"/>
-				  </div>
-              </div>
-              <div class="group">
-                  <label class="control-label col-sm-1">EndDate</label>
-				  <div class="col-sm-3">
-					<input type="text" class="form-control form_datetime" id="search_endDate" name="search_endDate" readonly="readonly"/>
-				  </div>
-              </div>
                    
               <div class="col-sm-4" style="text-align:left;">
                   <button type="button" style="margin-left:50px" onclick="userSearch()" id="btn_query" class="btn btn-primary">Search</button>
@@ -81,28 +67,8 @@
          </div>
     </div>     
     
-    <!-- 数据列表  -->
-    <table id="userreportlist"></table>
-    
-    <!-- 用户打卡记录模态框 -->
-    <div class="modal fade" id="record" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-		 <div class="modal-content">
-			<div class="modal-header">
-			 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			 <h4 class="modal-title" id="myModalLabel">
-				
-			 </h4>
-			</div>
-			<div class="modal-body">
-				  <table id="userHitCardRecord"></table>
-			</div>
-			<div class="modal-footer">
-			 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-			</div>
-		  </div>	
-		</div>
-	</div>
+    <!-- 数据列表 -->
+    <table id="userlist"></table>
 	
 	
 </body>

@@ -29,3 +29,15 @@ function reportList(){
 function thesaureList(){
 	$('iframe').attr('src','/Emp/admin/thesaure');
 }
+
+function taskProgressReport(){
+	$('iframe').attr('src','/Emp/admin/userTask');
+}
+
+
+
+
+
+
+
+

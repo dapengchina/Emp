@@ -30,9 +30,29 @@ public class AdminUserTaskVo {
     
     private String taskname;
     
+    private String dropletid;
+
+    private String dropletconftypeid;
     
     
     
+    
+
+	public String getDropletid() {
+		return dropletid;
+	}
+
+	public void setDropletid(String dropletid) {
+		this.dropletid = dropletid;
+	}
+
+	public String getDropletconftypeid() {
+		return dropletconftypeid;
+	}
+
+	public void setDropletconftypeid(String dropletconftypeid) {
+		this.dropletconftypeid = dropletconftypeid;
+	}
 
 	public String getTaskstate() {
 		return taskstate;
