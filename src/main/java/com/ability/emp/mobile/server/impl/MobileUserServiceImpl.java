@@ -210,7 +210,14 @@ public class MobileUserServiceImpl implements MobileUserService{
 		subtask.setIfpass(SysConstant.CARD_STUDY_NOPASS);
 		//subtask.setIndex(recourse.getIndex());
 		mobileSubTaskDao.insert(subtask);
-		handleSubTask(recourse.getDropletid(),recourse.getDropletid(),recourse.getDropletconftypeid(),flag==false?task.getId():taskid,userid);
+		if(
+				recourse.getDropletid()!=null && 
+				recourse.getDropletconftypeid()!=null &&
+				!"".equals(recourse.getDropletid()) &&
+				!"".equals(recourse.getDropletconftypeid())
+		  ){
+			handleSubTask(recourse.getDropletid(),recourse.getDropletid(),recourse.getDropletconftypeid(),flag==false?task.getId():taskid,userid);
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
