@@ -245,11 +245,17 @@ function loadUserSubTask(index, row, $detail){
 		},{
 			field : 'averageScore',
 			title : 'AverageScore',
-			sortable : true
+			sortable : true,
+			formatter: function (value, row, index) {
+				return "<div><font color='green'>"+value+"</font></div>";
+			}
 		},{
 			field : 'completePercent',
 			title : 'CompletePercent',
-			sortable : true
+			sortable : true,
+			formatter: function (value, row, index) {
+				return "<div><font color='green'>"+value+"%</font></div>";
+			}
 		},{
 			field : 'star',
 			title : 'Star',

@@ -34,16 +34,36 @@ public class AdminUserSubTaskEntity {
      */
     private String averageScore;
     
-    private String completePercent;
+    private double completePercent;
     
     private String star;
+    
+    private String totalPoint;
+    
+    private String currentPoint;
     
     
     
     
     
 
-    public String getIfpassname() {
+    public String getTotalPoint() {
+		return totalPoint;
+	}
+
+	public void setTotalPoint(String totalPoint) {
+		this.totalPoint = totalPoint;
+	}
+
+	public String getCurrentPoint() {
+		return currentPoint;
+	}
+
+	public void setCurrentPoint(String currentPoint) {
+		this.currentPoint = currentPoint;
+	}
+
+	public String getIfpassname() {
 		return ifpassname;
 	}
 
@@ -51,11 +71,11 @@ public class AdminUserSubTaskEntity {
 		this.ifpassname = ifpassname;
 	}
 
-	public String getCompletePercent() {
+	public double getCompletePercent() {
 		return completePercent;
 	}
 
-	public void setCompletePercent(String completePercent) {
+	public void setCompletePercent(double completePercent) {
 		this.completePercent = completePercent;
 	}
 
