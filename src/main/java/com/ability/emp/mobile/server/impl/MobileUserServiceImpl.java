@@ -201,15 +201,15 @@ public class MobileUserServiceImpl implements MobileUserService{
 		userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
 		mobileUserTaskDao.insert(userTask);
 		//保存subtask
-		subtask.setId(UUIDUtil.generateUUID());
-		subtask.setDropletid(recourse.getDropletid());
-		subtask.setDropletconftypeid(recourse.getDropletconftypeid());
-		subtask.setName(recourse.getScecatname());
-		subtask.setTaskid(flag==false?task.getId():taskid);
-		subtask.setUserid(userid);
-		subtask.setIfpass(SysConstant.CARD_STUDY_NOPASS);
+//		subtask.setId(UUIDUtil.generateUUID());
+//		subtask.setDropletid(recourse.getDropletid());
+//		subtask.setDropletconftypeid(recourse.getDropletconftypeid());
+//		subtask.setName(recourse.getScecatname());
+//		subtask.setTaskid(flag==false?task.getId():taskid);
+//		subtask.setUserid(userid);
+//		subtask.setIfpass(SysConstant.CARD_STUDY_NOPASS);
 		//subtask.setIndex(recourse.getIndex());
-		mobileSubTaskDao.insert(subtask);
+		//mobileSubTaskDao.insert(subtask);
 		if(
 				recourse.getDropletid()!=null && 
 				recourse.getDropletconftypeid()!=null &&
