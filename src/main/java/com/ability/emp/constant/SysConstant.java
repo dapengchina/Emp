@@ -114,6 +114,13 @@ public class SysConstant {
 	   //卡片场景学习未通过
 	   public static final String CARD_STUDY_NOPASS = "1";
 	   
+	   public static Map<String,Object> getCardStudyIfPassName(){
+		   map.put(CARD_STUDY_PASS, "通过");
+		   map.put(CARD_STUDY_NOPASS, "未通过");
+		   
+		   return map;
+	   }
+	   
 	   
 
 }

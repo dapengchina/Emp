@@ -22,6 +22,8 @@ public class AdminUserSubTaskEntity {
     private String passscore;
 
     private String ifpass;
+    
+    private String ifpassname;
 
     private String remark;
     
@@ -41,7 +43,15 @@ public class AdminUserSubTaskEntity {
     
     
 
-    public String getCompletePercent() {
+    public String getIfpassname() {
+		return ifpassname;
+	}
+
+	public void setIfpassname(String ifpassname) {
+		this.ifpassname = ifpassname;
+	}
+
+	public String getCompletePercent() {
 		return completePercent;
 	}
 
