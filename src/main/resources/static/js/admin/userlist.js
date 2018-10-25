@@ -259,7 +259,10 @@ function loadUserSubTask(index, row, $detail){
 		},{
 			field : 'star',
 			title : 'Star',
-			sortable : true
+			sortable : true,
+			formatter: function (value, row, index) {
+				return "<div><img class='star' src='/Emp/image/star.png'></img><Strong><font color='green'>"+row.currentPoint+"/"+row.totalPoint+"</font></Strong></div>";
+			}
 		}],
 		//注册加载子表的事件。注意下这里的三个参数！
         onExpandRow: function (index, row, $detail) {
