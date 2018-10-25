@@ -247,14 +247,14 @@ function loadUserSubTask(index, row, $detail){
 			title : 'AverageScore',
 			sortable : true,
 			formatter: function (value, row, index) {
-				return "<div><font color='green'>"+value+"</font></div>";
+				return "<div><Strong><font color='green'>"+value+"</font></Strong></div>";
 			}
 		},{
 			field : 'completePercent',
 			title : 'CompletePercent',
 			sortable : true,
 			formatter: function (value, row, index) {
-				return "<div><font color='green'>"+value+"%</font></div>";
+				return "<div><Strong><font color='green'>"+value+"%</font></Strong></div>";
 			}
 		},{
 			field : 'star',
@@ -339,10 +339,10 @@ function loadUserSubTask2(index, row, $detail){
 			sortable : true,
 			formatter: function (value, row, index) {
 				if(value=='未通过'){
-					return "<div><font color='red'>未通过</font></div>";
+					return "<div><Strong><font color='red'>未通过</font></Strong></div>";
 				}
 				if(value=='通过'){
-					return "<div><font color='green'>通过</font></div>";
+					return "<div><Strong><font color='green'>通过</font></Strong></div>";
 				}
 			}
 		},{
