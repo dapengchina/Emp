@@ -125,10 +125,14 @@ public class AdminUserSubTaskAction {
 						 }else{
 							 data.get(i).setAverageScore("0");
 							 data.get(i).setCompletePercent(0);
+							 data.get(i).setCurrentPoint("0");
+							 data.get(i).setTotalPoint("0");
 						 }
 					 }else{
 						 data.get(i).setAverageScore("0");
 						 data.get(i).setCompletePercent(0);
+						 data.get(i).setCurrentPoint("0");
+						 data.get(i).setTotalPoint("0");
 					 }
 				 }
 			 }  
