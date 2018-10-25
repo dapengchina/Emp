@@ -332,7 +332,15 @@ function loadUserSubTask2(index, row, $detail){
 		},{
 			field : 'score',
 			title : 'Score',
-			sortable : true
+			sortable : true,
+			formatter: function (value, row, index) {
+				if(row.ifpassname=='未通过'){
+					return "<div><Strong><font color='red'>"+value+"</font></Strong></div>";
+				}
+				if(row.ifpassname=='通过'){
+					return "<div><Strong><font color='green'>"+value+"</font></Strong></div>";
+				}
+			}
 		},{
 			field : 'ifpassname',
 			title : 'Ifpass',

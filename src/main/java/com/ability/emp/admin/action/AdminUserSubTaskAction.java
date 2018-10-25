@@ -62,6 +62,7 @@ public class AdminUserSubTaskAction {
 					 List<AdminUserSubTaskEntity> data = adminUserSubTaskService.getUserSubTask(auste);
 					 for(int i=0;i<data.size();i++){
 						 data.get(i).setIfpassname(SysConstant.getCardStudyIfPassName().get(data.get(i).getIfpass()).toString());
+					     data.get(i).setScore(data.get(i).getScore()!=null?data.get(i).getScore():"0");
 					 }
 					 
 					 Map<String,Object> map = new HashMap<String,Object>();
