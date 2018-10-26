@@ -16,19 +16,29 @@ public class SceCategoryBean {
 	   
 	   private String dropLetConfigTypeId;
 	   
+	   private boolean ifpermissions;
+	   
 	   
 
 	
 
+	   public boolean isIfpermissions() {
+		  return ifpermissions;
+	   }
+
+	   public void setIfpermissions(boolean ifpermissions) {
+		  this.ifpermissions = ifpermissions;
+	   }
+
 	   public String getId() {
-		return id;
-	}
+		  return id;
+	   }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+	   public void setId(String id) {
+		  this.id = id;
+	   }
 
-	public String getDropLetConfigTypeId() {
+	   public String getDropLetConfigTypeId() {
 		  return dropLetConfigTypeId;
 	   }
 

@@ -23,6 +23,10 @@ public class MobileSceCategoryEntity {
     
     
     
+    
+    
+    
+   
 
 	public String getCoursestate() {
 		return coursestate;
