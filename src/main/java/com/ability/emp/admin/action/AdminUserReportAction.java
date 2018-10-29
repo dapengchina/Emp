@@ -187,7 +187,7 @@ public class AdminUserReportAction {
 						if(currentMonth<10 && currentMonth<=enmonth){
 							y="0"+currentMonth;
 						}
-						if(currentMonth>10 && currentMonth<=enmonth){
+						if(currentMonth>=10 && currentMonth<=enmonth){
 							y=String.valueOf(currentMonth);
 						}
 						temp++;
@@ -227,11 +227,13 @@ public class AdminUserReportAction {
 						currentMonth++;
 						//天数重置为1
 						temp=1;
+						//月份重置
+						y=String.valueOf(currentMonth);
 						if(currentMonth<10 && currentMonth<=enmonth){
-							y="0"+currentMonth;
+							y="0"+y;
 						}
 						if(currentMonth>10 && currentMonth<=enmonth){
-							y=String.valueOf(currentMonth);
+							y=String.valueOf(y);
 						}
 						sdate="2018-"+y+"-"+"0"+temp;
 					}
