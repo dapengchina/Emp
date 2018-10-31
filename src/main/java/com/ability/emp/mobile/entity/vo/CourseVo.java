@@ -10,6 +10,8 @@ public class CourseVo {
     private String icon;
 
     private String coursestate;
+    
+    private String coursestatename;
 
     private Integer courselimit;
     
@@ -18,6 +20,14 @@ public class CourseVo {
     
     
     
+
+	public String getCoursestatename() {
+		return coursestatename;
+	}
+
+	public void setCoursestatename(String coursestatename) {
+		this.coursestatename = coursestatename;
+	}
 
 	public String getCourseID() {
 		return courseID;
