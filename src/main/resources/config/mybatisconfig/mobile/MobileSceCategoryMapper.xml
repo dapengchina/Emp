@@ -10,6 +10,7 @@
     <result column="DropLetID" property="dropletid" jdbcType="VARCHAR" />
     <result column="DropLetConfTypeID" property="dropletconftypeid" jdbcType="VARCHAR" />
     <result column="CourseState" property="coursestate" jdbcType="VARCHAR" />
+    <result column="CourseType" property="coursetype" jdbcType="VARCHAR" />
     <result column="CourseEndDate" property="courseenddate" jdbcType="TIMESTAMP" />
   </resultMap>
   
@@ -76,6 +77,9 @@
       <if test="coursestate != null" >
         CourseState,
       </if>
+      <if test="coursetype != null" >
+        CourseType,
+      </if>
       <if test="courseenddate != null" >
         CourseEndDate,
       </if>
@@ -104,6 +108,9 @@
       </if>
       <if test="coursestate != null" >
         #{coursestate,jdbcType=VARCHAR},
+      </if>
+      <if test="coursetype != null" >
+        #{coursetype,jdbcType=VARCHAR},
       </if>
       <if test="courseenddate != null" >
         #{courseenddate,jdbcType=TIMESTAMP},
@@ -134,6 +141,9 @@
       </if>
       <if test="coursestate != null" >
         CourseState = #{coursestate,jdbcType=VARCHAR},
+      </if>
+      <if test="coursetype != null" >
+        CourseType = #{coursetype,jdbcType=VARCHAR},
       </if>
       <if test="courseenddate != null" >
         CourseEndDate = #{courseenddate,jdbcType=TIMESTAMP},

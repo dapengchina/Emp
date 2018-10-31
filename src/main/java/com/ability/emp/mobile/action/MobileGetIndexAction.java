@@ -88,7 +88,12 @@ public class MobileGetIndexAction {
         		scb.setDropLetId(mobileSceCategoryList.get(j).getDropletid());
         		scb.setDropLetConfigTypeId(mobileSceCategoryList.get(j).getDropletconftypeid());
         		scb.setId(mobileSceCategoryList.get(j).getId());
-        		scb.setIfpermissions(PermissionProcess(userid,mobileSceCategoryList.get(j).getId()));
+        		//如果课程类型是工具类，则所有人都可以使用
+        		if(mobileSceCategoryList.get(j).getCoursetype().equals(SysConstant.COURSE_TYPE0)){
+        			scb.setIfpermissions(true);
+        		}else{
+        			scb.setIfpermissions(PermissionProcess(userid,mobileSceCategoryList.get(j).getId()));
+        		}
         		
         		md.setId(mobileSceCategoryList.get(j).getDropletid());
         		MobileDropLetEntity mde = mobileDropLetService.getDropLetByID(md);

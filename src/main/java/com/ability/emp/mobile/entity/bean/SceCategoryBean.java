@@ -16,11 +16,21 @@ public class SceCategoryBean {
 	   
 	   private String dropLetConfigTypeId;
 	   
+	   private String courseType;
+	   
 	   private boolean ifpermissions;
 	   
 	   
 
 	
+
+	   public String getCourseType() {
+		  return courseType;
+	   }
+
+	   public void setCourseType(String courseType) {
+		  this.courseType = courseType;
+	   }
 
 	   public boolean isIfpermissions() {
 		  return ifpermissions;

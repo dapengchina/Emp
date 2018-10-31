@@ -1,5 +1,7 @@
 package com.ability.emp.mobile.entity;
 
+import java.util.Date;
+
 public class MobileSceCategoryEntity {
 	
 	
@@ -21,12 +23,32 @@ public class MobileSceCategoryEntity {
     
     private String coursestate;
     
+    private String coursetype;
+
+    private Date courseenddate;
+    
     
     
     
     
     
    
+
+	public String getCoursetype() {
+		return coursetype;
+	}
+
+	public void setCoursetype(String coursetype) {
+		this.coursetype = coursetype;
+	}
+
+	public Date getCourseenddate() {
+		return courseenddate;
+	}
+
+	public void setCourseenddate(Date courseenddate) {
+		this.courseenddate = courseenddate;
+	}
 
 	public String getCoursestate() {
 		return coursestate;

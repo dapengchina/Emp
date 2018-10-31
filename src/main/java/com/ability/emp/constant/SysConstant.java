@@ -44,8 +44,28 @@ public class SysConstant {
 	   public static final String ON_LINE = "1";
 	   //离线课程
 	   public static final String OFF_LINE = "0";
+	   public static Map<String,Object> getCourseStateMap(){
+		   Map<String,Object> map = new HashMap<String,Object>();
+		   map.put(ON_LINE, "在线课程");
+		   map.put(OFF_LINE, "离线课程");
+		   
+		   return map;
+	   }
+	   
+	   /**
+	    * 课程类型
+	    */
 	   //工具类
-	   public static final String UTIL = "2";
+	   public static final String COURSE_TYPE0 = "0";
+	   //非工具类
+	   public static final String COURSE_TYPE1 = "1";
+	   public static Map<String,Object> getCourseTypeMap(){
+		   Map<String,Object> map = new HashMap<String,Object>();
+		   map.put(COURSE_TYPE0, "工具类");
+		   map.put(COURSE_TYPE1, "非工具类");
+		   
+		   return map;
+	   }
 	   
 	   //离线课程默认2个月期限
 	   public static final int OFF_LINE_DEADLINE = 2;
@@ -66,11 +86,12 @@ public class SysConstant {
 	   public static final String TASK_STATE0 = "0";//未结束
 	   public static final String TASK_STATE1 = "1";//结束
 	   public static final String TASK_STATE2 = "2";//延期
-	   public static final Map<String,Object> map = new HashMap<String,Object>();
+	   
 	   public static Map<String,Object> getTaskStateMap(){
-		   map.put("0", "未结束");
-		   map.put("1", "结束");
-		   map.put("2", "延期");
+		   Map<String,Object> map = new HashMap<String,Object>();
+		   map.put(TASK_STATE0, "未结束");
+		   map.put(TASK_STATE1, "结束");
+		   map.put(TASK_STATE2, "延期");
 		   return map;
 	   }
 	   
@@ -80,8 +101,9 @@ public class SysConstant {
 	   public static final String TASK_TYPE0 = "0";//其它
 	   public static final String TASK_TYPE1 = "1";//背单词
 	   public static Map<String,Object> getTaskTypeMap(){
-		   map.put("0", "其它");
-		   map.put("1", "背单词");
+		   Map<String,Object> map = new HashMap<String,Object>();
+		   map.put(TASK_TYPE0, "其它");
+		   map.put(TASK_TYPE1, "背单词");
 		   return map;
 	   }
 	   
@@ -115,6 +137,7 @@ public class SysConstant {
 	   public static final String CARD_STUDY_NOPASS = "1";
 	   
 	   public static Map<String,Object> getCardStudyIfPassName(){
+		   Map<String,Object> map = new HashMap<String,Object>();
 		   map.put(CARD_STUDY_PASS, "通过");
 		   map.put(CARD_STUDY_NOPASS, "未通过");
 		   
