@@ -62,6 +62,7 @@ public class MobileCardListDropletAction {
 		MobileCardListDropletEntity me = new MobileCardListDropletEntity();
 		MobileDropLetEntity md = new MobileDropLetEntity();
 		MobileSubTaskEntity subtask = new MobileSubTaskEntity();
+		int done=0;
 		
 		if(!dropLetId.equals("1")){
 			me.setDropletid(dropLetId);//确认是哪个droplet下的数据
@@ -88,6 +89,9 @@ public class MobileCardListDropletAction {
 			MobileSubTaskEntity resubtask = mobileSubTaskService.getSubTask(subtask);
 			if(resubtask!=null){
 				cv.setScore(resubtask.getScore()!=null?resubtask.getScore():"0");
+				if(resubtask.getScore()!=null){
+					done = done + 1;
+				}
 			}else{
 				cv.setScore("0");
 			}
@@ -173,6 +177,7 @@ public class MobileCardListDropletAction {
 		//组合数据
 		map.put("list", list);
 		map.put("button", list2);
+		map.put("completionbarrier", done);
 		return objectMapper.writeValueAsString(map);
 	}
 

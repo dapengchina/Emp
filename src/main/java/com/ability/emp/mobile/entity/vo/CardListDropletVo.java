@@ -27,8 +27,11 @@ public class CardListDropletVo {
 	  
 	  
 	  
+	  
+	  
 
-	  public String getScore() {
+
+	public String getScore() {
 		return score;
 	}
 
