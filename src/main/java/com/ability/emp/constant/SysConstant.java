@@ -55,14 +55,14 @@ public class SysConstant {
 	   /**
 	    * 课程类型
 	    */
-	   //工具类
+	   //工具
 	   public static final String COURSE_TYPE0 = "0";
-	   //非工具类
+	   //课程
 	   public static final String COURSE_TYPE1 = "1";
 	   public static Map<String,Object> getCourseTypeMap(){
 		   Map<String,Object> map = new HashMap<String,Object>();
-		   map.put(COURSE_TYPE0, "工具类");
-		   map.put(COURSE_TYPE1, "非工具类");
+		   map.put(COURSE_TYPE0, "工具");
+		   map.put(COURSE_TYPE1, "课程");
 		   
 		   return map;
 	   }

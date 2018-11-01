@@ -17,9 +17,19 @@ public class CourseVo {
     
     private boolean selected;
     
+    private String courseEndDate;
     
     
     
+    
+
+	public String getCourseEndDate() {
+		return courseEndDate;
+	}
+
+	public void setCourseEndDate(String courseEndDate) {
+		this.courseEndDate = courseEndDate;
+	}
 
 	public String getCoursestatename() {
 		return coursestatename;

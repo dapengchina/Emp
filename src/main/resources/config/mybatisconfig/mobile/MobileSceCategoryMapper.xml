@@ -33,6 +33,9 @@
 	<if test="coursestate != null and coursestate != ''">
 		and CourseState = #{coursestate}
 	</if>
+	<if test="coursetype != null and coursetype != ''">
+		and CourseType = #{coursetype}
+	</if>
 	order by t.index asc
   </select>
   

@@ -1,5 +1,6 @@
 package com.ability.emp.mobile.action;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class MobileCourseAction {
 	@Resource
 	private MobileSceCategoryService mobileSceCategoryService;
 	
+	private SimpleDateFormat sf = new SimpleDateFormat("YYYY-MM-dd");
+	
 	
 	
 	@RequestMapping("/getCourse")
@@ -33,7 +36,7 @@ public class MobileCourseAction {
 	public String getCourse() throws Exception {
 		List<CourseVo> list = new ArrayList<CourseVo>();
 		MobileSceCategoryEntity me = new MobileSceCategoryEntity();
-		me.setCoursestate(SysConstant.ON_LINE);//查询在线课程
+		me.setCoursetype(SysConstant.COURSE_TYPE1);//查询课程
 		List<MobileSceCategoryEntity> courseList = mobileSceCategoryService.getCourseData(me);
 		for(int i=0;i<courseList.size();i++){
 			CourseVo cv = new CourseVo();
@@ -42,6 +45,12 @@ public class MobileCourseAction {
 			cv.setIcon(SysConstant.SERVICE_HOST+courseList.get(i).getIcon());
 			cv.setCoursestate(courseList.get(i).getCoursestate());
 			cv.setCoursestatename(SysConstant.getCourseStateMap().get(courseList.get(i).getCoursestate()).toString());
+			
+			if(courseList.get(i).getCoursestate().equals(SysConstant.OFF_LINE)){
+				if(courseList.get(i).getCourseenddate()!=null && !"".equals(courseList.get(i).getCourseenddate())){
+					cv.setCourseEndDate(sf.format(courseList.get(i).getCourseenddate()));
+				}
+			}
 			
 			list.add(cv);
 		}
