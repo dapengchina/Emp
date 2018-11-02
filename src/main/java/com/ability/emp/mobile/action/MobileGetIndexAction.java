@@ -1,8 +1,10 @@
 package com.ability.emp.mobile.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -17,6 +19,7 @@ import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileDropLetEntity;
 import com.ability.emp.mobile.entity.MobileFirstCategoryEntity;
 import com.ability.emp.mobile.entity.MobileSceCategoryEntity;
+import com.ability.emp.mobile.entity.MobileSubTaskEntity;
 import com.ability.emp.mobile.entity.MobileTaskEntity;
 import com.ability.emp.mobile.entity.MobileUserTaskEntity;
 import com.ability.emp.mobile.entity.bean.SceCategoryBean;
@@ -24,6 +27,7 @@ import com.ability.emp.mobile.entity.vo.FirstCategoryVo;
 import com.ability.emp.mobile.server.MobileDropLetService;
 import com.ability.emp.mobile.server.MobileFirstCategoryService;
 import com.ability.emp.mobile.server.MobileSceCategoryService;
+import com.ability.emp.mobile.server.MobileSubTaskService;
 import com.ability.emp.mobile.server.MobileTaskService;
 import com.ability.emp.mobile.server.MobileUserTaskService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,6 +59,9 @@ public class MobileGetIndexAction {
 	@Resource
 	private MobileTaskService mobileTaskService;
 	
+	@Resource
+	private MobileSubTaskService mobileSubTaskService;
+	
 	
 	
 	@SuppressWarnings("unchecked")
@@ -62,6 +69,7 @@ public class MobileGetIndexAction {
 	@ResponseBody
 	public String getIndexData(@PathVariable("userid") String userid) throws Exception {
 		
+		Map<String,Object> map = new HashMap<String,Object>();
 		MobileFirstCategoryEntity me = new MobileFirstCategoryEntity();
 		MobileSceCategoryEntity mf = new MobileSceCategoryEntity();
 		MobileDropLetEntity md = new MobileDropLetEntity();
@@ -106,7 +114,24 @@ public class MobileGetIndexAction {
         	firstlist.add(fv);
         }
 		
-		return objectMapper.writeValueAsString(firstlist);
+		/**
+		 * 处理顶部power用户总得分
+		 */
+		MobileSubTaskEntity userSubTask = new MobileSubTaskEntity();
+		userSubTask.setUserid(userid);
+		double score = 0.0;
+		List<MobileSubTaskEntity> userSubTaskList = mobileSubTaskService.getSubTaskList(userSubTask);
+		if(userSubTaskList!=null){
+			for(int k=0;k<userSubTaskList.size();k++){
+				if(userSubTaskList.get(k).getScore()!=null && !"".equals(userSubTaskList.get(k).getScore())){
+					score = score + Double.parseDouble(userSubTaskList.get(k).getScore());
+				}
+			}
+		}
+		
+		map.put("list", firstlist);
+		map.put("score", score);//用户总得分
+		return objectMapper.writeValueAsString(map);
 	}
 	
 	/**
