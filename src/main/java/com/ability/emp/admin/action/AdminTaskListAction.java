@@ -2,8 +2,10 @@ package com.ability.emp.admin.action;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,14 +141,33 @@ public class AdminTaskListAction {
 	@ResponseBody
 	public String addTask(AdminTaskEntity taskEntity) throws ParseException, JsonProcessingException {
 	    Map<String,Object> result = new HashMap<String,Object>();
-		//根据课程ID和任务状态查询,是否存在未结束的任务
-		AdminTaskEntity ate = new AdminTaskEntity();
-		ate.setCourseid(taskEntity.getCourseid());//课程ID
-		ate.setTaskstate(SysConstant.TASK_STATE0);//未结束
-		AdminTaskEntity te = adminTaskService.getTask(ate);
+	  	AdminTaskEntity ate = new AdminTaskEntity();
+	  	AdminTaskEntity te = null;
+	  	//SimpleDateFormat sf = new SimpleDateFormat("YYYY-MM-dd");
+	    /**
+	     * 判断所创建的任务是否为：背单词
+	     */
+	    if(taskEntity.getCourseid().equals(SysConstant.TASK_TYPE1)){
+	    	//如果为背单词,则同一个词库，同一个时间段内，未结束的任务，只能存在一个
+	    	ate.setCourseid(taskEntity.getCourseid());//课程ID
+	    	ate.setTaskstate(SysConstant.TASK_STATE0);//未结束
+	    	ate.setThesauresType(taskEntity.getThesaures_Type());//词库
+	    	ate.setStartStringDate(taskEntity.getStartStringDate());//任务开始日期
+	    	ate.setEndStringDate(taskEntity.getEndStringDate());//任务结束日期
+	    	
+	    	te = adminTaskService.getTask(ate);
+	    }else{
+	    	ate.setCourseid(taskEntity.getCourseid());//课程ID
+			ate.setTaskstate(SysConstant.TASK_STATE0);//未结束
+			ate.setStartStringDate(taskEntity.getStartStringDate());//任务开始日期
+	    	ate.setEndStringDate(taskEntity.getEndStringDate());//任务结束日期
+			
+			te = adminTaskService.getTask(ate);
+	    }
+		
 		//如果找到,则不保存
 		if(te!=null){
-			result.put("msg", "此课程存在未结束的任务");
+			result.put("msg", "此课程同时间段内存在未结束的任务");
 			result.put("code", "0");
 		}else{
 			taskEntity.setStartDate(sf.parse(taskEntity.getStartStringDate()));

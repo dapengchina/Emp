@@ -39,6 +39,15 @@
     <if test="id != null and id != ''">
     	AND ID = #{id}
     </if>
+    <if test="thesauresType != null and thesauresType != ''">
+    	AND THESAURES_TYPE = #{thesauresType}
+    </if>
+    <if test="startStringDate != null and startStringDate != ''">
+    	AND DATE_FORMAT(START_DATE, '%Y-%m-%d') &gt;= #{startStringDate}
+    </if>
+    <if test="endStringDate != null and endStringDate != ''">
+    	AND DATE_FORMAT(END_DATE, '%Y-%m-%d') &lt;= #{endStringDate}
+    </if>
   </select>
   
   <select id="findTaskName" resultType="java.lang.String" parameterType="com.ability.emp.admin.entity.AdminTaskEntity">
