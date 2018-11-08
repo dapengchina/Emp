@@ -32,4 +32,9 @@ public class MobileSceCategoryServiceImpl implements MobileSceCategoryService{
 		return mobileSceCategoryDao.selectCourseData(me);
 	}
 
+	@Override
+	public MobileSceCategoryEntity getCourse(MobileSceCategoryEntity me) {
+		return mobileSceCategoryDao.selectCourseByID(me);
+	}
+
 }
