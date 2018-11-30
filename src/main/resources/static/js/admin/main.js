@@ -34,6 +34,10 @@ function taskProgressReport(){
 	$('iframe').attr('src','/Emp/admin/userTask');
 }
 
+function courseApplyList(){
+	$('iframe').attr('src','/Emp/admin/courseApply');
+}
+
 
 
 

@@ -13,4 +13,6 @@ public interface AdminUserDao<T> extends BaseDao<T>{
     List<T> queryAll(AdminUserEntity adminUserEntity);  
     
     String verifyUserAppoint(@Param("id")String id);
+    
+    AdminUserEntity queryUserById(String id);
 }

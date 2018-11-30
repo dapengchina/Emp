@@ -20,4 +20,6 @@ public interface AdminUserService {
 	
 	String verifyUserAppoint(HttpServletRequest req);
 	
+	AdminUserEntity queryUserById(String id);
+	
 }

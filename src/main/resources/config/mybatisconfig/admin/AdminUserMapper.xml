@@ -32,6 +32,10 @@
     select IS_APPOINT from t_user where ID = #{id,jdbcType=VARCHAR}
   </select>
   
+  <select id="queryUserById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from t_user where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="delete" parameterType="java.lang.String" >
     delete from t_user
     where ID = #{id,jdbcType=VARCHAR}
