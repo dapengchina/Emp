@@ -377,4 +377,9 @@ public class AdminUserServiceImpl implements AdminUserService{
 			}
 	    }
 	}
+	
+	@Override
+	public AdminUserEntity queryUserById(String id) {
+		return userDao.queryUserById(id);
+	}
 }

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ability.emp.admin.dao.AdminCourseApplyListDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.admin.entity.AdminCourseApplyEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="courseFirstLevelType" property="coursefirstleveltype" jdbcType="VARCHAR" />
+    <result column="courseName" property="coursename" jdbcType="VARCHAR" />
+    <result column="courseState" property="coursestate" jdbcType="VARCHAR" />
+    <result column="courseDescribe" property="coursedescribe" jdbcType="VARCHAR" />
+    <result column="approveState" property="approvestate" jdbcType="VARCHAR" />
+    <result column="approveDate" property="approvedate" jdbcType="TIMESTAMP" />
+    <result column="applyDate" property="applydate" jdbcType="TIMESTAMP" />
+    <result column="applyUserID" property="applyuserid" jdbcType="VARCHAR" />
+    <result column="approveUserID" property="approveuserid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, courseFirstLevelType, courseName, courseState, courseDescribe, approveState, 
+    approveDate, applyDate, applyUserID, approveUserID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_course_apply
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminCourseApplyEntity">
+  	select * from t_course_apply where 1=1
+  	<if test="coursefirstleveltype!=null and coursefirstleveltype !=''">
+  		and courseFirstLevelType = #{coursefirstleveltype}
+  	</if>
+  	<if test="coursename!=null and coursename !=''">
+  		and courseName = #{coursename}
+  	</if>
+  	<if test="coursestate!=null and coursestate !=''">
+  		and courseState = #{coursestate}
+  	</if>
+  	<if test="approvestringdate!=null and approvestringdate !=''">
+  		and DATE_FORMAT(applyDate, '%Y-%m-%d') = #{approvestringdate}
+  	</if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_course_apply
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="com.ability.emp.admin.entity.AdminCourseApplyEntity" >
+    insert into t_course_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="coursefirstleveltype != null" >
+        courseFirstLevelType,
+      </if>
+      <if test="coursename != null" >
+        courseName,
+      </if>
+      <if test="coursestate != null" >
+        courseState,
+      </if>
+      <if test="coursedescribe != null" >
+        courseDescribe,
+      </if>
+      <if test="approvestate != null" >
+        approveState,
+      </if>
+      <if test="approvedate != null" >
+        approveDate,
+      </if>
+      <if test="applydate != null" >
+        applyDate,
+      </if>
+      <if test="applyuserid != null" >
+        applyUserID,
+      </if>
+      <if test="approveuserid != null" >
+        approveUserID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="coursefirstleveltype != null" >
+        #{coursefirstleveltype,jdbcType=VARCHAR},
+      </if>
+      <if test="coursename != null" >
+        #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="coursestate != null" >
+        #{coursestate,jdbcType=VARCHAR},
+      </if>
+      <if test="coursedescribe != null" >
+        #{coursedescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="approvestate != null" >
+        #{approvestate,jdbcType=VARCHAR},
+      </if>
+      <if test="approvedate != null" >
+        #{approvedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applydate != null" >
+        #{applydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyuserid != null" >
+        #{applyuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="approveuserid != null" >
+        #{approveuserid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ability.emp.admin.entity.AdminCourseApplyEntity" >
+    update t_course_apply
+    <set >
+      <if test="coursefirstleveltype != null" >
+        courseFirstLevelType = #{coursefirstleveltype,jdbcType=VARCHAR},
+      </if>
+      <if test="coursename != null" >
+        courseName = #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="coursestate != null" >
+        courseState = #{coursestate,jdbcType=VARCHAR},
+      </if>
+      <if test="coursedescribe != null" >
+        courseDescribe = #{coursedescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="approvestate != null" >
+        approveState = #{approvestate,jdbcType=VARCHAR},
+      </if>
+      <if test="approvedate != null" >
+        approveDate = #{approvedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applydate != null" >
+        applyDate = #{applydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyuserid != null" >
+        applyUserID = #{applyuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="approveuserid != null" >
+        approveUserID = #{approveuserid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
