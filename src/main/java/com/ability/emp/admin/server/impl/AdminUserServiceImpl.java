@@ -23,11 +23,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ability.emp.admin.dao.AdminCardListDropletDao;
+import com.ability.emp.admin.dao.AdminScecategoryDao;
+import com.ability.emp.admin.dao.AdminScenListDropLetDao;
+import com.ability.emp.admin.dao.AdminSubTaskDao;
 import com.ability.emp.admin.dao.AdminTaskDao;
 import com.ability.emp.admin.dao.AdminUserDao;
 import com.ability.emp.admin.dao.AdminUserTaskDao;
 import com.ability.emp.admin.dao.AdminWordDao;
 import com.ability.emp.admin.dao.AdminWordRecordDao;
+import com.ability.emp.admin.entity.AdminCardListDropletEntity;
+import com.ability.emp.admin.entity.AdminScecategoryEntity;
+import com.ability.emp.admin.entity.AdminScenListDropLetEntity;
+import com.ability.emp.admin.entity.AdminSubTaskEntity;
 import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.admin.entity.AdminUserEntity;
 import com.ability.emp.admin.entity.AdminUserTaskEntity;
@@ -66,6 +74,22 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@SuppressWarnings("rawtypes")
 	@Resource
 	private AdminUserTaskDao adminUserTaskDao;
+	
+	@SuppressWarnings("rawtypes")
+	@Resource
+	private AdminScenListDropLetDao adminScenListDropLetDao;
+	
+	@SuppressWarnings("rawtypes")
+	@Resource
+	private AdminSubTaskDao adminSubTaskDao;
+	
+	@SuppressWarnings("rawtypes")
+	@Resource
+	private AdminCardListDropletDao adminCardListDropletDao;
+	
+	@SuppressWarnings("rawtypes")
+	@Resource
+	private AdminScecategoryDao adminScecategoryDao;
 	
 
 	@SuppressWarnings("unchecked")
@@ -110,6 +134,27 @@ public class AdminUserServiceImpl implements AdminUserService{
 					userTask.setId(UUIDUtil.generateUUID());
 					userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
 					adminUserTaskDao.insert(userTask);
+					
+					
+					/**
+					 * 处理子任务
+					 */
+					//根据任务ID查询课程ID
+					AdminTaskEntity atemp = new AdminTaskEntity();
+					atemp.setId(taskid);
+					AdminTaskEntity retask = taskDao.selectTask(task);
+					//根据课程ID查询课程
+					AdminScecategoryEntity coursetemp = new AdminScecategoryEntity();
+					coursetemp.setId(retask.getCourseid());
+					AdminScecategoryEntity recourse = adminScecategoryDao.selectCourseByID(coursetemp);
+					if(
+							recourse.getDropletid()!=null && 
+							recourse.getDropletconftypeid()!=null &&
+							!"".equals(recourse.getDropletid()) &&
+							!"".equals(recourse.getDropletconftypeid())
+					  ){
+						handleSubTask(recourse.getDropletid(),recourse.getDropletid(),recourse.getDropletconftypeid(),taskid,ids[i]);
+					}
 				}
 			}
 		}
@@ -381,5 +426,70 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@Override
 	public AdminUserEntity queryUserById(String id) {
 		return userDao.queryUserById(id);
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	private void handleSubTask(
+			String courseid,
+			String dropLetID,
+			String dropLetConfTypeID,
+			String taskid,
+			String userid
+			){
+		
+		AdminSubTaskEntity subtask = new AdminSubTaskEntity();//子任务
+		AdminScenListDropLetEntity scenListDropLet = new AdminScenListDropLetEntity();
+		AdminCardListDropletEntity cardListDropLet = new AdminCardListDropletEntity();
+		
+		//根据课程ID判断需要查询哪个表,用以保存到子任务
+		if(courseid.equals(SysConstant.DROPLET_ID2)){
+			//ScenListDropLet
+			scenListDropLet.setDropletid(dropLetID);
+			scenListDropLet.setDropletconftypeid(dropLetConfTypeID);
+			List<AdminScenListDropLetEntity> scenList = adminScenListDropLetDao.selectScenList(scenListDropLet);
+			
+			for(int i=0;i<scenList.size();i++){
+				//保存subtask
+				subtask.setId(UUIDUtil.generateUUID());
+				subtask.setDropletid(scenList.get(i).getDropletid());
+				subtask.setDropletconftypeid(scenList.get(i).getDropletconftypeid());
+				subtask.setName(scenList.get(i).getScenname());
+				subtask.setTaskid(taskid);
+				subtask.setUserid(userid);
+				subtask.setIndex(scenList.get(i).getIndex());
+				subtask.setIfpass(SysConstant.CARD_STUDY_NOPASS);
+				adminSubTaskDao.insert(subtask);
+			}
+			for(int j=0;j<scenList.size();j++){
+				if(scenList.get(j).getReladropletid()!=null && !"".equals(scenList.get(j).getReladropletid())){
+					handleSubTask(scenList.get(j).getReladropletid(),scenList.get(j).getReladropletid(),scenList.get(j).getReladropletcontypeid(),taskid,userid);
+				}
+			}
+		}
+		if(courseid.equals(SysConstant.DROPLET_ID3)){
+			//CardListDroplet
+			cardListDropLet.setDropletid(dropLetID);
+			cardListDropLet.setDropletconftypeid(dropLetConfTypeID);
+			List<AdminCardListDropletEntity> cardList = adminCardListDropletDao.selectCardListDroplet(cardListDropLet);
+			
+			for(int i=0;i<cardList.size();i++){
+				//保存subtask
+				subtask.setId(UUIDUtil.generateUUID());
+				subtask.setDropletid(cardList.get(i).getDropletid());
+				subtask.setDropletconftypeid(cardList.get(i).getDropletconftypeid());
+				subtask.setName(cardList.get(i).getCardname());
+				subtask.setTaskid(taskid);
+				subtask.setUserid(userid);
+				subtask.setIndex(cardList.get(i).getIndex());
+				subtask.setIfpass(SysConstant.CARD_STUDY_NOPASS);
+				adminSubTaskDao.insert(subtask);
+			}
+			for(int j=0;j<cardList.size();j++){
+				if(cardList.get(j).getReladropletid()!=null && !"".equals(cardList.get(j).getReladropletid())){
+					handleSubTask(cardList.get(j).getReladropletid(),cardList.get(j).getReladropletid(),cardList.get(j).getReladropletcontypeid(),taskid,userid);
+				}
+			}
+		}
 	}
 }

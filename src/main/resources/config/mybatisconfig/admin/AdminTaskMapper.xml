@@ -43,10 +43,10 @@
     	AND THESAURES_TYPE = #{thesauresType}
     </if>
     <if test="startStringDate != null and startStringDate != ''">
-    	AND DATE_FORMAT(START_DATE, '%Y-%m-%d') &gt;= #{startStringDate}
+    	AND DATE_FORMAT(START_DATE, '%Y-%m-%d') = #{startStringDate}
     </if>
     <if test="endStringDate != null and endStringDate != ''">
-    	AND DATE_FORMAT(END_DATE, '%Y-%m-%d') &lt;= #{endStringDate}
+    	AND DATE_FORMAT(END_DATE, '%Y-%m-%d') = #{endStringDate}
     </if>
   </select>
   

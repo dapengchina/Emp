@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.base.BaseDao;
 
+
 @Mapper
 public interface AdminTaskDao<T> extends BaseDao<T>{
 	
@@ -19,4 +20,5 @@ public interface AdminTaskDao<T> extends BaseDao<T>{
 	List<AdminTaskEntity> selectStudyCalendar(String id);
 	
 	AdminTaskEntity selectTask(AdminTaskEntity ate);
+	
 }
