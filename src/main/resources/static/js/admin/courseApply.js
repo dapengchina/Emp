@@ -111,7 +111,6 @@ function loadCourseApplyList(){
 }
 
 function searchCourseList(){
-	var queryUrl = '/Emp/admin/courseApply/queryAll';
 	var coursefirstleveltype =$("#courseType").val();
 	var courseName = $("#courseName").val();
 	var courseState = $("#courseState").val();
@@ -138,12 +137,15 @@ function updateInfo(id, state){
 		method: "post",
 		cache: false,
 		async: true,
-		success: function(){
-			if(state == "1"){
-				$('#' + id +'').parent().html("Approved");
-			}else{
-				$('#' + id +'').parent().html("Refused");
+		success: function(res){
+			if(res){
+				if(state == "1"){
+					$('#' + id +'').parent().html("Approved");
+				}else{
+					$('#' + id +'').parent().html("Refused");
+				}
 			}
+			
 		}
 	});
 }

@@ -30,4 +30,19 @@ public class AdminScecategoryServiceImpl implements AdminScecategoryService{
 		return adminScecategoryDao.selectCourseByID(ase);
 	}
 
+	@Override
+	public boolean insert(AdminScecategoryEntity ase) {
+		if(adminScecategoryDao.insert(ase)>0){
+			return true;
+		}
+		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AdminScecategoryEntity> getIndexList(String ase) {
+		// TODO Auto-generated method stub
+		return adminScecategoryDao.getIndexList(ase);
+	}
+
 }

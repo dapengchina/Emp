@@ -19,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.constant.SysConstant;
+import com.ability.emp.util.UUIDUtil;
 import com.ability.emp.admin.entity.AdminCourseApplyEntity;
 import com.ability.emp.admin.entity.AdminFirstCategoryEntity;
 import com.ability.emp.admin.entity.AdminUserEntity;
+import com.ability.emp.admin.entity.AdminScecategoryEntity;
 import com.ability.emp.admin.server.AdminCourseApplyListService;
 import com.ability.emp.admin.server.AdminFirstCategoryService;
 import com.ability.emp.admin.server.AdminUserService;
+import com.ability.emp.admin.server.AdminScecategoryService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
@@ -43,6 +46,9 @@ public class AdminCourseApplyAction{
 	
 	@Resource
 	private AdminFirstCategoryService adminFirstCategoryService;
+	
+	@Resource
+	private AdminScecategoryService adminScecategoryService;
 	
 	ObjectMapper objectMapper = new ObjectMapper();  
 	
@@ -84,11 +90,12 @@ public class AdminCourseApplyAction{
 		return objectMapper.writeValueAsString(map);
 	}
 	
+	@SuppressWarnings("null")
 	@RequestMapping("/update")
 	@ResponseBody
 	public boolean update(AdminCourseApplyEntity ase,final HttpServletRequest request,
 	        final HttpServletResponse response){
-		SimpleDateFormat sf = new SimpleDateFormat("YYYY-MM-dd");
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		Timestamp approvedate =null;
 		try {
 			approvedate = new Timestamp(sf.parse(sf.format(new Date())).getTime());
@@ -97,6 +104,33 @@ public class AdminCourseApplyAction{
 			e.printStackTrace();
 		}
 		ase.setApprovedate(approvedate);
-		return adminCourseApplyListService.update(ase);
+		boolean state = adminCourseApplyListService.update(ase);
+		if(state){
+			if(ase.getApprovestate().equals("1")){
+				AdminCourseApplyEntity courseInfo = adminCourseApplyListService.selectByPrimaryKey(ase.getId());
+				AdminScecategoryEntity course = new AdminScecategoryEntity();
+				String firstLevel = courseInfo.getCoursefirstleveltype();
+				int max = 1;
+				List<AdminScecategoryEntity> indexList = adminScecategoryService.getIndexList(firstLevel);
+				for(int i=0; i<indexList.size(); i++){
+					if(indexList.get(i).getIndex() > max){
+						max = indexList.get(i).getIndex();
+					}
+				}
+				max++;
+				course.setId(UUIDUtil.generateUUID());
+				course.setFircatid(firstLevel);
+				course.setScecatname(courseInfo.getCoursename());
+				course.setCoursestate(courseInfo.getCoursestate());
+				course.setIndex(max);
+				course.setCoursetype("1");
+				return adminScecategoryService.insert(course);
+			}else{
+				return true;
+			}
+			
+		}else{
+			return false;
+		}
 	}
 }

@@ -19,6 +19,8 @@ public class AdminScecategoryEntity {
     private String dropletconftypeid;
 
     private String coursestate;
+    
+    private String coursetype;
 
     private Date courseenddate;
     
@@ -94,4 +96,12 @@ public class AdminScecategoryEntity {
     public void setCourseenddate(Date courseenddate) {
         this.courseenddate = courseenddate;
     }
+
+	public String getCoursetype() {
+		return coursetype;
+	}
+
+	public void setCoursetype(String coursetype) {
+		this.coursetype = coursetype;
+	}
 }
