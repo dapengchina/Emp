@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ability.emp.admin.dao.AdminCourseApplyListDao" >
-  <resultMap id="BaseResultMap" type="com.ability.emp.admin.entity.AdminCourseApplyEntity" >
+<mapper namespace="com.ability.emp.mobile.dao.MobileCourseApplyDao" >
+  <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileCourseApplyEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="courseFirstLevelType" property="coursefirstleveltype" jdbcType="VARCHAR" />
     <result column="courseName" property="coursename" jdbcType="VARCHAR" />
@@ -23,26 +23,17 @@
     from t_course_apply
     where ID = #{id,jdbcType=VARCHAR}
   </select>
-  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminCourseApplyEntity">
-  	select * from t_course_apply where 1=1
-  	<if test="coursefirstleveltype!=null and coursefirstleveltype !=''">
-  		and courseFirstLevelType = #{coursefirstleveltype}
-  	</if>
-  	<if test="coursename!=null and coursename !=''">
-  		and courseName LIKE '%${coursename}%'
-  	</if>
-  	<if test="coursestate!=null and coursestate !=''">
-  		and courseState = #{coursestate}
-  	</if>
-  	<if test="approvestringdate!=null and approvestringdate !=''">
-  		and DATE_FORMAT(applyDate, '%Y-%m-%d') = #{approvestringdate}
-  	</if>
+  <select id="selectByCourseInfo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_course_apply
+    where courseName = #{coursename} and courseFirstLevelType = #{coursefirstleveltype}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_course_apply
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insertSelective" parameterType="com.ability.emp.admin.entity.AdminCourseApplyEntity" >
+  <insert id="insertSelective" parameterType="com.ability.emp.mobile.entity.MobileCourseApplyEntity" >
     insert into t_course_apply
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -109,7 +100,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ability.emp.admin.entity.AdminCourseApplyEntity" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.ability.emp.mobile.entity.MobileCourseApplyEntity" >
     update t_course_apply
     <set >
       <if test="coursefirstleveltype != null" >

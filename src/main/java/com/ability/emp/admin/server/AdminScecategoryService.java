@@ -10,5 +10,9 @@ public interface AdminScecategoryService {
 	   public List<AdminScecategoryEntity> getCourse(AdminScecategoryEntity ase);
 	   
 	   public AdminScecategoryEntity getCourseByID(AdminScecategoryEntity ase);
+	   
+	   public boolean insert(AdminScecategoryEntity ase);
+	   
+	   public List<AdminScecategoryEntity> getIndexList(String ase);
 
 }
