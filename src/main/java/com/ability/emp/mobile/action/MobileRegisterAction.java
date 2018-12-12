@@ -50,7 +50,7 @@ public class MobileRegisterAction {
 			//查询此手机号是否被注册
 			MobileUserEntity me = mobileUserService.getUser(mue);
 			if(me!=null){
-				map.put("result", "此手机号已被注册");
+				map.put("result", "手机号已被注册");
 				map.put("code", 2);
 				return objectMapper.writeValueAsString(map);
 			}
@@ -63,6 +63,29 @@ public class MobileRegisterAction {
 			map.put("code", 1);
 		}catch(Exception e){
 			map.put("result", "注册失败");
+			map.put("code", 0);
+		}
+		return objectMapper.writeValueAsString(map);
+	}
+	
+	@RequestMapping("/checkPhone")
+	@ResponseBody
+	public String checkPhone(@RequestBody MobileUserEntity mue) throws Exception {
+		Map<String,Object> map = new HashMap<String,Object>();
+		try{
+			//查询此手机号是否被注册
+			MobileUserEntity me = mobileUserService.getUser(mue);
+			if(me!=null){
+				map.put("result", "手机号已被注册");
+				map.put("code", 0);
+				return objectMapper.writeValueAsString(map);
+			}else{
+				map.put("result", "校验通过");
+				map.put("code", 1);
+				return objectMapper.writeValueAsString(map);
+			}
+		}catch(Exception e){
+			map.put("result", "校验失败");
 			map.put("code", 0);
 		}
 		return objectMapper.writeValueAsString(map);

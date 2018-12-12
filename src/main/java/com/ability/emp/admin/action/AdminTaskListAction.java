@@ -159,16 +159,21 @@ public class AdminTaskListAction {
 	    }else{
 	    	ate.setCourseid(taskEntity.getCourseid());//课程ID
 			ate.setTaskstate(SysConstant.TASK_STATE0);//未结束
-			ate.setStartStringDate(taskEntity.getStartStringDate());//任务开始日期
-	    	ate.setEndStringDate(taskEntity.getEndStringDate());//任务结束日期
+//			ate.setStartStringDate(taskEntity.getStartStringDate());//任务开始日期
+//	    	ate.setEndStringDate(taskEntity.getEndStringDate());//任务结束日期
 			
 			te = adminTaskService.getTask(ate);
 	    }
 		
 		//如果找到,则不保存
 		if(te!=null){
-			result.put("msg", "此课程同时间段内存在未结束的任务");
-			result.put("code", "0");
+			if(taskEntity.getCourseid().equals(SysConstant.TASK_TYPE1)){
+				result.put("msg", "此课程同时间段内存在未结束的任务");
+				result.put("code", "0");
+			}else{
+				result.put("msg", "非背单词任务只能存在一个");
+				result.put("code", "0");
+			}
 		}else{
 			taskEntity.setStartDate(sf.parse(taskEntity.getStartStringDate()));
 			taskEntity.setEndDate(sf.parse(taskEntity.getEndStringDate()));

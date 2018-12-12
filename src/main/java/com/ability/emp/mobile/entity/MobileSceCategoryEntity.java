@@ -29,10 +29,26 @@ public class MobileSceCategoryEntity {
     
     
     
+    /**
+     * 表外字段
+     * @return
+     */
+    private String userid;
+    
+    
+    
     
     
     
    
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 
 	public String getCoursetype() {
 		return coursetype;

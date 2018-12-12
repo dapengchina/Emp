@@ -83,7 +83,7 @@ public class AdminCourseApplyAction{
 			data.get(i).setCourseFirstTypeName(courseTypeInfo.getFircatname());
 		}
 		Map<String,Object> map = new HashMap<String,Object>();
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		PageInfo<AdminUserEntity> page = new PageInfo(data);
 		map.put("total",page.getTotal());
 		map.put("rows", data);

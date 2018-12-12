@@ -14,5 +14,7 @@ public interface MobileSceCategoryService {
 	public List<MobileSceCategoryEntity> getCourseData(MobileSceCategoryEntity me);
 	
 	public MobileSceCategoryEntity getCourse(MobileSceCategoryEntity me);
+	
+	public void chooseCourse(MobileSceCategoryEntity me);
 
 }
