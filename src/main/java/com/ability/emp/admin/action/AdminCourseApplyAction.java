@@ -90,7 +90,7 @@ public class AdminCourseApplyAction{
 		return objectMapper.writeValueAsString(map);
 	}
 	
-	@SuppressWarnings("null")
+	
 	@RequestMapping("/update")
 	@ResponseBody
 	public boolean update(AdminCourseApplyEntity ase,final HttpServletRequest request,
