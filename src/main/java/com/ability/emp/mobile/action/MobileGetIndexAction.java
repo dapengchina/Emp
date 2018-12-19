@@ -23,6 +23,7 @@ import com.ability.emp.mobile.entity.MobileSubTaskEntity;
 import com.ability.emp.mobile.entity.MobileTaskEntity;
 import com.ability.emp.mobile.entity.MobileUserTaskEntity;
 import com.ability.emp.mobile.entity.bean.SceCategoryBean;
+import com.ability.emp.mobile.entity.MobileHomeAnnounceEntity;
 import com.ability.emp.mobile.entity.vo.FirstCategoryVo;
 import com.ability.emp.mobile.server.MobileDropLetService;
 import com.ability.emp.mobile.server.MobileFirstCategoryService;
@@ -30,6 +31,7 @@ import com.ability.emp.mobile.server.MobileSceCategoryService;
 import com.ability.emp.mobile.server.MobileSubTaskService;
 import com.ability.emp.mobile.server.MobileTaskService;
 import com.ability.emp.mobile.server.MobileUserTaskService;
+import com.ability.emp.mobile.server.MobileHomeAnnounceService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -62,9 +64,12 @@ public class MobileGetIndexAction {
 	@Resource
 	private MobileSubTaskService mobileSubTaskService;
 	
+	@Resource
+	private MobileHomeAnnounceService mobileHomeAnnounceService;
 	
 	
-	@SuppressWarnings("unchecked")
+	
+	@SuppressWarnings({ "unchecked", "null" })
 	@RequestMapping("/getIndexData/{userid}")
 	@ResponseBody
 	public String getIndexData(@PathVariable("userid") String userid) throws Exception {
@@ -129,8 +134,19 @@ public class MobileGetIndexAction {
 			}
 		}
 		
+		/**首页轮播及公告**/
+		MobileHomeAnnounceEntity ase = new MobileHomeAnnounceEntity();
+		ase.setGrouptype("1");
+		ase.setState("1");
+		MobileHomeAnnounceEntity titlease = new MobileHomeAnnounceEntity();
+		titlease.setGrouptype("2");
+		titlease.setState("1");
+		List<MobileHomeAnnounceEntity> imgList =  mobileHomeAnnounceService.selectList(ase);
+		List<MobileHomeAnnounceEntity> msgList = mobileHomeAnnounceService.selectList(titlease);
 		map.put("list", firstlist);
 		map.put("score", score);//用户总得分
+		map.put("imgList", imgList); //轮播图片信息
+		map.put("msgList", msgList); //轮播公告信息
 		return objectMapper.writeValueAsString(map);
 	}
 	
