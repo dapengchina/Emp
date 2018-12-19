@@ -35,6 +35,10 @@ public class MobileUserEntity {
     
     private String courseid;
     
+    private String oldPwd;
+    
+    private String newPwd;
+    
     
     
     
@@ -144,5 +148,21 @@ public class MobileUserEntity {
 
 	public void setIsAppointName(String isAppointName) {
 		this.isAppointName = isAppointName;
+	}
+
+	public String getOldPwd() {
+		return oldPwd;
+	}
+
+	public void setOldPwd(String oldPwd) {
+		this.oldPwd = oldPwd;
+	}
+
+	public String getNewPwd() {
+		return newPwd;
+	}
+
+	public void setNewPwd(String newPwd) {
+		this.newPwd = newPwd;
 	}
 }
