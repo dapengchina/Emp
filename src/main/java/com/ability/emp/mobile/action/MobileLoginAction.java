@@ -83,6 +83,7 @@ public class MobileLoginAction {
 			int i = mobileUserService.update(t);
 			if(i>0){
 				map.put("uid", u.getId());
+				map.put("userName", u.getUserName());
 				map.put("result", "0");
 				return objectMapper.writeValueAsString(map);
 			}else{

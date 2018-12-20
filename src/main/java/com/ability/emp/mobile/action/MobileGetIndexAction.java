@@ -69,7 +69,7 @@ public class MobileGetIndexAction {
 	
 	
 	
-	@SuppressWarnings({ "unchecked", "null" })
+	@SuppressWarnings({ "unchecked"})
 	@RequestMapping("/getIndexData/{userid}")
 	@ResponseBody
 	public String getIndexData(@PathVariable("userid") String userid) throws Exception {
