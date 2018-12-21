@@ -20,11 +20,21 @@ public class SceCategoryBean {
 	   
 	   private boolean ifpermissions;
 	   
+	   private boolean ifend;
+	   
 	   
 
 	
 
-	   public String getCourseType() {
+	   public boolean isIfend() {
+		return ifend;
+	}
+
+	public void setIfend(boolean ifend) {
+		this.ifend = ifend;
+	}
+
+	public String getCourseType() {
 		  return courseType;
 	   }
 

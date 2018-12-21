@@ -21,6 +21,9 @@
   <select id="selectTask" resultType="com.ability.emp.mobile.entity.MobileTaskEntity" parameterType="com.ability.emp.mobile.entity.MobileTaskEntity">
     select * from t_task
     where 1=1
+    <if test="taskstate != null and taskstate != ''">
+    	AND TaskState = #{taskstate}
+    </if>
     <if test="id != null and id != ''">
     	AND ID = #{id}
     </if>
@@ -33,6 +36,9 @@
     </if>
     <if test="courseid != null and courseid != ''">
     	AND CourseId = #{courseid}
+    </if>
+    <if test="taskstate != null and taskstate != ''">
+    	AND TaskState = #{taskstate}
     </if>
   </select>
   

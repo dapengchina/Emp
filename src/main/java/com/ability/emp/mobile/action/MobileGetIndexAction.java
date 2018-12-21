@@ -162,6 +162,8 @@ public class MobileGetIndexAction {
 		List<MobileUserTaskEntity> userTaskList = mobileUserTaskService.getUserTask(usertask);
 		if(userTaskList!=null && userTaskList.size()>0){
 			for(int i=0;i<userTaskList.size();i++){
+				//查找用户对应的未结束的课程
+				task.setTaskstate(SysConstant.TASK_STATE0);//未结束
 				task.setId(userTaskList.get(i).getTaskid());
 				MobileTaskEntity retask = mobileTaskService.getTask(task);
 				if(retask!=null){

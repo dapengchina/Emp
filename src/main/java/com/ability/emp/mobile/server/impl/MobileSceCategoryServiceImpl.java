@@ -89,19 +89,21 @@ public class MobileSceCategoryServiceImpl implements MobileSceCategoryService{
 				//根据课程ID查询课程
 				course.setId(courseid[k]);
 				MobileSceCategoryEntity recourse = mobileSceCategoryDao.selectCourseByID(course);
-				//根据课程ID查询任务状态
+				//课程ID
 				task.setCourseid(courseid[k]);
+				//任务状态(未结束)
+				task.setTaskstate(SysConstant.TASK_STATE0);
 				List<MobileTaskEntity> taskList = mobileTaskDao.selectTaskList(task);
 				if(taskList!=null && taskList.size()>0){
-					for(int m=0;m<taskList.size();m++){
+					//for(int m=0;m<taskList.size();m++){
 						//如果课程对应的任务已经结束,则执行保存操作
-						if(taskList.get(m).getTaskstate().equals(SysConstant.TASK_STATE1)){
-							executeSave(task,userTask,subtask,recourse,courseid[k],calender,me.getUserid(),null,false);
-						}else{
+						//if(taskList.get(m).getTaskstate().equals(SysConstant.TASK_STATE1)){
+							//executeSave(task,userTask,subtask,recourse,courseid[k],calender,me.getUserid(),null,false);
+						//}else{
 							//如果没有结束,则将此任务保存到用户下
-							executeSave(task,userTask,subtask,recourse,courseid[k],calender,me.getUserid(),taskList.get(m).getId(),true);
-						}
-					}
+							executeSave(task,userTask,subtask,recourse,courseid[k],calender,me.getUserid(),taskList.get(0).getId(),true);
+						//}
+					//}
 				}else{
 					executeSave(task,userTask,subtask,recourse,courseid[k],calender,me.getUserid(),null,false);
 				}

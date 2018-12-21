@@ -84,7 +84,7 @@ public class MobileCourseAction {
 	public String getUserNotSelectCourse(@PathVariable("userId") String userId) throws Exception {
 		
 		/**
-		 * 拿到用户选择的课程
+		 * 拿到用户选择的课程(未结束的)
 		 */
 		//根据userid去查询usertask
 		MobileUserTaskEntity usertask = new MobileUserTaskEntity();
