@@ -27,6 +27,8 @@ public class AdminUserSubTaskEntity {
 
     private String remark;
     
+    private String state;
+    
     
     /**
      * 表外字段
@@ -47,7 +49,15 @@ public class AdminUserSubTaskEntity {
     
     
 
-    public String getTotalPoint() {
+    public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getTotalPoint() {
 		return totalPoint;
 	}
 

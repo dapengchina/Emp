@@ -13,6 +13,7 @@
     <result column="Passscore" property="passscore" jdbcType="VARCHAR" />
     <result column="Ifpass" property="ifpass" jdbcType="VARCHAR" />
     <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="VARCHAR" />
   </resultMap>
   
   <select id="selectUserSubTask" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminUserSubTaskEntity" >
@@ -74,6 +75,9 @@
       <if test="remark != null" >
         Remark,
       </if>
+      <if test="state != null" >
+        State,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -108,6 +112,9 @@
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -145,8 +152,21 @@
       <if test="remark != null" >
         Remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="endTask" parameterType="com.ability.emp.admin.entity.AdminUserSubTaskEntity" >
+    update t_subtask
+    <set >
+      <if test="state != null" >
+        State = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TaskId = #{taskid,jdbcType=VARCHAR}
   </update>
   
   

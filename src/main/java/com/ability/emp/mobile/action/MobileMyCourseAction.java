@@ -59,6 +59,7 @@ public class MobileMyCourseAction {
 			MobileSceCategoryEntity course = new MobileSceCategoryEntity();
 			for(int i=0;i<userTaskList.size();i++){
 				mte.setId(userTaskList.get(i).getTaskid());
+				mte.setTaskstate(SysConstant.TASK_STATE0);
 				MobileTaskEntity task = mobileTaskService.getTask(mte);
 				if(task!=null){
 					course.setId(task.getCourseid());

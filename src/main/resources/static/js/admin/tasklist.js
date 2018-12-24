@@ -76,7 +76,8 @@ function loadTaskList() {
 			align : 'center',
 			valign : 'middle',
 			formatter: function (value, row, index) {
-				return [ '<button type="button" onclick="deleteTask(\''+ row.id+ '\')" class="btn btn-danger glyphicon glyphicon-trash"></button>' ];
+				return  '<button type="button" onclick="deleteTask(\''+ row.id+ '\')" class="btn btn-danger glyphicon glyphicon-trash">' 
+				+ '<button type="button" onclick="endTask(\''+ row.id+ '\')" class="btn btn-danger glyphicon glyphicon-off">' ;
 			}
 		}],
 		onLoadSuccess : function() {
@@ -329,3 +330,23 @@ function courseChange(){
 	}
 }
 
+//结束任务
+function endTask(taskid){
+	if(confirm("确认要结束任务吗?")){
+		$.ajax({
+			type : 'get',
+			url :"/Emp/admin/task/endTask/"+taskid,
+			dataType : 'json',
+			success : function(result) {
+				if(result.code=="1"){
+					alert(result.msg);
+					$('#tasklist').bootstrapTable('refresh');
+				}else{
+					alert(result.msg);
+				}
+			}
+		});
+	}else{
+		//alert("不结束");
+	}
+}

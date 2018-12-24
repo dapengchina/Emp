@@ -24,5 +24,10 @@ public class AdminUserSubTaskServiceImpl implements AdminUserSubTaskService{
 	public List<AdminUserSubTaskEntity> getUserSubTask(AdminUserSubTaskEntity auste) {
 		return adminUserSubTaskDao.selectUserSubTask(auste);
 	}
+	
+	@Override
+	public int endTask(AdminUserSubTaskEntity auste) {
+		return adminUserSubTaskDao.endTask(auste);
+	}
 
 }

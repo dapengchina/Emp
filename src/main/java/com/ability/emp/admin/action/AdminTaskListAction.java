@@ -25,11 +25,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ability.emp.admin.entity.AdminScecategoryEntity;
 import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.admin.entity.AdminThesauresPramEntity;
+import com.ability.emp.admin.entity.AdminUserSubTaskEntity;
 import com.ability.emp.admin.entity.AdminWordEntity;
 import com.ability.emp.admin.server.AdminScecategoryService;
 import com.ability.emp.admin.server.AdminSystemParamService;
 import com.ability.emp.admin.server.AdminTaskService;
 import com.ability.emp.admin.server.AdminThesauresPramService;
+import com.ability.emp.admin.server.AdminUserSubTaskService;
 import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.CalendarCountUtil;
@@ -67,6 +69,9 @@ public class AdminTaskListAction {
 	
 	@Resource
 	private AdminWordService adminWordService;
+	
+	@Resource
+	private AdminUserSubTaskService adminUserSubTaskService;
 	
 	private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -272,4 +277,28 @@ public class AdminTaskListAction {
 	}
 
 	
+	
+	@RequestMapping(value = "/endTask/{taskid}")
+	@ResponseBody
+	public String endTask(@PathVariable("taskid") String taskid) throws JsonProcessingException{
+		Map<String,Object> map = new HashMap<String,Object>();
+		try{
+			AdminTaskEntity task = new AdminTaskEntity();
+			task.setId(taskid);
+			task.setTaskstate(SysConstant.TASK_STATE1);
+			
+			AdminUserSubTaskEntity subtask = new AdminUserSubTaskEntity();
+			subtask.setTaskid(taskid);
+			subtask.setState(SysConstant.TASK_STATE1);
+			adminTaskService.update(task);
+			adminUserSubTaskService.endTask(subtask);
+			
+			map.put("msg", "结束成功");
+			map.put("code", "1");
+		}catch(Exception e){
+			map.put("msg", "结束失败");
+			map.put("code", "0");
+		}
+		return objectMapper.writeValueAsString(map);
+	}
 }
