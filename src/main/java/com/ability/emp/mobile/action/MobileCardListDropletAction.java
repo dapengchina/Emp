@@ -83,6 +83,7 @@ public class MobileCardListDropletAction {
 			
 			//查询分数
 			subtask.setUserid(userid);
+			subtask.setState(SysConstant.TASK_STATE0);
 			subtask.setIndex(cardListDropletList.get(i).getIndex());
 			subtask.setDropletid(cardListDropletList.get(i).getDropletid());
 			subtask.setDropletconftypeid(cardListDropletList.get(i).getDropletconftypeid());

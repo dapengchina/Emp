@@ -13,6 +13,7 @@
     <result column="Passscore" property="passscore" jdbcType="VARCHAR" />
     <result column="Ifpass" property="ifpass" jdbcType="VARCHAR" />
     <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="VARCHAR" />
   </resultMap>
   
   <select id="selectSubTask" resultType="com.ability.emp.mobile.entity.MobileSubTaskEntity" parameterType="com.ability.emp.mobile.entity.MobileSubTaskEntity" >
@@ -30,6 +31,9 @@
     <if test="index != null and index !=''" >
       and `Index`=#{index}
     </if>
+    <if test="state != null and state !=''" >
+      and State=#{state}
+    </if>
   </select>
   
   <select id="selectSubTaskList" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileSubTaskEntity" >
@@ -43,6 +47,9 @@
     </if>
     <if test="dropletconftypeid != null and dropletconftypeid !=''" >
       and DropLetConfTypeID=#{dropletconftypeid}
+    </if>
+    <if test="state != null and state !=''" >
+      and State=#{state}
     </if>
   </select>
   
@@ -87,6 +94,9 @@
       <if test="remark != null" >
         Remark,
       </if>
+      <if test="state != null" >
+        State,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -121,6 +131,9 @@
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -157,6 +170,9 @@
       </if>
       <if test="remark != null" >
         Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

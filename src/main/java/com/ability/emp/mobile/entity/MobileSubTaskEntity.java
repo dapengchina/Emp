@@ -25,11 +25,21 @@ public class MobileSubTaskEntity {
     
     private String remark;
     
+    private String state;
+    
     
     
     
 
-    public Integer getIndex() {
+    public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public Integer getIndex() {
 		return index;
 	}
 

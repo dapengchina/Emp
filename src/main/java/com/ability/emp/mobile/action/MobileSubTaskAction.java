@@ -34,6 +34,7 @@ public class MobileSubTaskAction {
 	public String saveScore(@RequestBody MobileSubTaskEntity mste) throws JsonProcessingException{
 		Map<String,Object> map = new HashMap<String,Object>();
 		try{
+			mste.setState(SysConstant.TASK_STATE0);
 			MobileSubTaskEntity subtask = mobileSubTaskService.getSubTask(mste);
 			if(subtask!=null){
 				mste.setId(subtask.getId());

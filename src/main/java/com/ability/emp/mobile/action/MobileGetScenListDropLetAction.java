@@ -98,6 +98,7 @@ public class MobileGetScenListDropLetAction {
 				
 			){
 				subtask.setUserid(userid);
+				subtask.setState(SysConstant.TASK_STATE0);
 				subtask.setDropletid(scenListDropLetList.get(i).getReladropletid());
 				subtask.setDropletconftypeid(scenListDropLetList.get(i).getReladropletcontypeid());
 				List<MobileSubTaskEntity> subtasklist = mobileSubTaskService.getSubTaskList(subtask);
