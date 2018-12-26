@@ -144,6 +144,27 @@ public class SysConstant {
 		   return map;
 	   }
 	   
+	   //基础词库
+	   public static final String THESAURES_TYPE1 = "1";
+	   //IT专业词库
+	   public static final String THESAURES_TYPE2 = "2";
+	   //所有词库
+	   public static final String THESAURES_TYPE3 = "3";
+	   
+	   public static Map<String,Object> getThesauresTypeName(){
+		   Map<String,Object> map = new HashMap<String,Object>();
+		   map.put(THESAURES_TYPE1, "基础词库");
+		   map.put(THESAURES_TYPE2, "IT专业词库");
+		   map.put(THESAURES_TYPE3, "所有词库");
+		   
+		   return map;
+	   }
+	   
+	   //当用户为所有词库时,不用根据任务开始日期和结束日期计算每天任务量,默认为每天20个
+	   public static final int DEFAULT_WORD_COUNT = 20;
+	   
+	   public static final int YEAR = 2018;
+	   
 	   
 
 }

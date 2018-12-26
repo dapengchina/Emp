@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ability.emp.admin.entity.AdminUserEntity;
 import com.ability.emp.admin.entity.vo.AdminUserReportVo;
 import com.ability.emp.admin.server.AdminUserReportService;
+import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.CalendarCountUtil;
 import com.ability.emp.util.CalendarUtil;
 import com.ability.emp.util.WeekUtil;
@@ -84,23 +85,11 @@ public class AdminUserReportAction {
 			String[] da = WeekUtil.getWeek();
 			endDate = da[1];
 		}
-		
-//		startDate = "2018-06-01";
-//		endDate = "2018-06-30";
-//		String[] start = startDate.split("-");
-//		String[] end = endDate.split("-");
-		
 		/**
 		 * 判断所选日期是否跨月
 		 */
-//		if(Integer.parseInt(start[1])==Integer.parseInt(end[1])){
-//			//没有跨月
-//			return notMonthCross(data,startDate,endDate);
-//		}else{
-//			//跨月
-			return monthCross(data,startDate,endDate);
-		//}
-		
+		//跨月
+		return monthCross(data,startDate,endDate);
 	}
 	
 	
@@ -168,7 +157,7 @@ public class AdminUserReportAction {
 				}
 				if(i==0){
 					//获取当前月份天数
-					int mds = CalendarUtil.daysOfmonthInyear(currentMonth, 2018);
+					int mds = CalendarUtil.daysOfmonthInyear(currentMonth, SysConstant.YEAR);
 					//判断是否为当月最后一天
 					if(temp==mds){
 						//是最后一天
@@ -181,7 +170,7 @@ public class AdminUserReportAction {
 						if(currentMonth>10 && currentMonth<=enmonth){
 							y=String.valueOf(currentMonth);
 						}
-						sdate="2018-"+y+"-"+"0"+temp;
+						sdate=SysConstant.YEAR+"-"+y+"-"+"0"+temp;
 					}else{
 						//不是当月最后一天
 						if(currentMonth<10 && currentMonth<=enmonth){
@@ -191,39 +180,39 @@ public class AdminUserReportAction {
 							y=String.valueOf(currentMonth);
 						}
 						temp++;
-						if(temp<10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
-							sdate="2018-"+y+"-"+"0"+temp;
+						if(temp<10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, SysConstant.YEAR)){
+							sdate=SysConstant.YEAR+"-"+y+"-"+"0"+temp;
 						}
-						if(temp>=10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
-							sdate="2018-"+y+"-"+temp;
+						if(temp>=10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, SysConstant.YEAR)){
+							sdate=SysConstant.YEAR+"-"+y+"-"+temp;
 						}
 						//递增到当月最后一天
-						if(temp>CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
+						if(temp>CalendarUtil.daysOfmonthInyear(currentMonth, SysConstant.YEAR)){
 							//是最后一天
 							currentMonth++;
 							//天数重置为1
 							temp=1;
 							//当月天数更新
-							currentDays=CalendarUtil.daysOfmonthInyear(currentMonth, 2018);;
+							currentDays=CalendarUtil.daysOfmonthInyear(currentMonth, SysConstant.YEAR);;
 							if(currentMonth<10 && currentMonth<=enmonth){
 								y="0"+currentMonth;
 							}
 							if(currentMonth>10 && currentMonth<=enmonth){
 								y=String.valueOf(currentMonth);
 							}
-							sdate="2018-"+y+"-"+"0"+temp;
+							sdate=SysConstant.YEAR+"-"+y+"-"+"0"+temp;
 						}
 					}
 				}else{
 					temp++;//天数递增
-					if(temp<10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
-						sdate="2018-"+y+"-"+"0"+temp;
+					if(temp<10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, SysConstant.YEAR)){
+						sdate=SysConstant.YEAR+"-"+y+"-"+"0"+temp;
 					}
-					if(temp>=10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
-						sdate="2018-"+y+"-"+temp;
+					if(temp>=10 && temp<=CalendarUtil.daysOfmonthInyear(currentMonth, SysConstant.YEAR)){
+						sdate=SysConstant.YEAR+"-"+y+"-"+temp;
 					}
 					//判断是否递增到当月最后一天
-					if(temp>CalendarUtil.daysOfmonthInyear(currentMonth, 2018)){
+					if(temp>CalendarUtil.daysOfmonthInyear(currentMonth, SysConstant.YEAR)){
 						currentMonth++;
 						//天数重置为1
 						temp=1;
@@ -235,7 +224,7 @@ public class AdminUserReportAction {
 						if(currentMonth>10 && currentMonth<=enmonth){
 							y=String.valueOf(y);
 						}
-						sdate="2018-"+y+"-"+"0"+temp;
+						sdate=SysConstant.YEAR+"-"+y+"-"+"0"+temp;
 					}
 				}
 				

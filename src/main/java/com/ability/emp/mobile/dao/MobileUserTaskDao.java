@@ -12,5 +12,7 @@ import com.ability.emp.mobile.entity.MobileUserTaskEntity;
 public interface MobileUserTaskDao<T> extends BaseDao<T> {
 	
 	public List<MobileUserTaskEntity> selectUserTask(MobileUserTaskEntity me);
+	
+	public MobileUserTaskEntity selectOneUserTask(MobileUserTaskEntity me);
 
 }

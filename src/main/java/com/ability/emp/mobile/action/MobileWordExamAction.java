@@ -99,9 +99,20 @@ public class MobileWordExamAction {
 			//查询用户未完成的任务
 		    if(userTaskList.get(i).getCompletepercent().equals(SysConstant.COMPLETE_PERCENT_INIT)){
 				MobileTaskEntity task = mobileTaskService.queryById(userTaskList.get(i).getTaskid());
+				/**
+				 * 如果是背单词任务,则计算每天背单词量
+				 */
 				if(task.getCourseid().equals(SysConstant.TASK_TYPE1)){
-					taskcount = calculateTaskCount(sdf.format(task.getStartDate()),sdf.format(task.getEndDate()),task.getThesauresType());
-				    break;
+					//如果是用户自己在手机端选择的背单词,则调用默认每天任务量
+					if(task.getStartDate()==null && task.getEndDate()==null){
+						taskcount = SysConstant.DEFAULT_WORD_COUNT;
+					    break;
+					}
+					//如果是导师在后台给用户指派的背单词,则根据开始,结束日期计算每天任务量
+					if(task.getStartDate()!=null && task.getEndDate()!=null){
+						taskcount = calculateTaskCount(sdf.format(task.getStartDate()),sdf.format(task.getEndDate()),task.getThesauresType());
+					    break;
+					}
 				}
 			}
 		}

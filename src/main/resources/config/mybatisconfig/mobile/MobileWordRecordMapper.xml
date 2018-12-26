@@ -72,6 +72,20 @@
     select WORD_ID,WORD from t_word_record where IS_FAIL='1' and USER_ID=#{id,jdbcType=VARCHAR};
   </select>
   
+  <select id="selectWordRecord" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileWordRecordEntity" >
+    select * from t_word_record
+    where 1=1
+    <if test="userId != null and userId != ''">
+    	AND USER_ID = #{userId}
+    </if>
+    <if test="isPass != null and isPass != ''">
+    	AND IS_PASS = #{isPass}
+    </if>
+    <if test="thesaurus != null and thesaurus != ''">
+    	AND THESAURUS = #{thesaurus}
+    </if>
+  </select>
+  
   
   <delete id="delete" parameterType="java.lang.String" >
     delete from t_word_record
