@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ability.emp.constant.SysConstant;
+import com.ability.emp.mobile.dao.MobileBearWordDao;
 import com.ability.emp.mobile.dao.MobileCardListDropletDao;
 import com.ability.emp.mobile.dao.MobileChoiceAudioDropletDao;
 import com.ability.emp.mobile.dao.MobileChoiceTextDropLetDao;
@@ -27,6 +28,7 @@ import com.ability.emp.mobile.dao.MobileTaskDao;
 import com.ability.emp.mobile.dao.MobileUserDao;
 import com.ability.emp.mobile.dao.MobileUserTaskDao;
 import com.ability.emp.mobile.dao.MobileVideoDropLetDao;
+import com.ability.emp.mobile.dao.MobileWordDao;
 import com.ability.emp.mobile.entity.MobileCardListDropletEntity;
 import com.ability.emp.mobile.entity.MobileSceCategoryEntity;
 import com.ability.emp.mobile.entity.MobileScenListDropLetEntity;
@@ -34,6 +36,8 @@ import com.ability.emp.mobile.entity.MobileSubTaskEntity;
 import com.ability.emp.mobile.entity.MobileTaskEntity;
 import com.ability.emp.mobile.entity.MobileUserEntity;
 import com.ability.emp.mobile.entity.MobileUserTaskEntity;
+import com.ability.emp.mobile.entity.MobileWordEntity;
+import com.ability.emp.mobile.entity.MobileWordRecordEntity;
 import com.ability.emp.mobile.server.MobileUserService;
 import com.ability.emp.util.UUIDUtil;
 
@@ -105,6 +109,14 @@ public class MobileUserServiceImpl implements MobileUserService{
 	@Resource
 	private MobileDictationDropLetDao mobileDictationDropLetDao;
 	
+	@SuppressWarnings("rawtypes")
+	@Resource
+	private MobileWordDao mobileWordDao;
+	
+	@SuppressWarnings("rawtypes")
+	@Resource
+	private MobileBearWordDao mobileBearWordDao;
+	
 
 	@Override
 	public MobileUserEntity queryById(String id) {
@@ -142,23 +154,27 @@ public class MobileUserServiceImpl implements MobileUserService{
 					//根据课程ID查询课程
 					course.setId(courseid[k]);
 					MobileSceCategoryEntity recourse = mobileSceCategoryDao.selectCourseByID(course);
-					//课程ID
-					task.setCourseid(courseid[k]);
-					//任务状态(未结束)
-					task.setTaskstate(SysConstant.TASK_STATE0);
-					List<MobileTaskEntity> taskList = mobileTaskDao.selectTaskList(task);
-					if(taskList!=null && taskList.size()>0){
-						//for(int m=0;m<taskList.size();m++){
-							//如果课程对应的任务已经结束,则执行保存操作
-							//if(taskList.get(m).getTaskstate().equals(SysConstant.TASK_STATE1)){
-								//executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),null,false);
-							//}else{
-								//如果没有结束,则将此任务保存到用户下
-								executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),taskList.get(0).getId(),true);
-							//}
-						//}
-					}else{
-						executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),null,false);
+					/**
+					 * 课程不是背单词
+					 */
+					if(courseid[k].equals(SysConstant.TASK_TYPE0)){
+						//课程ID
+						task.setCourseid(courseid[k]);
+						//任务状态(未结束)
+						task.setTaskstate(SysConstant.TASK_STATE0);
+						List<MobileTaskEntity> taskList = mobileTaskDao.selectTaskList(task);
+						if(taskList!=null && taskList.size()>0){
+							//如果没有结束,则将此任务保存到用户下
+							executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),taskList.get(0).getId(),true);
+						}else{
+							executeSave(task,userTask,subtask,recourse,courseid[k],calender,mue.getId(),null,false);
+						}
+					}
+					/**
+					 * 如果用户选择的是背单词,则单独处理
+					 */
+					if(courseid[k].equals(SysConstant.TASK_TYPE1)){
+						handleSweedWord(mue.getId(),task,recourse,courseid[k]);
 					}
 				}
 			}
@@ -286,4 +302,62 @@ public class MobileUserServiceImpl implements MobileUserService{
 		}
 	}
 	
+	
+	@SuppressWarnings("unchecked")
+	private void handleSweedWord(
+			String userid,
+			MobileTaskEntity task,
+			MobileSceCategoryEntity recourse,
+			String courseid
+			){
+		//保存任务
+		task.setId(UUIDUtil.generateUUID());
+		task.setCourseid(courseid);
+		task.setTaskname(recourse.getScecatname());
+		task.setTaskstate(SysConstant.TASK_STATE0);//未结束
+		task.setThesauresType(SysConstant.THESAURES_TYPE3);//所有词库
+		mobileTaskDao.insert(task);
+		
+		//保存用户任务
+		MobileUserTaskEntity userTask = new MobileUserTaskEntity();
+		
+		userTask.setUserid(userid);
+		userTask.setTaskid(task.getId());
+		//根据任务ID和用户ID查询用户任务表,如果有数据则不保存
+		MobileUserTaskEntity ut = mobileUserTaskDao.selectOneUserTask(userTask);
+		if(ut==null){
+			userTask.setId(UUIDUtil.generateUUID());
+			userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
+			mobileUserTaskDao.insert(userTask);
+		}
+		
+						
+		//保存用户单词
+		List<MobileWordEntity> list = null;
+		MobileWordEntity ae = new MobileWordEntity();
+		list = mobileWordDao.queryWordAll(ae);
+		
+		MobileWordRecordEntity temp = new MobileWordRecordEntity();
+		temp.setUserId(userid);
+		temp.setThesaurus(SysConstant.THESAURES_TYPE3);//所有词库
+		temp.setIsPass(SysConstant.NO_PASS);//未通过考试
+		List<MobileWordRecordEntity> tempList = mobileBearWordDao.selectWordRecord(temp);
+		if(tempList!=null && tempList.size()>0){
+			return;
+		}
+		
+		MobileWordRecordEntity wordRecordEntiy = new MobileWordRecordEntity();
+		for (int j = 0; j < list.size(); j++) {
+			wordRecordEntiy.setUserId(userid);
+			wordRecordEntiy.setWord(list.get(j).getWord());
+			wordRecordEntiy.setWordId(list.get(j).getId());
+			wordRecordEntiy.setId(UUIDUtil.generateUUID());
+			wordRecordEntiy.setThesaurus(SysConstant.THESAURES_TYPE3);//所有词库
+						
+			mobileBearWordDao.insert(wordRecordEntiy);
+		}
+		
+		
+		
+	}
 }

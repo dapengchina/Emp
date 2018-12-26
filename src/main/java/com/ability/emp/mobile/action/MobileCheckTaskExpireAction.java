@@ -66,9 +66,21 @@ public class MobileCheckTaskExpireAction {
 			//查询用户未完成的任务
 			if(userTaskList.get(i).getCompletepercent().equals(SysConstant.COMPLETE_PERCENT_INIT)){
 				MobileTaskEntity task = mobileTaskService.queryById(userTaskList.get(i).getTaskid());
+				/**
+				 * 如果是背单词任务
+				 */
 				if(task.getCourseid().equals(SysConstant.TASK_TYPE1)){
-					map.put("endDate", sdf.format(task.getEndDate()));
-					break;
+					//如果是用户自己在手机端选择的背单词,则不返回结束日期
+					if(task.getEndDate()==null){
+						map.put("flag", true);
+						break;
+					}
+					//如果是导师在后台给用户指派的背单词,则返回结束日期
+					if(task.getEndDate()!=null){
+						map.put("endDate", sdf.format(task.getEndDate()));
+						map.put("flag", false);
+						break;
+					}
 				}
 			}
 		}

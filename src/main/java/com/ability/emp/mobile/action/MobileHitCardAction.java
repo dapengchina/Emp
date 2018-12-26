@@ -3,6 +3,7 @@ package com.ability.emp.mobile.action;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -32,6 +33,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 public class MobileHitCardAction {
 	
 	
+	private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
+	private SimpleDateFormat sf2 = new SimpleDateFormat("yyyy-MM-dd");
 	
 	
 	@Resource
@@ -40,16 +44,24 @@ public class MobileHitCardAction {
 	
 	@RequestMapping(value="/{hit}", method = RequestMethod.POST)
 	@ResponseBody
-	public String mean(@RequestBody MobileHitCardEntity mobileHitCardEntity) throws JsonProcessingException{
+	public String hitCard(@RequestBody MobileHitCardEntity mobileHitCardEntity) throws JsonProcessingException{
 		   if(mobileHitCardEntity.getUserId()==null || "".equals(mobileHitCardEntity.getUserId())){
 			   return "1";
 		   }
-		   SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		   //根据用户ID查询用户当天是否已经打卡
+		   MobileHitCardEntity mhce = new MobileHitCardEntity();
+		   mhce.setUserId(mobileHitCardEntity.getUserId());
+		   mhce.setStringDate(sf2.format(new Date()));
+		   List<MobileHitCardEntity> hitCardList = mobileHitCardService.queryByUserID(mhce);
+		   //用户当天已经打卡
+		   if(hitCardList!=null && hitCardList.size()>0){
+			   return "1";
+		   }
+		   
 		   mobileHitCardEntity.setDate(Timestamp.valueOf(sf.format(new Date())));
 		   mobileHitCardEntity.setId(UUIDUtil.generateUUID());
 		   int i = mobileHitCardService.add(mobileHitCardEntity);
 		   if(i>0){
-			   //将选中并且考试未通过的单词,考试状态修改为通过
 			   return "0";
 		   }else{
 			   return "1";
