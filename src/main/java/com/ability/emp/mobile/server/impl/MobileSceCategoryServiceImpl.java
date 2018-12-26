@@ -251,19 +251,27 @@ public class MobileSceCategoryServiceImpl implements MobileSceCategoryService{
 			MobileSceCategoryEntity recourse,
 			String courseid
 			){
-		//保存任务
-		task.setId(UUIDUtil.generateUUID());
-		task.setCourseid(courseid);
-		task.setTaskname(recourse.getScecatname());
-		task.setTaskstate(SysConstant.TASK_STATE0);//未结束
-		task.setThesauresType(SysConstant.THESAURES_TYPE3);//所有词库
-		mobileTaskDao.insert(task);
+		//保存任务(先根据3个条件(未结束,背单词,所有词库)查询,是否存在此任务,如果存在,则不保存)
+		MobileTaskEntity mte = new MobileTaskEntity();
+		mte.setCourseid(courseid);
+		mte.setTaskstate(SysConstant.TASK_STATE0);
+		mte.setThesauresType(SysConstant.THESAURES_TYPE3);
+		MobileTaskEntity retask = mobileTaskDao.selectTask(mte);
+		if(retask==null){
+			//保存任务
+			task.setId(UUIDUtil.generateUUID());
+			task.setCourseid(courseid);
+			task.setTaskname(recourse.getScecatname());
+			task.setTaskstate(SysConstant.TASK_STATE0);//未结束
+			task.setThesauresType(SysConstant.THESAURES_TYPE3);//所有词库
+			mobileTaskDao.insert(task);
+		}
 		
 		//保存用户任务
 		MobileUserTaskEntity userTask = new MobileUserTaskEntity();
 		
 		userTask.setUserid(userid);
-		userTask.setTaskid(task.getId());
+		userTask.setTaskid(retask!=null?retask.getId():task.getId());
 		//根据任务ID和用户ID查询用户任务表,如果有数据则不保存
 		MobileUserTaskEntity ut = mobileUserTaskDao.selectOneUserTask(userTask);
 		if(ut==null){

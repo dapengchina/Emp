@@ -24,6 +24,12 @@
     <if test="taskstate != null and taskstate != ''">
     	AND TaskState = #{taskstate}
     </if>
+    <if test="courseid != null and courseid != ''">
+    	AND CourseId = #{courseid}
+    </if>
+    <if test="thesauresType != null and thesauresType != ''">
+    	AND THESAURES_TYPE = #{thesauresType}
+    </if>
     <if test="id != null and id != ''">
     	AND ID = #{id}
     </if>
