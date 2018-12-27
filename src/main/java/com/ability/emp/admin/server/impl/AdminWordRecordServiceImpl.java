@@ -49,5 +49,10 @@ public class AdminWordRecordServiceImpl implements AdminWordRecordService {
 	@Override
 	public List<AdminWordRecordEntity> getWordRecord(AdminWordRecordEntity awee) {
 		return wordRecordDao.selectWordRecord(awee);
+	}
+
+	@Override
+	public int deleteByParam(AdminWordRecordEntity awee) {
+		return wordRecordDao.deleteUserWordRecord(awee);
 	}	
 }

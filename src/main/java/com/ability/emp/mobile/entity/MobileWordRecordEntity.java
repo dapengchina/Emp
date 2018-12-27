@@ -12,6 +12,8 @@ public class MobileWordRecordEntity {
 	
 	private String userId;
 	
+	private String taskid;
+	
 	private String isFail;
 	
 	private String isSel;
@@ -37,6 +39,12 @@ public class MobileWordRecordEntity {
 	
 	
 	
+	public String getTaskid() {
+		return taskid;
+	}
+	public void setTaskid(String taskid) {
+		this.taskid = taskid;
+	}
 	public String getThesaurus() {
 		return thesaurus;
 	}

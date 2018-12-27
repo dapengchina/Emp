@@ -28,12 +28,14 @@ import com.ability.emp.admin.entity.AdminThesauresPramEntity;
 import com.ability.emp.admin.entity.AdminUserSubTaskEntity;
 import com.ability.emp.admin.entity.AdminUserTaskEntity;
 import com.ability.emp.admin.entity.AdminWordEntity;
+import com.ability.emp.admin.entity.AdminWordRecordEntity;
 import com.ability.emp.admin.server.AdminScecategoryService;
 import com.ability.emp.admin.server.AdminSystemParamService;
 import com.ability.emp.admin.server.AdminTaskService;
 import com.ability.emp.admin.server.AdminThesauresPramService;
 import com.ability.emp.admin.server.AdminUserSubTaskService;
 import com.ability.emp.admin.server.AdminUserTaskService;
+import com.ability.emp.admin.server.AdminWordRecordService;
 import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.CalendarCountUtil;
@@ -77,6 +79,9 @@ public class AdminTaskListAction {
 	
 	@Resource
 	private AdminUserTaskService adminUserTaskService;
+	
+	@Resource
+	private AdminWordRecordService adminWordRecordService;
 	
 	private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -300,9 +305,13 @@ public class AdminTaskListAction {
 			usertask.setTaskid(taskid);
 			usertask.setCompletepercent(SysConstant.COMPLETE_PERCENT_DONE);
 			
+			AdminWordRecordEntity wordrecord = new AdminWordRecordEntity();
+			wordrecord.setTaskid(taskid);
+			
 			adminTaskService.update(task);
 			adminUserSubTaskService.endTask(subtask);
 			adminUserTaskService.endTask(usertask);
+			adminWordRecordService.deleteByParam(wordrecord);
 			
 			map.put("msg", "结束成功");
 			map.put("code", "1");

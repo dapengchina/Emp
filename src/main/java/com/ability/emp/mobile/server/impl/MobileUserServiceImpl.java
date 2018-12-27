@@ -356,6 +356,7 @@ public class MobileUserServiceImpl implements MobileUserService{
 		MobileWordRecordEntity wordRecordEntiy = new MobileWordRecordEntity();
 		for (int j = 0; j < list.size(); j++) {
 			wordRecordEntiy.setUserId(userid);
+			wordRecordEntiy.setTaskid(retask!=null?retask.getId():task.getId());
 			wordRecordEntiy.setWord(list.get(j).getWord());
 			wordRecordEntiy.setWordId(list.get(j).getId());
 			wordRecordEntiy.setId(UUIDUtil.generateUUID());

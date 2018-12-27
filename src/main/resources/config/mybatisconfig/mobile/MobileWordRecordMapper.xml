@@ -6,6 +6,7 @@
     <result column="WORD_ID" property="wordId" jdbcType="VARCHAR" />
     <result column="WORD" property="word" jdbcType="VARCHAR" />
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="TASKID" property="taskid" jdbcType="VARCHAR" />
     <result column="IS_FAIL" property="isFail" jdbcType="VARCHAR" />
     <result column="IS_SEL" property="isSel" jdbcType="VARCHAR" />
     <result column="IS_PASS" property="isPass" jdbcType="VARCHAR" />
@@ -107,6 +108,9 @@
       <if test="userId != null" >
         USER_ID,
       </if>
+      <if test="taskid != null" >
+        TASKID,
+      </if>
       <if test="isFail != null" >
         IS_FAIL,
       </if>
@@ -138,6 +142,9 @@
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
       </if>
       <if test="isFail != null" >
         #{isFail,jdbcType=VARCHAR},
@@ -174,6 +181,9 @@
       </if>
       <if test="userId != null" >
         USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        TASKID = #{taskid,jdbcType=VARCHAR},
       </if>
       <if test="isFail != null" >
         IS_FAIL = #{isFail,jdbcType=VARCHAR},

@@ -16,4 +16,6 @@ public interface AdminWordRecordService {
 	
 	List<AdminWordRecordEntity> getWordRecord(AdminWordRecordEntity awee);
 	
+	int deleteByParam(AdminWordRecordEntity awee);
+	
 }

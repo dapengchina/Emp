@@ -413,6 +413,7 @@ public class AdminUserServiceImpl implements AdminUserService{
 			adminUserEntity.setId(array[i]);
 			for (int j = 0; j < list.size(); j++) {
 				wordRecordEntiy.setUserId(array[i]);
+				wordRecordEntiy.setTaskid(taskid);
 				wordRecordEntiy.setWord(list.get(j).getWord());
 				wordRecordEntiy.setWordId(list.get(j).getId());
 				wordRecordEntiy.setId(UUIDUtil.generateUUID());
