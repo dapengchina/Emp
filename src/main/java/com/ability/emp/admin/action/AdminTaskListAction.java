@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ability.emp.admin.entity.AdminHitCardEntity;
 import com.ability.emp.admin.entity.AdminScecategoryEntity;
 import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.admin.entity.AdminThesauresPramEntity;
@@ -29,6 +30,7 @@ import com.ability.emp.admin.entity.AdminUserSubTaskEntity;
 import com.ability.emp.admin.entity.AdminUserTaskEntity;
 import com.ability.emp.admin.entity.AdminWordEntity;
 import com.ability.emp.admin.entity.AdminWordRecordEntity;
+import com.ability.emp.admin.server.AdminHitCardService;
 import com.ability.emp.admin.server.AdminScecategoryService;
 import com.ability.emp.admin.server.AdminSystemParamService;
 import com.ability.emp.admin.server.AdminTaskService;
@@ -82,6 +84,9 @@ public class AdminTaskListAction {
 	
 	@Resource
 	private AdminWordRecordService adminWordRecordService;
+	
+	@Resource
+	private AdminHitCardService adminHitCardService;
 	
 	private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -308,10 +313,15 @@ public class AdminTaskListAction {
 			AdminWordRecordEntity wordrecord = new AdminWordRecordEntity();
 			wordrecord.setTaskid(taskid);
 			
+			AdminHitCardEntity hitcard = new AdminHitCardEntity();
+			hitcard.setTaskid(taskid);
+			hitcard.setState(SysConstant.TASK_STATE1);
+			
 			adminTaskService.update(task);
 			adminUserSubTaskService.endTask(subtask);
 			adminUserTaskService.endTask(usertask);
 			adminWordRecordService.deleteByParam(wordrecord);
+			adminHitCardService.updateByTaskID(hitcard);
 			
 			map.put("msg", "结束成功");
 			map.put("code", "1");

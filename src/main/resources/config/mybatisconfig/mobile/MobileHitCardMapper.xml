@@ -23,6 +23,9 @@
     <if test="userId != null and userId != ''">
 		and USER_ID = #{userId}
 	</if>
+	<if test="state != null and state != ''">
+		and STATE = #{state}
+	</if>
 	<if test="stringDate != null and stringDate != ''">
 		and date_format(DATE,'%Y-%m-%d') = #{stringDate}
 	</if>
@@ -32,6 +35,9 @@
     select * from t_hitcard_record where 1=1
     <if test="userId != null and userId != ''">
 		and USER_ID = #{userId}
+	</if>
+	<if test="state != null and state != ''">
+		and STATE = #{state}
 	</if>
 	<if test="stringDate != null and stringDate != ''">
 		and date_format(DATE,'%Y-%m') = #{stringDate}

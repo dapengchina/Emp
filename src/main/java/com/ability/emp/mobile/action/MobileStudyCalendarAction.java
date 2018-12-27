@@ -59,6 +59,7 @@ public class MobileStudyCalendarAction {
 		   MobileHitCardEntity mhce = new MobileHitCardEntity();
 		   mhce.setUserId(id);
 		   mhce.setStringDate(date);
+		   mhce.setState(SysConstant.TASK_STATE0);
 		   List<MobileHitCardEntity> list = mobileStudyCalendarService.studyCalendar(mhce);
 		   SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		   for(int i=0;i<list.size();i++){

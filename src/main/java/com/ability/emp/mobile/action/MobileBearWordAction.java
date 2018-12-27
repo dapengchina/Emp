@@ -131,6 +131,7 @@ public class MobileBearWordAction {
 			MobileHitCardEntity mhce = new MobileHitCardEntity();
 			mhce.setUserId(id);
 			mhce.setStringDate(sf.format(new Date()));
+			mhce.setState(SysConstant.TASK_STATE0);
 			List<MobileHitCardEntity> ifhit = mobileHitCardService.queryByUserID(mhce);
 			if(ifhit!=null && ifhit.size()>=1){
 			   //当天已打卡
@@ -215,6 +216,7 @@ public class MobileBearWordAction {
 		   MobileHitCardEntity mhce = new MobileHitCardEntity();
 		   mhce.setUserId(id);
 		   mhce.setStringDate(sf.format(new Date()));
+		   mhce.setState(SysConstant.TASK_STATE0);
 		   List<MobileHitCardEntity> list = mobileHitCardService.queryByUserID(mhce);
 		   
 		   Map<String,Object> map = new HashMap<String,Object>();

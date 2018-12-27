@@ -53,6 +53,7 @@ public class MobileHitCardAction {
 		   MobileHitCardEntity mhce = new MobileHitCardEntity();
 		   mhce.setUserId(mobileHitCardEntity.getUserId());
 		   mhce.setStringDate(sf2.format(new Date()));
+		   mhce.setState(SysConstant.TASK_STATE0);
 		   List<MobileHitCardEntity> hitCardList = mobileHitCardService.queryByUserID(mhce);
 		   //用户当天已经打卡
 		   if(hitCardList!=null && hitCardList.size()>0){
@@ -61,7 +62,7 @@ public class MobileHitCardAction {
 		   
 		   mobileHitCardEntity.setDate(Timestamp.valueOf(sf.format(new Date())));
 		   mobileHitCardEntity.setId(UUIDUtil.generateUUID());
-		   mobileHitCardEntity.setState(SysConstant.NO_DEL);
+		   mobileHitCardEntity.setState(SysConstant.TASK_STATE0);
 		   int i = mobileHitCardService.add(mobileHitCardEntity);
 		   if(i>0){
 			   return "0";

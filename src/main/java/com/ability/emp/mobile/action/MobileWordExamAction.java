@@ -120,6 +120,7 @@ public class MobileWordExamAction {
 		MobileHitCardEntity mhce = new MobileHitCardEntity();
 		mhce.setUserId(id);
 		mhce.setStringDate(sdf.format(new Date()));
+		mhce.setState(SysConstant.TASK_STATE0);
 		List<MobileHitCardEntity> ifhit = mobileHitCardService.queryByUserID(mhce);
 		if(ifhit!=null && ifhit.size()>=1){
 			    int random_temp = 0;
