@@ -104,7 +104,7 @@ public class MobileSceCategoryServiceImpl implements MobileSceCategoryService{
 				/**
 				 * 课程不是背单词
 				 */
-				if(courseid[k].equals(SysConstant.TASK_TYPE0)){
+				if(!courseid[k].equals(SysConstant.TASK_TYPE1)){
 					//课程ID
 					task.setCourseid(courseid[k]);
 					//任务状态(未结束)
