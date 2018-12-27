@@ -3,6 +3,8 @@ package com.ability.emp.util;
 public class WordExamUtil {
 	
 	   private String id;   
+	   
+	   private String taskid;
 	
 	   private String wordid;
 	   
@@ -19,7 +21,15 @@ public class WordExamUtil {
 
 	   
 	   
-	   public String getId() {
+	   public String getTaskid() {
+		return taskid;
+	}
+
+	public void setTaskid(String taskid) {
+		this.taskid = taskid;
+	}
+
+	public String getId() {
 		return id;
 	}
 

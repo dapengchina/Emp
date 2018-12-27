@@ -140,6 +140,7 @@ public class MobileWordExamAction {
 					weu.setWordid(list.get(i).getWordId());
 					weu.setWord(list.get(i).getWord());
 					weu.setId(list.get(i).getId());
+					weu.setTaskid(list.get(i).getTaskid());
 					if(mwe!=null){
 						weu.setPronounce(mwe.getSymbol());
 						
@@ -201,6 +202,7 @@ public class MobileWordExamAction {
 				weu.setWordid(list.get(i).getWordId());
 				weu.setWord(list.get(i).getWord());
 				weu.setId(list.get(i).getId());
+				weu.setTaskid(list.get(i).getTaskid());
 				if(mwe!=null){
 					weu.setPronounce(mwe.getSymbol());
 					

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ability.emp.constant.SysConstant;
 import com.ability.emp.mobile.entity.MobileHitCardEntity;
 import com.ability.emp.mobile.server.MobileHitCardService;
 import com.ability.emp.util.UUIDUtil;
@@ -60,6 +61,7 @@ public class MobileHitCardAction {
 		   
 		   mobileHitCardEntity.setDate(Timestamp.valueOf(sf.format(new Date())));
 		   mobileHitCardEntity.setId(UUIDUtil.generateUUID());
+		   mobileHitCardEntity.setState(SysConstant.NO_DEL);
 		   int i = mobileHitCardService.add(mobileHitCardEntity);
 		   if(i>0){
 			   return "0";

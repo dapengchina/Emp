@@ -3,18 +3,41 @@ package com.ability.emp.mobile.entity;
 import java.util.Date;
 
 public class MobileHitCardEntity {
+	
     private String id;
 
     private String userId;
+    
+    private String taskid;
 
     private Date date;
+    
+    private String state;
     
     private String stringDate;
     
     
     
+    
+    
 
-    public String getStringDate() {
+    public String getTaskid() {
+		return taskid;
+	}
+
+	public void setTaskid(String taskid) {
+		this.taskid = taskid;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getStringDate() {
 		return stringDate;
 	}
 

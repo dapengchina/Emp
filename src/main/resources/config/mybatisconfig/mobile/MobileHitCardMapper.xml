@@ -4,7 +4,9 @@
   <resultMap id="BaseResultMap" type="com.ability.emp.mobile.entity.MobileHitCardEntity" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="TASKID" property="taskid" jdbcType="VARCHAR" />
     <result column="DATE" property="date" jdbcType="TIMESTAMP" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -46,8 +48,14 @@
       <if test="userId != null" >
         USER_ID,
       </if>
+      <if test="taskid != null" >
+        TASKID,
+      </if>
       <if test="date != null" >
         DATE,
+      </if>
+      <if test="state != null" >
+        STATE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -57,8 +65,14 @@
       <if test="userId != null" >
         #{userId,jdbcType=VARCHAR},
       </if>
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
+      </if>
       <if test="date != null" >
         #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
       </if>
     </trim>
    </insert>
