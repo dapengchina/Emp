@@ -16,5 +16,7 @@ public interface AdminUserTaskService {
 	   public List<AdminUserTaskEntity> getTask(AdminUserTaskEntity ae);
 	   
 	   public int deleteUserTask(AdminUserTaskEntity ae);
+	   
+	   public int endTask(AdminUserTaskEntity ae);
 
 }

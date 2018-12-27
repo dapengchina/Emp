@@ -17,6 +17,9 @@
   <select id="selectCourse" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminScecategoryEntity" >
     select * from t_scecategory
     where 1=1
+    <if test="coursetype != null and coursetype != ''">
+		and CourseType=#{coursetype}
+	</if>
   </select>
   
   <select id="selectCourseByID" resultType="com.ability.emp.admin.entity.AdminScecategoryEntity" parameterType="com.ability.emp.admin.entity.AdminScecategoryEntity" >

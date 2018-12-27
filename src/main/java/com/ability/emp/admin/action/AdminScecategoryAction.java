@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.admin.entity.AdminScecategoryEntity;
 import com.ability.emp.admin.server.AdminScecategoryService;
+import com.ability.emp.constant.SysConstant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -35,6 +36,7 @@ public class AdminScecategoryAction {
 	@RequestMapping("/getScecategory")
 	@ResponseBody
 	public String getScecategory(AdminScecategoryEntity ase) throws JsonProcessingException{
+		ase.setCoursetype(SysConstant.COURSE_TYPE1);
 		List<AdminScecategoryEntity> list = adminScecategoryService.getCourse(ase);
 		return objectMapper.writeValueAsString(list);
 	}

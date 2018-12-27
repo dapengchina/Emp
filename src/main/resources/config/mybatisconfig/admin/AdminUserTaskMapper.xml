@@ -91,4 +91,14 @@
     where ID = #{id,jdbcType=VARCHAR}
   </update>
   
+  <update id="endTask" parameterType="com.ability.emp.admin.entity.AdminUserTaskEntity" >
+    update t_usertask
+    <set >
+      <if test="completepercent != null" >
+        CompletePercent = #{completepercent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TaskID = #{taskid,jdbcType=VARCHAR}
+  </update>
+  
 </mapper>

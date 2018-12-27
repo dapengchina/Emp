@@ -76,8 +76,7 @@ function loadTaskList() {
 			align : 'center',
 			valign : 'middle',
 			formatter: function (value, row, index) {
-				return  '<button type="button" onclick="deleteTask(\''+ row.id+ '\')" class="btn btn-danger glyphicon glyphicon-trash">' 
-				+ '<button type="button" onclick="endTask(\''+ row.id+ '\')" class="btn btn-danger glyphicon glyphicon-off">' ;
+				return  '<button type="button" onclick="deleteTask(\''+ row.id+ '\')" class="btn btn-danger glyphicon glyphicon-trash"/>'+"&nbsp;"+' <button type="button" onclick="endTask(\''+ row.id+ '\')" class="btn btn-danger glyphicon glyphicon-off"/>';
 			}
 		}],
 		onLoadSuccess : function() {

@@ -26,12 +26,14 @@ import com.ability.emp.admin.entity.AdminScecategoryEntity;
 import com.ability.emp.admin.entity.AdminTaskEntity;
 import com.ability.emp.admin.entity.AdminThesauresPramEntity;
 import com.ability.emp.admin.entity.AdminUserSubTaskEntity;
+import com.ability.emp.admin.entity.AdminUserTaskEntity;
 import com.ability.emp.admin.entity.AdminWordEntity;
 import com.ability.emp.admin.server.AdminScecategoryService;
 import com.ability.emp.admin.server.AdminSystemParamService;
 import com.ability.emp.admin.server.AdminTaskService;
 import com.ability.emp.admin.server.AdminThesauresPramService;
 import com.ability.emp.admin.server.AdminUserSubTaskService;
+import com.ability.emp.admin.server.AdminUserTaskService;
 import com.ability.emp.admin.server.AdminWordService;
 import com.ability.emp.constant.SysConstant;
 import com.ability.emp.util.CalendarCountUtil;
@@ -72,6 +74,9 @@ public class AdminTaskListAction {
 	
 	@Resource
 	private AdminUserSubTaskService adminUserSubTaskService;
+	
+	@Resource
+	private AdminUserTaskService adminUserTaskService;
 	
 	private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -290,8 +295,14 @@ public class AdminTaskListAction {
 			AdminUserSubTaskEntity subtask = new AdminUserSubTaskEntity();
 			subtask.setTaskid(taskid);
 			subtask.setState(SysConstant.TASK_STATE1);
+			
+			AdminUserTaskEntity usertask = new AdminUserTaskEntity();
+			usertask.setTaskid(taskid);
+			usertask.setCompletepercent(SysConstant.COMPLETE_PERCENT_DONE);
+			
 			adminTaskService.update(task);
 			adminUserSubTaskService.endTask(subtask);
+			adminUserTaskService.endTask(usertask);
 			
 			map.put("msg", "结束成功");
 			map.put("code", "1");

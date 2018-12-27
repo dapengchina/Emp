@@ -111,6 +111,8 @@ public class SysConstant {
 	    * 用户任务完成百分比初始值
 	    */
 	   public static final String COMPLETE_PERCENT_INIT = "0";
+	   public static final String COMPLETE_PERCENT_DONE = "100";
+	   //public static final String COMPLETE_PERCENT_FORCEDONE = "-100";
 	   
 	   
 	   /**
