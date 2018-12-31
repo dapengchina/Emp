@@ -53,7 +53,14 @@ function loadTaskList() {
 		},{
 			field : 'taskstatename',
 			title : 'TaskState',
-			sortable : true
+			sortable : true,
+			formatter: function (value, row, index) {
+				if(row.taskstate==1){
+					return  "<div><Strong><font color='red'>结束</font></Strong></div>";
+				}else{
+					return  "<div><Strong><font color='green'>未结束</font></Strong></div>";
+				}
+			}
 		},{
 			field : 'coursename',
 			title : 'Course',
@@ -292,9 +299,11 @@ function initSubTable(index, row, $detail) {
 function search(){
 	//获取查询条件
 	var taskName = $("#taskNameSearch").val();
+	var taskState = $("#taskStateSearch").val();
 	var queryParams = { 
 		query: {  
-			taskname:taskName
+			taskname:taskName,
+			taskstate:taskState
         }
     }  
 	//刷新表格  

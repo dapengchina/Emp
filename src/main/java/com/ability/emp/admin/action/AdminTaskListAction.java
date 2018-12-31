@@ -114,6 +114,9 @@ public class AdminTaskListAction {
 	@RequestMapping("/queryAll")
 	@ResponseBody
 	public String queryAll(int pageSize,int pageNumber,AdminTaskEntity ate) throws JsonProcessingException{
+		if(ate.getTaskstate()!=null && ate.getTaskstate().equals("-1")){
+			ate.setTaskstate(null);
+		}
 		//第一个参数当前页码，第二个参数每页条数
 		PageHelper.startPage(pageNumber,pageSize);  
 		List<AdminTaskEntity> data = adminTaskService.queryAll(ate);

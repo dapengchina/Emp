@@ -49,6 +49,15 @@
 						<input type="text" class="form-control" id="taskNameSearch" />
 					</div> 
 					
+					<label class="control-label col-sm-1">TaskState</label>
+					<div class="col-sm-3">
+						<select class="selectpicker" id="taskStateSearch">
+						   <option value="-1">--请选择--</option>
+						   <option value="1">结束</option>
+						   <option value="0">未结束</option>
+						</select>
+					</div> 
+					
 					<div class="col-sm-4" style="text-align: left;">
 						<button onclick="search()" type="button" style="margin-left: 50px" id="btn_task_query"
 							class="btn btn-primary">Search</button>
