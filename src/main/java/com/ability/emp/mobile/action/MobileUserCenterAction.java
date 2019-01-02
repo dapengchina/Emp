@@ -11,11 +11,13 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ability.emp.mobile.entity.MobileUserCenterEntity;
 import com.ability.emp.mobile.entity.vo.UserCenterVo;
+import com.ability.emp.mobile.server.MobileHitCardService;
 import com.ability.emp.mobile.server.MobileUserCenterService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,13 +31,16 @@ public class MobileUserCenterAction {
 	@Resource
 	private MobileUserCenterService mobileUserCenterService;
 	
+	@Resource
+	private MobileHitCardService mobileHitCardService;
+	
     ObjectMapper objectMapper = new ObjectMapper();
 	
 	
 	
-	@RequestMapping("/getUserCenterData")
+	@RequestMapping("/getUserCenterData/{userid}")
 	@ResponseBody
-	public String getUserCenterData() throws Exception {
+	public String getUserCenterData(@PathVariable("userid") String userid) throws Exception {
 		Map<String,Object> map = new HashMap<String,Object>();
 		List<UserCenterVo> list = new ArrayList<UserCenterVo>();
 		MobileUserCenterEntity muce = new MobileUserCenterEntity();
@@ -52,8 +57,11 @@ public class MobileUserCenterAction {
 		    list.add(ucv);
 		}
 		
+		//获取用户累计打卡天数
+		int hitcarddays = mobileHitCardService.count(userid);
 		
 		map.put("result", list);
+		map.put("hitcarddays", hitcarddays);
 		
 		return objectMapper.writeValueAsString(map);
 	}
