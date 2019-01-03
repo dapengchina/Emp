@@ -10,11 +10,21 @@ public class AdminUserTaskEntity {
 
     private String taskid;
     
+    private String state;
+    
     
     
     
 
-    public String getId() {
+    public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getId() {
         return id;
     }
 

@@ -24,5 +24,10 @@ public class AdminHitCardServiceImpl implements AdminHitCardService{
 		return adminHitCardDao.updateByTaskID(mhce);
 	}
 
+	@Override
+	public int updateByParam(AdminHitCardEntity mhce) {
+		return adminHitCardDao.updateByParam(mhce);
+	}
+
 	
 }

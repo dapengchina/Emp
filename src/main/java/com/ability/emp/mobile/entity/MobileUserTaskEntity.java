@@ -12,11 +12,21 @@ public class MobileUserTaskEntity {
 
     private String completepercent;
     
+    private String state;
+    
     
     
     
 
-    public String getTaskid() {
+    public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getTaskid() {
 		return taskid;
 	}
 

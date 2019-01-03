@@ -10,4 +10,6 @@ public interface AdminUserSubTaskService {
 	   public List<AdminUserSubTaskEntity> getUserSubTask(AdminUserSubTaskEntity auste);
 
 	   public int endTask(AdminUserSubTaskEntity auste);
+	   
+	   public int endUserTask(AdminUserSubTaskEntity auste);
 }

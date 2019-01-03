@@ -6,6 +6,7 @@
     <result column="UserID" property="userid" jdbcType="VARCHAR" />
     <result column="TaskID" property="taskid" jdbcType="VARCHAR" />
     <result column="CompletePercent" property="completepercent" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="VARCHAR" />
   </resultMap>
   
   <select id="selectUserTask" resultMap="BaseResultMap" parameterType="com.ability.emp.mobile.entity.MobileUserTaskEntity" >
@@ -13,6 +14,9 @@
     where 1=1
     <if test="userid != null and userid != ''">
 		and UserID = #{userid}
+	</if>
+	<if test="state != null and state != ''">
+		and State = #{state}
 	</if>
   </select>
   
@@ -24,6 +28,9 @@
 	</if>
 	<if test="taskid != null and taskid != ''">
 		and TaskID = #{taskid}
+	</if>
+	<if test="state != null and state != ''">
+		and State = #{state}
 	</if>
   </select>
   
@@ -47,6 +54,9 @@
       <if test="completepercent != null" >
         CompletePercent,
       </if>
+      <if test="state != null" >
+        State,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -60,6 +70,9 @@
       </if>
       <if test="completepercent != null" >
         #{completepercent,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -75,6 +88,9 @@
       </if>
       <if test="completepercent != null" >
         CompletePercent = #{completepercent,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}

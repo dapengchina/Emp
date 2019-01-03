@@ -6,6 +6,7 @@
     <result column="UserID" property="userid" jdbcType="VARCHAR" />
     <result column="CompletePercent" property="completepercent" jdbcType="VARCHAR" />
     <result column="TaskID" property="taskid" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="VARCHAR" />
   </resultMap>
   
   <select id="selectTask" resultMap="BaseResultMap" parameterType="com.ability.emp.admin.entity.AdminUserTaskEntity" >
@@ -58,6 +59,9 @@
       <if test="taskid != null" >
         TaskID,
       </if>
+      <if test="state != null" >
+        State,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -71,6 +75,9 @@
       </if>
       <if test="taskid != null" >
         #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -87,6 +94,9 @@
       <if test="taskid != null" >
         TaskID = #{taskid,jdbcType=VARCHAR},
       </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
@@ -97,8 +107,24 @@
       <if test="completepercent != null" >
         CompletePercent = #{completepercent,jdbcType=VARCHAR},
       </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=VARCHAR},
+      </if>
     </set>
     where TaskID = #{taskid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="endUserTask" parameterType="com.ability.emp.admin.entity.AdminUserTaskEntity" >
+    update t_usertask
+    <set >
+      <if test="completepercent != null" >
+        CompletePercent = #{completepercent,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TaskID = #{taskid,jdbcType=VARCHAR} and UserID = #{userid,jdbcType=VARCHAR}
   </update>
   
 </mapper>

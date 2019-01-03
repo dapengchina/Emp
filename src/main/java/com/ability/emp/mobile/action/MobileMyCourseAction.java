@@ -53,6 +53,7 @@ public class MobileMyCourseAction {
 		List<CourseVo> list = new ArrayList<CourseVo>();
 		MobileUserTaskEntity me = new MobileUserTaskEntity();
 		me.setUserid(userid);
+		me.setState(SysConstant.TASK_STATE0);
 		List<MobileUserTaskEntity> userTaskList = mobileUserTaskService.getUserTask(me);
 		if(userTaskList!=null && userTaskList.size()>0){
 			MobileTaskEntity mte = new MobileTaskEntity();

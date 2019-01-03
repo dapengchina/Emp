@@ -169,5 +169,15 @@
     where TaskId = #{taskid,jdbcType=VARCHAR}
   </update>
   
+  <update id="endUserTask" parameterType="com.ability.emp.admin.entity.AdminUserSubTaskEntity" >
+    update t_subtask
+    <set >
+      <if test="state != null" >
+        State = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TaskId = #{taskid,jdbcType=VARCHAR} and UserId = #{userid,jdbcType=VARCHAR}
+  </update>
+  
   
 </mapper>

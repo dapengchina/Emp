@@ -271,12 +271,14 @@ public class MobileSceCategoryServiceImpl implements MobileSceCategoryService{
 		MobileUserTaskEntity userTask = new MobileUserTaskEntity();
 		
 		userTask.setUserid(userid);
+		userTask.setState(SysConstant.TASK_STATE0);
 		userTask.setTaskid(retask!=null?retask.getId():task.getId());
 		//根据任务ID和用户ID查询用户任务表,如果有数据则不保存
 		MobileUserTaskEntity ut = mobileUserTaskDao.selectOneUserTask(userTask);
 		if(ut==null){
 			userTask.setId(UUIDUtil.generateUUID());
 			userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
+			userTask.setState(SysConstant.TASK_STATE0);
 			mobileUserTaskDao.insert(userTask);
 		}
 		

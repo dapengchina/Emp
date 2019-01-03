@@ -165,7 +165,7 @@ public class SysConstant {
 	   //当用户为所有词库时,不用根据任务开始日期和结束日期计算每天任务量,默认为每天20个
 	   public static final int DEFAULT_WORD_COUNT = 20;
 	   
-	   public static final int YEAR = 2018;
+	   public static final int YEAR = 2019;
 	   
 	   
 

@@ -89,6 +89,7 @@ public class MobileCourseAction {
 		//根据userid去查询usertask
 		MobileUserTaskEntity usertask = new MobileUserTaskEntity();
 		usertask.setUserid(userId);
+		usertask.setState(SysConstant.TASK_STATE0);
 		List<MobileUserTaskEntity> usertasklist = mobileUserTaskService.getUserTask(usertask);
 		//根据taskid去查询task
 		MobileTaskEntity task = new MobileTaskEntity();

@@ -10,4 +10,6 @@ import com.ability.emp.base.BaseDao;
 public interface AdminHitCardDao<T> extends BaseDao<T>{
 	   
 	   int updateByTaskID(AdminHitCardEntity mhce);
+	   
+	   int updateByParam(AdminHitCardEntity mhce);
 }

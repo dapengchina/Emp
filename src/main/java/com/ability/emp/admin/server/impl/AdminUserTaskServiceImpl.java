@@ -86,4 +86,9 @@ public class AdminUserTaskServiceImpl implements AdminUserTaskService{
 		return adminUserTaskDao.endTask(ae);
 	}
 
+	@Override
+	public int endUserTask(AdminUserTaskEntity ae) {
+		return adminUserTaskDao.endUserTask(ae);
+	}
+
 }

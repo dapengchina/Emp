@@ -18,5 +18,7 @@ public interface AdminUserTaskDao<T>  extends BaseDao<T> {
 	public int deleteUserTask(AdminUserTaskEntity ae);
 	
 	public int endTask(AdminUserTaskEntity ae);
+	
+	public int endUserTask(AdminUserTaskEntity ae);
 
 }

@@ -334,4 +334,45 @@ public class AdminTaskListAction {
 		}
 		return objectMapper.writeValueAsString(map);
 	}
+	
+	
+	@RequestMapping(value = "/endUserTask/{userid}/{taskid}")
+	@ResponseBody
+	public String endUserTask(@PathVariable("userid") String userid,@PathVariable("taskid") String taskid) throws JsonProcessingException{
+		Map<String,Object> map = new HashMap<String,Object>();
+		try{
+			
+			AdminUserSubTaskEntity subtask = new AdminUserSubTaskEntity();
+			subtask.setTaskid(taskid);
+			subtask.setUserid(userid);
+			subtask.setState(SysConstant.TASK_STATE1);
+			
+			AdminUserTaskEntity usertask = new AdminUserTaskEntity();
+			usertask.setTaskid(taskid);
+			usertask.setUserid(userid);
+			usertask.setCompletepercent(SysConstant.COMPLETE_PERCENT_DONE);
+			usertask.setState(SysConstant.TASK_STATE1);
+			
+			AdminWordRecordEntity wordrecord = new AdminWordRecordEntity();
+			wordrecord.setTaskid(taskid);
+			wordrecord.setUserId(userid);
+			
+			AdminHitCardEntity hitcard = new AdminHitCardEntity();
+			hitcard.setTaskid(taskid);
+			hitcard.setUserId(userid);
+			hitcard.setState(SysConstant.TASK_STATE1);
+			
+			adminUserSubTaskService.endUserTask(subtask);
+			adminUserTaskService.endUserTask(usertask);
+			adminWordRecordService.deleteByParam(wordrecord);
+			adminHitCardService.updateByParam(hitcard);
+			
+			map.put("msg", "结束成功");
+			map.put("code", "1");
+		}catch(Exception e){
+			map.put("msg", "结束失败");
+			map.put("code", "0");
+		}
+		return objectMapper.writeValueAsString(map);
+	}
 }

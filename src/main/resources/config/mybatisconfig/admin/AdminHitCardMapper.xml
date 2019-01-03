@@ -58,4 +58,14 @@
     where TASKID = #{taskid,jdbcType=VARCHAR}
   </update>
   
+  <update id="updateByParam" parameterType="com.ability.emp.admin.entity.AdminHitCardEntity" >
+    update t_hitcard_record
+    <set >
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TASKID = #{taskid,jdbcType=VARCHAR} and USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  
 </mapper>
