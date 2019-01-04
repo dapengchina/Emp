@@ -114,11 +114,13 @@ public class AdminUserServiceImpl implements AdminUserService{
 			for(int i=0;i<ids.length;i++){
 				userTask.setUserid(ids[i]);
 				userTask.setTaskid(taskid);
+				userTask.setState(SysConstant.TASK_STATE0);
 				//根据任务ID和用户ID查询用户任务表,如果有数据则不保存
 				AdminUserTaskEntity ut = adminUserTaskDao.selectUserTask(userTask);
 				if(ut==null){
 					userTask.setId(UUIDUtil.generateUUID());
 					userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
+					userTask.setState(SysConstant.TASK_STATE0);
 					adminUserTaskDao.insert(userTask);
 				}
 			}
@@ -128,11 +130,13 @@ public class AdminUserServiceImpl implements AdminUserService{
 			for(int i=0;i<ids.length;i++){
 				userTask.setUserid(ids[i]);
 				userTask.setTaskid(taskid);
+				userTask.setState(SysConstant.TASK_STATE0);
 				//根据任务ID和用户ID查询用户任务表,如果有数据则不保存
 				AdminUserTaskEntity ut = adminUserTaskDao.selectUserTask(userTask);
 				if(ut==null){
 					userTask.setId(UUIDUtil.generateUUID());
 					userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
+					userTask.setState(SysConstant.TASK_STATE0);
 					adminUserTaskDao.insert(userTask);
 					
 					

@@ -88,9 +88,9 @@ public class AdminUserTaskAction {
 						AdminThesauresPramEntity thesaures = adminThesauresPramService.getByID(task.getThesaures_Type());
 					    autv.setThesauresTypeName(thesaures!=null?thesaures.getName():"");
 					    autv.setThesauresType(task.getThesauresType());
-					    autv.setTaskstateName(SysConstant.getTaskStateMap().get(task.getTaskstate()).toString());
+					    autv.setTaskstateName(SysConstant.getTaskStateMap().get(userTaskList.get(i).getState()).toString());
 					}else{
-						autv.setTaskstateName(SysConstant.getTaskStateMap().get(task.getTaskstate()).toString());
+						autv.setTaskstateName(SysConstant.getTaskStateMap().get(userTaskList.get(i).getState()).toString());
 					}
 					if(task.getCourseid()!="-1" && task.getCourseid()!=null){
 						ase.setId(task.getCourseid());
@@ -109,6 +109,7 @@ public class AdminUserTaskAction {
 				autv.setCompletepercent(userTaskList.get(i).getCompletepercent());
 				autv.setUserid(userTaskList.get(i).getUserid());
 				autv.setTaskid(userTaskList.get(i).getTaskid());
+				autv.setTaskstate(userTaskList.get(i).getState());
 				
 				list.add(autv);
 			}

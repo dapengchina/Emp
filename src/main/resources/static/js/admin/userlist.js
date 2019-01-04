@@ -141,7 +141,14 @@ function initSubTable(index, row, $detail) {
 		},{
 			field : 'taskstateName',
 			title : 'TaskState',
-			sortable : true
+			sortable : true,
+			formatter: function (value, row, index) {
+				if(row.taskstate==1){
+					return  "<div><Strong><font color='red'>结束</font></Strong></div>";
+				}else{
+					return  "<div><Strong><font color='green'>未结束</font></Strong></div>";
+				}
+			}
 		},{
 			field : 'coursename',
 			title : 'Course',
