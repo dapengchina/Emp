@@ -159,6 +159,7 @@ public class MobileSceCategoryServiceImpl implements MobileSceCategoryService{
 		userTask.setUserid(userid);
 		userTask.setTaskid(flag==false?task.getId():taskid);
 		userTask.setCompletepercent(SysConstant.COMPLETE_PERCENT_INIT);
+		userTask.setState(SysConstant.TASK_STATE0);
 		mobileUserTaskDao.insert(userTask);
 		//保存subtask
 //		subtask.setId(UUIDUtil.generateUUID());

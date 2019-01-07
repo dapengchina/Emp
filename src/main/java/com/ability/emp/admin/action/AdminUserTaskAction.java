@@ -88,9 +88,17 @@ public class AdminUserTaskAction {
 						AdminThesauresPramEntity thesaures = adminThesauresPramService.getByID(task.getThesaures_Type());
 					    autv.setThesauresTypeName(thesaures!=null?thesaures.getName():"");
 					    autv.setThesauresType(task.getThesauresType());
-					    autv.setTaskstateName(SysConstant.getTaskStateMap().get(userTaskList.get(i).getState()).toString());
+					    if(task.getTaskstate().equals(SysConstant.TASK_STATE1)){
+					    	autv.setTaskstateName(SysConstant.getTaskStateMap().get(task.getTaskstate()).toString());
+					    }else{
+					    	autv.setTaskstateName(SysConstant.getTaskStateMap().get(userTaskList.get(i).getState()).toString());
+					    }
 					}else{
-						autv.setTaskstateName(SysConstant.getTaskStateMap().get(userTaskList.get(i).getState()).toString());
+						if(task.getTaskstate().equals(SysConstant.TASK_STATE1)){
+					    	autv.setTaskstateName(SysConstant.getTaskStateMap().get(task.getTaskstate()).toString());
+					    }else{
+					    	autv.setTaskstateName(SysConstant.getTaskStateMap().get(userTaskList.get(i).getState()).toString());
+					    }
 					}
 					if(task.getCourseid()!="-1" && task.getCourseid()!=null){
 						ase.setId(task.getCourseid());
@@ -104,12 +112,16 @@ public class AdminUserTaskAction {
 					autv.setTaskname(task.getTaskname());
 					autv.setStartDate(task.getStart_Date()!=null?sf.format(task.getStart_Date()):"");
 					autv.setEndDate(task.getEnd_Date()!=null?sf.format(task.getEnd_Date()):"");
-					autv.setTaskstate(task.getTaskstate());
+					
+					if(task.getTaskstate().equals(SysConstant.TASK_STATE1)){
+						autv.setTaskstate(task.getTaskstate());
+				    }else{
+				    	autv.setTaskstate(userTaskList.get(i).getState());
+				    }
 				}
 				autv.setCompletepercent(userTaskList.get(i).getCompletepercent());
 				autv.setUserid(userTaskList.get(i).getUserid());
 				autv.setTaskid(userTaskList.get(i).getTaskid());
-				autv.setTaskstate(userTaskList.get(i).getState());
 				
 				list.add(autv);
 			}

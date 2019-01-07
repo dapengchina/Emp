@@ -311,6 +311,7 @@ public class AdminTaskListAction {
 			
 			AdminUserTaskEntity usertask = new AdminUserTaskEntity();
 			usertask.setTaskid(taskid);
+			usertask.setState(SysConstant.TASK_STATE0);
 			usertask.setCompletepercent(SysConstant.COMPLETE_PERCENT_DONE);
 			
 			AdminWordRecordEntity wordrecord = new AdminWordRecordEntity();
